@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				350,
+				140
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "up2"
+		},
+		{
+			"offsets": [
+				428,
+				-443
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left2"
+		},
+		{
+			"offsets": [
+				193,
+				-376
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right2"
+		},
+		{
+			"offsets": [
+				301,
+				-155
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down2"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				40,
+				-444
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle2",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/the-chosen-one",
+	"position": [
+		0,
+		-330
+	],
+	"healthicon": "the-chosen-one",
+	"flip_x": false,
+	"healthbar_colors": [
+		252,
+		174,
+		0
+	],
+	"camera_position": [
+		-480,
+		250
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

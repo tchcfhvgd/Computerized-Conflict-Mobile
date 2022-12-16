@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="aurora_tdl.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="DOWNANIM0000" x="0" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0001" x="0" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0002" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0003" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0004" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0005" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0006" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0007" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="DOWNANIM0008" x="407" y="0" width="407" height="568"/>
+	<SubTexture name="IDLEANIM0000" x="814" y="0" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0001" x="814" y="0" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0002" x="1196" y="0" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0003" x="1196" y="0" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0004" x="1578" y="0" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0005" x="1578" y="0" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0006" x="0" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0007" x="0" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0008" x="382" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0009" x="382" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0010" x="382" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0011" x="382" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0012" x="382" y="581" width="382" height="581"/>
+	<SubTexture name="IDLEANIM0013" x="382" y="581" width="382" height="581"/>
+	<SubTexture name="LEFTANIM0000" x="764" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0001" x="764" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0002" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0003" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0004" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0005" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0006" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0007" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="LEFTANIM0008" x="1215" y="581" width="451" height="639"/>
+	<SubTexture name="RIGHTANIM0000" x="0" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0001" x="0" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0002" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0003" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0004" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0005" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0006" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0007" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="RIGHTANIM0008" x="406" y="1220" width="406" height="602"/>
+	<SubTexture name="UPANIM0000" x="812" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0001" x="812" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0002" x="1166" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0003" x="1166" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0004" x="1166" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0005" x="1166" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0006" x="1166" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0007" x="1166" y="1220" width="354" height="686"/>
+	<SubTexture name="UPANIM0008" x="1166" y="1220" width="354" height="686"/>
+</TextureAtlas>

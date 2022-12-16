@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				140,
+				-279
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "cat_idle"
+		},
+		{
+			"offsets": [
+				225,
+				-341
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "cat_left"
+		},
+		{
+			"offsets": [
+				160,
+				-315
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "cat_down"
+		},
+		{
+			"offsets": [
+				114,
+				-271
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "cat_up"
+		},
+		{
+			"offsets": [
+				83,
+				-316
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "cat_right"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/wongmau_catto",
+	"position": [
+		0,
+		30
+	],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		0,
+		520
+	],
+	"sing_duration": 6.1,
+	"scale": 0.6
+}

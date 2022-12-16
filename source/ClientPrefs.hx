@@ -33,6 +33,12 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	
+	public static var laneunderlay:Bool = false;
+	public static var laneTransparency:Float = 0.5;
+	public static var language:String = 'English';
+	public static var mechanics:String = 'Enabled';
+	
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -130,6 +136,11 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
+		
+		FlxG.save.data.language = language;
+		FlxG.save.data.mechanics = mechanics;
+		FlxG.save.data.laneunderlay = laneunderlay;
+		FlxG.save.data.laneTransparency = laneTransparency;
 	
 		FlxG.save.flush();
 
@@ -242,6 +253,19 @@ class ClientPrefs {
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
 		}
+		
+		if(FlxG.save.data.language != null) {
+			language = FlxG.save.data.language;
+		}
+		
+		if(FlxG.save.data.mechanics != null) {
+			mechanics = FlxG.save.data.mechanics;
+		}
+		
+		if(FlxG.save.data.laneunderlay != null) {
+			laneunderlay = FlxG.save.data.laneunderlay;
+		}
+		
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

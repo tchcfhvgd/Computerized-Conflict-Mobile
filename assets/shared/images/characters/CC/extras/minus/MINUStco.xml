@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="MINUStco.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="MINUSPOSEdown0000" x="0" y="0" width="516" height="549" frameX="-4" frameY="-17" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0001" x="0" y="0" width="516" height="549" frameX="-4" frameY="-17" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0002" x="516" y="0" width="525" height="553" frameX="0" frameY="-6" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0003" x="516" y="0" width="525" height="553" frameX="0" frameY="-6" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0004" x="516" y="0" width="525" height="553" frameX="0" frameY="-1" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0005" x="516" y="0" width="525" height="553" frameX="0" frameY="-1" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0006" x="1041" y="0" width="525" height="552" frameX="0" frameY="0" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0007" x="1041" y="0" width="525" height="552" frameX="0" frameY="0" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEdown0008" x="1041" y="0" width="525" height="552" frameX="0" frameY="0" frameWidth="525" frameHeight="566"/>
+	<SubTexture name="MINUSPOSEidle0000" x="1566" y="0" width="477" height="617" frameX="-5" frameY="-11" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0001" x="1566" y="0" width="477" height="617" frameX="-5" frameY="-11" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0002" x="2043" y="0" width="480" height="621" frameX="-4" frameY="-9" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0003" x="2043" y="0" width="480" height="621" frameX="-4" frameY="-9" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0004" x="2523" y="0" width="485" height="625" frameX="-1" frameY="-7" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0005" x="2523" y="0" width="485" height="625" frameX="-1" frameY="-7" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0006" x="3008" y="0" width="487" height="631" frameX="0" frameY="-2" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0007" x="3008" y="0" width="487" height="631" frameX="0" frameY="-2" frameWidth="487" frameHeight="633"/>
+	<SubTexture name="MINUSPOSEidle0008" x="3495" y="0" width="487" height="633"/>
+	<SubTexture name="MINUSPOSEidle0009" x="3495" y="0" width="487" height="633"/>
+	<SubTexture name="MINUSPOSEidle0010" x="3495" y="0" width="487" height="633"/>
+	<SubTexture name="MINUSPOSEidle0011" x="3495" y="0" width="487" height="633"/>
+	<SubTexture name="MINUSPOSEidle0012" x="3495" y="0" width="487" height="633"/>
+	<SubTexture name="MINUSPOSEidle0013" x="3495" y="0" width="487" height="633"/>
+	<SubTexture name="MINUSPOSEleft0000" x="0" y="633" width="824" height="587" frameX="0" frameY="-4" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0001" x="0" y="633" width="824" height="587" frameX="0" frameY="-4" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0002" x="824" y="633" width="821" height="591" frameX="-12" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0003" x="824" y="633" width="821" height="591" frameX="-12" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0004" x="1645" y="633" width="822" height="591" frameX="-15" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0005" x="1645" y="633" width="822" height="591" frameX="-15" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0006" x="2467" y="633" width="821" height="591" frameX="-17" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0007" x="2467" y="633" width="821" height="591" frameX="-17" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEleft0008" x="2467" y="633" width="821" height="591" frameX="-17" frameY="0" frameWidth="838" frameHeight="591"/>
+	<SubTexture name="MINUSPOSEright0000" x="3288" y="633" width="750" height="638" frameX="-17" frameY="0" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0001" x="3288" y="633" width="750" height="638" frameX="-17" frameY="0" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0002" x="0" y="1271" width="755" height="632" frameX="-9" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0003" x="0" y="1271" width="755" height="632" frameX="-9" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0004" x="755" y="1271" width="755" height="632" frameX="-2" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0005" x="755" y="1271" width="755" height="632" frameX="-2" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0006" x="1510" y="1271" width="755" height="632" frameX="0" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0007" x="1510" y="1271" width="755" height="632" frameX="0" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEright0008" x="1510" y="1271" width="755" height="632" frameX="0" frameY="-1" frameWidth="767" frameHeight="638"/>
+	<SubTexture name="MINUSPOSEup0000" x="2265" y="1271" width="710" height="610" frameX="-3" frameY="0" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0001" x="2265" y="1271" width="710" height="610" frameX="-3" frameY="0" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0002" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-13" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0003" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-13" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0004" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-18" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0005" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-18" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0006" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-21" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0007" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-21" frameWidth="718" frameHeight="621"/>
+	<SubTexture name="MINUSPOSEup0008" x="2975" y="1271" width="718" height="599" frameX="0" frameY="-21" frameWidth="718" frameHeight="621"/>
+</TextureAtlas>

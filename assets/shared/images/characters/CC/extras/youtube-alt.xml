@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="youtube.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="YOUTUBEidle0000" x="0" y="0" width="513" height="389" frameX="-4" frameY="-14" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0001" x="0" y="0" width="513" height="389" frameX="-4" frameY="-14" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0002" x="513" y="0" width="515" height="389" frameX="-2" frameY="-13" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0003" x="513" y="0" width="515" height="389" frameX="-2" frameY="-13" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0004" x="1028" y="0" width="515" height="393" frameX="-1" frameY="-9" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0005" x="1028" y="0" width="515" height="393" frameX="-1" frameY="-9" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0006" x="0" y="393" width="515" height="399" frameX="0" frameY="-3" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0007" x="0" y="393" width="515" height="399" frameX="0" frameY="-3" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0008" x="515" y="393" width="515" height="402" frameX="0" frameY="0" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0009" x="515" y="393" width="515" height="402" frameX="0" frameY="0" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0010" x="1030" y="393" width="515" height="400" frameX="0" frameY="-2" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0011" x="1030" y="393" width="515" height="400" frameX="0" frameY="-2" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0012" x="1030" y="393" width="515" height="400" frameX="0" frameY="-2" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEidle0013" x="1030" y="393" width="515" height="400" frameX="0" frameY="-2" frameWidth="517" frameHeight="403"/>
+	<SubTexture name="YOUTUBEnotedown0000" x="0" y="795" width="535" height="321" frameX="0" frameY="-8" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0001" x="0" y="795" width="535" height="321" frameX="0" frameY="-8" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0002" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0003" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0004" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0005" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0006" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0007" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnotedown0008" x="535" y="795" width="527" height="324" frameX="-3" frameY="0" frameWidth="535" frameHeight="329"/>
+	<SubTexture name="YOUTUBEnoteleft0000" x="1062" y="795" width="414" height="409" frameX="0" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0001" x="1062" y="795" width="414" height="409" frameX="0" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0002" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0003" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0004" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0005" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0006" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0007" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteleft0008" x="1476" y="795" width="411" height="407" frameX="-5" frameY="0" frameWidth="416" frameHeight="409"/>
+	<SubTexture name="YOUTUBEnoteright0000" x="0" y="1204" width="717" height="328" frameX="-2" frameY="-1" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0001" x="0" y="1204" width="717" height="328" frameX="-2" frameY="-1" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0002" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0003" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0004" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0005" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0006" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0007" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteright0008" x="717" y="1204" width="716" height="331" frameX="0" frameY="0" frameWidth="719" frameHeight="331"/>
+	<SubTexture name="YOUTUBEnoteup0000" x="0" y="1535" width="635" height="484"/>
+	<SubTexture name="YOUTUBEnoteup0001" x="0" y="1535" width="635" height="484"/>
+	<SubTexture name="YOUTUBEnoteup0002" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+	<SubTexture name="YOUTUBEnoteup0003" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+	<SubTexture name="YOUTUBEnoteup0004" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+	<SubTexture name="YOUTUBEnoteup0005" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+	<SubTexture name="YOUTUBEnoteup0006" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+	<SubTexture name="YOUTUBEnoteup0007" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+	<SubTexture name="YOUTUBEnoteup0008" x="635" y="1535" width="625" height="477" frameX="-7" frameY="-1" frameWidth="635" frameHeight="484"/>
+</TextureAtlas>

@@ -223,6 +223,7 @@ class ChartingState extends MusicBeatState
 				gfVersion: 'gf',
 				speed: 1,
 				stage: 'stage',
+				composer: 'null',
 				validScore: false
 			};
 			addSection();
@@ -403,10 +404,14 @@ class ChartingState extends MusicBeatState
 	var noteSplashesInputText:FlxUIInputText;
 	var stageDropDown:FlxUIDropDownMenuCustom;
 	var sliderRate:FlxUISlider;
+	var UI_composerTitle:FlxUIInputText;
 	function addSongUI():Void
 	{
 		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
 		blockPressWhileTypingOn.push(UI_songTitle);
+		
+		UI_composerTitle = new FlxUIInputText(80, 100, 70, _song.composer, 8);
+		blockPressWhileTypingOn.push(UI_composerTitle);
 
 		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
 		check_voices.checked = _song.needsVoices;
@@ -608,6 +613,7 @@ class ChartingState extends MusicBeatState
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
+		tab_group_song.add(UI_composerTitle);
 
 		tab_group_song.add(check_voices);
 		tab_group_song.add(clear_events);
@@ -623,6 +629,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(reloadNotesButton);
 		tab_group_song.add(noteSkinInputText);
 		tab_group_song.add(noteSplashesInputText);
+		tab_group_song.add(new FlxText(UI_composerTitle.x, UI_composerTitle.y - 15, 0, 'Composer:'));
 		tab_group_song.add(new FlxText(stepperBPM.x, stepperBPM.y - 15, 0, 'Song BPM:'));
 		tab_group_song.add(new FlxText(stepperBPM.x + 100, stepperBPM.y - 15, 0, 'Song Offset:'));
 		tab_group_song.add(new FlxText(stepperSpeed.x, stepperSpeed.y - 15, 0, 'Song Speed:'));
@@ -1542,6 +1549,7 @@ class ChartingState extends MusicBeatState
 		}
 		Conductor.songPosition = FlxG.sound.music.time;
 		_song.song = UI_songTitle.text;
+		_song.composer = UI_composerTitle.text;
 
 		strumLineUpdateY();
 		for (i in 0...8){

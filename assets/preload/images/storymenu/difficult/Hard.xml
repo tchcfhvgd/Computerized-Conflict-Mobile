@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="hard.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="ByeHard0000" x="5" y="5" width="499" height="67"/>
+	<SubTexture name="ByeHard0001" x="544" y="5" width="499" height="67"/>
+	<SubTexture name="ByeHard0002" x="1083" y="5" width="499" height="67"/>
+	<SubTexture name="ByeHard0003" x="5" y="112" width="499" height="67"/>
+	<SubTexture name="ByeHard0004" x="544" y="112" width="499" height="67"/>
+	<SubTexture name="ByeHard0005" x="1083" y="112" width="499" height="67"/>
+	<SubTexture name="ByeHard0006" x="5" y="219" width="499" height="67"/>
+	<SubTexture name="ByeHard0007" x="544" y="219" width="499" height="67"/>
+	<SubTexture name="ByeHard0008" x="1083" y="219" width="499" height="67"/>
+	<SubTexture name="ByeHard0009" x="5" y="326" width="499" height="67"/>
+	<SubTexture name="ByeHard0010" x="544" y="326" width="499" height="67"/>
+	<SubTexture name="ByeHard0011" x="1083" y="326" width="499" height="67"/>
+	<SubTexture name="ByeHard0012" x="5" y="433" width="499" height="67"/>
+	<SubTexture name="ByeHard0013" x="544" y="433" width="499" height="67"/>
+	<SubTexture name="ByeHard0014" x="1083" y="433" width="499" height="67"/>
+	<SubTexture name="ByeHard0015" x="5" y="540" width="499" height="67"/>
+	<SubTexture name="ByeHard0016" x="1083" y="433" width="499" height="67"/>
+	<SubTexture name="ByeHard0017" x="5" y="540" width="499" height="67"/>
+	<SubTexture name="ByeHard0018" x="1083" y="433" width="499" height="67"/>
+	<SubTexture name="ByeHard0019" x="5" y="540" width="499" height="67"/>
+	<SubTexture name="ByeHard0020" x="1083" y="433" width="499" height="67"/>
+	<SubTexture name="ByeHard0021" x="544" y="540" width="499" height="67"/>
+	<SubTexture name="ByeHard0022" x="1083" y="540" width="499" height="67"/>
+	<SubTexture name="Hard0000" x="5" y="647" width="488" height="96"/>
+	<SubTexture name="Hard0001" x="5" y="647" width="488" height="96"/>
+	<SubTexture name="Hard0002" x="5" y="647" width="488" height="96"/>
+	<SubTexture name="Hard0003" x="5" y="647" width="488" height="96"/>
+	<SubTexture name="Hard0004" x="5" y="647" width="488" height="96"/>
+	<SubTexture name="Hard0005" x="5" y="647" width="488" height="96"/>
+	<SubTexture name="IntroHard0000" x="533" y="647" width="495" height="224"/>
+	<SubTexture name="IntroHard0001" x="533" y="647" width="495" height="224"/>
+	<SubTexture name="IntroHard0002" x="1068" y="647" width="495" height="224"/>
+	<SubTexture name="IntroHard0003" x="5" y="911" width="495" height="224"/>
+	<SubTexture name="IntroHard0004" x="5" y="911" width="495" height="224"/>
+	<SubTexture name="IntroHard0005" x="540" y="911" width="495" height="224"/>
+	<SubTexture name="IntroHard0006" x="540" y="911" width="495" height="224"/>
+	<SubTexture name="IntroHard0007" x="1075" y="911" width="495" height="224"/>
+	<SubTexture name="IntroHard0008" x="5" y="1175" width="495" height="224"/>
+</TextureAtlas>

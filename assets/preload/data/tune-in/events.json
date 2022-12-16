@@ -1,0 +1,40 @@
+{
+	"song": {
+		"speed": 2.9,
+		"composer": "ExpKing",
+		"stage": "yt",
+		"player1": "animator-bf",
+		"player2": "youtubealt",
+		"player3": null,
+		"events": [
+			[
+				1548.38709677419,
+				[
+					[
+						"zoomBeatType1",
+						"",
+						""
+					]
+				]
+			],
+			[
+				100741.935483871,
+				[
+					[
+						"zoomBeatType1 Cancel",
+						"",
+						""
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf-new",
+		"bpm": 155,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "Tune In"
+	}
+}

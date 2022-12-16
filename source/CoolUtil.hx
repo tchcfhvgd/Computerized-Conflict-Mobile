@@ -18,10 +18,18 @@ using StringTools;
 class CoolUtil
 {
 	public static var defaultDifficulties:Array<String> = [
+		'Simple',
+		'Hard',
+		'Insane'
+	];
+	
+	public static var ClassicDifficulties:Array<String> = [
 		'Easy',
 		'Normal',
 		'Hard'
 	];
+	
+	
 	public static var defaultDifficulty:String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
 
 	public static var difficulties:Array<String> = [];

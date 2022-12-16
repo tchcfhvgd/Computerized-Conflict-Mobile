@@ -14,6 +14,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
+import flixel.addons.display.FlxBackdrop;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -29,6 +30,7 @@ class PauseSubState extends MusicBeatSubstate
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
+	var scrollingThing:FlxBackdrop;
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
@@ -72,10 +74,19 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height);
 		bg.alpha = 0;
+		
+		bg.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1],
+		PlayState.instance.dad.healthColorArray[2]);
+		
 		bg.scrollFactor.set();
 		add(bg);
+		
+		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
+		scrollingThing.scrollFactor.set(0, 0.07);
+		scrollingThing.alpha = 0;
+		add(scrollingThing);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
@@ -145,6 +156,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 		updateSkipTextStuff();
+		
+		scrollingThing.x -= 0.45;
+		scrollingThing.y -= 0.16;
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;

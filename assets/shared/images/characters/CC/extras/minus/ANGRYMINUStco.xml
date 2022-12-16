@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ANGRYMINUStco.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="ANGRYMINUSTCOdown0000" x="5" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0001" x="803" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0002" x="1601" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0003" x="2399" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0004" x="3197" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0005" x="3995" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0006" x="4793" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0007" x="3197" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOdown0008" x="3995" y="5" width="758" height="785"/>
+	<SubTexture name="ANGRYMINUSTCOidle0000" x="5591" y="5" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0001" x="6547" y="5" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0002" x="5" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0003" x="961" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0004" x="1917" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0005" x="2873" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0006" x="3829" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0007" x="4785" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0008" x="5741" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0009" x="6697" y="1075" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0010" x="5" y="2145" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0011" x="961" y="2145" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0012" x="1917" y="2145" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOidle0013" x="5" y="2145" width="916" height="1030"/>
+	<SubTexture name="ANGRYMINUSTCOleft0000" x="2873" y="2145" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0001" x="3856" y="2145" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0002" x="4839" y="2145" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0003" x="5822" y="2145" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0004" x="6805" y="2145" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0005" x="5" y="3215" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0006" x="988" y="3215" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0007" x="6805" y="2145" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOleft0008" x="5" y="3215" width="943" height="768"/>
+	<SubTexture name="ANGRYMINUSTCOright0000" x="1971" y="3215" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0001" x="3195" y="3215" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0002" x="4419" y="3215" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0003" x="5643" y="3215" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0004" x="6867" y="3215" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0005" x="5" y="4026" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0006" x="1229" y="4026" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0007" x="6867" y="3215" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOright0008" x="5" y="4026" width="1184" height="771"/>
+	<SubTexture name="ANGRYMINUSTCOup0000" x="2453" y="4026" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0001" x="3607" y="4026" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0002" x="4761" y="4026" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0003" x="5915" y="4026" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0004" x="7069" y="4026" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0005" x="5" y="4946" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0006" x="1159" y="4946" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0007" x="7069" y="4026" width="1114" height="880"/>
+	<SubTexture name="ANGRYMINUSTCOup0008" x="5" y="4946" width="1114" height="880"/>
+</TextureAtlas>

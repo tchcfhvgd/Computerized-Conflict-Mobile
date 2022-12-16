@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				122,
+				-271
+			],
+			"anim": "dou",
+			"fps": 24,
+			"name": "FancyPantsAltow",
+			"indices": []
+		},
+		{
+			"offsets": [
+				39,
+				-241
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "FancyPantsAltdown"
+		},
+		{
+			"offsets": [
+				97,
+				-239
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singUP",
+			"indices": [],
+			"name": "FancyPantsAltup"
+		},
+		{
+			"offsets": [
+				156,
+				-258
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "FancyPantsAltright"
+		},
+		{
+			"offsets": [
+				17,
+				-262
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "FancyPantsAltleft"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				154,
+				-248
+			],
+			"anim": "idle",
+			"fps": 14,
+			"name": "FancyPantsAltidle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				350,
+				-265
+			],
+			"anim": "hey",
+			"fps": 16,
+			"name": "FancyPantsAltcheer",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/Fancy_Pants",
+	"position": [
+		0,
+		-330
+	],
+	"healthicon": "face",
+	"flip_x": true,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		-150,
+		280
+	],
+	"sing_duration": 5.1,
+	"scale": 1
+}

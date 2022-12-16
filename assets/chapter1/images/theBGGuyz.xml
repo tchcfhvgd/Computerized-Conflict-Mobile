@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="theBGGuyz.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="BG Guys0000" x="100" y="100" width="1658" height="601" frameX="-1" frameY="0" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0001" x="100" y="100" width="1658" height="601" frameX="-1" frameY="0" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0002" x="1858" y="100" width="1659" height="590" frameX="0" frameY="-11" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0003" x="1858" y="100" width="1659" height="590" frameX="0" frameY="-11" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0004" x="100" y="801" width="1657" height="590" frameX="-2" frameY="-11" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0005" x="1857" y="801" width="1657" height="587" frameX="-2" frameY="-14" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0006" x="100" y="1491" width="1656" height="559" frameX="-3" frameY="-42" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0007" x="1856" y="1491" width="1656" height="519" frameX="-3" frameY="-82" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0008" x="100" y="2150" width="1655" height="519" frameX="-4" frameY="-82" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0009" x="1855" y="2150" width="1655" height="528" frameX="-4" frameY="-73" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0010" x="1855" y="2150" width="1655" height="528" frameX="-4" frameY="-73" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0011" x="1855" y="2150" width="1655" height="528" frameX="-4" frameY="-73" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0012" x="100" y="2778" width="1655" height="532" frameX="-4" frameY="-69" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys0013" x="100" y="2778" width="1655" height="532" frameX="-4" frameY="-69" frameWidth="1659" frameHeight="601"/>
+	<SubTexture name="BG Guys Scared0000" x="1855" y="2778" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0001" x="100" y="3410" width="1625" height="515" frameX="0" frameY="-2" frameWidth="1630" frameHeight="517"/>
+	<SubTexture name="BG Guys Scared0002" x="1825" y="3410" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0003" x="1855" y="2778" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0004" x="100" y="3410" width="1625" height="515" frameX="0" frameY="-2" frameWidth="1630" frameHeight="517"/>
+	<SubTexture name="BG Guys Scared0005" x="1825" y="3410" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0006" x="1855" y="2778" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0007" x="100" y="3410" width="1625" height="515" frameX="0" frameY="-2" frameWidth="1630" frameHeight="517"/>
+	<SubTexture name="BG Guys Scared0008" x="1825" y="3410" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0009" x="1855" y="2778" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0010" x="100" y="3410" width="1625" height="515" frameX="0" frameY="-2" frameWidth="1630" frameHeight="517"/>
+	<SubTexture name="BG Guys Scared0011" x="1825" y="3410" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0012" x="1855" y="2778" width="1630" height="517"/>
+	<SubTexture name="BG Guys Scared0013" x="100" y="3410" width="1625" height="515" frameX="0" frameY="-2" frameWidth="1630" frameHeight="517"/>
+</TextureAtlas>

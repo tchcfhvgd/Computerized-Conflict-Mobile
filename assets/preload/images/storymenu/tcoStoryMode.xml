@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="tcoStoryMode.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="ChosenHard0000" x="5" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0001" x="5" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0002" x="713" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0003" x="713" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0004" x="1421" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0005" x="1421" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0006" x="2129" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0007" x="2129" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0008" x="2837" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0009" x="2837" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0010" x="3545" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0011" x="3545" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0012" x="4253" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0013" x="4253" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0014" x="4961" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0015" x="4961" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenHard0016" x="5669" y="5" width="668" height="1159"/>
+	<SubTexture name="ChosenInsane0000" x="6377" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0001" x="7155" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0002" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0003" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0004" x="6377" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0005" x="7155" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0006" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0007" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0008" x="6377" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0009" x="7155" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0010" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0011" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0012" x="6377" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0013" x="7155" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0014" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0015" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0016" x="6377" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0017" x="7155" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0018" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0019" x="5" y="1260" width="738" height="1215"/>
+	<SubTexture name="ChosenInsane0020" x="6377" y="5" width="738" height="1215"/>
+	<SubTexture name="ChosenSimple0000" x="783" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0001" x="1662" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0002" x="2541" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0003" x="3420" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0004" x="4299" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0005" x="5178" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0006" x="6057" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0007" x="6936" y="1260" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0008" x="5" y="2515" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0009" x="884" y="2515" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0010" x="884" y="2515" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0011" x="1763" y="2515" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0012" x="1763" y="2515" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0013" x="1763" y="2515" width="839" height="994"/>
+	<SubTexture name="ChosenSimple0014" x="1763" y="2515" width="839" height="994"/>
+</TextureAtlas>

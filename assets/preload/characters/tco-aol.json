@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "choose idle"
+		},
+		{
+			"offsets": [
+				426,
+				-18
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "choose left"
+		},
+		{
+			"offsets": [
+				-17,
+				-120
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "choose down"
+		},
+		{
+			"offsets": [
+				-49,
+				381
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "choose up"
+		},
+		{
+			"offsets": [
+				227,
+				-3
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "choose right"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/tco_aol",
+	"position": [
+		-120,
+		180
+	],
+	"healthicon": "the-chosen-one-adobe",
+	"flip_x": false,
+	"healthbar_colors": [
+		20,
+		20,
+		20
+	],
+	"camera_position": [
+		0,
+		200
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

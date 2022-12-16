@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				40,
+				-80
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": true,
+			"name": "MINUSPOSEidle"
+		},
+		{
+			"offsets": [
+				229,
+				-70
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "MINUSPOSEleft"
+		},
+		{
+			"offsets": [
+				34,
+				-225
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "MINUSPOSEdown"
+		},
+		{
+			"offsets": [
+				168,
+				-42
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "MINUSPOSEup"
+		},
+		{
+			"offsets": [
+				186,
+				-76
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "MINUSPOSEright"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/minus/MINUStco",
+	"position": [
+		0,
+		30
+	],
+	"healthicon": "the-chosen-one-adobe",
+	"flip_x": false,
+	"healthbar_colors": [
+		20,
+		20,
+		20
+	],
+	"camera_position": [
+		-130,
+		130
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

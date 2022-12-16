@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="wongmau_catto.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="cat_down0000" x="0" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0001" x="0" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0002" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0003" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0004" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0005" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0006" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0007" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0008" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0009" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0010" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_down0011" x="666" y="1290" width="666" height="481"/>
+	<SubTexture name="cat_idle0000" x="1332" y="1290" width="614" height="541"/>
+	<SubTexture name="cat_idle0001" x="1332" y="1290" width="614" height="541"/>
+	<SubTexture name="cat_idle0002" x="0" y="1831" width="614" height="541"/>
+	<SubTexture name="cat_idle0003" x="0" y="1831" width="614" height="541"/>
+	<SubTexture name="cat_idle0004" x="614" y="1831" width="614" height="541"/>
+	<SubTexture name="cat_idle0005" x="614" y="1831" width="614" height="541"/>
+	<SubTexture name="cat_idle0006" x="1228" y="1831" width="614" height="541"/>
+	<SubTexture name="cat_idle0007" x="1228" y="1831" width="614" height="541"/>
+	<SubTexture name="cat_idle0008" x="0" y="2372" width="614" height="541"/>
+	<SubTexture name="cat_idle0009" x="0" y="2372" width="614" height="541"/>
+	<SubTexture name="cat_idle0010" x="0" y="2372" width="614" height="541"/>
+	<SubTexture name="cat_idle0011" x="0" y="2372" width="614" height="541"/>
+	<SubTexture name="cat_idle0012" x="0" y="2372" width="614" height="541"/>
+	<SubTexture name="cat_idle0013" x="0" y="2372" width="614" height="541"/>
+	<SubTexture name="cat_left0000" x="614" y="2372" width="737" height="439"/>
+	<SubTexture name="cat_left0001" x="614" y="2372" width="737" height="439"/>
+	<SubTexture name="cat_left0002" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0003" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0004" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0005" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0006" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0007" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0008" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0009" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0010" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_left0011" x="0" y="2913" width="737" height="439"/>
+	<SubTexture name="cat_right0000" x="737" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0001" x="737" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0002" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0003" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0004" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0005" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0006" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0007" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0008" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0009" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0010" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_right0011" x="1273" y="2913" width="536" height="480"/>
+	<SubTexture name="cat_up0000" x="0" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0001" x="0" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0002" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0003" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0004" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0005" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0006" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0007" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0008" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0009" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0010" x="518" y="3393" width="518" height="555"/>
+	<SubTexture name="cat_up0011" x="518" y="3393" width="518" height="555"/>
+</TextureAtlas>

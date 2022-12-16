@@ -1,0 +1,189 @@
+{
+	"song": {
+		"speed": 3,
+		"stage": "alan",
+		"player1": "bf",
+		"player2": "minus-tco",
+		"player3": null,
+		"events": [
+			[
+				9099.52606635071,
+				[
+					[
+						"Add Camera Zoom",
+						"0.02",
+						""
+					]
+				]
+			],
+			[
+				27014.2180094787,
+				[
+					[
+						"zoomBeatType2",
+						"",
+						""
+					]
+				]
+			],
+			[
+				36398.1042654028,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					]
+				]
+			],
+			[
+				36398.1042654028,
+				[
+					[
+						"zoomBeatType2 Cancel",
+						"",
+						""
+					],
+					[
+						"zoomBeatType3",
+						"",
+						""
+					]
+				]
+			],
+			[
+				45497.6303317535,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					]
+				]
+			],
+			[
+				53459.7156398104,
+				[
+					[
+						"zoomBeatType3 Cancel",
+						"",
+						""
+					]
+				]
+			],
+			[
+				54597.1563981042,
+				[
+					[
+						"zoomBeatType2",
+						"",
+						""
+					]
+				]
+			],
+			[
+				81895.7345971564,
+				[
+					[
+						"zoomBeatType2 Cancel",
+						"",
+						""
+					]
+				]
+			],
+			[
+				90995.2606635072,
+				[
+					[
+						"zoomBeatType2",
+						"",
+						""
+					]
+				]
+			],
+			[
+				109194.312796209,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					],
+					[
+						"zoomBeatType2 Cancel",
+						"",
+						""
+					],
+					[
+						"zoomBeatType3",
+						"",
+						""
+					]
+				]
+			],
+			[
+				118293.838862559,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					]
+				]
+			],
+			[
+				126255.924170616,
+				[
+					[
+						"zoomBeatType3 Cancel",
+						"",
+						""
+					],
+					[
+						"zoomBeatType2",
+						"",
+						""
+					]
+				]
+			],
+			[
+				127393.36492891,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					]
+				]
+			],
+			[
+				127393.36492891,
+				[
+					[
+						"zoomBeatType2 Cancel",
+						"",
+						""
+					]
+				]
+			],
+			[
+				136492.890995261,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf",
+		"bpm": 211,
+		"arrowSkin": "",
+		"needsVoices": true,
+		"song": "Amity"
+	}
+}

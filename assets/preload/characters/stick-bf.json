@@ -1,0 +1,133 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-5,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "bfstick idle"
+		},
+		{
+			"offsets": [
+				157,
+				-6
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "bfstick left0"
+		},
+		{
+			"offsets": [
+				-8,
+				-36
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "bfstick down0"
+		},
+		{
+			"offsets": [
+				-14,
+				10
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "bfstick up0"
+		},
+		{
+			"offsets": [
+				-123,
+				-23
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "bfstick right0"
+		},
+		{
+			"offsets": [
+				158,
+				32
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "bfstick left MISS"
+		},
+		{
+			"offsets": [
+				-7,
+				5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "bfstick down MISS"
+		},
+		{
+			"offsets": [
+				-11,
+				55
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "bfstick up MISS"
+		},
+		{
+			"offsets": [
+				-129,
+				-4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "bfstick right MISS"
+		},
+		{
+			"offsets": [
+				-15,
+				-4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "hey",
+			"indices": [],
+			"name": "bfstick HEY!!"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/stick_bf",
+	"position": [
+		0,
+		240
+	],
+	"healthicon": "stick-bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		105,
+		175,
+		209
+	],
+	"camera_position": [
+		-50,
+		100
+	],
+	"sing_duration": 4,
+	"scale": 0.8
+}

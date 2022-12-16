@@ -28,10 +28,23 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static var instance:GameOverSubstate;
 
 	public static function resetVariables() {
-		characterName = 'bf-dead';
-		deathSoundName = 'fnf_loss_sfx';
-		loopSoundName = 'gameOver';
-		endSoundName = 'gameOverEnd';
+		switch(PlayState.SONG.player1)
+		{
+			case 'animator-bf' | 'animator-bf-flipX' | 'animator-bf-stressed':
+				{
+					characterName = 'animator-bf-dead';
+					deathSoundName = 'fnf_loss_sfx';
+					loopSoundName = 'gameOver-cc';
+					endSoundName = 'gameOverEnd-cc';
+				}
+			default:
+				{
+					characterName = 'bf-dead';
+					deathSoundName = 'fnf_loss_sfx';
+					loopSoundName = 'gameOver';
+					endSoundName = 'gameOverEnd';
+				}
+		}
 	}
 
 	override function create()
@@ -75,6 +88,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
 		if(updateCamera) {
@@ -96,7 +111,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			WeekData.loadTheFirstEnabledMod();
 			if (PlayState.isStoryMode)
-				MusicBeatState.switchState(new StoryMenuState());
+				MusicBeatState.switchState(new TCOStoryState());
 			else
 				MusicBeatState.switchState(new FreeplayState());
 

@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				154,
+				-246
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "ashidle"
+		},
+		{
+			"offsets": [
+				261,
+				-270
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "ashleft"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				194,
+				-166
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "ashdown",
+			"indices": []
+		},
+		{
+			"offsets": [
+				153,
+				-58
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "ashup"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				187,
+				-269
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "ashright",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/ash",
+	"position": [
+		0,
+		10
+	],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		-150,
+		300
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

@@ -1,0 +1,214 @@
+{
+	"song": {
+		"speed": 2.9,
+		"stage": "alan",
+		"player1": "bf",
+		"player2": "omg-cta-real",
+		"player3": null,
+		"events": [
+			[
+				27804.8780487805,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				27878.0487804878,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				27951.2195121951,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				28024.3902439024,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				28097.5609756098,
+				[
+					[
+						"Add Camera Zoom",
+						"0.05",
+						""
+					],
+					[
+						"zoomBeatType2",
+						"",
+						""
+					]
+				]
+			],
+			[
+				31609.756097561,
+				[
+					[
+						"Add Camera Zoom",
+						"0.010",
+						"0.03"
+					]
+				]
+			],
+			[
+				36292.6829268293,
+				[
+					[
+						"Add Camera Zoom",
+						"0.010",
+						"0.03"
+					]
+				]
+			],
+			[
+				46243.9024390244,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				46829.2682926829,
+				[
+					[
+						"Add Camera Zoom",
+						"0.03",
+						""
+					]
+				]
+			],
+			[
+				46829.2682926829,
+				[
+					[
+						"zoomBeatType3",
+						"",
+						""
+					],
+					[
+						"zoomBeatType2 Cancel",
+						"",
+						""
+					]
+				]
+			],
+			[
+				64390.243902439,
+				[
+					[
+						"Add Camera Zoom",
+						"0.07",
+						""
+					]
+				]
+			],
+			[
+				65560.975609756,
+				[
+					[
+						"Add Camera Zoom",
+						"0.03",
+						""
+					]
+				]
+			],
+			[
+				73756.0975609755,
+				[
+					[
+						"Add Camera Zoom",
+						"0.07",
+						""
+					]
+				]
+			],
+			[
+				74926.8292682926,
+				[
+					[
+						"zoomBeatType3 Cancel",
+						"",
+						""
+					],
+					[
+						"zoomBeatType2",
+						"",
+						""
+					]
+				]
+			],
+			[
+				93658.5365853657,
+				[
+					[
+						"Change Scroll Speed",
+						"1.2",
+						"0"
+					]
+				]
+			],
+			[
+				93658.5365853657,
+				[
+					[
+						"Change Scroll Speed",
+						"1.2",
+						"0"
+					]
+				]
+			],
+			[
+				93658.5365853657,
+				[
+					[
+						"zoomBeatType2 Cancel",
+						"",
+						""
+					]
+				]
+			],
+			[
+				94829.2682926828,
+				[
+					[
+						"Change Scroll Speed",
+						"1.8",
+						"0"
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf",
+		"bpm": 205,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "Catto"
+	}
+}

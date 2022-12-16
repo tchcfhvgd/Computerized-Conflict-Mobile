@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="bluestick_dude.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Blue idle0000" x="5" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0001" x="372" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0002" x="739" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0003" x="1106" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0004" x="1473" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0005" x="1840" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0006" x="2207" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0007" x="2574" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0008" x="2941" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0009" x="3308" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0010" x="2941" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0011" x="3308" y="5" width="327" height="553"/>
+	<SubTexture name="Blue idle0012" x="2941" y="5" width="327" height="553"/>
+	<SubTexture name="blue down0000" x="3675" y="5" width="366" height="402"/>
+	<SubTexture name="blue down0001" x="5" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0002" x="411" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0003" x="817" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0004" x="411" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0005" x="817" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0006" x="411" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0007" x="817" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0008" x="411" y="598" width="366" height="402"/>
+	<SubTexture name="blue down0009" x="817" y="598" width="366" height="402"/>
+	<SubTexture name="blue left0000" x="1223" y="598" width="481" height="527"/>
+	<SubTexture name="blue left0001" x="1744" y="598" width="481" height="527"/>
+	<SubTexture name="blue left0002" x="2265" y="598" width="481" height="527"/>
+	<SubTexture name="blue left0003" x="2786" y="598" width="481" height="527"/>
+	<SubTexture name="blue left0004" x="3307" y="598" width="481" height="527"/>
+	<SubTexture name="blue left0005" x="5" y="1165" width="481" height="527"/>
+	<SubTexture name="blue left0006" x="526" y="1165" width="481" height="527"/>
+	<SubTexture name="blue left0007" x="1047" y="1165" width="481" height="527"/>
+	<SubTexture name="blue left0008" x="2265" y="598" width="481" height="527"/>
+	<SubTexture name="blue left0009" x="2786" y="598" width="481" height="527"/>
+	<SubTexture name="blue right0000" x="1568" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0001" x="1991" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0002" x="2414" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0003" x="2837" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0004" x="2414" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0005" x="2837" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0006" x="2414" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0007" x="2837" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0008" x="2414" y="1165" width="383" height="482"/>
+	<SubTexture name="blue right0009" x="2837" y="1165" width="383" height="482"/>
+	<SubTexture name="blue up0000" x="3260" y="1165" width="337" height="519"/>
+	<SubTexture name="blue up0001" x="3637" y="1165" width="337" height="519"/>
+	<SubTexture name="blue up0002" x="5" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0003" x="382" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0004" x="5" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0005" x="382" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0006" x="5" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0007" x="382" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0008" x="5" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0009" x="382" y="1732" width="337" height="519"/>
+	<SubTexture name="blue up0010" x="5" y="1732" width="337" height="519"/>
+</TextureAtlas>

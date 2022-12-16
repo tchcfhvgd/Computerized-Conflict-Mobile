@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "rombie idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				202,
+				23
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "rombie left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-45,
+				-43
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "rombie down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				132,
+				93
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "rombie up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-80,
+				-57
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "rombie right",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/rombie",
+	"position": [
+		0,
+		150
+	],
+	"healthicon": "rombie",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		103,
+		100
+	],
+	"camera_position": [
+		180,
+		30
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["Adobe", "the-chosen-one-adobe", [146, 113, 253]],
+		["T.C.O", "the-chosen-one", [146, 113, 253]],
+		["End Process", "the-dark-lord", [146, 113, 253]]
+	],
+
+	"weekCharacters": [
+		"dad",
+		"bf",
+		"gf"
+	],
+	"weekBackground": "stage",
+
+	"storyName": "Week Windows",
+	"weekBefore": "tutorial",
+	"weekName": "Week Windows",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}

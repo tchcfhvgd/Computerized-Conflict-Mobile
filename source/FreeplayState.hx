@@ -49,6 +49,49 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
+	
+	var storySongList:Array<String> = [
+	'practice time',
+	'adobe',
+	't.c.o',
+	'end process'
+	
+	];
+	
+	var freeplaySongList:Array<String> = [
+	
+	'alan',
+	'trojan',
+	'dashpulse',
+	'time travel',
+	'cubify',
+	'kickstarter',
+	'contrivance',
+	'messenger',
+	'amity',
+	
+	'aurora',
+	'phantasm'
+	
+	];
+	
+	var secretSongsList:Array<String> = [
+	
+	'tune in',
+	'unfaithful',
+	'rombie',
+	'fancy funk',
+	'catto'
+	
+	];
+	
+	var oldSongsList:Array<String> = [
+	
+	'adobe (old)',
+	'victim (old)',
+	'alan (old)'
+	
+	];
 
 	override function create()
 	{
@@ -64,7 +107,7 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		for (i in 0...WeekData.weeksList.length) {
+		/*for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
 
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
@@ -90,7 +133,7 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		/*		//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
+				//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
 
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 		for (i in 0...initSonglist.length)
@@ -101,6 +144,11 @@ class FreeplayState extends MusicBeatState
 			}
 		}*/
 
+		for (i in 0...storySongList.length) addSong(storySongList[i], 1, 'face', 0xFFE8E8E8);
+		for (i in 0...freeplaySongList.length) addSong(freeplaySongList[i], 1, 'face', 0xFFE55656);
+		for (i in 0...secretSongsList.length) addSong(secretSongsList[i], 1, 'face', 0xFFE55656);
+		for (i in 0...oldSongsList.length) addSong(oldSongsList[i], 1, 'face', 0xFFE55656);
+		
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
@@ -423,6 +471,11 @@ class FreeplayState extends MusicBeatState
 		PlayState.storyDifficulty = curDifficulty;
 		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
 		positionHighscore();
+		
+		if (oldSongsList.contains(songs[curSelected].songName))
+		{
+			CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty);
+		}
 	}
 
 	function changeSelection(change:Int = 0, playSound:Bool = true)
@@ -521,6 +574,11 @@ class FreeplayState extends MusicBeatState
 		if(newPos > -1)
 		{
 			curDifficulty = newPos;
+		}
+		
+		if (oldSongsList.contains(songs[curSelected].songName))
+		{
+			CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty);
 		}
 	}
 
