@@ -427,7 +427,11 @@ class FreeplayState extends MusicBeatState
 			
 			if (FlxG.keys.pressed.SHIFT){
 				LoadingState.loadAndSwitchState(new ChartingState());
-			}else{
+			} else if (songs[curSelected].songName == "amity".toLowerCase()) {
+					MusicBeatState.switchState(new MinusCharSelector());
+			}
+			else
+			{
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 

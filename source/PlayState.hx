@@ -60,7 +60,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
-
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.text.FlxTypeText;
 import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.system.scaleModes.RatioScaleMode;
@@ -436,6 +436,7 @@ class PlayState extends MusicBeatState
 		
 		//dashpulse:
 			var otakuBG:BGSprite;
+			public var NTSCshader:Shaders.NTSCEffect = new NTSCEffect(); //fuck
 			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
@@ -882,21 +883,25 @@ class PlayState extends MusicBeatState
 							corruptBG.setGraphicSize(Std.int(corruptBG.width * 1.1));
 							corruptBG.color = 0xFF7B6CAD;
 							corruptBG.alpha = 0;
+							if (ClientPrefs.shaders) corruptBG.shader = new CRTShader();
 			
 							corruptFloor = new BGSprite('floorCorrupted', 'chapter1', -750, -405, 1, 1);
 							corruptFloor.setGraphicSize(Std.int(corruptFloor.width * 1.2));
 							corruptFloor.color = 0xFF7B6CAD;
 							corruptFloor.alpha = 0;
+							if (ClientPrefs.shaders) corruptFloor.shader = new CRTShader();
 			
 							bsodStatic = new BGSprite('EProcess/error_3rdsong', 'chapter1', -650, -500, 1, 1);
 							bsodStatic.setGraphicSize(Std.int(bsodStatic.width * 1.1));
 							bsodStatic.antialiasing = ClientPrefs.globalAntialiasing;
 							bsodStatic.alpha = 0;
+							if (ClientPrefs.shaders) bsodStatic.shader = new CRTShader();
 							
 							rsod = new BGSprite('EProcess/rsod', 'chapter1', -650, -500, 1, 1);
 							rsod.setGraphicSize(Std.int(rsod.width * 1.1));
 							rsod.antialiasing = ClientPrefs.globalAntialiasing;
 							rsod.alpha = 0;
+							if (ClientPrefs.shaders) rsod.shader = new CRTShader();
 						
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 							
@@ -1104,8 +1109,8 @@ class PlayState extends MusicBeatState
 					oldVideoResolution = true;
 					noCurLight = true;
 					cameraSpeed = 1.2;
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new CRTShader()), new ShaderFilter(new Shader244p())]);
-					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new CRTShader()), new ShaderFilter(new Shader244p())]);
+					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new CRTShader()), new ShaderFilter(NTSCshader.shader)]);
+					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new CRTShader())]);
 				}
 			
 			case 'alan-pc-virabot': //Virabot song
@@ -1444,6 +1449,8 @@ class PlayState extends MusicBeatState
 				}
 			case 'unfaith-bg':
 				add(unfaithFRONT);
+			case 'carykh':
+				add(theHOGOVERLAYOMG);
 		}
 
 		#if LUA_ALLOWED
@@ -1784,6 +1791,13 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		judgementCounter.cameras = [camHUD];
 		doof.cameras = [camHUD];
+		
+		healthBar.alpha = 0;
+		healthBarBG.alpha = 0;
+		iconP1.alpha = 0;
+		iconP2.alpha = 0;
+		scoreTxt.alpha = 0;
+		judgementCounter.alpha = 0;
 		
 		if (oldVideoResolution)
 		{
@@ -3150,9 +3164,11 @@ class PlayState extends MusicBeatState
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 		introAssets.set('default', ['ready', 'set', 'go']);
 		introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
+		introAssets.set('cary', ['cary/tt_ready', 'cary/tt_set', 'cary/tt_GO']);
 
 		var introAlts:Array<String> = introAssets.get('default');
 		if (isPixelStage) introAlts = introAssets.get('pixel');
+		if(SONG.song.toLowerCase() == 'time travel') introAlts = introAssets.get('cary');
 		
 		for (asset in introAlts)
 			Paths.image(asset);
@@ -3301,6 +3317,8 @@ class PlayState extends MusicBeatState
 
 						if (PlayState.isPixelStage)
 							countdownReady.setGraphicSize(Std.int(countdownReady.width * daPixelZoom));
+							
+						if(SONG.song.toLowerCase() == 'time travel') countdownReady.setGraphicSize(Std.int(countdownReady.width * 0.5));
 
 						countdownReady.screenCenter();
 						countdownReady.antialiasing = antialias;
@@ -3321,6 +3339,8 @@ class PlayState extends MusicBeatState
 
 						if (PlayState.isPixelStage)
 							countdownSet.setGraphicSize(Std.int(countdownSet.width * daPixelZoom));
+							
+						if(SONG.song.toLowerCase() == 'time travel') countdownSet.setGraphicSize(Std.int(countdownSet.width * 0.5));
 
 						countdownSet.screenCenter();
 						countdownSet.antialiasing = antialias;
@@ -3341,6 +3361,8 @@ class PlayState extends MusicBeatState
 
 						if (PlayState.isPixelStage)
 							countdownGo.setGraphicSize(Std.int(countdownGo.width * daPixelZoom));
+							
+						if(SONG.song.toLowerCase() == 'time travel') countdownGo.setGraphicSize(Std.int(countdownGo.width * 0.5));
 
 						countdownGo.updateHitbox();
 
@@ -3524,8 +3546,22 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
-		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		
+		if (SONG.song.toLowerCase() != 'time travel')
+		{
+			
+			FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		
+			FlxTween.tween(healthBar, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(healthBarBG, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(iconP1, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+	    	FlxTween.tween(iconP2, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+
+			FlxTween.tween(scoreTxt, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(judgementCounter, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+		
+		}
 		
 		if(SONG.song.toLowerCase()=='time travel'){
 			songLength = 110000;
@@ -4042,6 +4078,7 @@ class PlayState extends MusicBeatState
 		distortShader.shader.iTime.value[0] += elapsed;
 		distortShaderHUD.shader.iTime.value[0] += elapsed;
 		trojanShader.shader.uTime.value[0] += elapsed;
+		NTSCshader.shader.iTime.value[0] += elapsed;
 		rainbowShader.shader.iTime.value[0] += elapsed;
 		nightTimeShader.shader.iTime.value[0] += elapsed;
 		
@@ -5063,7 +5100,14 @@ class PlayState extends MusicBeatState
 			case 'Tween Zoom':
 				var val1:Float = Std.parseFloat(value1);
 				var val2:Float = Std.parseFloat(value2);
-				FlxG.camera.zoom = FlxMath.lerp(val2, FlxG.camera.zoom, val1);
+				
+				FlxTween.tween(FlxG.camera, {zoom: val1}, val2, {
+				ease: FlxEase.quadInOut,
+				onComplete: function(twn)
+					{
+						defaultCamZoom = val1;
+					},
+				});
 				
 			case 'Flash Camera BLACK':
 				var val2:Float = Std.parseFloat(value2);
@@ -6026,6 +6070,12 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
 							}
+							
+						case 'Fire Note': //Hurt note
+							if(boyfriend.animation.getByName('hurt') != null) {
+								boyfriend.playAnim('hurt', true);
+								boyfriend.specialAnim = true;
+							}
 					}
 				}
 
@@ -6396,7 +6446,7 @@ class PlayState extends MusicBeatState
 			case 'tco':
 				switch(curStep)
 				{
-					case 8 | 16 | 32 | 40 | 48 | 64 | 72 | 80 | 96 | 104 | 112:
+					case 1 | 8 | 16 | 32 | 40 | 48 | 64 | 72 | 80 | 96 | 104 | 112:
 						FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
 					case 120:
 						FlxG.camera.fade(FlxColor.BLACK, 0, true);
@@ -6406,7 +6456,7 @@ class PlayState extends MusicBeatState
 						redthing.color = 0xFFFFFFFF;
 					case 1392:
 						defaultCamZoom = 1.45;
-						alphaTween([blackBG], 0.75, 1);
+						alphaTween([blackBG], 1, 0.75);
 					case 1406:
 						tcoStickPage(false);
 						tcoBSOD(true);
@@ -6698,9 +6748,18 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) {
 					switch (SONG.song.toLowerCase())
 					{
+						case 'adobe':
+							if (curBeat % 2 == 0) setDance([Crowd], true);
+						case 'tco':
+							setDance([ScaredCrowd], true);
 						case 'end process':
 							if (curBeat % 2 == 0) setDance([virabot1, virabot2, virabot3, virabot4], true);
 					}
+				}
+				
+			case 'alan-pc-virabot':
+				if (!ClientPrefs.lowQuality) {
+					if (curBeat % 2 == 0) setDance([tscseeing], true);
 				}
 				
 			case 'tank':
@@ -6969,6 +7028,25 @@ class PlayState extends MusicBeatState
 		return null;
 	}
 	#end
+	
+	override function switchTo(state:FlxState){
+		// DO CLEAN-UP HERE!!
+		if(curSong == 'end process'){
+			FlxG.mouse.unload();
+			FlxG.mouse.visible = false;
+		}
+
+		if(oldVideoResolution){
+			Lib.application.window.resizable = true;
+			FlxG.scaleMode = new RatioScaleMode(false);
+			FlxG.resizeGame(1280, 720);
+			FlxG.resizeWindow(1280, 720);
+			camGame.width = 1280;
+			camGame.height = 720;
+		}
+
+		return super.switchTo(state);
+	}
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;

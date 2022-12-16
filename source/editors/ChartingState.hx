@@ -956,6 +956,8 @@ class ChartingState extends MusicBeatState
 		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/custom_notetypes/'));
 		#end
+		
+		directories.push('assets/custom_notetypes/');
 
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];

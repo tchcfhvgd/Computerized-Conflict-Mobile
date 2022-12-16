@@ -250,6 +250,21 @@ class NTSCShader extends FlxShader
 
 }
 
+class NTSCEffect extends Effect //fuck
+{
+	public var shader:NTSCShader = new NTSCShader();
+	
+	public function new()
+	{
+		shader.iTime.value = [0];
+		//PlayState.instance.shaderUpdates.push(update);
+	}
+	
+	public function update(elapsed){
+		shader.iTime.value[0] += elapsed;
+	}
+}
+
 class Test3DShader extends FlxShader
 {
 	@:glFragmentSource('

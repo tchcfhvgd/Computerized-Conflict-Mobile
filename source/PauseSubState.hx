@@ -135,6 +135,7 @@ class PauseSubState extends MusicBeatSubstate
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(scrollingThing, {alpha: 0.8}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
@@ -271,7 +272,7 @@ class PauseSubState extends MusicBeatSubstate
 
 					WeekData.loadTheFirstEnabledMod();
 					if(PlayState.isStoryMode) {
-						MusicBeatState.switchState(new StoryMenuState());
+						MusicBeatState.switchState(new TCOStoryState());
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
 					}

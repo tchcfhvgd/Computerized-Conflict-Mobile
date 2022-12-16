@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				-170
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "Blue idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Blue idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				129,
 				-206
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "blue left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "blue left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-6,
 				-316
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "blue down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "blue down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				137,
 				-198
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "blue up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "blue up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-6,
 				-238
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "blue right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "blue right"
 		}
 	],
 	"no_antialiasing": false,
@@ -65,9 +65,9 @@
 	"healthicon": "bbpanzu-ava2-stick",
 	"flip_x": false,
 	"healthbar_colors": [
-		161,
-		161,
-		161
+		54,
+		154,
+		240
 	],
 	"camera_position": [
 		150,

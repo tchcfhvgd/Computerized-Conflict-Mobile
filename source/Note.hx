@@ -152,6 +152,23 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+					
+				case 'AV':
+					ignoreNote = mustPress;
+					loadGraphic(Paths.image('dangerNotes/av'));
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					noteSplashTexture = "fuck off";
+					hitCausesMiss = true;
+				case 'Fire Note':
+					ignoreNote = mustPress;
+					loadGraphic(Paths.image('dangerNotes/fire'));
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					noteSplashTexture = "fuck off";
+					hitCausesMiss = true;
 			}
 			noteType = value;
 		}
