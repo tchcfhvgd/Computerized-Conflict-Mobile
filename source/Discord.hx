@@ -13,11 +13,13 @@ using StringTools;
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
+	public static var currentButton1Label:String = "Download The Mod";
+	public static var currentButton1Url:String = "https://gamebanana.com/mods/340817";
 	public function new()
 	{
 		trace("Discord Client starting...");
 		DiscordRpc.start({
-			clientID: "863222024192262205",
+			clientID: "1043936385138184303",
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
@@ -45,7 +47,9 @@ class DiscordClient
 			details: "In the Menus",
 			state: null,
 			largeImageKey: 'icon',
-			largeImageText: "Psych Engine"
+			largeImageText: "Computerized Conflict",
+			button1Label: currentButton1Label,
+			button1Url: currentButton1Url
 		});
 	}
 
@@ -86,7 +90,9 @@ class DiscordClient
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
-            endTimestamp : Std.int(endTimestamp / 1000)
+            endTimestamp : Std.int(endTimestamp / 1000),
+			button1Label: currentButton1Label,
+			button1Url: currentButton1Url
 		});
 
 		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');

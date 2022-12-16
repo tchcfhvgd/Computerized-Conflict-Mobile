@@ -41,9 +41,10 @@ class FlxSoundTray extends Sprite
 	 */
 	var _width:Int = 80;
 
-	var _defaultScale:Float = 2.0;
-
-	/**Whether or not changing the volume should make noise.**/
+	var _defaultScale:Float = 2.0; /**Whether or not changing the volume should make noise.**/
+	
+	var text:TextField = new TextField();
+	
 	public var silent:Bool = false;
 
 	/**
@@ -61,7 +62,6 @@ class FlxSoundTray extends Sprite
 		screenCenter();
 		addChild(tmp);
 
-		var text:TextField = new TextField();
 		text.width = tmp.width;
 		text.height = tmp.height;
 		text.multiline = true;
@@ -78,7 +78,7 @@ class FlxSoundTray extends Sprite
 		dtf.align = TextFormatAlign.CENTER;
 		text.defaultTextFormat = dtf;
 		addChild(text);
-		text.text = "VOLUME";
+		text.text = "VOLUME - 100%";
 		text.y = 16;
 
 		var bx:Int = 10;
@@ -138,7 +138,7 @@ class FlxSoundTray extends Sprite
 	{
 		if (!silent)
 		{
-			var sound = Paths.sound('ui_soundChange');
+			var sound = Paths.sound('ui_soundChanger');
 			if (sound != null)
 				FlxG.sound.load(sound).play();
             trace(up);
@@ -166,6 +166,8 @@ class FlxSoundTray extends Sprite
 				_bars[i].alpha = 0.5;
 			}
 		}
+		
+		text.text = "VOLUME - " + globalVolume * 10 + "%";
 	}
 
 	public function screenCenter():Void
