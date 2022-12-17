@@ -1,5 +1,9 @@
-# Friday Night Funkin' - Psych Engine
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+# Friday Night Funkin' - Computerized
+Rap battle against The Chosen One and The Dark Lord in Friday Night Funkin'! along with other stick figures around the internet..
+
+Engine used: Psych Engine 0.6.3
+
+![logo](https://cdn.discordapp.com/attachments/812123319586521122/1053517548118868048/logo.png?width=921&height=701)
 
 ## Installation:
 You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
