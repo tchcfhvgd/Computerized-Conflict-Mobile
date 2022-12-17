@@ -1205,6 +1205,16 @@ class FunkinLua {
 				}));
 			}
 		});
+		
+		Lua_helper.add_callback(lua, "setNoteColor", function(note:Int, value:String) {
+			var testicle:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			trace("cringe");
+			if (testicle != null) {
+				trace(testicle.color);
+				testicle.color = Std.parseInt(value);
+			}
+		});
+		
 		Lua_helper.add_callback(lua, "noteTweenY", function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String) {
 			cancelTween(tag);
 			if(note < 0) note = 0;

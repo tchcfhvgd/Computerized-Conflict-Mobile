@@ -4084,6 +4084,12 @@ class PlayState extends MusicBeatState
 		
 		
 		testShader3D.shader.iTime.value[0] += elapsed;
+		
+		if (health > 0.2 && lossingHealth && CoolUtil.difficultyString() != 'SIMPLE')
+		{
+			health -= 0.0015 * (elapsed / (1/60));
+		}
+		
 		//TODO: rework
 		//TODO: 440, 22
 		if (popUp != null && closePopup != null) {
@@ -5721,7 +5727,7 @@ class PlayState extends MusicBeatState
 						}
 
 						// eee jack detection before was not super good
-						if (!notesStopped) {
+						if (!notesStopped && modchartTimers["disable" + Std.string(epicNote.noteData)] == null) {
 							goodNoteHit(epicNote);
 							pressNotes.push(epicNote);
 						}
@@ -5830,7 +5836,8 @@ class PlayState extends MusicBeatState
 			{
 				// hold note functions
 				if (strumsBlocked[daNote.noteData] != true && daNote.isSustainNote && parsedHoldArray[daNote.noteData] && daNote.canBeHit
-				&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.blockHit) {
+				&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.blockHit
+				&& modchartTimers["disable" + Std.string(daNote.noteData)] == null) {
 					goodNoteHit(daNote);
 				}
 			});
@@ -5913,7 +5920,7 @@ class PlayState extends MusicBeatState
 			char.playAnim(animToPlay, true);
 		}
 
-		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
+		callOnLuas('noteMiss', [notes.members.indexOf(daNote), Std.string(daNote.noteData), daNote.noteType, daNote.isSustainNote]);
 	}
 
 	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
@@ -6600,11 +6607,19 @@ class PlayState extends MusicBeatState
 						flash(FlxColor.RED, 0.5);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
 						FlxG.camera.shake(0.01, 0.20);
-						objectColor([boyfriend, gf, Floor, Background1, ScaredCrowd], 0xFF2C2425);
+						objectColor([boyfriend, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
 						setAlpha([redthing], 1);
 						setVisible([fires1, fires2], true);
+						if (CoolUtil.difficultyString() != 'SIMPLE') lossingHealth = true;
+						
 					case 288:
 						tcoStickPage(true);
+						
+					case 424:
+						flash(FlxColor.WHITE, 0.5);
+						FlxG.camera.shake(0.01, 0.20);
+						colorTween([boyfriend, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0.8, 0xFF2C2425, FlxColor.WHITE);
+						lossingHealth = false;
 				}
 			case 'end process':
 				switch(curBeat)
