@@ -6,7 +6,7 @@ Engine used: Psych Engine 0.6.3: https://github.com/ShadowMario/FNF-PsychEngine
 ![logo](https://cdn.discordapp.com/attachments/812123319586521122/1053517548118868048/logo.png?width=921&height=701)
 
 ## Installation:
-You must have [the most up-to-date version of Haxe](https://haxe.org/download/), use 5.0.2 please.
+You must have [the most up-to-date version of Haxe](https://haxe.org/download/), and please use HaxeFlixel 5.0.2 please.
 
 Follow a Friday Night Funkin' source code compilation tutorial, after this you will need to install LuaJIT.
 
