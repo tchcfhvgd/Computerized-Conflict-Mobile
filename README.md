@@ -23,6 +23,10 @@ otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
 
 To install the new DiscordRPC you need to type: `haxelib git discord_rpc_yce https://github.com/YoshiCrafter29/LincDiscordRPCButtons` on a Command prompt/PowerShell, or else the mod will not compile.
 
+If you can't install discord_rpc_yce in that way, download this one: https://drive.google.com/file/d/1uybV4nLgIFv6j5dnl1yAV8sT7dc5Dfib/view
+
+After downloading it, go to ``C:\HaxeToolkit\haxe\lib\` and extract the zip file.
+
 ![thumbnail](https://cdn.discordapp.com/attachments/992852052017434707/1012226946408644618/Untitled1044_20220705141239.png?width=1286&height=730)
 
 ## Vs. The Chosen One Dev. Team:
