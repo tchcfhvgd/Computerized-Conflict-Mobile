@@ -953,6 +953,14 @@ class PlayState extends MusicBeatState
 					needsBlackBG = true;
 				}
 				
+			case 'whiteSpace': //Placeholder
+				{
+					whiteScreen = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen.scrollFactor.set();
+					whiteScreen.screenCenter();
+					add(whiteScreen);
+				}
+				
 			case 'kickstarter': //kickstart
 				{
 					var bg:BGSprite = new BGSprite('win7/Windows7_Bg', -30, 0, 0.9, 0.9);
@@ -1998,6 +2006,10 @@ class PlayState extends MusicBeatState
 		#if desktop
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		
+		Lib.application.window.title = "Computerized Conflict - " + SONG.song + " - [" + CoolUtil.difficulties[storyDifficulty]
+		+ "] - Composed by: " + SONG.composer;
+		
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -6523,8 +6535,8 @@ class PlayState extends MusicBeatState
 						iconP2.alpha = 1;
 					case 507 | 571 | 1595 | 1659:
 						showHUDTween(0, 0.3);
-						dadGroup.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-						dadGroup.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+						//dadGroup.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
+						//dadGroup.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
 					case 511 | 575 | 1599 | 1663:
 						showHUDTween(1, 0.3);
 					case 704 | 1920:
