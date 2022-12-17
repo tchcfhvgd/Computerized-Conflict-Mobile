@@ -39,8 +39,8 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'freeplay',
 		'storymode',
-		'art_gallery',
 		'credits',
+		'art_gallery',
 		'options'
 	];
 
@@ -79,9 +79,8 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set(0, yScroll);
+		var bg:FlxSprite = new FlxSprite(-80, 75).loadGraphic(Paths.image('menuBG'));
+		bg.scrollFactor.set();
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -99,7 +98,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollowPos);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
+		magenta.scrollFactor.set();
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
@@ -132,6 +131,23 @@ class MainMenuState extends MusicBeatState
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+			switch(i){
+				case 0:
+					menuItem.x = 50;
+					menuItem.y = 50;
+				case 1:
+					menuItem.x = 450;
+					menuItem.y = 50;
+				case 2:
+					menuItem.x = 850;
+					menuItem.y = 50;
+				case 3:
+					menuItem.x = 245;
+					menuItem.y = 400;
+				case 4:
+					menuItem.x = 645;
+					menuItem.y = 400;
+			}
 			menuItem.updateHitbox();
 		}
 		
@@ -201,6 +217,27 @@ class MainMenuState extends MusicBeatState
 		
 		scrollingThing.x -= 0.45;
 		scrollingThing.y -= 0.16;
+
+		menuItems.forEach(function(menuItem:FlxSprite){
+			switch(menuItem.ID){
+				case 0:
+					menuItem.x = 50;
+					menuItem.y = 50;
+				case 1:
+					menuItem.x = 450;
+					menuItem.y = 50;
+				case 2:
+					menuItem.x = 850;
+					menuItem.y = 50;
+				case 3:
+					menuItem.x = 245;
+					menuItem.y = 400;
+				case 4:
+					menuItem.x = 645;
+					menuItem.y = 400;
+			}
+			menuItem.updateHitbox();
+		});
 
 		if (!selectedSomethin)
 		{
