@@ -1,4 +1,4 @@
-# Friday Night Funkin' - Computerized
+# Friday Night Funkin' - Computerized Conflict
 Rap battle against The Chosen One and The Dark Lord in Friday Night Funkin'! along with other stick figures around the internet..
 
 Engine used: Psych Engine 0.6.3
