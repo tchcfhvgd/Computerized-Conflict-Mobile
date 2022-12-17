@@ -27,7 +27,7 @@ To install the new DiscordRPC you need to type: `haxelib git discord_rpc_yce htt
 
 ## Vs. The Chosen One Dev. Team:
 * JetTRG - Director, Charter, Concept artist.
-* Shadow Mario - Main Programmer.
+* MijaeLio - Main Programmer.
 * atpx8 - Programmer.
 * Tiburones 202 - Programmer.
 * amaarzadjali - Musician.
@@ -47,6 +47,7 @@ To install the new DiscordRPC you need to type: `haxelib git discord_rpc_yce htt
 * shammal - Extra Charter.
 
 * Wong Mau Catto - Emotional support for the whole dev team.
+_____________________________________
 
 ## Contributers:
 * The Lost Gamer - Composed "End Process (Old)".
@@ -56,12 +57,14 @@ To install the new DiscordRPC you need to type: `haxelib git discord_rpc_yce htt
 * ROCKY - Composed "Dashpulse".
 * ProfessorBonnie - Composed "Time Travel".
 * Blonic - Logo Artist.
+_____________________________________
 
 ### Special Thanks:
 * Alan Becker - Creator of "Animator Vs. Animation".
 * Biddle3 - Original composer of "Phantasm".
 * Armydillo - Original composer of "Aurora".
 * TzenNime - Cool BF sprite.
+_____________________________________
 
 ![cursor](https://cdn.discordapp.com/attachments/812123319586521122/1053523407511232573/cursor.png?width=300&height=300)
 
