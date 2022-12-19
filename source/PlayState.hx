@@ -5150,6 +5150,8 @@ class PlayState extends MusicBeatState
 			case 'Screen Flip Y':
 				camGame.angle = 180;
 				camHUD.angle = 180;
+			case 'Xx_FancyPants_xX':
+				punchFancy();
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -7073,6 +7075,29 @@ class PlayState extends MusicBeatState
 		}
 
 		return super.switchTo(state);
+	}
+
+	function punchFancy(){
+		boyfriend.playAnim('pre-attack', true);
+		boyfriend.specialAnim = true;
+		FlxTween.tween(boyfriend, {x: boyfriend.x - 400}, 0.7, {ease: FlxEase.sineIn,
+			onComplete: function(twn:FlxTween)
+			{
+				boyfriend.playAnim('attack', true);
+				dad.playAnim('dou', true);
+				boyfriend.specialAnim = true;
+				dad.specialAnim = true;
+				FlxTween.tween(boyfriend, {x: boyfriend.x + 400}, 0.7, {ease: FlxEase.sineOut});
+
+				FlxTween.tween(dad, {y: dad.y - 750}, 0.5, {ease: FlxEase.sineIn,
+					onComplete: function(twn:FlxTween)
+					{
+						//boyfriend.playAnim('attack', true);
+						FlxTween.tween(dad, {y: dad.y + 750}, 0.8, {ease: FlxEase.sineIn});
+					}
+				});
+			}
+		});
 	}
 
 	var curLight:Int = -1;
