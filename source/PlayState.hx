@@ -4574,6 +4574,8 @@ class PlayState extends MusicBeatState
 		for (i in shaderUpdates){
 			i(elapsed);
 		}
+
+		//Paths.clearUnusedMemory();
 	}
 
 	function openPauseMenu()
@@ -5995,7 +5997,7 @@ class PlayState extends MusicBeatState
 			case 'angry-minus-tco':
 				setCamShake([camGame], 0.015, 0.05, 0.005);
 			case 'the-dark-lord':
-				if (healthBar.percent > 10) healthDrainRates(0.005, 0.02, 0.023);
+				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023);
 		}
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
