@@ -410,9 +410,7 @@ class PlayState extends MusicBeatState
 			var adobeWindow:BGSprite;
 			var sFWindow:BGSprite;
 			
-			var babyArrowBG:StrumNote;
-			
-			var playerHandler:Int;
+			var babyArrowCamGame:Bool = false;
 			
 			public var trojanShader:Shaders.Glitch02Effect = new Glitch02Effect(8, 6, 3);
 			public var testShader3D:Shaders.Test3DEffect = new Test3DEffect(); //fuck
@@ -1994,6 +1992,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('missnote1', 'sound');
 		precacheList.set('missnote2', 'sound');
 		precacheList.set('missnote3', 'sound');
+		precacheList.set('throwMic', 'sound');
 
 		if (PauseSubState.songName != null) {
 			precacheList.set(PauseSubState.songName, 'music');
@@ -4574,6 +4573,8 @@ class PlayState extends MusicBeatState
 		for (i in shaderUpdates){
 			i(elapsed);
 		}
+
+		//Paths.clearUnusedMemory();
 	}
 
 	function openPauseMenu()
@@ -5995,7 +5996,7 @@ class PlayState extends MusicBeatState
 			case 'angry-minus-tco':
 				setCamShake([camGame], 0.015, 0.05, 0.005);
 			case 'the-dark-lord':
-				if (healthBar.percent > 10) healthDrainRates(0.005, 0.02, 0.023);
+				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023);
 		}
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
@@ -6432,6 +6433,23 @@ class PlayState extends MusicBeatState
 			return;
 		}
 		
+		if (babyArrowCamGame)
+		{
+			opponentStrums.forEach(function(spr:StrumNote) {
+			    spr.cameras = [camGame];
+				spr.scrollFactor.set (1, 0);
+			});
+						
+			for (note in unspawnNotes)
+			{
+				if (!note.mustPress)
+				{
+					note.cameras = [camGame];
+					note.scrollFactor.set (1, 0);
+				}
+			}
+		}
+		
 		switch (SONG.song.toLowerCase())
 		{
 			case 'cubify':
@@ -6679,6 +6697,7 @@ class PlayState extends MusicBeatState
 						bestPart2 = true;
 						blackBars(1);
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.1, FlxColor.WHITE, 0xFF191919);
+						babyArrowCamGame = true;
 					case 96 | 256:
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
@@ -7080,20 +7099,32 @@ class PlayState extends MusicBeatState
 	function punchFancy(){
 		boyfriend.playAnim('pre-attack', true);
 		boyfriend.specialAnim = true;
-		FlxTween.tween(boyfriend, {x: boyfriend.x - 400}, 0.7, {ease: FlxEase.sineIn,
+		FlxTween.tween(boyfriend, {x: boyfriend.x - 400}, 0.3, {ease: FlxEase.sineInOut,
 			onComplete: function(twn:FlxTween)
 			{
 				boyfriend.playAnim('attack', true);
 				dad.playAnim('dou', true);
 				boyfriend.specialAnim = true;
 				dad.specialAnim = true;
-				FlxTween.tween(boyfriend, {x: boyfriend.x + 400}, 0.7, {ease: FlxEase.sineOut});
+				
+				FlxG.sound.play(Paths.sound('throwMic'));
+				
+				FlxTween.tween(dad, {x: dad.x - 50}, 0.75, {ease: FlxEase.sineInOut});
+				
+				FlxTween.angle(dad, 0, 0, 0.5, {ease: FlxEase.cubeInOut});
+				
+				FlxTween.tween(boyfriend, {x: boyfriend.x + 400}, 0.7, {ease: FlxEase.sineInOut});
 
-				FlxTween.tween(dad, {y: dad.y - 750}, 0.5, {ease: FlxEase.sineIn,
+				FlxTween.tween(dad, {y: dad.y - 450}, 0.3, {ease: FlxEase.sineInOut,
 					onComplete: function(twn:FlxTween)
 					{
 						//boyfriend.playAnim('attack', true);
-						FlxTween.tween(dad, {y: dad.y + 750}, 0.8, {ease: FlxEase.sineIn});
+						FlxTween.tween(dad, {y: dad.y + 450}, 0.4, {ease: FlxEase.sineInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								dad.specialAnim = false;
+							}
+					    });
 					}
 				});
 			}
