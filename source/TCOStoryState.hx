@@ -140,11 +140,12 @@ class TCOStoryState extends MusicBeatState
 		add(sprDifficulty);
 		
 		//CoolUtil.difficulties = CoolUtil.storyDifficulties.copy();
-		if(lastDifficultyName == '')
+		
+		/*if(lastDifficultyName == '')
 		{
 			for(i in 0...difficulties.length) lastDifficultyName = difficulties[i];
 		}
-		for(i in 0...difficulties.length) curDifficulty = Math.round(Math.max(0, difficulties[i].indexOf(lastDifficultyName)));
+		for(i in 0...difficulties.length) curDifficulty = Math.round(Math.max(0, difficulties[i].indexOf(lastDifficultyName)));*/
 		
 		//curDifficulty2 = Math.round(Math.max(0, CoolUtil.storyDifficultiesCOPY.indexOf(lastDifficultyName)));
 		
@@ -199,14 +200,14 @@ class TCOStoryState extends MusicBeatState
 	
 	function changeDifficulty(change:Int = 0):Void
 	{
-
-		var diff:String = difficulties[curDifficulty];
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
 			curDifficulty = difficulties.length-1;
 		if (curDifficulty >= difficulties.length)
 			curDifficulty = 0;
+
+		var diff:String = difficulties[curDifficulty];
 		
 		sprDifficulty.frames = Paths.getSparrowAtlas('storymenu/difficult/' + diff);
 		sprDifficulty.animation.addByPrefix('diff', diff, 24, false);

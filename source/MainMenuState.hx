@@ -341,9 +341,7 @@ class MainMenuState extends MusicBeatState
 		{
 			spr.shader = new Shaders.GreyscaleShader();
 			spr.alpha = 0.5;
-			spr.updateHitbox();
-			
-			FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {ease: FlxEase.quadOut});
+			//spr.updateHitbox();
 
 			if (spr.ID == curSelected)
 			{
@@ -358,6 +356,8 @@ class MainMenuState extends MusicBeatState
 				}
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
 				spr.centerOffsets();
+			}else{
+				FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {ease: FlxEase.quadOut});
 			}
 		});
 	}
