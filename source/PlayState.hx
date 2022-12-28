@@ -6437,10 +6437,21 @@ class PlayState extends MusicBeatState
 		{
 			opponentStrums.forEach(function(spr:StrumNote) {
 			    spr.cameras = [camGame];
-				spr.scrollFactor.set (1, 0);
+				spr.scrollFactor.set(1, 0);
+				spr.x = 1050 + 112 * spr.ID;
+				//addTextToDebug('note ' + spr.ID + ' ' + Std.string(spr.x), FlxColor.WHITE);
+				//spr.x += 200;
 			});
 						
 			for (note in unspawnNotes)
+			{
+				if (!note.mustPress)
+				{
+					note.cameras = [camGame];
+					note.scrollFactor.set (1, 0);
+				}
+			}
+			for (note in notes)
 			{
 				if (!note.mustPress)
 				{
