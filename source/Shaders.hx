@@ -265,21 +265,104 @@ class NTSCEffect extends Effect //fuck
 	}
 }
 
+class PlaneShader3D extends FlxShader
+{
+	@:glFragmentSource('
+	#pragma header
+	#define PI 3.1415926538
+
+	uniform float xrot = 0.0;
+	uniform float yrot = 0.0;
+	uniform float zrot = 0.0;
+	uniform float xpos = 0.0;
+	uniform float ypos = 0.0;
+	uniform float zpos = 0.0;
+
+	float alph = 0;
+	float plane( in vec3 norm, in vec3 po, in vec3 ro, in vec3 rd ) {
+	    float de = dot(norm, rd);
+	    de = sign(de)*max( abs(de), 0.001);
+	    return dot(norm, po-ro)/de;
+	}
+
+	vec2 raytraceTexturedQuad(in vec3 rayOrigin, in vec3 rayDirection, in vec3 quadCenter, in vec3 quadRotation, in vec2 quadDimensions) {
+	    //Rotations ------------------
+	    float a = sin(quadRotation.x); float b = cos(quadRotation.x); 
+	    float c = sin(quadRotation.y); float d = cos(quadRotation.y); 
+	    float e = sin(quadRotation.z); float f = cos(quadRotation.z); 
+	    float ac = a*c;   float bc = b*c;
+	
+		mat3 RotationMatrix  = 
+				mat3(	  d*f,      d*e,  -c,
+                 ac*f-b*e, ac*e+b*f, a*d,
+                 bc*f+a*e, bc*e-a*f, b*d );
+	    //--------------------------------------
+    
+    	vec3 right = RotationMatrix * vec3(quadDimensions.x, 0.0, 0.0);
+    	vec3 up = RotationMatrix * vec3(0, quadDimensions.y, 0);
+    	vec3 normal = cross(right, up);
+    	normal /= length(normal);
+    
+    	//Find the plane hit point in space
+    	vec3 pos = (rayDirection * plane(normal, quadCenter, rayOrigin, rayDirection)) - quadCenter;
+    
+    	//Find the texture UV by projecting the hit point along the plane dirs
+    	return vec2(dot(pos, right) / dot(right, right),
+    	            dot(pos, up)    / dot(up,    up)) + 0.5;
+	}
+
+	void main() {
+		vec4 texColor = texture2D(bitmap, openfl_TextureCoordv);
+    	//Screen UV goes from 0 - 1 along each axis
+    	vec2 screenUV = openfl_TextureCoordv;
+    	vec2 p = (2.0 * screenUV) - 1.0;
+    	float screenAspect = openfl_TextureSize.x/openfl_TextureSize.y;
+    	p.x *= screenAspect;
+    
+    	//Normalized Ray Dir
+    	vec3 dir = vec3(p.x, p.y, 1.0);
+    	dir /= length(dir);
+    
+    	//Define the plane
+    	vec3 planePosition = vec3(xpos, ypos, zpos+0.5);
+    	vec3 planeRotation = vec3(xrot, yrot+PI, zrot);//this the shit you needa change
+    	vec2 planeDimension = vec2(-screenAspect, 1.0);
+    
+    	vec2 uv = raytraceTexturedQuad(vec3(0), dir, planePosition, planeRotation, planeDimension);
+	
+    	//If we hit the rectangle, sample the texture
+    	if (abs(uv.x - 0.5) < 0.5 && abs(uv.y - 0.5) < 0.5) {
+		
+			//vec4 tex = flixel_texture2D(bitmap, uv);
+			//float bitch = 1.0;
+			//if (tex.z == 0.0){
+			//	bitch = 0.0;
+			//}
+		
+		  gl_FragColor = flixel_texture2D(bitmap, uv);
+    	}
+	}')
+  public function new()
+  {
+    super();
+  }
+}
+
 class Test3DShader extends FlxShader
 {
 	@:glFragmentSource('
-//SHADERTOY PORT FIX
-#pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
-uniform float iTime;
-#define iChannel0 bitmap
-#define texture flixel_texture2D
-#define fragColor gl_FragColor
-#define mainImage main
-//****MAKE SURE TO remove the parameters from mainImage.
-//SHADERTOY PORT FIX
+	//SHADERTOY PORT FIX
+	#pragma header
+	vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
+	uniform float iTime;
+	#define iChannel0 bitmap
+	#define texture flixel_texture2D
+	#define fragColor gl_FragColor
+	#define mainImage main
+	//****MAKE SURE TO remove the parameters from mainImage.
+	//SHADERTOY PORT FIX
 
 #define X_SCALE 0.95
 #define Z_SCALE 0.40
@@ -383,16 +466,16 @@ void main()
     } else if (angle < 5.0/6.0) {
         g = 1.;
         b = mag;
-    } else {
-        g = 1. - mag;
-        b = 1.;
-    }
+	    } else {
+	        g = 1. - mag;
+	        b = 1.;
+	    }
     
-    vec3 fadeColor = vec3(r,g,b);
+	    vec3 fadeColor = vec3(r,g,b);
         
-    float fade = 1.0 - (1.0 / (1.0 + zCamera * FADE_POWER));
-    fragColor.rgb = mix( fragColor.rgb, fadeColor.rgb, fade );
-}')
+	    float fade = 1.0 - (1.0 / (1.0 + zCamera * FADE_POWER));
+	    fragColor.rgb = mix( fragColor.rgb, fadeColor.rgb, fade );
+	}')
   public function new()
   {
     super();

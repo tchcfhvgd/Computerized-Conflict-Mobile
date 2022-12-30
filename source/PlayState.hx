@@ -1266,8 +1266,8 @@ class PlayState extends MusicBeatState
 					theHOGOVERLAYOMG.blend = LIGHTEN;
 					theHOGOVERLAYOMG.alpha = 0;
 					
-					if (ClientPrefs.shaders) if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+					if (ClientPrefs.shaders) if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 					//if (ClientPrefs.shaders) addShaderToCamera('camhud', new ChromaticAberrationEffect(0.0015));
 					
 					
@@ -3245,7 +3245,6 @@ class PlayState extends MusicBeatState
 					
 					spotlightbf.x = boyfriend.x - 355;
 					spotlightbf.y = boyfriend.y + boyfriend.height - 1350;
-					spotlightbf.scale.set(-1,1);
 					
 				case 'time travel':
 					

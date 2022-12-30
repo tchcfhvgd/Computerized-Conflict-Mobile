@@ -425,9 +425,7 @@ class FreeplayState extends MusicBeatState
 				colorTween.cancel();
 			}
 			
-			if (FlxG.keys.pressed.SHIFT){
-				LoadingState.loadAndSwitchState(new ChartingState());
-			} else if (songs[curSelected].songName == "amity".toLowerCase()) {
+			if (songs[curSelected].songName == "amity".toLowerCase()) {
 					MusicBeatState.switchState(new MinusCharSelector());
 			}
 			else
