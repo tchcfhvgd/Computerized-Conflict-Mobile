@@ -6438,9 +6438,6 @@ class PlayState extends MusicBeatState
 			opponentStrums.forEach(function(spr:StrumNote) {
 			    spr.cameras = [camGame];
 				spr.scrollFactor.set(1, 0);
-				spr.x = 1050 + 112 * spr.ID;
-				//addTextToDebug('note ' + spr.ID + ' ' + Std.string(spr.x), FlxColor.WHITE);
-				//spr.x += 200;
 			});
 						
 			for (note in unspawnNotes)
@@ -6709,6 +6706,9 @@ class PlayState extends MusicBeatState
 						blackBars(1);
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.1, FlxColor.WHITE, 0xFF191919);
 						babyArrowCamGame = true;
+						opponentStrums.forEach(function(spr:StrumNote) {
+							spr.x = 1050 + 112 * spr.ID;
+						});
 					case 96 | 256:
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
