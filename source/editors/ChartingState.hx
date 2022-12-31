@@ -92,7 +92,26 @@ class ChartingState extends MusicBeatState
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
-		['Xx_FancyPants_xX', 'does the fancy pants thing that is very fancy']
+		['Xx_FancyPants_xX', 'does the fancy pants thing that is very fancy'],
+		['defaultCamZoom', "Value 1: Set the actual cam zoom (1.05 is default)."],
+		['Tween Zoom', "Value 1: cam zoom but with tween (1.05 is default)\nValue 2: Time it takes to change fully in seconds."],
+		['Flash Camera WHITE', "Value 1: color, in MAYUS pls\nValue 2: time it appears."],
+		['Flash Camera BLACK', "Value 1: color, in MAYUS pls\nValue 2: time it appears."],
+		['Flash Camera RED', "Value 1: color, in MAYUS pls\nValue 2: time it appears."],
+		['Virabot Attack', 'Virabot will attack.'],
+		['Screen Flip X', 'camera will flip on left direction.'],
+		['Screen Flip Y', 'camera will flip on up direction.'],
+		['Popup', 'Adds a popup in a random position. Does not work if a popup is already open.'],
+		['zoomBeatType1', "testing"],
+		['zoomBeatType2', "testing"],
+		['zoomBeatType3', "testing"],
+		['zoomBeatType1 Cancel', "testing"],
+		['zoomBeatType2 Cancel', "testing"],
+		['zoomBeatType3 Cancel', "testing"],
+		['blackBars test', "testing"],
+		['cancel blackbars', "testing"],
+		['blackBars2 test', "testing"],
+		['cancel blackbars2', "testing"]
 	];
 
 	var _file:FileReference;

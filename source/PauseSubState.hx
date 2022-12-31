@@ -83,6 +83,11 @@ class PauseSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 		
+		if (PlayState.instance.oldVideoResolution)
+		{
+			bg.x += 50;
+		}
+		
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0;

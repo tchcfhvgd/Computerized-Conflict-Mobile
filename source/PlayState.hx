@@ -447,7 +447,7 @@ class PlayState extends MusicBeatState
 	//Misc. things:
 	
 	var LightsColors:Array<FlxColor>; //for the vignette changing color
-	var oldVideoResolution:Bool = false; // simulate 4:3 resolution like Alan old videos
+	public var oldVideoResolution:Bool = false; // simulate 4:3 resolution like Alan old videos
 	var judgementCounter:FlxText; //the combo counter that appears in the left of your screen
 	var needsBlackBG:Bool = false; //for songs that need to have a black bg (not hiding bf or dad)
 	
@@ -979,7 +979,7 @@ class PlayState extends MusicBeatState
 				
 			case 'rombieBG': //the joe rombie is real
 				{
-					var rombBG:BGSprite = new BGSprite('rombie/rombie_bg', -1050 , -640, 1, 1);
+					var rombBG:BGSprite = new BGSprite('rombie/rombie_bg', -1050 , -1140, 1, 1);
 					rombBG.setGraphicSize(Std.int(rombBG.width * 1.2));
 					rombBG.antialiasing = ClientPrefs.globalAntialiasing;
 					add(rombBG);
@@ -1081,7 +1081,7 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
 				}
 				
-			case 'bbpanzu-stage': //bbpanzu stickman
+			case 'bbpanzu-stage': //bbpanzu stickfigure
 				{
 					otakuBG = new BGSprite('dashpulse_bg', 0 , 0, 1, 1);
 					otakuBG.setGraphicSize(Std.int(otakuBG.width * 2.2));
@@ -1453,7 +1453,7 @@ class PlayState extends MusicBeatState
 						add(spotlightbf);
 						add(spotlightdad);
 				}
-			case 'unfaith-bg':
+			case 'unfaith-BG':
 				add(unfaithFRONT);
 			case 'carykh':
 				add(theHOGOVERLAYOMG);
@@ -1586,7 +1586,7 @@ class PlayState extends MusicBeatState
 			camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
 		}
 
-		if(dad.curCharacter.startsWith('gf')) {
+		if(dad.curCharacter.startsWith('gf') || dad.curCharacter.startsWith('animator-gf') && SONG.song.toLowerCase() == 'practice time') {
 			dad.setPosition(GF_X, GF_Y);
 			if(gf != null)
 				gf.visible = false;
@@ -1652,6 +1652,11 @@ class PlayState extends MusicBeatState
 		timeBarBG.yAdd = -4;
 		timeBarBG.screenCenter(X);
 		add(timeBarBG);
+		
+		if (ClientPrefs.downScroll)
+		{
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+		}
 
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
@@ -1764,6 +1769,10 @@ class PlayState extends MusicBeatState
 		scoreTxt.y += 270;
 		add(scoreTxt);
 		
+		if (ClientPrefs.downScroll) {
+			scoreTxt.y -= 570;
+		}
+		
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
 		judgementCounter.setFormat(Paths.font("phantommuff.ttf"), 28, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounter.borderSize = 2;
@@ -1809,10 +1818,10 @@ class PlayState extends MusicBeatState
 		{
 		    timeBarBG.x -= 70;
 			timeBar.x -= 70;
-			healthBar.x += 70;
-			healthBarBG.x += 70;
-			iconP1.x -= 70;
-			iconP2.x -= 70;
+			healthBar.x -= 110;
+		    healthBarBG.x -= 110;
+			iconP1.x -= 110;
+			iconP2.x -= 110;
 			scoreTxt.x += 70;
 			timeTxt.x -= 70;
 			judgementCounter.x += 70;
@@ -2695,7 +2704,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function startCharacterPos(char:Character, ?gfCheck:Bool = false) {
-		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
+		if(gfCheck && char.curCharacter.startsWith('gf') || char.curCharacter.startsWith('animator-gf') && SONG.song.toLowerCase() == 'practice time') { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
 			char.setPosition(GF_X, GF_Y);
 			char.scrollFactor.set(0.95, 0.95);
 			char.danceEveryNumBeats = 2;
@@ -3277,6 +3286,11 @@ class PlayState extends MusicBeatState
 			{
 				playerStrums.forEach(function(spr:StrumNote) {
 					spr.x -= 170;
+				
+					if (ClientPrefs.middleScroll)
+					{
+						spr.x += 100;
+					}
 				});
 			}
 
@@ -4727,7 +4741,7 @@ class PlayState extends MusicBeatState
 				if(Math.isNaN(time) || time <= 0) time = 0.6;
 
 				if(value != 0) {
-					if(dad.curCharacter.startsWith('gf')) { //Tutorial GF is actually Dad! The GF is an imposter!! ding ding ding ding ding ding ding, dindinding, end my suffering
+					if(dad.curCharacter.startsWith('gf') || dad.curCharacter.startsWith('animator-gf')) { //Tutorial GF is actually Dad! The GF is an imposter!! ding ding ding ding ding ding ding, dindinding, end my suffering
 						dad.playAnim('cheer', true);
 						dad.specialAnim = true;
 						dad.heyTimer = time;
@@ -4990,7 +5004,7 @@ class PlayState extends MusicBeatState
 							var lastAlpha:Float = dad.alpha;
 							dad.alpha = 0.00001;
 							dad = dadMap.get(value2);
-							if(!dad.curCharacter.startsWith('gf')) {
+							if(!dad.curCharacter.startsWith('gf') || !dad.curCharacter.startsWith('animator-gf')) {
 								if(wasGf && gf != null) {
 									gf.visible = true;
 								}
@@ -5230,6 +5244,7 @@ class PlayState extends MusicBeatState
 
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
+		FlxG.sound.music.stop();
 		vocals.volume = 0;
 		vocals.pause();
 		if(ClientPrefs.noteOffset <= 0 || ignoreNoteOffset) {
