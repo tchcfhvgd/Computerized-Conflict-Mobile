@@ -323,5 +323,6 @@ class TCOStoryState extends MusicBeatState
 		PlayState.seenCutscene = false;
 		LoadingState.loadAndSwitchState(new PlayState(), true);
 		FreeplayState.destroyFreeplayVocals();
+		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 	}
 }
