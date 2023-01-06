@@ -620,7 +620,7 @@ class PlayState extends MusicBeatState
 				case 'ugh' | 'guns' | 'stress':
 					curStage = 'tank';
 				case 'amity':
-					SONG.player1 = amityChar;
+					SONG.player1 = amityChar; //ni idea de por qué no funciona
 				default:
 					curStage = 'stage';
 			}
