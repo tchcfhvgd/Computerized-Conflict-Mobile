@@ -1,5 +1,4 @@
 Fix the health bar xd (not the bg one)
 Code tsc and green cameras on tune in
-Fix amity when changing the diff and reloading the chart on pause (it changes the selected bf)
 
 Fix the cutscene state xd (if u try to skip the video, it will reload again)

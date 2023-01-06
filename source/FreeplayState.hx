@@ -55,11 +55,9 @@ class FreeplayState extends MusicBeatState
 	'adobe',
 	't.c.o',
 	'end process'
-	
 	];
 	
 	var freeplaySongList:Array<String> = [
-	
 	'alan',
 	'trojan',
 	'dashpulse',
@@ -69,28 +67,22 @@ class FreeplayState extends MusicBeatState
 	'contrivance',
 	'messenger',
 	'amity',
-	
 	'aurora',
 	'phantasm'
-	
 	];
 	
 	var secretSongsList:Array<String> = [
-	
 	'tune in',
 	'unfaithful',
 	'rombie',
 	'fancy funk',
 	'catto'
-	
 	];
 	
 	var oldSongsList:Array<String> = [
-	
 	'adobe (old)',
 	'victim (old)',
 	'alan (old)'
-	
 	];
 
 	override function create()
