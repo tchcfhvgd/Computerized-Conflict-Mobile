@@ -87,7 +87,6 @@ class MinusCharSelector extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				boyfriend.animation.play('ye');
 				trace(bfSkins[actualNum]);
-				PlayState.amityChar = bfSkins[actualNum];
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
