@@ -321,7 +321,12 @@ class TCOStoryState extends MusicBeatState
 		PlayState.campaignMisses = 0;
 	    PlayState.storyWeek = 1;
 		PlayState.seenCutscene = false;
-		LoadingState.loadAndSwitchState(new PlayState(), true);
+		
+		//LoadingState.loadAndSwitchState(new CutsceneState('intro-C1', true, function()
+		//{
+			LoadingState.loadAndSwitchState(new PlayState(), true);
+		//}), true);
+		
 		FreeplayState.destroyFreeplayVocals();
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 	}

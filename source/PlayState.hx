@@ -442,6 +442,9 @@ class PlayState extends MusicBeatState
 			public var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
 			public var distortShaderHUD:Shaders.DistortedTVEffectHUD = new DistortedTVEffectHUD(); //fuck
 			
+		//phantasm:
+		    var controlDad:Bool = false;
+			
 	//end
 	
 	//Misc. things:
@@ -461,6 +464,8 @@ class PlayState extends MusicBeatState
 	var blackBG:FlxSprite; //the bg for the needblackbg bool
 	
 	var ondaCutscene:Bool = false; //handler so  player can't use the arrows
+	
+	public static var amityChar:String;
 	
 		//sonic.exe mod beat zooms type:
 			var zoomType1:Bool = false;
@@ -617,6 +622,8 @@ class PlayState extends MusicBeatState
 					curStage = 'schoolEvil';
 				case 'ugh' | 'guns' | 'stress':
 					curStage = 'tank';
+				case 'amity':
+					SONG.player1 = amityChar; //ni idea de por qué no funciona
 				default:
 					curStage = 'stage';
 			}
@@ -763,9 +770,9 @@ class PlayState extends MusicBeatState
 							
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0005));
 					
-						case 'tco':
+						case 'tco' | 'phantasm':
 							
-							addCharacterToList('stick-bf', 0);
+							if(songName == 'tco') addCharacterToList('stick-bf', 0);
 							
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 							
@@ -786,7 +793,7 @@ class PlayState extends MusicBeatState
 							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -80, 127, 0.95, 0.95, ['BG Guys Scared0']);
 							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.25));
 							ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
-							add(ScaredCrowd);
+							if(songName == 'tco') add(ScaredCrowd);
 							
 							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -650, -500, 0.9, 0.9);
 							stickpage.setGraphicSize(Std.int(stickpage.width * 1.1));
@@ -936,6 +943,8 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.y += 450;
 					if(SONG.song.toLowerCase() != 'end process') bottomBarsALT.alpha = 0;
 					add(bottomBarsALT);
+					
+					if (songName == 'phantasm') defaultCamZoom = 1.8;
 					
 					oldSongs = false;
 					
@@ -1409,7 +1418,7 @@ class PlayState extends MusicBeatState
 			introSoundsSuffix = '-pixel';
 		}
 
-		add(gfGroup); //Needed for blammed lights
+		if(songName != 'phantasm') add(gfGroup); //Needed for blammed lights
 
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
@@ -1423,6 +1432,8 @@ class PlayState extends MusicBeatState
 					case 'tco':
 						add(stickpage);
 						add(stickpageFloor);
+						add(bsod);
+					case 'phantasm':
 						add(bsod);
 					case 'end process':
 						add(corruptBG);
@@ -1741,19 +1752,23 @@ class PlayState extends MusicBeatState
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		healthBar.screenCenter(X);
 		healthBar.x += 150;
+		healthBar.y += 10;
+		
+		healthBar.scale.set(1.0, 0.7);
+		
 		add(healthBar);
 		add(healthBarBG);
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
+		iconP1.y = healthBar.y - 80;
 		iconP1.x += 150;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.y = healthBar.y - 75;
+		iconP2.y = healthBar.y - 80;
 		iconP2.x += 150;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
@@ -3272,7 +3287,7 @@ class PlayState extends MusicBeatState
 					}
 					
 					for (i in 0...opponentStrums.length) {
-						opponentStrums.members[i].x += ((FlxG.width / 2) * playerStrums.members[i].x);
+						opponentStrums.members[i].x -= ((FlxG.width / 2) * playerStrums.members[i].x);
 					}
 					
 				case 'tune in':
@@ -4108,6 +4123,11 @@ class PlayState extends MusicBeatState
 		
 		
 		testShader3D.shader.iTime.value[0] += elapsed;
+		
+		if (oldVideoResolution)
+		{
+			FlxG.fullscreen = false;
+		}
 		
 		if (health > 0.2 && lossingHealth && CoolUtil.difficultyString() != 'SIMPLE')
 		{
@@ -6006,7 +6026,10 @@ class PlayState extends MusicBeatState
 		switch(dad.curCharacter)
 		{
 			case 'the-chosen-one':
-				setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
+				
+				if (!FlxG.fullscreen) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
+				else setCamShake([camHUD, camGame, camBars, camOther], 0.015, 0.05, 0.005);
+				
 			case 'angry-minus-tco':
 				setCamShake([camGame], 0.015, 0.05, 0.005);
 			case 'the-dark-lord':
@@ -6144,10 +6167,16 @@ class PlayState extends MusicBeatState
 						gf.holdTimer = 0;
 					}
 				}
-				else
+				else if (!controlDad)
 				{
 					boyfriend.playAnim(animToPlay + note.animSuffix, true);
 					boyfriend.holdTimer = 0;
+				}
+				
+				if (controlDad)
+				{
+					dad.playAnim(animToPlay + note.animSuffix, true);
+					dad.holdTimer = 0;
 				}
 
 				if(note.noteType == 'Hey!') {
@@ -6164,7 +6193,7 @@ class PlayState extends MusicBeatState
 					}
 				}
 			}
-
+			
 			if(cpuControlled) {
 				var time:Float = 0.15;
 				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
@@ -6570,6 +6599,39 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(this, {songLength: songLength, timeBar: 1}, 3);
 				}
 				
+			case 'phantasm':
+				switch(curStep)
+				{
+					case 1:
+						FlxG.camera.fade(FlxColor.BLACK, 15, true);
+						triggerEventNote('Tween Zoom', '0.7', '15');
+						isCameraOnForcedPos = true;
+						camFollow.x = boyfriendCameraOffset[0] + 1200;
+						camFollow.y -= 50;
+						
+					case 112:
+						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+						
+					case 128:
+						FlxG.camera.fade(FlxColor.BLACK, 0, true);
+						isCameraOnForcedPos = false;
+						defaultCamZoom = 0.7;
+						
+					case 384 | 768 | 1151 | 1172 | 1282 | 1536 | 1922 | 1937 | 1943 | 1956:
+						controlDad = true;
+						
+						objectColor([Floor, Background1, whiteScreen], 0xFF2C2425);
+						setAlpha([redthing], 1);
+						setVisible([fires1, fires2], true);
+						
+					case 640 | 1024 | 1154 | 1176 | 1408 | 1792 | 1926 | 1940 | 1946 | 1960:
+						controlDad = false;
+						
+						objectColor([Floor, Background1, whiteScreen], FlxColor.WHITE);
+						setAlpha([redthing], 0);
+						setVisible([fires1, fires2], false);
+				}
+				
 			case 'fancy funk':
 				switch(curStep)
 				{
@@ -6822,11 +6884,12 @@ class PlayState extends MusicBeatState
 					switch (SONG.song.toLowerCase())
 					{
 						case 'adobe':
-							if (curBeat % 2 == 0) setDance([Crowd], true);
+							if (curBeat % 2 == 0 && Crowd != null) setDance([Crowd], true);
 						case 'tco':
-							setDance([ScaredCrowd], true);
+							if (ScaredCrowd != null) setDance([ScaredCrowd], true);
 						case 'end process':
-							if (curBeat % 2 == 0) setDance([virabot1, virabot2, virabot3, virabot4], true);
+							if (curBeat % 2 == 0 && virabot1 != null && virabot2 != null && virabot3 != null
+							&& virabot4 != null) setDance([virabot1, virabot2, virabot3, virabot4], true);
 					}
 				}
 				

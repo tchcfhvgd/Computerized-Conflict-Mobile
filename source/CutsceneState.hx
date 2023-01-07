@@ -29,6 +29,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+import openfl.utils.Assets as OpenFlAssets;
 
 #if VIDEOS_ALLOWED
 import vlc.MP4Handler;
@@ -39,33 +40,60 @@ using StringTools;
 class CutsceneState extends MusicBeatState
 {
 	public var finishCallback:Void->Void;
-	public var songName:String;
+	public var videoName:String;
 	public var endingCutscene:Bool = false;
-
-	public var video:MP4Handler;
-
-	public function new(songName:String, isEnd:Bool, ?finishCallback:Void->Void)
+	public var isIntro:Bool = false;
+	
+	public function new(videoName:String, isEnd:Bool, ?finishCallback:Void->Void)
 	{
 		super();
 
 		if (finishCallback != null)
 			this.finishCallback = finishCallback;
 
-		this.songName = songName;
-		endingCutscene = isEnd;
+		this.videoName = videoName;
 	}
 	
 	override public function create()
 	{
+		super.create();
 		Paths.clearStoredMemory();
 		
-		video = new MP4Handler();
-		video.playVideo(Paths.video(songName + '-cutscene'));
-		
+		startVideo(videoName + '-cutscene');
+	}
+	
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+	}
+	
+	public function startVideo(name:String)
+	{
+		#if VIDEOS_ALLOWED
+
+		var filepath:String = Paths.video(name);
+		#if sys
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
+		#end
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			finishCallback();
+			return;
+		}
+
+		var video:MP4Handler = new MP4Handler();
+		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
-			if (finishCallback != null)
-				finishCallback();
+			if (finishCallback != null) finishCallback();
+			return;
 		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		finishCallback();
+		return;
+		#end
 	}
 }

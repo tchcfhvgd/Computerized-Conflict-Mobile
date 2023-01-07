@@ -61,6 +61,10 @@ class MinusCharSelector extends MusicBeatState
 		boyfriend = new FlxSprite();
 		add(boyfriend);
 		
+		for (i in 0...bfSkins.length){
+			Paths.getSparrowAtlas('characters/CC/extras/minus/' + bfSkins[i], 'shared');
+		}
+		
 		changeBF();
 		
 		super.create();
@@ -82,6 +86,8 @@ class MinusCharSelector extends MusicBeatState
 				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				boyfriend.animation.play('ye');
+				trace(bfSkins[actualNum]);
+				PlayState.amityChar = bfSkins[actualNum];
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
@@ -91,6 +97,8 @@ class MinusCharSelector extends MusicBeatState
 					});
 				});
 				PlayState.SONG.player1 = bfSkins[actualNum];
+				PlayState.amityChar = bfSkins[actualNum];
+				//PlayState.SONG.player1 = bfSkins[actualNum];
 			}
 			
 			
