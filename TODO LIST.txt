@@ -1,4 +1,3 @@
 Code tsc and green cameras on tune in
-amity thing aaa
 
 Fix the cutscene state xd (if u try to skip the video, it will reload again)
