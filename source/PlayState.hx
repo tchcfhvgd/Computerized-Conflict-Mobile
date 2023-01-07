@@ -464,6 +464,8 @@ class PlayState extends MusicBeatState
 	var blackBG:FlxSprite; //the bg for the needblackbg bool
 	
 	var ondaCutscene:Bool = false; //handler so  player can't use the arrows
+
+	public static var amityChar:String;
 	
 	public static var amityChar:String;
 	
@@ -1744,7 +1746,7 @@ class PlayState extends MusicBeatState
 		//add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 8, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 50), Std.int(healthBarBG.height - 28), this,
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 50, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 50), Std.int(healthBarBG.height - 28), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
