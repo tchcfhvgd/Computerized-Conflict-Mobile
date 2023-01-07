@@ -96,6 +96,9 @@ class MinusCharSelector extends MusicBeatState
 						LoadingState.loadAndSwitchState(new PlayState());
 					});
 				});
+				
+				PlayState.SONG.player1 = bfSkins[actualNum];
+				PlayState.amityChar = bfSkins[actualNum];
 				//PlayState.SONG.player1 = bfSkins[actualNum];
 			}
 			
