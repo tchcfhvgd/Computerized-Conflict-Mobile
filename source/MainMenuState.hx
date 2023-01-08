@@ -370,16 +370,18 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.shader = new Shaders.GreyscaleShader();
+			if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();
 			spr.alpha = 0.5;
 			spr.updateHitbox();
 			
-			zoomTween = FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {
-				ease: FlxEase.quadOut,
-				onComplete: function(twn:FlxTween) {
-					zoomTween = null;
-				}
-			});
+			if (spr.ID != curSelected){
+				zoomTween = FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {
+					ease: FlxEase.quadOut,
+					onComplete: function(twn:FlxTween) {
+						zoomTween = null;
+					}
+				});
+			}
 			//spr.updateHitbox();
 
 			if (spr.ID == curSelected)

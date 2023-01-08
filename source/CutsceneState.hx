@@ -56,7 +56,6 @@ class CutsceneState extends MusicBeatState
 	
 	override public function create()
 	{
-		super.create();
 		Paths.clearStoredMemory();
 		
 		startVideo(videoName + '-cutscene');
@@ -79,21 +78,23 @@ class CutsceneState extends MusicBeatState
 		#end
 		{
 			FlxG.log.warn('Couldnt find video file: ' + name);
-			finishCallback();
-			return;
+			goToState();
 		}
 
 		var video:MP4Handler = new MP4Handler();
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
-			if (finishCallback != null) finishCallback();
-			return;
+			goToState();
 		}
 		#else
 		FlxG.log.warn('Platform not supported!');
-		finishCallback();
-		return;
+		goToState();
 		#end
+	}
+	
+	function goToState()
+	{
+		LoadingState.loadAndSwitchState(new PlayState());
 	}
 }

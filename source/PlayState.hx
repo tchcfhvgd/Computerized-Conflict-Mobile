@@ -444,6 +444,7 @@ class PlayState extends MusicBeatState
 			
 		//phantasm:
 		    var controlDad:Bool = false;
+			public var barDirection:FlxBarFillDirection = LEFT_TO_RIGHT;
 			
 	//end
 	
@@ -1376,6 +1377,23 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.characterName = 'tco-aol-dead';
 				}
 				
+			case 'World 1':
+				{
+					var bg:BGSprite = new BGSprite('world1/fancy_bg', 0, 0, 0.9, 0.9);
+					bg.setGraphicSize(Std.int(bg.width * 1.5));
+					bg.screenCenter();
+					bg.antialiasing = ClientPrefs.globalAntialiasing;
+					bg.updateHitbox();
+					add(bg);
+					
+					var floor:BGSprite = new BGSprite('world1/fancy_floor', 0, 0, 1, 1);
+					floor.setGraphicSize(Std.int(floor.width * 1.5));
+					floor.screenCenter();
+					floor.antialiasing = ClientPrefs.globalAntialiasing;
+					floor.updateHitbox();
+					add(floor);
+				}
+				
 			case 'aurora': //Cover 2
 				{
 					var bg:BGSprite = new BGSprite('aurora/wow_1', -820, -535, 1, 1);
@@ -1390,6 +1408,13 @@ class PlayState extends MusicBeatState
 					add(jumpScare);
 					jumpScare.visible = false;
 					jumpScare.cameras = [camHUD];*/
+				}
+				
+			case 'catto':
+				{
+					var bg:BGSprite = new BGSprite('Wong_Mau', 0, 0, 1, 1);
+					bg.screenCenter();
+					add(bg);
 				}
 				
 			case 'animStage-old': //Old Stage
@@ -1669,7 +1694,7 @@ class PlayState extends MusicBeatState
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 		}
 
-		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, barDirection, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
@@ -6620,6 +6645,7 @@ class PlayState extends MusicBeatState
 					case 384 | 768 | 1151 | 1172 | 1282 | 1536 | 1922 | 1937 | 1943 | 1956:
 						controlDad = true;
 						
+						barDirection = RIGHT_TO_LEFT;
 						objectColor([Floor, Background1, whiteScreen], 0xFF2C2425);
 						setAlpha([redthing], 1);
 						setVisible([fires1, fires2], true);
@@ -6627,6 +6653,7 @@ class PlayState extends MusicBeatState
 					case 640 | 1024 | 1154 | 1176 | 1408 | 1792 | 1926 | 1940 | 1946 | 1960:
 						controlDad = false;
 						
+						barDirection = LEFT_TO_RIGHT;
 						objectColor([Floor, Background1, whiteScreen], FlxColor.WHITE);
 						setAlpha([redthing], 0);
 						setVisible([fires1, fires2], false);
