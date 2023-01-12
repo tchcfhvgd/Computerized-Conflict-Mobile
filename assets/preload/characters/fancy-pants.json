@@ -71,10 +71,10 @@
 				122,
 				-271
 			],
-			"indices": [],
+			"loop": true,
 			"fps": 24,
 			"anim": "dou",
-			"loop": true,
+			"indices": [],
 			"name": "FancyPantsAltow"
 		}
 	],
@@ -82,7 +82,7 @@
 	"image": "characters/CC/extras/Fancy_Pants",
 	"position": [
 		0,
-		-330
+		-310
 	],
 	"healthicon": "face",
 	"flip_x": true,

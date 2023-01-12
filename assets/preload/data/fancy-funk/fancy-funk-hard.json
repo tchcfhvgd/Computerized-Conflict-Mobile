@@ -1,5 +1,6 @@
 {
 	"song": {
+                "composer": "SharkFaceGaming",
 		"player1": "bf",
 		"player2": "fancy-pants",
 		"notes": [
@@ -6034,7 +6035,7 @@
 		"song": "Fancy Funk",
 		"validScore": true,
 		"needsVoices": true,
-		"stage": "whiteSpace",
+		"stage": "World 1",
 		"speed": 2.8,
 		"bpm": 172
 	}

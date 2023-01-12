@@ -64,6 +64,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.addons.text.FlxTypeText;
 import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.system.scaleModes.RatioScaleMode;
+import lime.app.Application;
 
 
 //0.5.1 shaders
@@ -228,6 +229,7 @@ class PlayState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var camBars:FlxCamera;
+	public var camChar:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
@@ -436,6 +438,9 @@ class PlayState extends MusicBeatState
 			var otakuBG:BGSprite;
 			public var NTSCshader:Shaders.NTSCEffect = new NTSCEffect(); //fuck
 			
+		//kickstarter:
+		    var leftSide:Bool = false;
+			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
 			var rombieEndProcessReference:BGSprite;
@@ -560,11 +565,16 @@ class PlayState extends MusicBeatState
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camBars = new FlxCamera();
+		camChar = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camBars.bgColor.alpha = 0;
+		camChar.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		
+		if (SONG.song.toLowerCase() == 'amity') FlxG.cameras.add(camChar, false);
+		
 		FlxG.cameras.add(camBars, false);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
@@ -983,6 +993,8 @@ class PlayState extends MusicBeatState
 					solitarie.antialiasing = false;
 					add(solitarie);
 					
+					leftSide = true;
+					
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 				}
@@ -1087,6 +1099,15 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
+					
+					if (songName == 'amity')
+					{
+						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+						camHUD.alpha = 0;
+					}
+					
+					needsBlackBG = true;
+					
 					
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
 				}
@@ -1380,14 +1401,14 @@ class PlayState extends MusicBeatState
 			case 'World 1':
 				{
 					var bg:BGSprite = new BGSprite('world1/fancy_bg', 0, 0, 0.9, 0.9);
-					bg.setGraphicSize(Std.int(bg.width * 1.5));
+					bg.setGraphicSize(Std.int(bg.width * 1.25));
 					bg.screenCenter();
 					bg.antialiasing = ClientPrefs.globalAntialiasing;
 					bg.updateHitbox();
 					add(bg);
 					
 					var floor:BGSprite = new BGSprite('world1/fancy_floor', 0, 0, 1, 1);
-					floor.setGraphicSize(Std.int(floor.width * 1.5));
+					floor.setGraphicSize(Std.int(floor.width * 1.25));
 					floor.screenCenter();
 					floor.antialiasing = ClientPrefs.globalAntialiasing;
 					floor.updateHitbox();
@@ -1846,6 +1867,13 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		judgementCounter.cameras = [camHUD];
 		doof.cameras = [camHUD];
+		
+		if (leftSide)
+		{
+			healthBar.flipX = true;
+			iconP1.flipX = true;
+			iconP2.flipX = true;
+		}
 		
 		healthBar.alpha = 0;
 		healthBarBG.alpha = 0;
@@ -3305,21 +3333,17 @@ class PlayState extends MusicBeatState
 						spr.alpha = 0;
 					});
 					
-				case 'kickstarter':
-					
-					for (i in 0...playerStrums.length) {
-						playerStrums.members[i].x = opponentStrums.members[i].x;
-					}
-					
-					for (i in 0...opponentStrums.length) {
-						opponentStrums.members[i].x -= ((FlxG.width / 2) * playerStrums.members[i].x);
-					}
-					
 				case 'tune in':
 					
 					opponentStrums.forEach(function(spr:StrumNote) {
 						spr.x -= 1000;
 					});
+					
+				case 'amity':
+					
+					isCameraOnForcedPos = true;
+					camFollow.x = gf.getMidpoint().x + gf.cameraPosition[1] + girlfriendCameraOffset[1]; 
+					camFollow.y = gf.getMidpoint().y + gf.cameraPosition[2] + girlfriendCameraOffset[2]; 
 			}
 			
 			if (oldVideoResolution)
@@ -3332,6 +3356,17 @@ class PlayState extends MusicBeatState
 						spr.x += 100;
 					}
 				});
+			}
+			
+			if (leftSide)
+			{
+				for (i in 0...playerStrums.length) {
+					playerStrums.members[i].x = opponentStrums.members[i].x;
+				}
+					
+				for (i in 0...opponentStrums.length) {
+					opponentStrums.members[i].x -= ((FlxG.width / 2) * playerStrums.members[i].x);
+				}
 			}
 
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000 / playbackRate, function(tmr:FlxTimer)
@@ -4366,6 +4401,13 @@ class PlayState extends MusicBeatState
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
+		
+		if (leftSide)
+		{
+			iconP1.x = healthBar.x - (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+			iconP2.x = healthBar.x - (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		}
+		
 		if (health > 2)
 			health = 2;
 
@@ -6052,11 +6094,12 @@ class PlayState extends MusicBeatState
 		{
 			case 'the-chosen-one':
 				
-				if (!FlxG.fullscreen) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
+				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
 				else setCamShake([camHUD, camGame, camBars, camOther], 0.015, 0.05, 0.005);
 				
 			case 'angry-minus-tco':
-				setCamShake([camGame], 0.015, 0.05, 0.005);
+				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camGame], 0.015, 0.05, 0.005);
+				else setCamShake([camGame, camBars, camOther], 0.015, 0.05, 0.005);
 			case 'the-dark-lord':
 				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023);
 		}
@@ -6840,10 +6883,41 @@ class PlayState extends MusicBeatState
 			case 'amity':
 				switch(curBeat)
 				{
+					case 1:
+						FlxG.camera.fade(FlxColor.BLACK, 3, true);
+						triggerEventNote('Tween Zoom', '0.65', '10');
+						
+					case 32:
+						isCameraOnForcedPos = false;
+						FlxTween.tween(camHUD, {alpha:1}, 1); //showhud shit doesn't work
 					case 128 | 160 | 384 | 416:
 						changeBetweenMinusTCO(true);
 					case 144 | 192 | 400 | 444:
 						changeBetweenMinusTCO(false);
+					case 448:
+						FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
+						dadGroup.cameras = [camChar];
+						boyfriendGroup.cameras = [camChar];
+						clearShaderFromCamera(['camgame']);
+						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
+						setAlpha([blackBG], 1);
+						
+						boyfriend.y -= 170;
+						dad.y -= 100;
+						
+						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
+						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
+						
+					case 480:
+						boyfriend.acceleration.y = FlxG.random.int(200, 300) * playbackRate;
+						boyfriend.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+						
+						dad.acceleration.y = FlxG.random.int(200, 300) * playbackRate;
+						dad.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+						
+						FlxTween.tween(dad, {alpha:0}, 1.5);
+						FlxTween.tween(boyfriend, {alpha:0}, 1.5);
+						FlxTween.tween(camHUD, {alpha:0}, 1);
 				}
 			case 'unfaithful':
 				switch(curBeat)
