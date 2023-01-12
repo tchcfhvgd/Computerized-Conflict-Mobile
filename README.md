@@ -21,9 +21,9 @@ If you want video support on your mod, simply do `haxelib install hxCodec` on a 
 
 otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
 
-To install the new DiscordRPC you need to type: `haxelib git discord_rpc_yce https://github.com/YoshiCrafter29/LincDiscordRPCButtons` on a Command prompt/PowerShell, or else the mod will not compile.
+To install the new DiscordRPC you need to type: `haxelib git discord_rpc https://github.com/YoshiCrafter29/LincDiscordRPCButtons` on a Command prompt/PowerShell, or else the mod will not compile.
 
-If you can't install discord_rpc_yce in that way, download this one: https://drive.google.com/file/d/1uybV4nLgIFv6j5dnl1yAV8sT7dc5Dfib/view
+If you can't install the discord_rpc in that way, download this one: https://drive.google.com/file/d/1uybV4nLgIFv6j5dnl1yAV8sT7dc5Dfib/view
 
 After downloading it, go to `C:\HaxeToolkit\haxe\lib\` and extract the zip file.
 
@@ -68,6 +68,7 @@ _____________________________________
 * Biddle3 - Original composer of "Phantasm".
 * Armydillo - Original composer of "Aurora".
 * TzenNime - Cool BF sprite.
+* YoshiCrafter29 - Discord RPC fork.
 _____________________________________
 
 ![cursor](https://cdn.discordapp.com/attachments/812123319586521122/1053523407511232573/cursor.png?width=300&height=300)
