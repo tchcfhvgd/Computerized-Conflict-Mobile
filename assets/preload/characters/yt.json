@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				-170
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "yt idle",
-			"indices": []
+			"indices": [],
+			"name": "yt idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-48,
-				-81
+				-28,
+				-87
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "yt up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "yt up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-4,
-				-257
+				-267
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "yt down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "yt down"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				131,
+				101,
 				-234
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "yt left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "yt left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-261,
 				-112
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "yt right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "yt right"
 		}
 	],
 	"no_antialiasing": false,
