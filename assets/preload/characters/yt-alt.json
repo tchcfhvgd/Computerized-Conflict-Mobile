@@ -4,75 +4,75 @@
 			"loop": false,
 			"offsets": [
 				0,
-				0
+				-170
 			],
 			"anim": "idle",
 			"fps": 24,
-			"name": "YOUTUBEidle",
+			"name": "yt idle alt",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-10,
-				-38
-			],
-			"anim": "singLEFT",
-			"fps": 24,
-			"name": "YOUTUBEnoteleft",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-6,
-				-118
-			],
-			"anim": "singDOWN",
-			"fps": 24,
-			"name": "YOUTUBEnotedown",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				180,
-				148
+				-21,
+				-154
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "YOUTUBEnoteup",
+			"name": "yt up alt",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				348,
-				-7
+				25,
+				-178
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "yt down alt",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-114,
+				-179
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "YOUTUBEnoteright",
+			"name": "yt right alt",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				-173
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "yt left alt",
 			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/CC/extras/youtube",
+	"image": "characters/CC/extras/youtube_alt",
 	"position": [
-		0,
-		140
+		-240,
+		-370
 	],
-	"healthicon": "yt",
+	"healthicon": "youtube",
 	"flip_x": false,
 	"healthbar_colors": [
-		255,
-		0,
-		0
+		181,
+		46,
+		56
 	],
 	"camera_position": [
-		-650,
-		-430
+		120,
+		250
 	],
 	"sing_duration": 6.1,
-	"scale": 3
+	"scale": 1
 }

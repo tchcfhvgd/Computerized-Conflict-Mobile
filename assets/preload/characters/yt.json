@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-170
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "yt idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-48,
+				-81
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "yt up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-4,
+				-257
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "yt down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				131,
+				-234
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "yt left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-261,
+				-112
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "yt right",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/youtube",
+	"position": [
+		-490,
+		-420
+	],
+	"healthicon": "youtube",
+	"flip_x": false,
+	"healthbar_colors": [
+		181,
+		46,
+		56
+	],
+	"camera_position": [
+		-80,
+		250
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}
