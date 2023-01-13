@@ -862,20 +862,19 @@ class PlayState extends MusicBeatState
 							virabot3.flipX = true;
 					    	add(virabot3);
 							
-							googleBurn = new FlxSprite(0, -50);
+							googleBurn = new FlxSprite(0, -100);
 							googleBurn.frames = Paths.getSparrowAtlas('EProcess/GoogleBurning', 'chapter1');
 							googleBurn.animation.addByPrefix('idle', 'Symbol 2 instance 10', 16, true);
 							googleBurn.animation.play('idle');
 							googleBurn.scale.set(0.7, 0.7);
 							googleBurn.screenCenter();
-							googleBurn.y += 850;
 							googleBurn.x += 250;
 							googleBurn.angle = -4;
 							add(googleBurn);
 							//FlxTween.tween(googleBurn, {y: googleBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 							FlxTween.angle(googleBurn, googleBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
 							
-							twitterBurn = new FlxSprite(1300, 720); //thank to god the most toxic social media is on fire
+							twitterBurn = new FlxSprite(1300, -320); //thank to god the most toxic social media is on fire
 							twitterBurn.frames = Paths.getSparrowAtlas('EProcess/TwitterBurning', 'chapter1');
 							twitterBurn.animation.addByPrefix('idle', 'Symbol 4 instance 10', 16, true);
 							twitterBurn.animation.play('idle');
@@ -885,7 +884,7 @@ class PlayState extends MusicBeatState
 							//FlxTween.tween(twitterBurn, {y: twitterBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 							FlxTween.angle(twitterBurn, twitterBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
 							
-							newgroundsBurn = new FlxSprite(-1000, 720);
+							newgroundsBurn = new FlxSprite(-1000, 220);
 							newgroundsBurn.frames = Paths.getSparrowAtlas('EProcess/NewgroundsBurning', 'chapter1');
 							newgroundsBurn.animation.addByPrefix('idle', 'Symbol 3 instance 10', 16, true);
 							newgroundsBurn.animation.play('idle');
@@ -6811,18 +6810,9 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 80:
-						FlxTween.tween(googleBurn, {y: googleBurn.y - 1300}, 1, {ease:FlxEase.smoothStepInOut, onComplete: function(tween:FlxTween) {
-							FlxTween.tween(googleBurn, {y: googleBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
-						   }
-						});
-						FlxTween.tween(twitterBurn, {y: twitterBurn.y - 1040}, 1, {ease:FlxEase.smoothStepInOut, onComplete: function(tween:FlxTween) {
-							FlxTween.tween(twitterBurn, {y: twitterBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
-						   }
-						});
-						FlxTween.tween(newgroundsBurn, {y: newgroundsBurn.y - 1040}, 1, {ease:FlxEase.smoothStepInOut, onComplete: function(tween:FlxTween) {
-							FlxTween.tween(newgroundsBurn, {y: newgroundsBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
-						   }
-						});
+						FlxTween.tween(newgroundsBurn, {y:newgroundsBurn.y +1000}, 2, {type:LOOPING});
+						FlxTween.tween(twitterBurn, {y:twitterBurn.y +1000}, 2, {type:LOOPING});
+						FlxTween.tween(googleBurn, {y:googleBurn.y +1000}, 2, {type:LOOPING});
 					case 140:
 						FlxG.sound.play(Paths.sound('intro3'), 0.6);
 					case 141:
