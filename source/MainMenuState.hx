@@ -191,7 +191,7 @@ class MainMenuState extends MusicBeatState
 
 		// NG.core.calls.event.logEvent('swag').send();
 
-		changeItem(1);
+		changeItem(1-curSelected);
 
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
@@ -293,53 +293,46 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')
-				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
-				}
-				else
-				{
-					selectedSomethin = true;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
+				selectedSomethin = true;
+				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					menuItems.forEach(function(spr:FlxSprite)
+				menuItems.forEach(function(spr:FlxSprite)
+				{
+					if (curSelected != spr.ID)
 					{
-						if (curSelected != spr.ID)
-						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
-						}
-						else
-						{
-							
-							new FlxTimer().start(1.5, function(tmr:FlxTimer)
+						FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							ease: FlxEase.quadOut,
+							onComplete: function(twn:FlxTween)
 							{
-								var daChoice:String = optionShit[curSelected];
+								spr.kill();
+							}
+						});
+					}
+					else
+					{
+						
+						new FlxTimer().start(1.5, function(tmr:FlxTimer)
+						{
+							var daChoice:String = optionShit[curSelected];
 
-								switch (daChoice)
-								{
-									case 'storymode':
-										MusicBeatState.switchState(new TCOStoryState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'art_gallery':
-										MusicBeatState.switchState(new FanArtState());
-									case 'credits':
-										MusicBeatState.switchState(new LanguageSelectState());
-									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
-								}
-							});
-						}
+							switch (daChoice)
+							{
+								case 'storymode':
+									MusicBeatState.switchState(new TCOStoryState());
+								case 'freeplay':
+									MusicBeatState.switchState(new FreeplayState());
+								case 'awards':
+									MusicBeatState.switchState(new AchievementsMenuState());
+								case 'art_gallery':
+									MusicBeatState.switchState(new FanArtState());
+								case 'credits':
+									MusicBeatState.switchState(new LanguageSelectState());
+								case 'options':
+									LoadingState.loadAndSwitchState(new options.OptionsState());
+							}
+						});
+					}
 					});
-				}
 			}
 			
 			#if desktop
