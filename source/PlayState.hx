@@ -5179,6 +5179,15 @@ class PlayState extends MusicBeatState
 				closePopup.updateHitbox();
 				add(closePopup);
 
+				var timeThing = 10;
+				switch(CoolUtil.difficultyString())
+				{
+					case 'SIMPLE':
+						timeThing = 20;
+					case 'HARD':
+						timeThing = 15;
+				}
+
 				popUpTimer = new FlxTimer();
 				popUpTimer.start(10, function(timer:FlxTimer) {
 					health = -0.1;
