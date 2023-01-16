@@ -5189,7 +5189,7 @@ class PlayState extends MusicBeatState
 				}
 
 				popUpTimer = new FlxTimer();
-				popUpTimer.start(10, function(timer:FlxTimer) {
+				popUpTimer.start(timeThing, function(timer:FlxTimer) {
 					health = -0.1;
 				});
 				
