@@ -5213,6 +5213,15 @@ class PlayState extends MusicBeatState
 						timeThing = 15;
 				}
 
+				var timeThing = 10;
+				switch(CoolUtil.difficultyString())
+				{
+					case 'SIMPLE':
+						timeThing = 20;
+					case 'HARD':
+						timeThing = 15;
+				}
+
 				popUpTimer = new FlxTimer();
 				popUpTimer.start(timeThing, function(timer:FlxTimer) {
 					health = -0.1;
