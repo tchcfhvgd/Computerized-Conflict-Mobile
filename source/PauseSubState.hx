@@ -234,6 +234,9 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				case "Resume":
 					close();
+					
+					if (PlayState.SONG.song.toLowerCase() == 'end process' && PlayState.instance.popUpTimer != null) PlayState.instance.popUpTimer.active = true;
+					
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();

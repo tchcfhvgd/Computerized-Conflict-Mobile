@@ -24,17 +24,32 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+import haxe.Json;
+import flixel.addons.display.FlxBackdrop;
+
+using StringTools;
 
 class MinusCharSelector extends MusicBeatState
 {
-	public var boyfriend:FlxSprite;
+	public var boyfriend:Character = null;
+	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public static var bfSkins:Array<String> = ['betaBF', 'blueBF', 'meanBF'];
 	public static var actualNum = 0;
 	var selectedSmth:Bool = false;
 	var bg:FlxSprite;
+	var arrows:FlxSprite;
+	var scrollingThing:FlxBackdrop;
 	var colorTween:FlxTween;
 	var topBars:FlxSprite;
 	var bottomBars:FlxSprite;
+	var LittleTopBars:FlxSprite;
+	var LittleBottomBars:FlxSprite;
+	var namesText:Alphabet;
+	var CharMenuText:FlxText;
+	var charNames:Array<String> = [
+	'Beta\nBoyfriend',
+	'Blue\nBoyfriend',
+	'Mean\nBoyfriend'];
 	
 	override public function create()
 	{
@@ -48,32 +63,91 @@ class MinusCharSelector extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		
+		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.35));
+		scrollingThing.alpha = 0.8;
+		add(scrollingThing);
+		
 		topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
 		topBars.screenCenter();
-		topBars.y -= 850;
+		topBars.y -= 400;
+		topBars.angle -= 8;
 		add(topBars);
 					
 		bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
 		bottomBars.screenCenter();
-		bottomBars.y += 850;
+		bottomBars.y += 420;
+		bottomBars.angle -= 8;
 		add(bottomBars);
 		
-		boyfriend = new FlxSprite();
-		add(boyfriend);
-
-		for (i in 0...bfSkins.length){
-			Paths.getSparrowAtlas('characters/CC/extras/minus/' + bfSkins[i], 'shared');
+		LittleTopBars = new FlxSprite().makeGraphic (2580, 20, FlxColor.BLACK);
+		LittleTopBars.screenCenter();
+		LittleTopBars.y -= 225;
+		LittleTopBars.angle -= 8;
+		add(LittleTopBars);
+					
+		LittleBottomBars = new FlxSprite().makeGraphic (2580, 20, FlxColor.BLACK);
+		LittleBottomBars.screenCenter();
+		LittleBottomBars.y += 245;
+		LittleBottomBars.angle -= 8;
+		add(LittleBottomBars);
+		
+		arrows = new FlxSprite().loadGraphic(Paths.image('arrowSelection'));
+		arrows.updateHitbox();
+		arrows.screenCenter();
+		arrows.antialiasing = ClientPrefs.globalAntialiasing;
+		add(arrows);
+		
+		CharMenuText = new FlxText(0, 0, "Choose your character!", 40);
+		CharMenuText.setFormat(Paths.font("phantommuff.ttf"), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(CharMenuText);
+		
+		Paths.setCurrentLevel('shared');
+		
+			
+        boyfriend = new Character(0, 0, bfSkins[actualNum], true);
+		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.85));
+		boyfriend.screenCenter();
+		boyfriend.x += 350;
+		boyfriend.updateHitbox();
+		boyfriend.dance();
+		insert(2, boyfriend);
+		
+		namesText = new Alphabet(0, 0, charNames[actualNum], true);
+		namesText.alignment = CENTERED;
+		namesText.screenCenter();
+		namesText.x -= 0;
+		add(namesText);
+		
+		
+		var iconP1:HealthIcon = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1.y = 580;
+		iconP1.x += 1050;
+		add(iconP1);
+		
+		for (anim in boyfriend.animOffsets.keys()) {
+			boyfriend.animOffsets[anim] = [boyfriend.animOffsets[anim][0]* 0.85,boyfriend.animOffsets[anim][1]* 0.85];
 		}
 		
 		changeBF();
+		
+		for (i in 0...bfSkins.length) addCharacterToList(bfSkins[i]);
 		
 		super.create();
 	}
 	
 	override function update(elapsed:Float)
 	{
+		
+		scrollingThing.x -= 0.45;
+		scrollingThing.y -= 0.16;
+		
 		if (!selectedSmth)
 		{
+			if(boyfriend != null && boyfriend.animation.curAnim.finished) {
+				boyfriend.dance();
+			}
+			
 			if (controls.BACK)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -85,7 +159,7 @@ class MinusCharSelector extends MusicBeatState
 
 				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 				FlxG.sound.play(Paths.sound('confirmMenu'));
-				boyfriend.animation.play('ye');
+				boyfriend.animation.play('hey');
 				trace(bfSkins[actualNum]);
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
@@ -118,20 +192,14 @@ class MinusCharSelector extends MusicBeatState
 	
 	function changeBF(number:Int = 0)
 	{
+		
 		actualNum += number;
 		
 		if (actualNum >= bfSkins.length)
 			actualNum = 0;
 		if (actualNum < 0)
 			actualNum = bfSkins.length - 1;
-			
-		for (i in 0...bfSkins.length) boyfriend.frames = Paths.getSparrowAtlas('characters/CC/extras/minus/' + bfSkins[actualNum], 'shared'); //IT FUCKING FINALLY LOADED
-		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.9));
-		boyfriend.screenCenter();
-		boyfriend.antialiasing = ClientPrefs.globalAntialiasing;
-		boyfriend.animation.addByPrefix('idle', 'BF idle dance', 24);
-		boyfriend.animation.addByPrefix('ye', 'BF HEY!!', 24);
-		boyfriend.animation.play('idle');
+		
 		
 		if(colorTween != null) {
 			colorTween.cancel();
@@ -158,6 +226,15 @@ class MinusCharSelector extends MusicBeatState
 						colorTween = null;
 					}
 			    });
+		}
+	}
+	
+	function addCharacterToList(newCharacter:String) {
+		if(!boyfriendMap.exists(newCharacter)) {
+			var newBoyfriend:Boyfriend = new Boyfriend(0, 0, newCharacter);
+			boyfriendMap.set(newCharacter, newBoyfriend);
+			add(newBoyfriend);
+			newBoyfriend.alpha = 0.00001;
 		}
 	}
 }

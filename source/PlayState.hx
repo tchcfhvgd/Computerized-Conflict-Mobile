@@ -391,7 +391,7 @@ class PlayState extends MusicBeatState
 			//Popup Mechanic:
 				var popUp:FlxSprite;
 				var closePopup:FlxSprite;
-				var popUpTimer:FlxTimer;
+				public var popUpTimer:FlxTimer;
 	
 	//end
 	
@@ -440,6 +440,10 @@ class PlayState extends MusicBeatState
 			
 		//kickstarter:
 		    var leftSide:Bool = false;
+			
+		//tune in:
+		    var tsc:Boyfriend = null;
+			var green:Boyfriend = null;
 			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
@@ -1248,9 +1252,12 @@ class PlayState extends MusicBeatState
 			case 'contrivance': //Contrivance song
 				{
 					var bg:BGSprite = new BGSprite('contrivance_bg', 0, 0, 1, 1);
+					bg.setGraphicSize(Std.int(bg.width * 0.5));
 					bg.screenCenter();
 					bg.updateHitbox();
 					add(bg);
+					
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 				}
 				
 			case 'yt': //YT song
@@ -1267,6 +1274,7 @@ class PlayState extends MusicBeatState
 					redthing.cameras = [camOther];
 					redthing.color = 0xFFD13C21;
 					add(redthing);
+					
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0015));
 					
 				}
@@ -1395,6 +1403,8 @@ class PlayState extends MusicBeatState
 					oldVideoResolution = true;
 					
 					GameOverSubstate.characterName = 'tco-aol-dead';
+					
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 				}
 				
 			case 'World 1':
@@ -1412,6 +1422,8 @@ class PlayState extends MusicBeatState
 					floor.antialiasing = ClientPrefs.globalAntialiasing;
 					floor.updateHitbox();
 					add(floor);
+					
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 				}
 				
 			case 'aurora': //Cover 2
@@ -1634,6 +1646,17 @@ class PlayState extends MusicBeatState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
+		
+		if (curStage == 'yt')
+		{
+		    tsc = new Boyfriend(470, 20, "bf");
+			startCharacterPos(tsc);
+			boyfriendGroup.add(tsc);
+					
+			green = new Boyfriend(870, BF_Y, "animator-bf-stressed");
+			startCharacterPos(green);
+			boyfriendGroup.add(green);
+		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -4681,6 +4704,8 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
+		
+		if (SONG.song.toLowerCase() == 'end process' && popUpTimer != null) popUpTimer.active = false;
 
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		/*if (FlxG.random.bool(0.1))
@@ -5178,9 +5203,18 @@ class PlayState extends MusicBeatState
 				closePopup.scrollFactor.set();
 				closePopup.updateHitbox();
 				add(closePopup);
+				
+				var timeThing = 10;
+				switch(CoolUtil.difficultyString())
+				{
+					case 'SIMPLE':
+						timeThing = 20;
+					case 'HARD':
+						timeThing = 15;
+				}
 
 				popUpTimer = new FlxTimer();
-				popUpTimer.start(10, function(timer:FlxTimer) {
+				popUpTimer.start(timeThing, function(timer:FlxTimer) {
 					health = -0.1;
 				});
 				
@@ -6885,7 +6919,7 @@ class PlayState extends MusicBeatState
 					case 144 | 192 | 400 | 444:
 						changeBetweenMinusTCO(false);
 					case 448:
-						FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
+						camChar.fade(FlxColor.BLACK, 1, true);
 						dadGroup.cameras = [camChar];
 						boyfriendGroup.cameras = [camChar];
 						clearShaderFromCamera(['camgame']);
