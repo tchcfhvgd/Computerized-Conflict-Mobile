@@ -70,7 +70,15 @@ class FanArtState extends MusicBeatState
 			numOfThings = FileSystem.readDirectory('assets/images/fan-arts/' + coolArtistArray[actualNum] + '/').length;
 
 			for (i in 0...coolArtistArray.length) image.loadGraphic(Paths.image('fan-arts/' + coolArtistArray[actualNum] + '/' + (firstImage+1)));
+			image.setGraphicSize(500);
+			//image.screenCenter();
+			image.updateHitbox();
 			image.screenCenter();
+
+			/*image.width = 400;
+			image.height = 400;*/
+
+			trace(image.width + ' ' + image.height);
 
 			if(firstImage >= numOfThings)
 				firstImage = 0;
@@ -111,7 +119,7 @@ class FanArtState extends MusicBeatState
 	{
 		actualNum += number;
 
-		firstImage = 1;
+		firstImage = 0;
 		
 		if (actualNum >= coolArtistArray.length)
 			actualNum = 0;
@@ -128,5 +136,14 @@ class FanArtState extends MusicBeatState
 	function changeNo(change:Int = 0)
 	{
 		firstImage += change;
+	}
+
+	function getIfExists(path:Array<String>, thing:String)
+	{
+		for (i in 0...path.length) {
+			if (path[i] == thing)
+				return thing;
+		}
+		return null;
 	}
 }
