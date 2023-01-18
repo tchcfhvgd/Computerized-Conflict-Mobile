@@ -98,8 +98,8 @@ class MinusCharSelector extends MusicBeatState
 		arrows.antialiasing = ClientPrefs.globalAntialiasing;
 		add(arrows);
 		
-		CharMenuText = new FlxText(0, 0, "Choose your character!", 40);
-		CharMenuText.setFormat(Paths.font("phantommuff.ttf"), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		CharMenuText = new FlxText(0, 0, "Choose your character!", 52);
+		CharMenuText.setFormat(Paths.font("phantommuff.ttf"), 52, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(CharMenuText);
 		
 		Paths.setCurrentLevel('shared');
@@ -113,10 +113,11 @@ class MinusCharSelector extends MusicBeatState
 		boyfriend.dance();
 		insert(2, boyfriend);
 		
-		namesText = new Alphabet(0, 0, charNames[actualNum], true);
+		namesText = new Alphabet(0, 0, "", true);
 		namesText.alignment = CENTERED;
 		namesText.screenCenter();
-		namesText.x -= 0;
+		namesText.x -= 200;
+		namesText.y -= 50;
 		add(namesText);
 		
 		
@@ -137,8 +138,7 @@ class MinusCharSelector extends MusicBeatState
 	}
 	
 	override function update(elapsed:Float)
-	{
-		
+	{	
 		scrollingThing.x -= 0.45;
 		scrollingThing.y -= 0.16;
 		
@@ -204,6 +204,8 @@ class MinusCharSelector extends MusicBeatState
 		if(colorTween != null) {
 			colorTween.cancel();
 		}
+		
+		namesText.text = charNames[actualNum];
 		
 		switch(actualNum) //shittest code ever fr
 		{

@@ -60,6 +60,7 @@ class FreeplayState extends MusicBeatState
 	var freeplaySongList:Array<String> = [
 	'alan',
 	'trojan',
+	'conflict',
 	'dashpulse',
 	'time travel',
 	'cubify',
