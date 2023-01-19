@@ -154,10 +154,19 @@ class CoolUtil
 		so Base Psych saves won't conflict with yours
 		@BeastlyGabi
 	**/
-	public static function getSavePath(folder:String = 'ShadowMario'):String {
+	public static function getSavePath(folder:String = 'Computerized-Conflict'):String {
 		@:privateAccess
 		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
 			+ '/'
 			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
+	}
+
+	function getIfExists(path:Array<String>, thing:String)
+	{
+		for (i in 0...path.length) {
+			if (path[i] == thing)
+				return true;
+		}
+		return false;
 	}
 }

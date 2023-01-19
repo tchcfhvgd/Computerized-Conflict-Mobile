@@ -137,13 +137,4 @@ class FanArtState extends MusicBeatState
 	{
 		firstImage += change;
 	}
-
-	function getIfExists(path:Array<String>, thing:String)
-	{
-		for (i in 0...path.length) {
-			if (path[i] == thing)
-				return thing;
-		}
-		return null;
-	}
 }
