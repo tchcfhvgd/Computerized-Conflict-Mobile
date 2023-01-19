@@ -499,6 +499,9 @@ class PlayState extends MusicBeatState
 		public var camHUDShaders:Array<ShaderEffect> = [];
 		public var camOtherShaders:Array<ShaderEffect> = [];
 		public var shaderUpdates:Array<Float->Void> = [];
+	
+	var resW:Int = FlxG.width;
+	var resH:Int = FlxG.height;
 
 	override public function create()
 	{

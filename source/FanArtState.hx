@@ -30,9 +30,9 @@ import sys.io.File;
 class FanArtState extends MusicBeatState
 {
 	public var image:FlxSprite;
-	public static var coolArtistArray:Array<String> = [];
-	public static var actualNum = 0;
-	public static var numOfThings = 0;
+	public var coolArtistArray:Array<String> = [];
+	public var actualNum = 0;
+	public var numOfThings = 0;
 	var selectedSmth:Bool = false;
 	var bg:FlxSprite;
 	var colorTween:FlxTween;
@@ -89,6 +89,7 @@ class FanArtState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
+				Paths.clearUnusedMemory();
 			}
 			
 			if (controls.UI_RIGHT_P)
