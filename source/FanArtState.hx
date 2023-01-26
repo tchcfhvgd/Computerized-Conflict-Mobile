@@ -30,13 +30,15 @@ import sys.io.File;
 class FanArtState extends MusicBeatState
 {
 	public var image:FlxSprite;
-	public static var coolArtistArray:Array<String> = [];
-	public static var actualNum = 0;
-	public static var numOfThings = 0;
+	public var coolArtistArray:Array<String> = [];
+	public var actualNum = 0;
+	public var numOfThings = 0;
 	var selectedSmth:Bool = false;
 	var bg:FlxSprite;
 	var colorTween:FlxTween;
 	var firstImage:Float = 0;
+	var bgText:FlxSprite;
+	var textArtists:FlxText;
 	
 	override public function create()
 	{
@@ -58,6 +60,19 @@ class FanArtState extends MusicBeatState
 		image = new FlxSprite();
 		add(image);
 		
+		bgText = new FlxSprite(0, -50).loadGraphic(Paths.image('FAMenu/artist-text-BG'));
+		bgText.scrollFactor.set();
+		bgText.setGraphicSize(Std.int(bgText.width * 0.5));
+		bgText.updateHitbox();
+		bgText.screenCenter(X);
+		bgText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bgText);
+
+		textArtists = new FlxText(0, 0, 0, 'null', 32);
+		textArtists.setFormat(Paths.font("phantommuff.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		textArtists.scrollFactor.set();
+		add(textArtists);
+
 		changeImage();
 		
 		super.create();
@@ -70,7 +85,20 @@ class FanArtState extends MusicBeatState
 			numOfThings = FileSystem.readDirectory('assets/images/fan-arts/' + coolArtistArray[actualNum] + '/').length;
 
 			for (i in 0...coolArtistArray.length) image.loadGraphic(Paths.image('fan-arts/' + coolArtistArray[actualNum] + '/' + (firstImage+1)));
+			image.setGraphicSize(400);
+			//image.screenCenter();
+			image.updateHitbox();
 			image.screenCenter();
+
+			bgText.setGraphicSize(Std.int(textArtists.width) + 100, 100);
+
+			textArtists.screenCenter(X);
+			textArtists.text = coolArtistArray[actualNum];
+
+			/*image.width = 400;
+			image.height = 400;*/
+
+			trace(image.width + ' ' + image.height);
 
 			if(firstImage >= numOfThings)
 				firstImage = 0;
@@ -81,6 +109,7 @@ class FanArtState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
+				Paths.clearUnusedMemory();
 			}
 			
 			if (controls.UI_RIGHT_P)
@@ -111,7 +140,7 @@ class FanArtState extends MusicBeatState
 	{
 		actualNum += number;
 
-		firstImage = 1;
+		firstImage = 0;
 		
 		if (actualNum >= coolArtistArray.length)
 			actualNum = 0;
