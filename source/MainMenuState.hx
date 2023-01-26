@@ -52,8 +52,11 @@ class MainMenuState extends MusicBeatState
 	var scrollingThing:FlxBackdrop;
 	var text1:FlxBackdrop;
 	var text2:FlxBackdrop;
+	var colorTween:FlxTween;
 	public var repeatAxes:FlxAxes = XY;
 	var zoomTween:FlxTween;
+	var bg:FlxSprite;
+	var blank:FlxSprite;
 	
 	public var removeShaderHandler:FlxShader;
 
@@ -83,7 +86,7 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80, 75).loadGraphic(Paths.image('mainmenu/notrbg'));
+		bg = new FlxSprite(-80, 75).loadGraphic(Paths.image('mainmenu/notrbg'));
 		bg.scrollFactor.set();
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -94,7 +97,20 @@ class MainMenuState extends MusicBeatState
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), repeatAxes, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0.8;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
 		add(scrollingThing);
+		
+		var vignette:FlxSprite = new FlxSprite();
+		vignette.loadGraphic(Paths.image('mainmenu/rosevignette'));
+		vignette.scrollFactor.set();
+		add(vignette);
+		
+		blank = new FlxSprite();
+		blank.loadGraphic(Paths.image('mainmenu/blank'));
+		blank.scrollFactor.set();
+		blank.color = 0xFFFF8A00;
+		add(blank);
+
 		
 		text1 = new FlxBackdrop(Paths.image('mainmenu/text1'), X, 0, 0);
 		text1.scale.set(0.55, 0.55);
@@ -156,7 +172,7 @@ class MainMenuState extends MusicBeatState
 					menuItem.y = 50;
 				case 2:
 					menuItem.x = 850;
-					menuItem.y = 50;
+					menuItem.y = 100;
 				case 3:
 					menuItem.x = 245;
 					menuItem.y = 400;
@@ -320,7 +336,7 @@ class MainMenuState extends MusicBeatState
 								case 'storymode':
 									MusicBeatState.switchState(new TCOStoryState());
 								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayState());
+									MusicBeatState.switchState(new FreeplayMenu());
 								case 'awards':
 									MusicBeatState.switchState(new AchievementsMenuState());
 								case 'art_gallery':
@@ -359,6 +375,53 @@ class MainMenuState extends MusicBeatState
 			
 		if(zoomTween != null) {
 			zoomTween.cancel();
+		}
+		
+		if(colorTween != null) {
+			colorTween.cancel();
+		}
+		
+		switch(optionShit[curSelected])
+		{
+			case 'storymode':
+				
+				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFFF7E00, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+			case 'freeplay':
+				
+				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF0AB5FF, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+			case 'credits':
+				
+				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF4EFF00, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+			case 'art_gallery':
+				
+				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFEAFF00, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+			case 'options':
+				
+				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFFF0000, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
 		}
 
 		menuItems.forEach(function(spr:FlxSprite)

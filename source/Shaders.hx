@@ -8,6 +8,7 @@ import openfl.display.ShaderInput;
 import openfl.utils.Assets;
 import flixel.FlxG;
 import openfl.Lib;
+import flixel.FlxBasic;
 using StringTools;
 typedef ShaderEffect = {
   var shader:Dynamic;
@@ -1628,6 +1629,7 @@ class VHSGlitchShader extends FlxShader //https://www.shadertoy.com/view/Ms3XWH
 	
     uniform vec2 iResolution;
     uniform float iTime;
+	vec2 uv = openfl_TextureCoordv.xy;
 	
 	const float range = 0.05;
 	const float noiseQuality = 250.0;
@@ -1652,6 +1654,8 @@ class VHSGlitchShader extends FlxShader //https://www.shadertoy.com/view/Ms3XWH
 
 	void main()
 	{
+		float theAlpha = flixel_texture2D(bitmap, uv).a;
+		
 		vec2 fragCoord = openfl_TextureCoordv * iResolution;
 		
 		vec2 uv = fragCoord.xy / iResolution.xy;
@@ -1677,13 +1681,28 @@ class VHSGlitchShader extends FlxShader //https://www.shadertoy.com/view/Ms3XWH
     	float g = texture2D(bitmap, uv + offsetG).g;
  		float b = texture2D(bitmap, uv).b;
 
-  		vec4 tex = vec4(r, g, b, 1.0);
+  		vec4 tex = vec4(r, g, b, theAlpha);
 		gl_FragColor = tex;
 	}')
   	public function new()
   	{
   		super();
   	}
+}
+
+class VHSGlitchEffect extends Effect //fuck
+{
+	public var shader:VHSGlitchShader = new VHSGlitchShader();
+	
+	public function new()
+	{
+		shader.iTime.value = [0];
+		//PlayState.instance.shaderUpdates.push(update);
+	}
+	
+	public function update(elapsed){
+		shader.iTime.value[0] += elapsed;
+	}
 }
 
 class CRTShader extends FlxShader

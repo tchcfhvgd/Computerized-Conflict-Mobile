@@ -1,7 +1,8 @@
 {
 	"song": {
 		"player1": "stick-bf",
-		"player2": "angry_tco",
+		"player2": "the-chosen-one",
+                "composer": "ExpKing",
 		"notes": [
 			{
 				"lengthInSteps": 16,
@@ -2020,7 +2021,7 @@
 						38343.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false
@@ -2510,7 +2511,7 @@
 						44718.75,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": true

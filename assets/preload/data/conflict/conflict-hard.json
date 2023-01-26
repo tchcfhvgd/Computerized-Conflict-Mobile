@@ -1,6 +1,7 @@
 {
 	"song": {
 		"player1": "stick-bf",
+                "composer": "ExpKing",
 		"events": [],
 		"gfVersion": "gf",
 		"notes": [
@@ -675,7 +676,7 @@
 						15562.5,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -732,7 +733,7 @@
 						17156.25,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -819,13 +820,13 @@
 						18187.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						18656.25,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -952,7 +953,7 @@
 						20625,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1160,7 +1161,7 @@
 						23812.5,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1318,13 +1319,13 @@
 						26812.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						25500,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1396,7 +1397,7 @@
 						28125,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1488,7 +1489,7 @@
 						29062.5,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1610,19 +1611,19 @@
 						30093.75,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						30281.25,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						30468.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1779,7 +1780,7 @@
 						32437.5,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1901,13 +1902,13 @@
 						33468.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						34218.75,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2120,25 +2121,25 @@
 						37218.75,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						36000,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						36281.25,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						36562.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2250,19 +2251,19 @@
 						37593.75,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						37781.25,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						38812.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2550,13 +2551,13 @@
 						40687.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						41250,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2804,13 +2805,13 @@
 						44718.75,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						44156.25,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3098,25 +3099,25 @@
 						47812.5,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						47859.375,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						47906.25,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						47953.125,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3570,7 +3571,7 @@
 						59812.5,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -4416,19 +4417,19 @@
 						76687.5,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						77437.5,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						77812.5,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -4514,7 +4515,7 @@
 						79125,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -4660,25 +4661,25 @@
 						81093.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						81375,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						81937.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						82218.75,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -4779,31 +4780,31 @@
 						82500,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						82875,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						83250,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						83437.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						83625,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -4984,25 +4985,25 @@
 						85781.25,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						85968.75,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						86343.75,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						86531.25,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -5308,43 +5309,43 @@
 						90093.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						90375,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						90187.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						90843.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						91031.25,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						91312.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						91125,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -5435,37 +5436,37 @@
 						91593.75,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						91968.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						91687.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						92250,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						92531.25,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						92718.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -5561,31 +5562,31 @@
 						93093.75,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						93468.75,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						93187.5,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						93937.5,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						94218.75,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -5711,25 +5712,25 @@
 						94593.75,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						95062.5,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						94968.75,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						95437.5,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -5815,31 +5816,31 @@
 						96093.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						96281.25,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						96468.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						96656.25,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						96843.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -5985,19 +5986,19 @@
 						99000,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						99656.25,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						100218.75,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -6078,19 +6079,19 @@
 						100875,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						100687.5,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						101437.5,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -6171,19 +6172,19 @@
 						102187.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						102656.25,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						103031.25,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -6327,19 +6328,19 @@
 						103500,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						104531.25,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						104250,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -6420,7 +6421,7 @@
 						106406.25,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -6566,19 +6567,19 @@
 						107343.75,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						106593.75,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						107906.25,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -6674,19 +6675,19 @@
 						108281.25,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						108656.25,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						108843.75,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -6762,13 +6763,13 @@
 						110156.25,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						110812.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -6864,7 +6865,7 @@
 						111656.25,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -6940,13 +6941,13 @@
 						112968.75,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						113906.25,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -7032,37 +7033,37 @@
 						114093.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						114562.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						115031.25,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						115312.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						114281.25,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						115125,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -7160,13 +7161,13 @@
 						115593.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						116250,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -7250,13 +7251,13 @@
 						118031.25,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						118406.25,
 						3,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -7364,19 +7365,19 @@
 						118875,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						119250,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						119437.5,
 						1,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -7455,13 +7456,13 @@
 						120937.5,
 						2,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						121125,
 						0,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"typeOfSection": 0,
@@ -7509,49 +7510,49 @@
 						121500,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						121875,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						122250,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						122625,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						121875,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						121500,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						122250,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						122625,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"altAnim": false,
@@ -8837,7 +8838,7 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "angry_tco",
+		"player2": "the-chosen-one",
 		"player3": null,
 		"song": "Conflict",
 		"stage": "stage",
