@@ -103,8 +103,6 @@ class FanArtState extends MusicBeatState
 			/*image.width = 400;
 			image.height = 400;*/
 
-			trace(image.width + ' ' + thing.width);
-
 			if(firstImage >= numOfThings)
 				firstImage = 0;
 			else if(firstImage < 0)
