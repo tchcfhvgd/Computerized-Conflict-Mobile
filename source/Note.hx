@@ -169,6 +169,13 @@ class Note extends FlxSprite
 					colorSwap.brightness = 0;
 					noteSplashTexture = "fuck off";
 					hitCausesMiss = true;
+				case 'stopwatch':
+					ignoreNote = mustPress;
+					reloadNote('stopwatch');
+					hitCausesMiss = true;
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
 			}
 			noteType = value;
 		}

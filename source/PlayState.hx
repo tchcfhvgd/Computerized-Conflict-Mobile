@@ -6365,6 +6365,15 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
 							}
+						case 'stopwatch':
+							if(boyfriend.animation.getByName('hurt') != null) {
+								boyfriend.playAnim('hurt', true);
+								boyfriend.specialAnim = true;
+							}
+							var funnyBackInTime:Int = Std.int(Conductor.songPosition - 10000);
+
+							startOnTime = funnyBackInTime;
+							PauseSubState.restartSong(true);
 					}
 				}
 
