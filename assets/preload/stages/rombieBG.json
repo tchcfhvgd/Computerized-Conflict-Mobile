@@ -1,6 +1,6 @@
 {
 	"directory": "extras",
-	"defaultZoom": 0.7,
+	"defaultZoom": 0.65,
 	"isPixelStage": false,
 
 	"boyfriend": [720, -80],

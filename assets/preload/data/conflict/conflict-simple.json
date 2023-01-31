@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "stick-bf",
+		"player1": "animator-bf-stressed",
 		"player2": "the-chosen-one",
                 "composer": "ExpKing",
 		"notes": [
@@ -7557,7 +7557,7 @@
 		"song": "Conflict",
 		"validScore": true,
 		"needsVoices": true,
-		"stage": "stage",
+		"stage": "alan-pc-conflict",
 		"speed": 2.6,
 		"bpm": 160
 	}

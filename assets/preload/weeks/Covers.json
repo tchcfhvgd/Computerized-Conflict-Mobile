@@ -1,0 +1,21 @@
+{
+	"songs": [
+		["aurora", "tdl", [255, 0, 0]],
+		["phantasm", "the-chosen-one", [252, 174, 0]]
+        ],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "stage",
+
+	"storyName": "",
+	"weekBefore": "Tutorial Week",
+	"weekName": "Tutorial",
+	"startUnlocked": true,
+
+	"hideStoryMode": true,
+	"hideFreeplay": false
+}

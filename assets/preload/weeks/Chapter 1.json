@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["adobe", "the-chosen-one-adobe", [20, 20, 20]],
+		["t.c.o", "the-chosen-one", [252, 174, 0]],
+		["end process", "tdl", [255, 0, 0]]
+        ],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "stage",
+
+	"storyName": "",
+	"weekBefore": "Tutorial Week",
+	"weekName": "Tutorial",
+	"startUnlocked": true,
+
+	"hideStoryMode": true,
+	"hideFreeplay": false
+}

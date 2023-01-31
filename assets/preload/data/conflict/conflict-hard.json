@@ -1,7 +1,7 @@
 {
 	"song": {
-		"player1": "stick-bf",
-                "composer": "ExpKing",
+		"player1": "animator-bf-stressed",
+		"composer": "ExpKing",
 		"events": [],
 		"gfVersion": "gf",
 		"notes": [
@@ -2118,28 +2118,28 @@
 						0
 					],
 					[
-						37218.75,
-						5,
-						0,
-						"Fire Note"
-					],
-					[
 						36000,
 						6,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						36281.25,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						36562.5,
 						4,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						37218.75,
+						5,
+						0,
+						"AV"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2251,19 +2251,19 @@
 						37593.75,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						37781.25,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						38812.5,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2551,13 +2551,13 @@
 						40687.5,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						41250,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2802,16 +2802,16 @@
 						0
 					],
 					[
-						44718.75,
-						0,
-						0,
-						"Fire Note"
-					],
-					[
 						44156.25,
 						0,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						44718.75,
+						0,
+						0,
+						"AV"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3096,28 +3096,28 @@
 						0
 					],
 					[
-						47812.5,
-						2,
-						0,
-						"Fire Note"
-					],
-					[
-						47859.375,
-						1,
-						0,
-						"Fire Note"
-					],
-					[
 						47906.25,
 						2,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						47953.125,
 						1,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						47812.5,
+						2,
+						0,
+						"AV"
+					],
+					[
+						47859.375,
+						1,
+						0,
+						"AV"
 					]
 				],
 				"lengthInSteps": 16,
@@ -4417,19 +4417,19 @@
 						76687.5,
 						0,
 						0,
-						"Fire Note"
-					],
-					[
-						77437.5,
-						3,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						77812.5,
 						0,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						77437.5,
+						3,
+						0,
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -4515,7 +4515,7 @@
 						79125,
 						2,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -4661,25 +4661,25 @@
 						81093.75,
 						6,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						81375,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						81937.5,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						82218.75,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -4780,31 +4780,31 @@
 						82500,
 						7,
 						0,
-						"Fire Note"
-					],
-					[
-						82875,
-						4,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						83250,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						83437.5,
 						6,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						83625,
 						7,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						82875,
+						4,
+						0,
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -4985,25 +4985,25 @@
 						85781.25,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						85968.75,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						86343.75,
 						2,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						86531.25,
 						2,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -5309,43 +5309,43 @@
 						90093.75,
 						7,
 						0,
-						"Fire Note"
-					],
-					[
-						90375,
-						4,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						90187.5,
 						5,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						90375,
+						4,
+						0,
+						"AV"
 					],
 					[
 						90843.75,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						91031.25,
 						4,
 						0,
-						"Fire Note"
-					],
-					[
-						91312.5,
-						7,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						91125,
 						6,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						91312.5,
+						7,
+						0,
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -5436,37 +5436,37 @@
 						91593.75,
 						5,
 						0,
-						"Fire Note"
-					],
-					[
-						91968.75,
-						6,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						91687.5,
 						7,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						91968.75,
+						6,
+						0,
+						"AV"
 					],
 					[
 						92250,
 						6,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						92531.25,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						92718.75,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -5562,31 +5562,31 @@
 						93093.75,
 						0,
 						0,
-						"Fire Note"
-					],
-					[
-						93468.75,
-						1,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						93187.5,
 						3,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						93468.75,
+						1,
+						0,
+						"AV"
 					],
 					[
 						93937.5,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						94218.75,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -5712,25 +5712,25 @@
 						94593.75,
 						2,
 						0,
-						"Fire Note"
-					],
-					[
-						95062.5,
-						1,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						94968.75,
 						3,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						95062.5,
+						1,
+						0,
+						"AV"
 					],
 					[
 						95437.5,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -5816,31 +5816,31 @@
 						96093.75,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						96281.25,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						96468.75,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						96656.25,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						96843.75,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -5986,19 +5986,19 @@
 						99000,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						99656.25,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						100218.75,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -6079,19 +6079,19 @@
 						100875,
 						1,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						100687.5,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						101437.5,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -6172,19 +6172,19 @@
 						102187.5,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						102656.25,
 						6,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						103031.25,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -6328,19 +6328,19 @@
 						103500,
 						5,
 						0,
-						"Fire Note"
-					],
-					[
-						104531.25,
-						5,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						104250,
 						5,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						104531.25,
+						5,
+						0,
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -6421,7 +6421,7 @@
 						106406.25,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -6564,22 +6564,22 @@
 						0
 					],
 					[
-						107343.75,
-						0,
-						0,
-						"Fire Note"
-					],
-					[
 						106593.75,
 						2,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						107343.75,
+						0,
+						0,
+						"AV"
 					],
 					[
 						107906.25,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -6675,19 +6675,19 @@
 						108281.25,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						108656.25,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						108843.75,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -6763,13 +6763,13 @@
 						110156.25,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						110812.5,
 						5,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -6865,7 +6865,7 @@
 						111656.25,
 						1,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -6941,13 +6941,13 @@
 						112968.75,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						113906.25,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -7033,37 +7033,37 @@
 						114093.75,
 						7,
 						0,
-						"Fire Note"
-					],
-					[
-						114562.5,
-						4,
-						0,
-						"Fire Note"
-					],
-					[
-						115031.25,
-						7,
-						0,
-						"Fire Note"
-					],
-					[
-						115312.5,
-						6,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						114281.25,
 						6,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						114562.5,
+						4,
+						0,
+						"AV"
+					],
+					[
+						115031.25,
+						7,
+						0,
+						"AV"
 					],
 					[
 						115125,
 						4,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						115312.5,
+						6,
+						0,
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -7161,13 +7161,13 @@
 						115593.75,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						116250,
 						4,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -7251,13 +7251,13 @@
 						118031.25,
 						1,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						118406.25,
 						3,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -7365,19 +7365,19 @@
 						118875,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						119250,
 						2,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						119437.5,
 						1,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -7456,13 +7456,13 @@
 						120937.5,
 						2,
 						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						121125,
 						0,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"typeOfSection": 0,
@@ -7510,49 +7510,49 @@
 						121500,
 						5,
 						0,
-						"Fire Note"
-					],
-					[
-						121875,
-						5,
-						0,
-						"Fire Note"
-					],
-					[
-						122250,
-						5,
-						0,
-						"Fire Note"
-					],
-					[
-						122625,
-						5,
-						0,
-						"Fire Note"
-					],
-					[
-						121875,
-						7,
-						0,
-						"Fire Note"
+						"AV"
 					],
 					[
 						121500,
 						7,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						121875,
+						5,
+						0,
+						"AV"
+					],
+					[
+						121875,
+						7,
+						0,
+						"AV"
+					],
+					[
+						122250,
+						5,
+						0,
+						"AV"
 					],
 					[
 						122250,
 						7,
 						0,
-						"Fire Note"
+						"AV"
+					],
+					[
+						122625,
+						5,
+						0,
+						"AV"
 					],
 					[
 						122625,
 						7,
 						0,
-						"Fire Note"
+						"AV"
 					]
 				],
 				"altAnim": false,
@@ -8808,14 +8808,54 @@
 				"bpm": 160
 			},
 			{
-				"gfSection": false,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
-				"bpm": 160,
 				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 160,
 				"changeBPM": false,
 				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 160,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 160,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 160
+			},
+			{
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 160
 			},
 			{
 				"gfSection": false,
@@ -8841,7 +8881,7 @@
 		"player2": "the-chosen-one",
 		"player3": null,
 		"song": "Conflict",
-		"stage": "stage",
+		"stage": "alan-pc-conflict",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 160,

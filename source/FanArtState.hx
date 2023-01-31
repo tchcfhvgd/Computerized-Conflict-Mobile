@@ -68,7 +68,8 @@ class FanArtState extends MusicBeatState
 		bgText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bgText);
 
-		textArtists = new FlxText(0, 0, 0, 'null', 32);
+		textArtists = new FlxText(0, 15, 0, 'null', 32);
+		textArtists.screenCenter(X);
 		textArtists.setFormat(Paths.font("phantommuff.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		textArtists.scrollFactor.set();
 		add(textArtists);
@@ -90,15 +91,17 @@ class FanArtState extends MusicBeatState
 			image.updateHitbox();
 			image.screenCenter();
 
-			bgText.setGraphicSize(Std.int(textArtists.width) + 100, 100);
+			var thing = Std.int(textArtists.width) + 100;
+
+			if (thing < 400) thing = 400;
+
+			bgText.setGraphicSize(thing, 100);
 
 			textArtists.screenCenter(X);
 			textArtists.text = coolArtistArray[actualNum];
 
 			/*image.width = 400;
 			image.height = 400;*/
-
-			trace(image.width + ' ' + image.height);
 
 			if(firstImage >= numOfThings)
 				firstImage = 0;

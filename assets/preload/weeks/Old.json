@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["adobe (old)", "tco", [235, 142, 0]],
+		["victim (old)", "tco", [235, 142, 0]],
+		["alan (old)", "alan", [255, 255, 255]]
+        ],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "stage",
+
+	"storyName": "",
+	"weekBefore": "Tutorial Week",
+	"weekName": "Tutorial",
+	"startUnlocked": true,
+
+	"hideStoryMode": true,
+	"hideFreeplay": false
+}

@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				140,
 				-129
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "cat_idle"
+			"fps": 24,
+			"name": "cat_idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				280,
 				-232
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "cat_left"
+			"fps": 24,
+			"name": "cat_left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				160,
 				-190
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "cat_down"
+			"fps": 24,
+			"name": "cat_down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				84,
 				-115
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "cat_up"
+			"fps": 24,
+			"name": "cat_up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				124,
 				-190
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "cat_right"
+			"fps": 24,
+			"name": "cat_right",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -62,12 +62,12 @@
 		0,
 		30
 	],
-	"healthicon": "face",
+	"healthicon": "wongmau",
 	"flip_x": false,
 	"healthbar_colors": [
-		161,
-		161,
-		161
+		214,
+		207,
+		191
 	],
 	"camera_position": [
 		0,

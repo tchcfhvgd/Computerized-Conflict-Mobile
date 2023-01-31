@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				154,
-				-246
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "idle",
-			"indices": [],
-			"name": "ashidle"
-		},
-		{
+			"loop": false,
 			"offsets": [
 				261,
 				-270
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "ashleft"
+			"fps": 24,
+			"name": "ashleft",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				194,
 				-166
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "ashdown",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "ashdown"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				153,
 				-58
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "ashup"
+			"fps": 24,
+			"name": "ashup",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				187,
 				-269
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "ashright",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "ashright"
+		},
+		{
+			"offsets": [
+				154,
+				-246
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "ashidle"
 		}
 	],
 	"no_antialiasing": false,
@@ -62,12 +62,12 @@
 		0,
 		10
 	],
-	"healthicon": "face",
+	"healthicon": "ash",
 	"flip_x": false,
 	"healthbar_colors": [
-		161,
-		161,
-		161
+		41,
+		47,
+		136
 	],
 	"camera_position": [
 		-150,

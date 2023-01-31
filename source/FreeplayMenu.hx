@@ -47,6 +47,13 @@ class FreeplayMenu extends MusicBeatState
 		'cover',
 		'old'
 	];
+	
+	var weeks:Array<Array<String>> = [
+		['Chapter 1'],
+		['Tutorial Week', 'Extras', 'Secret'],
+		['Covers'],
+		['Old']
+	];
 	var selectedSmth:Bool = false;
 	var zoomTween:FlxTween;
 	var camFollow:FlxObject;
@@ -215,32 +222,7 @@ class FreeplayMenu extends MusicBeatState
 					
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
-						switch(folders[curSelected])
-						{
-							case 'story':
-								touchedStory = true;
-								touchedExtra = false;
-								touchedCover = false;
-								touchedOld = false;
-							case 'extra':
-								touchedStory = false;
-								touchedExtra = true;
-								touchedCover = false;
-								touchedOld = false;
-							case 'cover':
-								touchedStory = false;
-								touchedExtra = false;
-								touchedCover = true;
-								touchedOld = false;
-							case 'old':
-								touchedStory = false;
-								touchedExtra = false;
-								touchedCover = false;
-								touchedOld = true;
-						}
-						MusicBeatState.switchState(new FreeplayState());
-						
-						touchedOld = true;
+						MusicBeatState.switchState(new FreeplayState(weeks[curSelected]));
 					});
 				});
 		    }

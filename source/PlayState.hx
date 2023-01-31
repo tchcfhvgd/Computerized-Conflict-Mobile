@@ -1323,6 +1323,31 @@ class PlayState extends MusicBeatState
 					
 				}
 				
+			case 'alan-pc-song': //Alt for alan song.
+				{				
+					alanBG = new BGSprite('trojan/alan_desktop', -150, -1800, 1, 1);
+					alanBG.setGraphicSize(Std.int(alanBG.width * 1.5));
+					
+					daFloor = new BGSprite('trojan/floor', -80, -1800, 1, 1);
+					daFloor.screenCenter();
+					daFloor.y += 28;
+					daFloor.x += 2300;
+					
+					adobeWindow = new BGSprite('trojan/XD', -80, -1800, 1, 1);
+					adobeWindow.setGraphicSize(Std.int(adobeWindow.width * 2));
+					adobeWindow.screenCenter();
+					adobeWindow.y -= 900;
+					adobeWindow.x += 1500;
+					
+					needsBlackBG = true;
+					
+					
+					add(alanBG);
+					add(daFloor);
+					add(adobeWindow);
+					
+				}
+				
 			case 'contrivance': //Contrivance song
 				{
 					var bg:BGSprite = new BGSprite('contrivance_bg', 0, 0, 1, 1);
@@ -1723,7 +1748,7 @@ class PlayState extends MusicBeatState
 		
 		if (curStage == 'yt')
 		{
-		    tsc = new Boyfriend(470, 20, "bf");
+		    tsc = new Boyfriend(470, 20, "tsc-yt");
 			startCharacterPos(tsc);
 			boyfriendGroup.add(tsc);
 					
@@ -3909,7 +3934,7 @@ class PlayState extends MusicBeatState
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
-				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
+				swagNote.gfNote = (section.gfSection && (songNotes[1] < 4));
 				swagNote.noteType = songNotes[3];
 				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = editors.ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
 
@@ -3928,7 +3953,7 @@ class PlayState extends MusicBeatState
 
 						var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData, oldNote, true);
 						sustainNote.mustPress = gottaHitNote;
-						sustainNote.gfNote = (section.gfSection && (songNotes[1]<4));
+						sustainNote.gfNote = (section.gfSection && (songNotes[1] < 4));
 						sustainNote.noteType = swagNote.noteType;
 						sustainNote.scrollFactor.set();
 						swagNote.tail.push(sustainNote);
@@ -5431,6 +5456,15 @@ class PlayState extends MusicBeatState
 			callOnLuas('onMoveCamera', ['gf']);
 			return;
 		}
+		
+		if (tsc != null && SONG.notes[curSection].gfSection)
+		{
+			camFollow.set(tsc.getMidpoint().x  - 500, tsc.getMidpoint().y - 500);
+			camFollow.x -= tsc.cameraPosition[0];
+			camFollow.y += tsc.cameraPosition[1];
+			tweenCamIn();
+			return;
+		}
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
@@ -5664,7 +5698,7 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new FreeplayMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}
@@ -6191,6 +6225,12 @@ class PlayState extends MusicBeatState
 		if(daNote.gfNote) {
 			char = gf;
 		}
+		if(daNote.tscNote) {
+			char = tsc;
+		}
+		if(daNote.greenNote) {
+			char = green;
+		}
 
 		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations)
 		{
@@ -6365,6 +6405,15 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
 							}
+						case 'stopwatch':
+							if(boyfriend.animation.getByName('hurt') != null) {
+								boyfriend.playAnim('hurt', true);
+								boyfriend.specialAnim = true;
+							}
+							var funnyBackInTime:Int = Std.int(Conductor.songPosition - 10000);
+
+							startOnTime = funnyBackInTime;
+							PauseSubState.restartSong(true);
 					}
 				}
 
@@ -6395,6 +6444,22 @@ class PlayState extends MusicBeatState
 					{
 						gf.playAnim(animToPlay + note.animSuffix, true);
 						gf.holdTimer = 0;
+					}
+				}
+				if(note.tscNote)
+				{
+					if(tsc != null)
+					{
+						tsc.playAnim(animToPlay + note.animSuffix, true);
+						tsc.holdTimer = 0;
+					}
+				}
+				if(note.greenNote)
+				{
+					if(green != null)
+					{
+						green.playAnim(animToPlay + note.animSuffix, true);
+						green.holdTimer = 0;
 					}
 				}
 				else if (!controlDad)
@@ -6837,7 +6902,6 @@ class PlayState extends MusicBeatState
 					case 858 | 984:
 						PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection = false;
 				}
-				
 			case 'phantasm':
 				switch(curStep)
 				{
@@ -7189,6 +7253,16 @@ class PlayState extends MusicBeatState
 			case 'alan-pc-virabot':
 				if (!ClientPrefs.lowQuality) {
 					if (curBeat % 2 == 0) setDance([tscseeing], true);
+				}
+				
+			case 'yt':
+				if (curBeat % tsc.danceEveryNumBeats == 0 && tsc.animation.curAnim != null && !tsc.animation.curAnim.name.startsWith('sing') && !tsc.stunned)
+				{
+					tsc.dance();
+				}
+				if (curBeat % green.danceEveryNumBeats == 0 && green.animation.curAnim != null && !green.animation.curAnim.name.startsWith('sing') && !green.stunned)
+				{
+					green.dance();
 				}
 				
 			case 'tank':
