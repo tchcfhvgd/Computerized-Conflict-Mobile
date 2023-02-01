@@ -178,6 +178,7 @@ class Note extends FlxSprite
 					hitCausesMiss = true;
 				case 'stopwatch':
 					ignoreNote = mustPress;
+					lowPriority = true;
 					loadGraphic(Paths.image('dangerNotes/stopwatch'));
 					hitCausesMiss = true;
 					colorSwap.hue = 0;

@@ -436,6 +436,7 @@ class PlayState extends MusicBeatState
 			var theHOGOVERLAYOMG:BGSprite;
 			public var nightTimeShader:Shaders.NightTimeEffect = new NightTimeEffect();
 			
+			public static var timeTraveled:Bool;
 			var Text:FlxTypeText; //the dialog text
 		
 		//dashpulse:
@@ -2015,6 +2016,11 @@ class PlayState extends MusicBeatState
 			timeTxt.x -= 70;
 			judgementCounter.x += 70;
 			botplayTxt.x -= 70;
+		}
+
+		if (timeTraveled == true){
+			timeTraveled = false;
+			showHUDTween(1, 1);
 		}
 
 		// if (SONG.song == 'South')
@@ -6413,6 +6419,7 @@ class PlayState extends MusicBeatState
 							var funnyBackInTime:Int = Std.int(Conductor.songPosition - 10000);
 
 							startOnTime = funnyBackInTime;
+							timeTraveled = true;
 							PauseSubState.restartSong(true);
 					}
 				}
@@ -6890,8 +6897,8 @@ class PlayState extends MusicBeatState
 						blackBars(0);
 						showHUDTween(1, 1);
 						
-					case 1136:
-						FlxTween.tween(this, {songLength: songLength, timeBar: 1}, 3);
+					/*case 1136:
+						FlxTween.tween(this, {songLength: songLength, timeBar: 1}, 3);*/
 				}
 				
 			case 'messenger':
