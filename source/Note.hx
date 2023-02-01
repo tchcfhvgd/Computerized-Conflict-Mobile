@@ -53,6 +53,8 @@ class Note extends FlxSprite
 
 	public var animSuffix:String = '';
 	public var gfNote:Bool = false;
+	public var greenNote:Bool = false;
+	public var tscNote:Bool = false;
 	public var earlyHitMult:Float = 0.5;
 	public var lateHitMult:Float = 1;
 	public var lowPriority:Bool = false;
@@ -153,6 +155,11 @@ class Note extends FlxSprite
 				case 'GF Sing':
 					gfNote = true;
 					
+				case 'Green Sing':
+					greenNote = true;
+				case 'TSC Sing':
+					tscNote = true;
+					
 				case 'AV':
 					ignoreNote = mustPress;
 					loadGraphic(Paths.image('dangerNotes/av'));
@@ -171,11 +178,12 @@ class Note extends FlxSprite
 					hitCausesMiss = true;
 				case 'stopwatch':
 					ignoreNote = mustPress;
-					reloadNote('stopwatch');
+					loadGraphic(Paths.image('dangerNotes/stopwatch'));
 					hitCausesMiss = true;
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
+					noteSplashTexture = "fuck off";
 			}
 			noteType = value;
 		}

@@ -67,6 +67,8 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
+		'TSC Sing',
+		'Green Sing',
 		'No Animation',
 		'stopwatch'
 	];
