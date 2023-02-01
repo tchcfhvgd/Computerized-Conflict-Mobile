@@ -67,8 +67,6 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'TSC Sing',
-		'Green Sing',
 		'No Animation',
 		'stopwatch'
 	];
@@ -259,7 +257,7 @@ class ChartingState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
 		#end
-		
+
 		FlxG.mouse.visible = true;
 		FlxG.mouse.unload();
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
