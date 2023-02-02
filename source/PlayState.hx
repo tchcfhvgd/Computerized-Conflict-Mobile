@@ -303,6 +303,7 @@ class PlayState extends MusicBeatState
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
 	var songLength:Float = 0;
+	var actualSongLength:Float = 0;
 
 	public var boyfriendCameraOffset:Array<Float> = null;
 	public var opponentCameraOffset:Array<Float> = null;
@@ -3805,6 +3806,7 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
+		actualSongLength = songLength;
 		
 		if (SONG.song.toLowerCase() != 'time travel')
 		{
@@ -6897,8 +6899,8 @@ class PlayState extends MusicBeatState
 						blackBars(0);
 						showHUDTween(1, 1);
 						
-					/*case 1136:
-						FlxTween.tween(this, {songLength: songLength, timeBar: 1}, 3);*/
+					case 1136:
+						FlxTween.tween(this, {songLength: actualSongLength, timeBar: 1}, 3);
 				}
 				
 			case 'messenger':
