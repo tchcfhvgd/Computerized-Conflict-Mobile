@@ -3,3 +3,5 @@ Code tsc and green cameras on tune in
 make the end process tabs on fire fall instead of floating on the bg
 
 make alan's cursor float around the background (like the shaggy mod)
+
+fixing time travel (it crashes at the end for me)
