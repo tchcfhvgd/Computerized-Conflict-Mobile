@@ -191,6 +191,7 @@ class PlayState extends MusicBeatState
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
+	public static var timeTravelHP:Float;
 	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
@@ -2021,6 +2022,7 @@ class PlayState extends MusicBeatState
 
 		if (timeTraveled == true){
 			timeTraveled = false;
+			health = timeTravelHP;
 			showHUDTween(1, 1);
 		}
 
@@ -3548,12 +3550,17 @@ class PlayState extends MusicBeatState
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				introAssets.set('default', ['ready', 'set', 'go']);
 				introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
+				introAssets.set('cary', ['cary/tt_ready', 'cary/tt_set', 'cary/tt_GO']);
 
 				var introAlts:Array<String> = introAssets.get('default');
 				var antialias:Bool = ClientPrefs.globalAntialiasing;
 				if(isPixelStage) {
 					introAlts = introAssets.get('pixel');
 					antialias = false;
+				}
+
+				if(SONG.song.toLowerCase() == 'time travel') {
+					introAlts = introAssets.get('cary');
 				}
 
 				// head bopping for bg characters on Mall
@@ -6421,6 +6428,7 @@ class PlayState extends MusicBeatState
 							var funnyBackInTime:Int = Std.int(Conductor.songPosition - 10000);
 
 							startOnTime = funnyBackInTime;
+							timeTravelHP = health;
 							timeTraveled = true;
 							PauseSubState.restartSong(true);
 					}
