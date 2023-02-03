@@ -5038,8 +5038,9 @@ class PlayState extends MusicBeatState
 				switch(gameOverType){
 					case 'Time Travel':
 						var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
-						var chosenInt = FlxG.random.int(1, soundCaryArray.length);
+						var chosenInt = FlxG.random.int(0, soundCaryArray.length-1);
 						var shit:FlxSound = new FlxSound().loadEmbedded('assets/sounds/carykh/' + soundCaryArray[chosenInt]);
+						trace(soundCaryArray + ' ' + chosenInt + ' ' + 'assets/sounds/carykh/' + soundCaryArray[chosenInt]);
 						FlxG.sound.music.volume = 0;
 						FlxG.sound.music.stop();
 						vocals.volume = 0;
