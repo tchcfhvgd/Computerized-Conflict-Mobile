@@ -7,6 +7,8 @@ typedef SwagSection =
 	var typeOfSection:Int;
 	var mustHitSection:Bool;
 	var gfSection:Bool;
+	var bf2Section:Bool;
+	var bf3Section:Bool;
 	var bpm:Float;
 	var changeBPM:Bool;
 	var altAnim:Bool;
@@ -18,6 +20,8 @@ class Section
 
 	public var sectionBeats:Float = 4;
 	public var gfSection:Bool = false;
+	public var bf2Section:Bool = false;
+	public var bf3Section:Bool = false;
 	public var typeOfSection:Int = 0;
 	public var mustHitSection:Bool = true;
 

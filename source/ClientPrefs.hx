@@ -38,6 +38,7 @@ class ClientPrefs {
 	public static var laneTransparency:Float = 0.5;
 	public static var language:String = 'English';
 	public static var mechanics:String = 'Enabled';
+	public static var cameraMovement = true;
 	
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -141,6 +142,7 @@ class ClientPrefs {
 		FlxG.save.data.mechanics = mechanics;
 		FlxG.save.data.laneunderlay = laneunderlay;
 		FlxG.save.data.laneTransparency = laneTransparency;
+		FlxG.save.data.cameraMovement = cameraMovement;
 	
 		FlxG.save.flush();
 
@@ -264,6 +266,10 @@ class ClientPrefs {
 		
 		if(FlxG.save.data.laneunderlay != null) {
 			laneunderlay = FlxG.save.data.laneunderlay;
+		}
+		
+		if (FlxG.save.data.cameraMovement != null) {
+			cameraMovement = FlxG.save.data.cameraMovement;
 		}
 		
 		if(FlxG.save.data.gameplaySettings != null)
