@@ -516,6 +516,9 @@ class PlayState extends MusicBeatState
 	var resW:Int = FlxG.width;
 	var resH:Int = FlxG.height;
 
+	//special game over
+	public var gameOverType:String = 'default';
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -1399,6 +1402,8 @@ class PlayState extends MusicBeatState
 				
 			case 'carykh': //CARYKH
 				{	
+					gameOverType = 'Time Travel';
+
 					var bg:BGSprite = new BGSprite('time-travel/timetravel_bg', 0, 0, 0.9, 0.9);
 					bg.screenCenter();
 					bg.setGraphicSize(Std.int(bg.width * 1.2));
@@ -1431,6 +1436,11 @@ class PlayState extends MusicBeatState
 					ondaCutscene = true;
 					
 					if(SONG.song.toLowerCase() == 'time travel') camGame.alpha = 0;
+
+					var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
+					for (i in 0...soundCaryArray.length){
+						precacheList.set(soundCaryArray[i], 'sound');
+					}
 				}
 				
 			case 'unfaith-BG': //ash
@@ -5024,7 +5034,17 @@ class PlayState extends MusicBeatState
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
-				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
+				
+				switch(gameOverType){
+					case 'Time Travel':
+						var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
+						var chosenInt = FlxG.random.int(1, soundCaryArray.length);
+						var shit:FlxSound = new FlxSound().loadEmbedded('assets/sounds/carykh/' + soundCaryArray[chosenInt]);
+						shit.play(true);
+						shit.onComplete() = {PauseSubState.restartSong(true);}
+					default:
+						openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
+				}
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
