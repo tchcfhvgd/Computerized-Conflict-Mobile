@@ -2048,12 +2048,6 @@ class PlayState extends MusicBeatState
 			judgementCounter.x += 70;
 			botplayTxt.x -= 70;
 		}
-		
-		if (timeTraveled == true){
-			timeTraveled = false;
-			health = timeTravelHP;
-			showHUDTween(1, 1);
-		}
 
 		if (timeTraveled == true){
 			timeTraveled = false;
@@ -3652,10 +3646,6 @@ class PlayState extends MusicBeatState
 				if(isPixelStage) {
 					introAlts = introAssets.get('pixel');
 					antialias = false;
-				}
-				
-				if(SONG.song.toLowerCase() == 'time travel') {
-					introAlts = introAssets.get('cary');
 				}
 
 				if(SONG.song.toLowerCase() == 'time travel') {
