@@ -2055,6 +2055,12 @@ class PlayState extends MusicBeatState
 			showHUDTween(1, 1);
 		}
 
+		if (timeTraveled == true){
+			timeTraveled = false;
+			health = timeTravelHP;
+			showHUDTween(1, 1);
+		}
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -3648,6 +3654,10 @@ class PlayState extends MusicBeatState
 					antialias = false;
 				}
 				
+				if(SONG.song.toLowerCase() == 'time travel') {
+					introAlts = introAssets.get('cary');
+				}
+
 				if(SONG.song.toLowerCase() == 'time travel') {
 					introAlts = introAssets.get('cary');
 				}
