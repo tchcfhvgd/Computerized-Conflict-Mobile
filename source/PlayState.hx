@@ -5040,8 +5040,15 @@ class PlayState extends MusicBeatState
 						var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
 						var chosenInt = FlxG.random.int(1, soundCaryArray.length);
 						var shit:FlxSound = new FlxSound().loadEmbedded('assets/sounds/carykh/' + soundCaryArray[chosenInt]);
+						FlxG.sound.music.volume = 0;
+						FlxG.sound.music.stop();
+						vocals.volume = 0;
+						vocals.stop();
 						shit.play(true);
-						shit.onComplete() = {PauseSubState.restartSong(true);}
+						shit.onComplete = function() {PauseSubState.restartSong(true); }
+					    camGame.alpha = 0;
+						camHUD.alpha = 0;
+						
 					default:
 						openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 				}
