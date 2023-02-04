@@ -442,6 +442,8 @@ class PlayState extends MusicBeatState
 			public var nightTimeShader:Shaders.NightTimeEffect = new NightTimeEffect();
 			
 			public static var timeTraveled:Bool;
+			public static var funnyArray:Array<Int>;
+			public static var ratingPercentTT:Float;
 			var Text:FlxTypeText; //the dialog text
 		
 		//dashpulse:
@@ -2067,12 +2069,6 @@ class PlayState extends MusicBeatState
 			botplayTxt.x -= 70;
 		}
 
-		if (timeTraveled == true){
-			timeTraveled = false;
-			health = timeTravelHP;
-			showHUDTween(1, 1);
-		}
-
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -2308,6 +2304,27 @@ class PlayState extends MusicBeatState
 				
 			case 'amity':
 				addCharacterToList('angry-minus-tco', 1);
+		}
+
+		if (timeTraveled == true){
+			timeTraveled = false;
+			if(boyfriend.animation.getByName('hurt') != null) {
+				boyfriend.playAnim('hurt', true);
+				boyfriend.specialAnim = true;
+			}
+			trace(funnyArray);
+			sicks = funnyArray[0];
+			goods = funnyArray[1];
+			bads = funnyArray[2];
+			shits = funnyArray[3];
+			songMisses = funnyArray[4];
+			songScore = funnyArray[5];
+			songHits = funnyArray[6];
+			ratingPercent = ratingPercentTT;
+			health = timeTravelHP;
+			showHUDTween(1, 1);
+			RecalculateRating();
+			funnyArray = [];
 		}
 
 
@@ -6616,15 +6633,13 @@ class PlayState extends MusicBeatState
 								boyfriend.specialAnim = true;
 							}
 						case 'stopwatch':
-							if(boyfriend.animation.getByName('hurt') != null) {
-								boyfriend.playAnim('hurt', true);
-								boyfriend.specialAnim = true;
-							}
 							var funnyBackInTime:Int = Std.int(Conductor.songPosition - 10000);
 
 							startOnTime = funnyBackInTime;
 							timeTravelHP = health;
 							timeTraveled = true;
+							funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
+							ratingPercentTT = ratingPercent;
 							PauseSubState.restartSong(true);
 					}
 				}
@@ -7105,7 +7120,6 @@ class PlayState extends MusicBeatState
 					case 1136:
 						FlxTween.tween(this, {songLength: actualSongLength, timeBar: 1}, 3);
 				}
-				
 			case 'messenger':
 				switch(curStep)
 				{
