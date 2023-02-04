@@ -59,6 +59,7 @@ import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
+import DialogueScript;
 import Conductor.Rating;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.text.FlxTypeText;
@@ -235,6 +236,7 @@ class PlayState extends MusicBeatState
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
+	var ScriptdialogueJson:ScriptDialogueFile = null;
 
 	var dadbattleBlack:BGSprite;
 	var dadbattleLight:BGSprite;
@@ -515,6 +517,7 @@ class PlayState extends MusicBeatState
 	
 	var resW:Int = FlxG.width;
 	var resH:Int = FlxG.height;
+	public static var weekNames:String = "";
 
 	//special game over
 	public var gameOverType:String = 'default';
@@ -621,7 +624,7 @@ class PlayState extends MusicBeatState
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 		{
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
+			detailsText = "Story Mode: " + weekNames;
 		}
 		else
 		{
@@ -1827,6 +1830,11 @@ class PlayState extends MusicBeatState
 		if (OpenFlAssets.exists(file)) {
 			dialogueJson = DialogueBoxPsych.parseDialogue(file);
 		}
+		
+		var file:String = Paths.json(songName + '/dialogueScript'); //Checks for json/script dialogue
+		if (OpenFlAssets.exists(file)) {
+			ScriptdialogueJson = DialogueScript.parseDialogue(file);
+		}
 
 		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
 		if (OpenFlAssets.exists(file)) {
@@ -2221,6 +2229,9 @@ class PlayState extends MusicBeatState
 
 				case 'ugh' | 'guns' | 'stress':
 					tankIntro();
+					
+				case 'adobe':
+					startDialogueScript(ScriptdialogueJson);
 
 				default:
 					startCountdown();
@@ -3072,6 +3083,7 @@ class PlayState extends MusicBeatState
 
 	var dialogueCount:Int = 0;
 	public var psychDialogue:DialogueBoxPsych;
+	public var scriptDialogue:DialogueScript;
 	//You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
@@ -3099,6 +3111,42 @@ class PlayState extends MusicBeatState
 			psychDialogue.skipDialogueThing = skipDialogue;
 			psychDialogue.cameras = [camHUD];
 			add(psychDialogue);
+		} else {
+			FlxG.log.warn('Your dialogue file is badly formatted!');
+			if(endingSong) {
+				endSong();
+			} else {
+				startCountdown();
+			}
+		}
+	}
+	
+	public function startDialogueScript(dialogueFile:ScriptDialogueFile, ?song:String = null):Void
+	{
+		// TO DO: Make this more flexible, maybe?
+		if(scriptDialogue != null) return;
+
+		if(dialogueFile.dialogue.length > 0) {
+			inCutscene = true;
+			precacheList.set('dialogue', 'sound');
+			precacheList.set('dialogueClose', 'sound');
+			scriptDialogue = new DialogueScript(dialogueFile, song);
+			scriptDialogue.scrollFactor.set();
+			if(endingSong) {
+				scriptDialogue.finishThing = function() {
+					scriptDialogue = null;
+					endSong();
+				}
+			} else {
+				scriptDialogue.finishThing = function() {
+					scriptDialogue = null;
+					startCountdown();
+				}
+			}
+			scriptDialogue.nextDialogueThing = startNextDialogue;
+			scriptDialogue.skipDialogueThing = skipDialogue;
+			scriptDialogue.cameras = [camHUD];
+			add(scriptDialogue);
 		} else {
 			FlxG.log.warn('Your dialogue file is badly formatted!');
 			if(endingSong) {
@@ -5040,7 +5088,6 @@ class PlayState extends MusicBeatState
 						var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
 						var chosenInt = FlxG.random.int(0, soundCaryArray.length-1);
 						var shit:FlxSound = new FlxSound().loadEmbedded('assets/sounds/carykh/' + soundCaryArray[chosenInt]);
-						trace(soundCaryArray + ' ' + chosenInt + ' ' + 'assets/sounds/carykh/' + soundCaryArray[chosenInt]);
 						FlxG.sound.music.volume = 0;
 						FlxG.sound.music.stop();
 						vocals.volume = 0;
