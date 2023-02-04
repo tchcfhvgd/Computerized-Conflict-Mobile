@@ -6591,7 +6591,7 @@ class PlayState extends MusicBeatState
 							startOnTime = funnyBackInTime;
 							timeTravelHP = health;
 							timeTraveled = true;
-							funnyArray = [sicks, goods, bads, shits, songMisses, songScore, songHits];
+							funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
 							ratingPercentTT = ratingPercent;
 							PauseSubState.restartSong(true);
 					}
