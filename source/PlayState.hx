@@ -441,6 +441,7 @@ class PlayState extends MusicBeatState
 			
 			public static var timeTraveled:Bool;
 			public static var funnyArray:Array<Int>;
+			public static var ratingPercentTT:Float;
 			var Text:FlxTypeText; //the dialog text
 		
 		//dashpulse:
@@ -2308,7 +2309,7 @@ class PlayState extends MusicBeatState
 			songMisses = funnyArray[4];
 			songScore = funnyArray[5];
 			songHits = funnyArray[6];
-			ratingPercent = funnyArray[7];
+			ratingPercent = ratingPercentTT;
 			health = timeTravelHP;
 			showHUDTween(1, 1);
 			RecalculateRating();
@@ -6590,7 +6591,8 @@ class PlayState extends MusicBeatState
 							startOnTime = funnyBackInTime;
 							timeTravelHP = health;
 							timeTraveled = true;
-							funnyArray = [sicks, goods, bads, shits, songMisses, songScore, songHits, ratingPercent];
+							funnyArray = [sicks, goods, bads, shits, songMisses, songScore, songHits];
+							ratingPercentTT = ratingPercent;
 							PauseSubState.restartSong(true);
 					}
 				}
