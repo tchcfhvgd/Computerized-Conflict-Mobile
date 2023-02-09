@@ -1605,6 +1605,11 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		if (leftSide) {
+			healthGain*=-1;
+			healthLoss*=-1;
+		}
+
 		switch(Paths.formatToSongPath(SONG.song))
 		{
 			case 'stress':
@@ -2046,10 +2051,10 @@ class PlayState extends MusicBeatState
 		judgementCounter.cameras = [camHUD];
 		doof.cameras = [camHUD];
 		
-		if (leftSide)
+		/*if (leftSide)
 		{
 			healthBar.flipX = true;
-		}
+		}*/
 		
 		healthBar.alpha = 0;
 		healthBarBG.alpha = 0;
@@ -2469,8 +2474,13 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		if (!leftSide){
+			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+				FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		}else{
+			healthBar.createFilledBar(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
+				FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		}
 
 		healthBar.updateBar();
 	}
@@ -4764,8 +4774,10 @@ class PlayState extends MusicBeatState
 		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
 		
-		if (health > 2)
+		if (health > 2 && !leftSide)
 			health = 2;
+		if (health < 0 && leftSide)
+			health = 0;
 
 		if (healthBar.percent < 20)
 			iconP1.animation.curAnim.curFrame = 1;
@@ -5076,7 +5088,9 @@ class PlayState extends MusicBeatState
 
 	public var isDead:Bool = false; //Don't mess with this on Lua!!!
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
-		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
+		var check:Bool = (skipHealthCheck && instakillOnMiss) || health <= 0;
+		if (leftSide) check = (skipHealthCheck && instakillOnMiss) || health >= 2;
+		if (check && !practiceMode && !isDead)
 		{
 			var ret:Dynamic = callOnLuas('onGameOver', [], false);
 			if(ret != FunkinLua.Function_Stop) {
