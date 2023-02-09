@@ -1979,7 +1979,7 @@ class PlayState extends MusicBeatState
 		add(healthBarBG);
 		healthBarBG.sprTracker = healthBar;
 
-		iconP1 = new HealthIcon(boyfriend.healthIcon);
+		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 80;
 		iconP1.x += 150;
 		iconP1.visible = !ClientPrefs.hideHud;
@@ -7382,7 +7382,7 @@ class PlayState extends MusicBeatState
 						setAlpha([blackBG], 1);
 						
 						boyfriend.y -= 170;
-						dad.y -= 50;
+						dad.y += 20;
 						
 						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
