@@ -1979,19 +1979,24 @@ class PlayState extends MusicBeatState
 		add(healthBarBG);
 		healthBarBG.sprTracker = healthBar;
 
-		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1 = new HealthIcon(boyfriend.healthIcon);
 		iconP1.y = healthBar.y - 80;
 		iconP1.x += 150;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
+		if (leftSide) iconP1.changeIcon(dad.healthIcon);
+		
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 80;
 		iconP2.x += 150;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
+		
+		if (leftSide) iconP2.changeIcon(boyfriend.healthIcon);
+		
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(20, 0, 0, "", 20);
@@ -2044,8 +2049,6 @@ class PlayState extends MusicBeatState
 		if (leftSide)
 		{
 			healthBar.flipX = true;
-			iconP1.flipX = true;
-			iconP2.flipX = true;
 		}
 		
 		healthBar.alpha = 0;
@@ -2696,7 +2699,7 @@ class PlayState extends MusicBeatState
 	
 	function flash(color:FlxColor, duration:Float)
 	{
-		FlxG.cameras.flash(color, duration);
+		if(ClientPrefs.flashing) FlxG.cameras.flash(color, duration);
 	}
 	
 	function colorTween(object:Array<FlxSprite>, duration:Float, colorToSayGoodbye:FlxColor, colorToSayHello:FlxColor)
@@ -4756,16 +4759,10 @@ class PlayState extends MusicBeatState
 		iconP2.updateHitbox();
 
 		var iconOffset:Int = 26;
-
+		
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
-		
-		if (leftSide)
-		{
-			iconP1.x = healthBar.x - (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-			iconP2.x = healthBar.x - (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-		}
 		
 		if (health > 2)
 			health = 2;
@@ -5582,11 +5579,11 @@ class PlayState extends MusicBeatState
 				});
 				
 			case 'zoomBeatType1':
-				zoomType1 = true;
+				if(ClientPrefs.camZooms) zoomType1 = true;
 			case 'zoomBeatType2':
-				zoomType2 = true;
+				if(ClientPrefs.camZooms) zoomType2 = true;
 			case 'zoomBeatType3':
-				zoomType3 = true;
+				if(ClientPrefs.camZooms) zoomType3 = true;
 				
 				//stop beats
 			case 'zoomBeatType1 Cancel':
@@ -5626,15 +5623,15 @@ class PlayState extends MusicBeatState
 				
 			case 'Flash Camera BLACK':
 				var val2:Float = Std.parseFloat(value2);
-				FlxG.camera.flash(FlxColor.BLACK, val2);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, val2);
 				
 			case 'Flash Camera WHITE':
 				var val2:Float = Std.parseFloat(value2);
-				FlxG.camera.flash(FlxColor.WHITE, val2);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, val2);
 				
 			case 'Flash Camera RED':
 				var val2:Float = Std.parseFloat(value2);
-				FlxG.camera.flash(FlxColor.RED, val2);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, val2);
 				
 			case 'Screen Flip X':
 				camGame.angle = 270;
@@ -7059,7 +7056,7 @@ class PlayState extends MusicBeatState
 				switch(curStep)
 				{
 					case 1 | 8 | 16 | 32 | 40 | 48 | 64 | 72 | 80 | 96 | 104 | 112:
-						FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
+						if(ClientPrefs.flashing || !ClientPrefs.lowQuality) FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
 					case 120:
 						FlxG.camera.fade(FlxColor.BLACK, 0, true);
 
@@ -7385,7 +7382,7 @@ class PlayState extends MusicBeatState
 						setAlpha([blackBG], 1);
 						
 						boyfriend.y -= 170;
-						dad.y -= 100;
+						dad.y -= 50;
 						
 						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);

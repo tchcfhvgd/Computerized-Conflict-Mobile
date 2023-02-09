@@ -1,66 +1,66 @@
 {
 	"animations": [
 		{
-			"loop": true,
+			"loop": false,
 			"offsets": [
-				40,
-				-80
+				300,
+				190
 			],
 			"anim": "idle",
 			"fps": 24,
-			"name": "ANGRYMINUSTCOidle",
+			"name": "idle",
 			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				73,
-				-330
+				341,
+				351
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "ANGRYMINUSTCOleft",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left"
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-14,
-				-320
+				418,
+				186
 			],
 			"anim": "singDOWN",
 			"fps": 24,
-			"name": "ANGRYMINUSTCOdown",
+			"name": "down",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				206,
-				-280
+				490,
+				672
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "ANGRYMINUSTCOup",
+			"name": "up",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				223,
-				-287
+				268,
+				209
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "ANGRYMINUSTCOright",
+			"name": "right",
 			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/extras/minus/ANGRYMINUStco",
 	"position": [
-		-240,
-		-310
+		0,
+		170
 	],
 	"healthicon": "the-chosen-one",
 	"flip_x": false,
@@ -70,8 +70,8 @@
 		0
 	],
 	"camera_position": [
-		-130,
-		350
+		-480,
+		-260
 	],
 	"sing_duration": 6.1,
 	"scale": 1

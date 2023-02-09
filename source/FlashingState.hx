@@ -14,12 +14,14 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxTimer;
+import flixel.FlxCamera;
 
 class FlashingState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
+	var warnText2:FlxText;
 	
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;
@@ -28,24 +30,43 @@ class FlashingState extends MusicBeatState
 	var grpOptions:FlxTypedGroup<Alphabet>;
 	var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	var grpTexts:FlxTypedGroup<AttachedText>;
+	public var camGame:FlxCamera;
+	public var camHUD:FlxCamera;
 	
 	override function create()
 	{
 		super.create();
+
+		camGame = new FlxCamera();
+		
+		camHUD = new FlxCamera();
+		camHUD.bgColor.alpha = 1;
+		
+		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camHUD);
 		
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Hey, watch out!\n
-			This Mod contains some flashing lights!\n
-			Press ENTER to disable them now or go to Options Menu.\n
-			Press ESCAPE to ignore this message.\n
-			You've been warned!",
+			This Mod contains some flashing lights,\n
+			screen shake and shaders!",
 			32);
-		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		warnText.setFormat("VCR OSD Mono", 42, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
+		warnText.cameras = [camGame];
 		add(warnText);
+		
+		warnText2 = new FlxText(0, 0, FlxG.width,
+			"If you have a low end PC, it's not recommended to play this mod.\n
+			Since it could present various bugs that could ruin your experience.",
+			32);
+		warnText2.setFormat("VCR OSD Mono", 42, FlxColor.WHITE, CENTER);
+		warnText2.screenCenter(Y);
+		add(warnText2);
+		warnText2.cameras = [camHUD];
+		warnText2.alpha = 0;
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -56,25 +77,35 @@ class FlashingState extends MusicBeatState
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
 		
+		var option:Option = new Option('Do Not Show Me This Again', "", 'shaders', 'bool', true);
+		addOption(option);
+		
 		var option:Option = new Option('Flashing Lights', "", 'flashing', 'bool', true);
+		addOption(option);
+		
+		var option:Option = new Option('Screen Shake', "", 'screenShake', 'bool', true);
 		addOption(option);
 		
 		var option:Option = new Option('Shaders', "", 'shaders', 'bool', true);
 		addOption(option);
 		
+		
+		
 		for (i in 0...optionsArray.length)
 		{
-			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, true);
+			var optionText:Alphabet = new Alphabet(150, 260, optionsArray[i].name, false);
 			optionText.isMenuItem = true;
 			/*optionText.forceX = 300;
 			optionText.yMult = 90;*/
 			optionText.targetY = i;
 			grpOptions.add(optionText);
+			optionText.cameras = [camGame];
 
 			var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, optionsArray[i].getValue() == true);
 			checkbox.sprTracker = optionText;
 			checkbox.ID = i;
 			checkboxGroup.add(checkbox);
+			checkbox.cameras = [camGame];
 		}
 		
 		changeSelection();
@@ -104,27 +135,12 @@ class FlashingState extends MusicBeatState
 		}
 		
 		if(!leftState) {
-			var back:Bool = controls.BACK;
-			if (controls.ACCEPT || back) {
+			var space:Bool = FlxG.keys.justPressed.SPACE;
+			if (space) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
-				if(!back) {
-					ClientPrefs.saveSettings();
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-					FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
-						new FlxTimer().start(0.5, function (tmr:FlxTimer) {
-							MusicBeatState.switchState(new TitleState());
-						});
-					});
-				} else {
-					FlxG.sound.play(Paths.sound('cancelMenu'));
-					FlxTween.tween(warnText, {alpha: 0}, 1, {
-						onComplete: function (twn:FlxTween) {
-							MusicBeatState.switchState(new TitleState());
-						}
-					});
-				}
+				goinToTitleState();
 			}
 		}
 		super.update(elapsed);
@@ -177,5 +193,24 @@ class FlashingState extends MusicBeatState
 		for (checkbox in checkboxGroup) {
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
+	}
+	
+	function goinToTitleState()
+	{
+		ClientPrefs.saveSettings();
+		FlxG.sound.play(Paths.sound('confirmMenu'));
+		
+		FlxTween.tween(camGame, {alpha: 0}, 1, {
+			onComplete: function(twn:FlxTween) {
+		        FlxTween.tween(camHUD, {alpha: 1}, 1);
+				new FlxTimer().start(5, function (tmr:FlxTimer) {
+					FlxTween.tween(camHUD, {alpha: 0}, 1, {
+						onComplete: function(twn:FlxTween) {
+							MusicBeatState.switchState(new TitleState());
+						}
+					});
+				});
+			}
+		});
 	}
 }
