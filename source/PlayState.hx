@@ -6470,7 +6470,7 @@ class PlayState extends MusicBeatState
 			char = bf3;
 		}
 
-		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations)
+		if(char != null && (!daNote.noMissAnimation || char == bf2) && char.hasMissAnimations)
 		{
 			var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daNote.animSuffix;
 			char.playAnim(animToPlay, true);
@@ -6684,14 +6684,6 @@ class PlayState extends MusicBeatState
 						gf.holdTimer = 0;
 					}
 				}
-				if(note.tscNote)
-				{
-					if(bf2 != null)
-					{
-						bf2.playAnim(animToPlay + note.animSuffix, true);
-						bf2.holdTimer = 0;
-					}
-				}
 				if(note.greenNote)
 				{
 					if(bf3 != null)
@@ -6724,6 +6716,16 @@ class PlayState extends MusicBeatState
 						gf.specialAnim = true;
 						gf.heyTimer = 0.6;
 					}
+				}
+			}
+
+			if(note.tscNote)
+			{
+				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
+				if(bf2 != null)
+				{
+					bf2.playAnim(animToPlay + note.animSuffix, true);
+					bf2.holdTimer = 0;
 				}
 			}
 			

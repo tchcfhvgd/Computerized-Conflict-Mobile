@@ -159,7 +159,8 @@ class Note extends FlxSprite
 					greenNote = true;
 				case 'TSC Sing':
 					tscNote = true;
-					
+					noAnimation = true;
+					noMissAnimation = true;
 				case 'AV':
 					ignoreNote = mustPress;
 					loadGraphic(Paths.image('dangerNotes/av'));
