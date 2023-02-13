@@ -1,77 +1,77 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Idle instance 1"
+			"fps": 24,
+			"name": "Idle instance 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				81,
-				14
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				89,
+				16
+			],
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Left instance 1"
+			"fps": 24,
+			"name": "Left instance 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				294,
-				-109
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				323,
+				-119
+			],
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Down instance 1"
+			"fps": 24,
+			"name": "Down instance 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				52,
-				39
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				58,
+				43
+			],
 			"anim": "singUP",
-			"indices": [],
-			"name": "Up instance 1"
+			"fps": 24,
+			"name": "Up instance 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				32,
-				2
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				36,
+				3
+			],
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Right instance 1"
+			"fps": 24,
+			"name": "Right instance 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				100,
-				39
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				111,
+				43
+			],
 			"anim": "shoot",
-			"indices": [],
-			"name": "Shoot instance 1"
+			"fps": 24,
+			"name": "Shoot instance 1",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/extras/collab/showdown/showdown_tco",
 	"position": [
 		-40,
-		210
+		175
 	],
 	"healthicon": "face",
 	"flip_x": false,
@@ -81,8 +81,8 @@
 		161
 	],
 	"camera_position": [
-		-280,
-		0
+		-350,
+		50
 	],
 	"sing_duration": 6.1,
 	"scale": 1.1

@@ -74,8 +74,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height);
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pauseMenu/bg'));
 		bg.alpha = 0;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		bg.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1],
 		PlayState.instance.dad.healthColorArray[2]);
@@ -91,7 +92,7 @@ class PauseSubState extends MusicBeatSubstate
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0;
-		add(scrollingThing);
+		//add(scrollingThing);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
@@ -139,8 +140,8 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
-		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(scrollingThing, {alpha: 0.8}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bg, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		//FlxTween.tween(scrollingThing, {alpha: 0.8}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
@@ -163,8 +164,8 @@ class PauseSubState extends MusicBeatSubstate
 		super.update(elapsed);
 		updateSkipTextStuff();
 		
-		scrollingThing.x -= 0.45;
-		scrollingThing.y -= 0.16;
+		//scrollingThing.x -= 0.45;
+		//scrollingThing.y -= 0.16;
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
