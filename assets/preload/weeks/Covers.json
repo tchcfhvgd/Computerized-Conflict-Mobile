@@ -1,5 +1,6 @@
 {
 	"songs": [
+		["enmity", "the-chosen-one-adobe", [252, 174, 0]],
 		["aurora", "tdl", [255, 0, 0]],
 		["phantasm", "the-chosen-one", [252, 174, 0]]
         ],
@@ -13,7 +14,7 @@
 
 	"storyName": "",
 	"weekBefore": "Tutorial Week",
-	"weekName": "Tutorial",
+	"weekName": "Miscellaneous Songs",
 	"startUnlocked": true,
 
 	"hideStoryMode": true,
