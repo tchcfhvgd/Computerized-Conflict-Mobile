@@ -4593,6 +4593,13 @@ class PlayState extends MusicBeatState
 				dodged = true;
 			}
 		} 
+
+		if(dad.curCharacter == 'cursor'){
+			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/30);
+
+			dad.x = DAD_X + dad.positionArray[0] + (10*30)*Math.sin(test/2);
+			dad.y = DAD_Y + dad.positionArray[1] + (10*20)*Math.sin(((test*1.5) * Math.PI));
+		}
 		
 		if (oldVideoResolution)
 		{
