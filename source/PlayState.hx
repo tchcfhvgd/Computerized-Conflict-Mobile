@@ -6685,7 +6685,7 @@ class PlayState extends MusicBeatState
 								boyfriend.specialAnim = true;
 							}
 						case 'stopwatch':
-							var funnyBackInTime:Int = Std.int(Conductor.songPosition - 10000);
+							var funnyBackInTime:Int = Std.int(Math.max(12500, Conductor.songPosition - 10000));
 
 							startOnTime = funnyBackInTime;
 							timeTravelHP = health;
@@ -7173,6 +7173,8 @@ class PlayState extends MusicBeatState
 					case 116:
 						blackBars(0);
 						showHUDTween(1, 1);
+
+						trace(Conductor.songPosition + 1000);
 						
 					case 1136:
 						FlxTween.tween(this, {songLength: actualSongLength, timeBar: 1}, 3);
