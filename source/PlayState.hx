@@ -7057,6 +7057,7 @@ class PlayState extends MusicBeatState
 			opponentStrums.forEach(function(spr:StrumNote) {
 			    spr.cameras = [camGame];
 				spr.scrollFactor.set(1, 0);
+				spr.angle -= 270;
 			});
 						
 			for (note in unspawnNotes)
@@ -7065,6 +7066,7 @@ class PlayState extends MusicBeatState
 				{
 					note.cameras = [camGame];
 					note.scrollFactor.set (1, 0);
+					note.angle -= 270;
 				}
 			}
 			for (note in notes)
@@ -7073,6 +7075,7 @@ class PlayState extends MusicBeatState
 				{
 					note.cameras = [camGame];
 					note.scrollFactor.set (1, 0);
+					note.angle -= 270;
 				}
 			}
 		}
