@@ -50,6 +50,7 @@ class MinusCharSelector extends MusicBeatState
 	'Beta\nBoyfriend',
 	'Blue\nBoyfriend',
 	'Mean\nBoyfriend'];
+	var iconP1:HealthIcon;
 	
 	override public function create()
 	{
@@ -121,7 +122,7 @@ class MinusCharSelector extends MusicBeatState
 		add(namesText);
 		
 		
-		var iconP1:HealthIcon = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = 580;
 		iconP1.x += 1050;
 		add(iconP1);
@@ -132,7 +133,7 @@ class MinusCharSelector extends MusicBeatState
 		
 		changeBF();
 		
-		for (i in 0...bfSkins.length) addCharacterToList(bfSkins[i]);
+		for (i in 0...bfSkins.length) preloadChar(bfSkins[i]);
 		
 		super.create();
 	}
@@ -207,6 +208,16 @@ class MinusCharSelector extends MusicBeatState
 		}
 		
 		namesText.text = charNames[actualNum];
+
+		remove(boyfriend);
+		boyfriend = new Character(0, 0, bfSkins[actualNum], true);
+		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.85));
+		boyfriend.screenCenter();
+		boyfriend.x += 350;
+		boyfriend.updateHitbox();
+		boyfriend.dance();
+		insert(2, boyfriend);
+		iconP1.changeIcon(boyfriend.healthIcon);
 		
 		switch(actualNum) //shittest code ever fr
 		{
@@ -232,12 +243,7 @@ class MinusCharSelector extends MusicBeatState
 		}
 	}
 	
-	function addCharacterToList(newCharacter:String) {
-		if(!boyfriendMap.exists(newCharacter)) {
-			var newBoyfriend:Boyfriend = new Boyfriend(0, 0, newCharacter);
-			boyfriendMap.set(newCharacter, newBoyfriend);
-			add(newBoyfriend);
-			newBoyfriend.alpha = 0.00001;
-		}
+	function preloadChar(character:String) {
+		Paths.image('characters/CC/extras/minus/' + character);
 	}
 }
