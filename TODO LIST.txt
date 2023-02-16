@@ -1,3 +1,5 @@
+fixing the character selection in amity
+
 make the end process tabs on fire fall instead of floating on the bg
 
 make alan's cursor float around the background (like the shaggy mod)

@@ -144,6 +144,7 @@ class MinusCharSelector extends MusicBeatState
 		
 		if (!selectedSmth)
 		{
+
 			if(boyfriend != null && boyfriend.animation.curAnim.finished) {
 				boyfriend.dance();
 			}
@@ -151,7 +152,7 @@ class MinusCharSelector extends MusicBeatState
 			if (controls.BACK)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new FreeplayMenu());
 			}
 			else if (controls.ACCEPT)
 			{
