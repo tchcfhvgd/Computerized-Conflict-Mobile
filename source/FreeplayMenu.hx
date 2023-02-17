@@ -55,7 +55,6 @@ class FreeplayMenu extends MusicBeatState
 		['Old']
 	];
 	var selectedSmth:Bool = false;
-	var zoomTween:FlxTween;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	
@@ -176,6 +175,16 @@ class FreeplayMenu extends MusicBeatState
 					spr.x = 150;
 					spr.y = 1060;
 			}
+
+			var a:Float;
+			if (spr.ID == curSelected){
+				a = 1;
+			}else{
+				a = 0.85;
+			}
+			spr.scale.x += (a-spr.scale.x)/(250*elapsed);
+			spr.scale.y = spr.scale.x;
+
 			spr.updateHitbox();
 		});
 		
@@ -240,28 +249,16 @@ class FreeplayMenu extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = folderGroup.length - 1;
 			
-		if(zoomTween != null) {
-			zoomTween.cancel();
-		}
 
 		folderGroup.forEach(function(spr:FlxSprite)
 		{
 			spr.alpha = 0.5;
-			spr.updateHitbox();
-			
-			zoomTween = FlxTween.tween(spr, {"scale.x": 0.85, "scale.y": 0.85}, 0.2, {
-				ease: FlxEase.quadOut,
-				onComplete: function(twn:FlxTween) {
-					zoomTween = null;
-				}
-			});
+			//spr.updateHitbox();
 			
 			if (spr.ID == curSelected)
 			{
 				spr.alpha = 1;
 				var add:Float = 0;
-				
-				zoomTween = FlxTween.tween(spr, {"scale.x": 1, "scale.y": 1}, 0.2, {ease: FlxEase.quadOut});
 				
 				if(folderGroup.length > 4) {
 					add = folderGroup.length * 8;
