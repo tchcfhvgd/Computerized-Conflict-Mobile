@@ -1442,7 +1442,6 @@ class PlayState extends MusicBeatState
 					theHOGOVERLAYOMG.alpha = 0;
 					
 					if (ClientPrefs.shaders) if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
-					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 					//if (ClientPrefs.shaders) addShaderToCamera('camhud', new ChromaticAberrationEffect(0.0015));
 					
 					

@@ -15,24 +15,32 @@ import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
 import flixel.addons.display.FlxBackdrop;
+import flixel.effects.FlxFlicker;
+import flixel.util.FlxTimer;
 
 class PauseSubState extends MusicBeatSubstate
 {
-	var grpMenuShit:FlxTypedGroup<Alphabet>;
+	var grpMenuShit:FlxTypedGroup<FlxText>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['RESUME', 'RESTART SONG', 'CHANGE DIFFICULTY', 'EXIT TO MENU'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
 	var skipTimeText:FlxText;
-	var skipTimeTracker:Alphabet;
+	var skipTimeTracker:FlxText;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
 	var scrollingThing:FlxBackdrop;
+	var bar:FlxSprite;
+	var vignette:FlxSprite;
+	var portrait:FlxSprite;
+	var pauseText:FlxSprite;
+	var arrow:FlxSprite;
+	var coolDown:Bool = true;
 	//var botplayText:FlxText;
-
+	
 	public static var songName:String = '';
 
 	public function new(x:Float, y:Float)
@@ -73,26 +81,42 @@ class PauseSubState extends MusicBeatSubstate
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
 
 		FlxG.sound.list.add(pauseMusic);
-
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pauseMenu/bg'));
-		bg.alpha = 0;
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		
-		bg.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1],
-		PlayState.instance.dad.healthColorArray[2]);
-		
-		bg.scrollFactor.set();
-		add(bg);
-		
-		if (PlayState.instance.oldVideoResolution)
-		{
-			bg.x += 50;
-		}
-		
-		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
+		scrollingThing = new FlxBackdrop(Paths.image('pauseMenu/scroll'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0;
-		//add(scrollingThing);
+		scrollingThing.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1],
+		PlayState.instance.dad.healthColorArray[2]);
+		
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		add(scrollingThing);
+		
+		vignette = new FlxSprite().loadGraphic(Paths.image('pauseMenu/vignette'));
+		vignette.scrollFactor.set();
+		vignette.alpha = 0;
+		add(vignette);
+		
+		bar = new FlxSprite().loadGraphic(Paths.image('pauseMenu/bar'));
+		bar.scrollFactor.set();
+		bar.alpha = 0;
+		add(bar);
+		
+		portrait = new FlxSprite(250, 0).loadGraphic(Paths.image('pauseMenu/chars/' + PlayState.instance.dad.curCharacter));
+		portrait.scrollFactor.set();
+		portrait.alpha = 0;
+		if (portrait != null) add(portrait);
+		
+		pauseText = new FlxSprite(0, -150).loadGraphic(Paths.image('pauseMenu/text'));
+		pauseText.scrollFactor.set();
+		pauseText.alpha = 0;
+		add(pauseText);
+		
+		arrow = new FlxSprite(0, 0).loadGraphic(Paths.image('pauseMenu/arrow'));
+		arrow.scrollFactor.set();
+		add(arrow);
+		
+		if (PlayState.instance.oldVideoResolution) bar.x -= 270;
+		if (PlayState.instance.oldVideoResolution) portrait.x -= 270;
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
@@ -139,15 +163,26 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
-
-		FlxTween.tween(bg, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
-		//FlxTween.tween(scrollingThing, {alpha: 0.8}, 0.4, {ease: FlxEase.quartInOut});
+		
+		FlxTween.tween(scrollingThing, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(vignette, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bar, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(portrait, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
+		FlxTween.tween(pauseText, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		FlxTween.tween(arrow, {x: arrow.x + 10}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+		FlxTween.tween(pauseText, {y: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
+		FlxTween.tween(portrait, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
-		grpMenuShit = new FlxTypedGroup<Alphabet>();
+		grpMenuShit = new FlxTypedGroup<FlxText>();
 		add(grpMenuShit);
+		
+		new FlxTimer().start(0.4, function(lol:FlxTimer)
+		{
+			coolDown = false;
+		});
 
 		regenMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
@@ -164,8 +199,8 @@ class PauseSubState extends MusicBeatSubstate
 		super.update(elapsed);
 		updateSkipTextStuff();
 		
-		//scrollingThing.x -= 0.45;
-		//scrollingThing.y -= 0.16;
+		scrollingThing.x -= 0.45;
+		scrollingThing.y -= 0.16;
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
@@ -211,7 +246,7 @@ class PauseSubState extends MusicBeatSubstate
 				}
 		}
 
-		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
+		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode) && !coolDown)
 		{
 			if (menuItems == difficultyChoices)
 			{
@@ -233,12 +268,18 @@ class PauseSubState extends MusicBeatSubstate
 
 			switch (daSelected)
 			{
-				case "Resume":
-					close();
+				case "RESUME":
 					
-					if (PlayState.SONG.song.toLowerCase() == 'end process' && PlayState.instance.popUpTimer != null) PlayState.instance.popUpTimer.active = true;
+					goodByePortrait();
+					new FlxTimer().start(0.4, function(lol:FlxTimer)
+					{
+						close();
+						
+						if (PlayState.SONG.song.toLowerCase() == 'end process'
+						&& PlayState.instance.popUpTimer != null) PlayState.instance.popUpTimer.active = true;
+					});
 					
-				case 'Change Difficulty':
+				case 'CHANGE DIFFICULTY':
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
 					regenMenu();
@@ -246,7 +287,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
-				case "Restart Song":
+				case "RESTART SONG":
 					restartSong();
 				case "Leave Charting Mode":
 					restartSong();
@@ -275,7 +316,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
-				case "Exit to menu":
+				case "EXIT TO MENU":
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 
@@ -344,15 +385,22 @@ class PauseSubState extends MusicBeatSubstate
 
 		for (item in grpMenuShit.members)
 		{
-			item.targetY = bullShit - curSelected;
+			var shit = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
+			item.color = 0xFFFFFFFF;
+			FlxTween.tween(item, {x: 90}, 0.3, {ease:FlxEase.smoothStepInOut});
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
+			if (shit == 0)
 			{
 				item.alpha = 1;
+				item.color = 0xFFFFF777;
+				
+				FlxTween.tween(item, {x: 100}, 0.3, {ease:FlxEase.smoothStepInOut});
+				
+				arrow.y = item.y - 20;
 				// item.setGraphicSize(Std.int(item.width));
 
 				if(item == skipTimeTracker)
@@ -373,9 +421,9 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		for (i in 0...menuItems.length) {
-			var item = new Alphabet(90, 320, menuItems[i], true);
-			item.isMenuItem = true;
-			item.targetY = i;
+			var item = new FlxText(90, (i * 100) + 280, menuItems[i], 64);
+			item.setFormat(Paths.font("Small Print.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			item.scrollFactor.set();
 			grpMenuShit.add(item);
 
 			if(menuItems[i] == 'Skip Time')
@@ -383,7 +431,7 @@ class PauseSubState extends MusicBeatSubstate
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				skipTimeText.scrollFactor.set();
-				skipTimeText.borderSize = 2;
+				//skipTimeText.borderSize = 2;
 				skipTimeTracker = item;
 				add(skipTimeText);
 
@@ -407,5 +455,19 @@ class PauseSubState extends MusicBeatSubstate
 	function updateSkipTimeText()
 	{
 		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
+	}
+	
+	function goodByePortrait()
+	{
+		//FlxTween.tween(arrow, {x: arrow.x - 200}, 0.4, {ease:FlxEase.smoothStepInOut});
+		//FlxTween.tween(arrow, {arrow: 0}, 0.4, {ease: FlxEase.quartInOut});
+		for (item in grpMenuShit.members) FlxTween.tween(item, {x: item.x - 200}, 0.4, {ease:FlxEase.smoothStepInOut});
+		//for (item in grpMenuShit.members) FlxTween.tween(item, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(pauseText, {y: -150}, 0.4, {ease:FlxEase.smoothStepInOut});
+		FlxTween.tween(portrait, {x: 250}, 0.4, {ease:FlxEase.smoothStepInOut});
+		FlxTween.tween(scrollingThing, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(vignette, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bar, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(portrait, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 	}
 }

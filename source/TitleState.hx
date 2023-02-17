@@ -748,13 +748,13 @@ class TitleState extends MusicBeatState
 				FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 				
 		        if (chosenTDL != null)
-		            FlxTween.tween(chosenTDL, { y: -10 }, 0.46, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+		            FlxTween.tween(chosenTDL, { y: -10 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 			
 		        if (logoBl != null)
-		            FlxTween.tween(logoBl, { y: -45 }, 0.46, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+		            FlxTween.tween(logoBl, { y: -45 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 			
 		        if (titleText != null)
-		            FlxTween.tween(titleText, { y: 495 }, 0.46, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+		            FlxTween.tween(titleText, { y: 495 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
