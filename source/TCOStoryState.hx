@@ -26,19 +26,23 @@ import flixel.FlxCamera;
 import WeekData;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 
 class TCOStoryState extends MusicBeatState
 {
+	var scoreText:FlxText;
+	var weekName:FlxText;
 	var bgSprite:FlxSprite;
-	var frontBars:FlxSprite;
+	var border:FlxSprite;
 	var bgSpriteFire:FlxSprite;
-	var frontBarsFire:FlxSprite;
 	var chosenOne:FlxSprite;
 	var fires:FlxSprite;
 	var sprDifficulty:FlxSprite;
 	var diff:String;
+	var scrollingThing:FlxBackdrop;
+	var vignette:FlxSprite;
 	
 	public var camGame:FlxCamera;
 	public var camGameShaders:Array<ShaderEffect> = [];
@@ -49,6 +53,7 @@ class TCOStoryState extends MusicBeatState
 	var curDifficulty:Int = 0;
 	//var curDifficulty2:Int = 0;
 	var onInsane:Bool =  false;
+	var outline:FlxSprite;
 	
 	var difficulties:Array<String> = [
 	    'Simple',
@@ -62,48 +67,39 @@ class TCOStoryState extends MusicBeatState
 		Paths.clearUnusedMemory();
 		
 		PlayState.isStoryMode = true;
-		WeekData.reloadWeekFiles(true);
-		persistentUpdate = persistentDraw = true;
 		
 		camGame = new FlxCamera();
 		FlxG.cameras.reset(camGame);
 		FlxCamera.defaultCameras = [camGame];
 		
-		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/StoryBG'));
-		bgSprite.setGraphicSize(Std.int(bgSprite.width * 0.67));
+		border = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/border'));
+		border.updateHitbox();
+		border.screenCenter();
+		border.antialiasing = ClientPrefs.globalAntialiasing;
+		border.color = 0xFF111111;
+		
+		outline = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/outline'));
+		outline.updateHitbox();
+		outline.screenCenter();
+		outline.antialiasing = ClientPrefs.globalAntialiasing;
+		
+		vignette = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/vignette'));
+		vignette.updateHitbox();
+		vignette.screenCenter();
+		vignette.antialiasing = ClientPrefs.globalAntialiasing;
+		
+		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
+		scrollingThing.scrollFactor.set(0, 0.07);
+		scrollingThing.color = 0xFF0E0E0E;
+		
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		
+		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/week1BG'));
 		bgSprite.updateHitbox();
 		bgSprite.screenCenter();
-		bgSprite.y += 330;
-		bgSprite.x += 25;
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		
-		frontBars = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/MenuBars'));
-		frontBars.setGraphicSize(Std.int(frontBars.width * 0.67));
-		frontBars.updateHitbox();
-		frontBars.screenCenter();
-		frontBars.y += 290;
-		frontBars.x += 15;
-		frontBars.antialiasing = ClientPrefs.globalAntialiasing;
-		
 		//fuck
-		
-		bgSpriteFire = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/StoryBGFire'));
-		bgSpriteFire.setGraphicSize(Std.int(bgSpriteFire.width * 0.67));
-		bgSpriteFire.updateHitbox();
-		bgSpriteFire.screenCenter();
-		bgSpriteFire.y += 330;
-		bgSpriteFire.x += 25;
-		bgSpriteFire.antialiasing = ClientPrefs.globalAntialiasing;
-		bgSpriteFire.alpha = 0;
-		
-		frontBarsFire = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/MenuBarsFire'));
-		frontBarsFire.setGraphicSize(Std.int(frontBarsFire.width * 0.67));
-		frontBarsFire.updateHitbox();
-		frontBarsFire.screenCenter();
-		frontBarsFire.y += 290;
-		frontBarsFire.x += 15;
-		frontBarsFire.antialiasing = ClientPrefs.globalAntialiasing;
-		frontBarsFire.alpha = 0;
 		
 		chosenOne = new FlxSprite();
 		chosenOne.frames = Paths.getSparrowAtlas('storymenu/tcoStoryMode');
@@ -111,7 +107,7 @@ class TCOStoryState extends MusicBeatState
 		chosenOne.animation.addByPrefix('hard', 'ChosenHard', 24, true);
 		chosenOne.animation.addByPrefix('insane', 'ChosenInsane', 24, true);
 		chosenOne.animation.play('simple');
-		chosenOne.setGraphicSize(Std.int(chosenOne.width * 0.9));
+		chosenOne.setGraphicSize(Std.int(chosenOne.width * 0.8));
 		chosenOne.updateHitbox();
 		chosenOne.screenCenter();
 		chosenOne.y += 100;
@@ -129,12 +125,13 @@ class TCOStoryState extends MusicBeatState
 		fires.alpha = 0;
 		fires.antialiasing = ClientPrefs.globalAntialiasing;
 		
+		add(border);
+		add(scrollingThing);
+		add(outline);
+		add(vignette);
 		add(bgSprite);
-		add(bgSpriteFire);
 		add(fires);
 		add(chosenOne);
-		add(frontBars);
-		add(frontBarsFire);
 		
 		sprDifficulty = new FlxSprite();
 		add(sprDifficulty);
@@ -158,6 +155,10 @@ class TCOStoryState extends MusicBeatState
 	
 	override function update(elapsed:Float)
 	{
+		
+		scrollingThing.x -= 0.45;
+		scrollingThing.y -= 0.16;
+		
 		if (!selectedSmth)
 		{
 			if (controls.BACK)
@@ -230,9 +231,6 @@ class TCOStoryState extends MusicBeatState
 				onInsane = false;
 				bgSprite.color = FlxColor.WHITE;
 				bgSprite.alpha = 1;
-				frontBars.alpha = 1;
-				bgSpriteFire.alpha = 0;
-				frontBarsFire.alpha = 0;
 				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				clearShaderFromCamera('camgame');
 				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 1);
@@ -246,9 +244,6 @@ class TCOStoryState extends MusicBeatState
 				onInsane = false;
 				bgSprite.color = FlxColor.WHITE;
 				bgSprite.alpha = 1;
-				frontBars.alpha = 1;
-				bgSpriteFire.alpha = 0;
-				frontBarsFire.alpha = 0;
 				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				clearShaderFromCamera('camgame');
 				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 1);
@@ -260,11 +255,7 @@ class TCOStoryState extends MusicBeatState
 				chosenOne.x += 270;
 				fires.alpha = 1;
 				onInsane = true;
-				if (onInsane) FlxTween.color(bgSpriteFire, 1, FlxColor.WHITE, 0xFF2C2425);
-				bgSpriteFire.alpha = 1;
-				frontBarsFire.alpha = 1;
-				bgSprite.alpha = 0;
-				frontBars.alpha = 0;
+				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, 0xFF2C2425);
 				if (ClientPrefs.shaders) addShaderToCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 0);
 				if (onInsane) FlxG.sound.play(Paths.sound('fire'), 1, false);

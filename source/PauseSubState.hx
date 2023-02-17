@@ -40,6 +40,8 @@ class PauseSubState extends MusicBeatSubstate
 	var arrow:FlxSprite;
 	var coolDown:Bool = true;
 	//var botplayText:FlxText;
+	var arrowTween:FlxTween;
+	var selectTween:FlxTween;
 	
 	public static var songName:String = '';
 
@@ -172,9 +174,11 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
-		FlxTween.tween(arrow, {x: arrow.x + 10}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+		arrowTween = FlxTween.tween(arrow, {x: arrow.x + 10}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 		FlxTween.tween(pauseText, {y: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
-		FlxTween.tween(portrait, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
+		
+		if (PlayState.instance.oldVideoResolution) FlxTween.tween(portrait, {x: -270}, 0.4, {ease:FlxEase.smoothStepInOut});
+		else FlxTween.tween(portrait, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 		grpMenuShit = new FlxTypedGroup<FlxText>();
 		add(grpMenuShit);
@@ -192,6 +196,7 @@ class PauseSubState extends MusicBeatSubstate
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float)
 	{
+		if(PlayState.instance.oldVideoResolution) FlxG.fullscreen = false;
 		cantUnpause -= elapsed;
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
@@ -459,10 +464,11 @@ class PauseSubState extends MusicBeatSubstate
 	
 	function goodByePortrait()
 	{
-		//FlxTween.tween(arrow, {x: arrow.x - 200}, 0.4, {ease:FlxEase.smoothStepInOut});
+		arrowTween.cancel();
+	    //FlxTween.tween(arrow, {x: 300}, 0.4, {ease:FlxEase.smoothStepInOut});
 		//FlxTween.tween(arrow, {arrow: 0}, 0.4, {ease: FlxEase.quartInOut});
-		for (item in grpMenuShit.members) FlxTween.tween(item, {x: item.x - 200}, 0.4, {ease:FlxEase.smoothStepInOut});
-		//for (item in grpMenuShit.members) FlxTween.tween(item, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+		for (item in grpMenuShit.members) FlxTween.tween(item, {x: item.x - 500}, 0.4, {ease:FlxEase.smoothStepInOut});
+		for (item in grpMenuShit.members) FlxTween.tween(item, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(pauseText, {y: -150}, 0.4, {ease:FlxEase.smoothStepInOut});
 		FlxTween.tween(portrait, {x: 250}, 0.4, {ease:FlxEase.smoothStepInOut});
 		FlxTween.tween(scrollingThing, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
