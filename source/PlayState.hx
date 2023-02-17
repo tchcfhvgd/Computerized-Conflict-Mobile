@@ -420,7 +420,7 @@ class PlayState extends MusicBeatState
 			var dodged:Bool;
 			var babyArrowCamGame:Bool = false;
 			
-			public var trojanShader:Shaders.Glitch02Effect = new Glitch02Effect(8, 6, 3);
+			//public var trojanShader:Shaders.Glitch02Effect = new Glitch02Effect(8, 6, 3);
 			public var testShader3D:Shaders.Test3DEffect = new Test3DEffect(); //fuck
 			public var fishEyeShader:Shaders.FishEyeShader = new FishEyeShader(); //fuck
 			
@@ -1283,8 +1283,8 @@ class PlayState extends MusicBeatState
 					//strumLineNotes.add(babyArrowBG);
 					//babyArrowBG.postAddedToGroup();
 					
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(trojanShader.shader), new ShaderFilter(new FishEyeShader())]);
-			        if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(trojanShader.shader)]);
+					/*if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(trojanShader.shader), new ShaderFilter(new FishEyeShader())]);
+			        if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(trojanShader.shader)]);*/
 					
 				}
 				
@@ -4573,8 +4573,8 @@ class PlayState extends MusicBeatState
 				distortShaderHUD.shader.iTime.value[0] += elapsed;
 			case 'alan-pc-conflict':
 				endingShader.shader.uTime.value[0] += elapsed;
-			case 'alan-pc-virabot':
-				trojanShader.shader.uTime.value[0] += elapsed;
+			/*case 'alan-pc-virabot':
+				trojanShader.shader.uTime.value[0] += elapsed;*/
 			case 'bbpanzu-stage':
 				NTSCshader.shader.iTime.value[0] += elapsed;
 			case 'garden':
@@ -4596,8 +4596,8 @@ class PlayState extends MusicBeatState
 		if(dad.curCharacter == 'cursor'){
 			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/30);
 
-			dad.x = DAD_X + dad.positionArray[0] + (10*30)*Math.sin(test/2);
-			dad.y = DAD_Y + dad.positionArray[1] + (10*20)*Math.sin(((test*1.5) * Math.PI));
+			dad.x = DAD_X + dad.positionArray[0] + 300*Math.sin(test);
+			dad.y = DAD_Y + dad.positionArray[1] + 100*Math.sin(test/2);
 		}
 		
 		if (oldVideoResolution)
