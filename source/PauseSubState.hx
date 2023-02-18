@@ -429,6 +429,19 @@ class PauseSubState extends MusicBeatSubstate
 			var item = new FlxText(90, (i * 100) + 280, menuItems[i], 64);
 			item.setFormat(Paths.font("Small Print.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			item.scrollFactor.set();
+
+			if (menuItems.length > 4){
+				//item.scale.x = 4/menuItems.length;
+				item.scale.y = 4/menuItems.length;
+			}
+
+			item.y = ((i * 100) * item.scale.y) + 280;
+
+			item.width = item.width*item.scale.y;
+			item.updateHitbox();
+
+			//if (item.scale.y < 1) item.x = 90-item.width;
+			
 			grpMenuShit.add(item);
 
 			if(menuItems[i] == 'Skip Time')
@@ -436,6 +449,8 @@ class PauseSubState extends MusicBeatSubstate
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				skipTimeText.scrollFactor.set();
+				skipTimeText.scale.x = item.scale.x;
+				skipTimeText.scale.y = item.scale.y;
 				//skipTimeText.borderSize = 2;
 				skipTimeTracker = item;
 				add(skipTimeText);
