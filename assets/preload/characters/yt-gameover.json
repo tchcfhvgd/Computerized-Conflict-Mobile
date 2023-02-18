@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-28,
+				-1328
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "death loop confirm",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-28,
+				-1324
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "death loop0",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 12,
+			"anim": "firstDeath",
+			"loop": false,
+			"name": "death anim"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/youtube_death",
+	"position": [
+		-280,
+		-440
+	],
+	"healthicon": "bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		250,
+		130
+	],
+	"sing_duration": 6.1,
+	"scale": 2.2
+}

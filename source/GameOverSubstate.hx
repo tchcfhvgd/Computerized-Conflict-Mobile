@@ -30,19 +30,19 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static function resetVariables() {
 		switch(PlayState.SONG.player1)
 		{
-			case 'animator-bf' | 'animator-bf-flipX' | 'animator-bf-stressed':
-				{
-					characterName = 'animator-bf-dead';
-					deathSoundName = 'fnf_loss_sfx';
-					loopSoundName = 'gameOver-cc';
-					endSoundName = 'gameOverEnd-cc';
-				}
-			default:
+			case 'bf':
 				{
 					characterName = 'bf-dead';
 					deathSoundName = 'fnf_loss_sfx';
 					loopSoundName = 'gameOver';
 					endSoundName = 'gameOverEnd';
+				}
+			default:
+				{
+					characterName = 'animator-bf-dead';
+					deathSoundName = 'fnf_loss_sfx';
+					loopSoundName = 'gameOver-cc';
+					endSoundName = 'gameOverEnd-cc';
 				}
 		}
 	}

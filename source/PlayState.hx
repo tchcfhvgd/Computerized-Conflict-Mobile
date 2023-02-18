@@ -417,6 +417,13 @@ class PlayState extends MusicBeatState
 			var adobeWindow:BGSprite;
 			var sFWindow:BGSprite;
 			
+			//kaboom effect
+			var angleshit = 1;
+			var anglevar = 1;
+			var intensity = 0;
+			var intensity2 = 3;
+			var kaboomEnabled:Bool = false;
+			
 			var dodged:Bool;
 			var babyArrowCamGame:Bool = false;
 			
@@ -483,6 +490,7 @@ class PlayState extends MusicBeatState
 	
 	//Misc. things:
 	
+	var tweenZoomEvent:FlxTween;
 	var LightsColors:Array<FlxColor>; //for the vignette changing color
 	public var oldVideoResolution:Bool = false; // simulate 4:3 resolution like Alan old videos
 	var judgementCounter:FlxText; //the combo counter that appears in the left of your screen
@@ -1410,7 +1418,11 @@ class PlayState extends MusicBeatState
 					
 					songHasOtherPlayer = true;
 					bf2Name = "tsc-yt";
-					bf3Name = "animator-bf-stressed";
+					bf3Name = "green-yt";
+					
+					var char:Character = boyfriend;
+					
+					GameOverSubstate.characterName = 'yt-gameover';
 					
 				}
 				
@@ -1523,6 +1535,7 @@ class PlayState extends MusicBeatState
 				
 			case 'aol': //ava 2
 				{
+					camZooming = true;
 					var bg:BGSprite = new BGSprite('aol/messenger_bg', 0, 0, 1, 1);
 					bg.screenCenter();
 					bg.updateHitbox();
@@ -1619,11 +1632,25 @@ class PlayState extends MusicBeatState
 			case 'catto':
 				{
 					var bg:BGSprite = new BGSprite('Wong_Mau', 0, 0, 1, 1);
-					bg.setGraphicSize(Std.int(bg.width * 3));
+					bg.setGraphicSize(Std.int(bg.width * 3.5));
 					bg.y += 250;
 					bg.screenCenter();
 					if(ClientPrefs.shaders) bg.shader = wavShader.shader;
 					add(bg);
+					
+					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camBars];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					add(topBarsALT);
+			
+					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camBars];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					add(bottomBarsALT);
+					
+					camHUD.alpha = 0;
 				}
 				
 			case 'animStage-old': //Old Stage
@@ -1841,7 +1868,7 @@ class PlayState extends MusicBeatState
 			startCharacterPos(bf2);
 			if (bf2 != null) boyfriendGroup.add(bf2);
 					
-			bf3 = new Boyfriend(870, BF_Y, bf3Name);
+			bf3 = new Boyfriend(870, 20, bf3Name);
 			startCharacterPos(bf3);
 			if (bf3 != null) boyfriendGroup.add(bf3);
 		}
@@ -3698,7 +3725,7 @@ class PlayState extends MusicBeatState
 						spr.alpha = 0;
 					});
 					
-				case 'tune in':
+				case 'tune in' | 'alan':
 					
 					opponentStrums.forEach(function(spr:StrumNote) {
 						spr.x -= 1000;
@@ -4596,8 +4623,8 @@ class PlayState extends MusicBeatState
 		if(dad.curCharacter == 'cursor'){
 			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/30);
 
-			dad.x = DAD_X + dad.positionArray[0] + 300*Math.sin(test);
-			dad.y = DAD_Y + dad.positionArray[1] + 100*Math.sin(test/2);
+			dad.x = DAD_X + dad.positionArray[0] + 800*Math.sin(test);
+			dad.y = DAD_Y + dad.positionArray[1] + 600*Math.sin(test/2);
 		}
 		
 		if (oldVideoResolution)
@@ -5671,13 +5698,17 @@ class PlayState extends MusicBeatState
 				var val1:Float = Std.parseFloat(value1);
 				var val2:Float = Std.parseFloat(value2);
 				
-				FlxTween.tween(FlxG.camera, {zoom: val1}, val2, {
+				tweenZoomEvent = FlxTween.tween(FlxG.camera, {zoom: val1}, val2 * playbackRate, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(twn)
 					{
 						defaultCamZoom = val1;
 					},
 				});
+				
+			case 'cancel Tween Zoom':
+				
+				if (tweenZoomEvent != null) tweenZoomEvent = null;
 				
 			case 'Flash Camera BLACK':
 				var val2:Float = Std.parseFloat(value2);
@@ -5703,6 +5734,9 @@ class PlayState extends MusicBeatState
 				
 			case 'Virabot Attack':
 				virabotAttack();
+				
+			case 'Kaboom':
+				kaboomEnabled = true;
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -7189,9 +7223,9 @@ class PlayState extends MusicBeatState
 				switch(curStep)
 				{
 					case 792 | 920 | 1112:
-						PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection = true;
+						moveCamera(true);
 					case 858 | 984:
-						PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection = false;
+						moveCamera(false);
 				}
 			case 'phantasm':
 				switch(curStep)
@@ -7247,6 +7281,20 @@ class PlayState extends MusicBeatState
 						showHUDTween(1, 1);
 				}
 		}
+		
+		if (kaboomEnabled)
+		{
+			if (curStep % 4 == 0)
+			{
+				FlxTween.tween(camHUD, {y: -6 * intensity2}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+				FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+			}
+			if (curStep % 4 == 2)
+			{
+				FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+				FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+			}
+		}
 
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
@@ -7300,7 +7348,7 @@ class PlayState extends MusicBeatState
 				if (curSong == 'trojan')
 				{
 					coolShit.alpha = 1;
-					FlxTween.tween(coolShit, {alpha:0}, 0.2, {ease: FlxEase.quadInOut});
+					FlxTween.tween(coolShit, {alpha:0}, Conductor.crochet * 5, {ease: FlxEase.sineIn});
 				}
 			}
 			else
@@ -7379,7 +7427,7 @@ class PlayState extends MusicBeatState
 						blackBars(0);
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.8, 0xFF191919, FlxColor.WHITE);
 						babyArrowCamGame = false;
-					case  352:
+					case 384:
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.8, 0xFF191919, FlxColor.WHITE);
 						blackBars(0);
 				}
@@ -7496,6 +7544,25 @@ class PlayState extends MusicBeatState
 						setAlpha([rombieEndProcessReference], 0);
 						objectColor([boyfriend, dad], 0xFF2C2425);
 						setAlpha([whiteScreen], 0);
+				}
+			case 'catto':
+				switch(curBeat)
+				{
+					case 96:
+						FlxTween.tween(camHUD, {alpha:1}, 1);
+						FlxTween.tween(topBarsALT, {y: topBarsALT.y - 450}, 0.4, {ease:FlxEase.smoothStepInOut});
+						FlxTween.tween(bottomBarsALT, {y: bottomBarsALT.y + 450}, 0.4, {ease:FlxEase.smoothStepInOut});
+					case 156:
+						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:0}, 1));
+						FlxTween.tween(topBarsALT, {y: topBarsALT.y + 450}, 0.4, {ease:FlxEase.smoothStepInOut});
+						FlxTween.tween(bottomBarsALT, {y: bottomBarsALT.y - 450}, 0.4, {ease:FlxEase.smoothStepInOut});
+						
+					case 160:
+						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:1}, 1));
+						
+					case 260:
+						topBarsALT.alpha = 0;
+						bottomBarsALT.alpha = 0;
 				}
 		}
 
@@ -7622,6 +7689,25 @@ class PlayState extends MusicBeatState
 		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
 		{
 			lightningStrikeShit();
+		}
+		
+		if (kaboomEnabled)
+		{
+			if (curBeat % 2 == 0)
+			{
+				angleshit = anglevar;
+			}
+			else
+			{
+				angleshit = -anglevar;
+			}
+			
+			camHUD.angle = angleshit * intensity2;
+			camGame.angle = angleshit * intensity2;
+			FlxTween.tween(camHUD, {angle: angleshit * intensity}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+			FlxTween.tween(camHUD, {x: -angleshit * intensity}, Conductor.crochet * 0.001, {ease: FlxEase.linear});
+			FlxTween.tween(camGame, {angle: angleshit * intensity}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+			FlxTween.tween(camGame, {x: -angleshit * intensity}, Conductor.crochet * 0.001, {ease: FlxEase.linear});
 		}
 		lastBeatHit = curBeat;
 
