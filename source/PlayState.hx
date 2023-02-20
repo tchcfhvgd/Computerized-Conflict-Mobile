@@ -539,6 +539,10 @@ class PlayState extends MusicBeatState
 	//special game over
 	public var gameOverType:String = 'default';
 
+	//thingyyyy for the uhh stop using shaders thing
+	var timeWithLowerFps:Float;
+	var laggyText:FlxText;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -4636,6 +4640,30 @@ class PlayState extends MusicBeatState
 		{
 			health -= 0.0015 * (elapsed / (1/60));
 		}
+
+		trace(1/elapsed +' ' + elapsed + ' ' + FlxG.updateFramerate + '   ' + timeWithLowerFps);
+
+		if ((60 > 1/elapsed) && ClientPrefs.shaders){
+			timeWithLowerFps += elapsed;
+		}else{
+			timeWithLowerFps = 0;
+		}
+
+		if (timeWithLowerFps >= 5){
+			if (laggyText != null){
+				laggyText.alpha = 1;
+				laggyText.screenCenter();
+			}else{
+				laggyText = new FlxText(0, 0, FlxG.width, "IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE SHADERS", 20);
+				laggyText.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				laggyText.borderSize = 2;
+				laggyText.visible = !ClientPrefs.hideHud;
+				laggyText.cameras = [camOther];
+				add(laggyText);
+			}
+		}else{
+			if (laggyText != null) laggyText.alpha = 0;
+		}
 		
 		//TODO: rework
 		//TODO: 440, 22
@@ -6641,15 +6669,19 @@ class PlayState extends MusicBeatState
 			if(note.gfNote) {
 				char = gf;
 			}
-			if(note.tscNote) {
-				char = bf2;
-			}
 
 			if(char != null)
 			{
 				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
 			}
+		}
+
+		if(note.tscNote) {
+			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
+
+			bf2.playAnim(animToPlay, true);
+			bf2.holdTimer = 0;
 		}
 		
 		switch(note.noteType)
