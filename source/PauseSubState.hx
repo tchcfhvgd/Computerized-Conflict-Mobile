@@ -432,7 +432,8 @@ class PauseSubState extends MusicBeatSubstate
 
 			if (menuItems.length > 4){
 				//item.scale.x = 4/menuItems.length;
-				item.scale.y = 4/menuItems.length;
+				item.scale.y = 4 / menuItems.length;
+				item.scale.x = 8/menuItems.length;
 			}
 
 			item.y = ((i * 100) * item.scale.y) + 280;

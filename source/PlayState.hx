@@ -464,6 +464,13 @@ class PlayState extends MusicBeatState
 		//cubify:
 		    var overlayCubify:BGSprite;
 			
+		//messenger:
+		    var aolBG:BGSprite;
+			var aolBack:BGSprite;
+			var aolFloor:BGSprite;
+			var particleEmitter:FlxEmitter;
+			var veryEpicVignette:BGSprite;
+			
 		//tune in:
 		    var bf2:Boyfriend = null;
 			var bf3:Boyfriend = null;
@@ -1236,6 +1243,7 @@ class PlayState extends MusicBeatState
 					tscseeing.y += 180;
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 					
+					
 					topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
@@ -1353,6 +1361,8 @@ class PlayState extends MusicBeatState
                     if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
 					
 					needsBlackBG = true;
+					
+					camGame.x = FlxG.width / 2;
 					
 					
 					add(alanBG);
@@ -1536,27 +1546,48 @@ class PlayState extends MusicBeatState
 			case 'aol': //ava 2
 				{
 					camZooming = true;
-					var bg:BGSprite = new BGSprite('aol/messenger_bg', 0, 0, 1, 1);
-					bg.screenCenter();
-					bg.updateHitbox();
-					add(bg);
+					aolBG = new BGSprite('aol/messenger_bg', 0, 0, 1, 1);
+					aolBG.screenCenter();
+					aolBG.updateHitbox();
+					add(aolBG);
 					
-					var back:BGSprite = new BGSprite('aol/messenger_back', 0, 0, 1, 1);
-					back.setGraphicSize(Std.int(back.width * 3));
-					back.screenCenter();
-					back.x += 980;
-					back.updateHitbox();
-					add(back);
+					aolBack = new BGSprite('aol/messenger_back', 0, 0, 1, 1);
+					aolBack.setGraphicSize(Std.int(aolBack.width * 3));
+					aolBack.screenCenter();
+					aolBack.x += 980;
+					aolBack.updateHitbox();
+					add(aolBack);
 					
-					var floor:BGSprite = new BGSprite('aol/messenger_floor', 0, 0, 1, 1);
+					particleEmitter = new FlxEmitter(0, 1000);
+                    particleEmitter.launchMode = FlxEmitterMode.SQUARE;
+                    particleEmitter.velocity.set(-50, -200, 50, -600, -90, 0, 90, -600);
+                    particleEmitter.scale.set(2, 2, 2, 2, 0, 0, 0, 0);
+                    particleEmitter.drag.set(0, 0, 0, 0, 5, 5, 10, 10);
+                    particleEmitter.width = 2787.45;
+                    particleEmitter.alpha.set(0, 0);
+                    particleEmitter.lifespan.set(1.9, 4.9);
+					
+                    particleEmitter.loadParticles(Paths.image('particle'), 500, 16, true);
+					particleEmitter.color.set(FlxColor.YELLOW, FlxColor.YELLOW);
+
+                    particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
+                    add(particleEmitter);
+					
+					aolFloor = new BGSprite('aol/messenger_floor', 0, 0, 1, 1);
 					//floor.setGraphicSize(Std.int(floor.width * 2)); fuck this
-					floor.scale.set(2.5, 2);
-					floor.screenCenter();
-					floor.y += 625;
-					floor.x -= 200;
-					floor.updateHitbox();
-					add(floor);
+					aolFloor.scale.set(2.5, 2);
+					aolFloor.screenCenter();
+					aolFloor.y += 625;
+					aolFloor.x -= 200;
+					aolFloor.updateHitbox();
+					add(aolFloor);
 					
+					veryEpicVignette = new BGSprite('epic', 0, 0, 1, 1);
+					veryEpicVignette.screenCenter();
+					veryEpicVignette.updateHitbox();
+					veryEpicVignette.alpha = 0;
+					veryEpicVignette.color = FlxColor.YELLOW;
+					veryEpicVignette.setGraphicSize(Std.int(veryEpicVignette.width * 2));
 					
 					oldVideoResolution = true;
 					
@@ -1740,6 +1771,9 @@ class PlayState extends MusicBeatState
 				
 			case 'cubify-stage':
 				add(overlayCubify);
+				
+			case 'aol':
+				add(veryEpicVignette);
 		}
 
 		#if LUA_ALLOWED
@@ -3730,6 +3764,9 @@ class PlayState extends MusicBeatState
 					opponentStrums.forEach(function(spr:StrumNote) {
 						spr.x -= 1000;
 					});
+					
+				case 'rombie':
+					defaultCamZoom = 2;
 					
 				case 'amity':
 					
@@ -7222,10 +7259,33 @@ class PlayState extends MusicBeatState
 			case 'messenger':
 				switch(curStep)
 				{
+					case 640 | 784:
+						colorTween([aolBG, aolBack, aolFloor], 0.8, FlxColor.WHITE, 0xFF2C2425);
+					case 656:
+						aolBG.color = FlxColor.WHITE;
+						aolFloor.color = FlxColor.WHITE;
+						aolBack.color = FlxColor.WHITE;
 					case 792 | 920 | 1112:
 						moveCamera(true);
 					case 858 | 984:
 						moveCamera(false);
+						
+					case 1184:
+						aolBG.color = 0xFF2C2425;
+						aolFloor.color = 0xFF2C2425;
+						aolBack.color = 0xFF2C2425;
+						particleEmitter.alpha.set(1, 1);
+						veryEpicVignette.alpha = 1;
+					case 1312:
+						camFollow.x = 1150;
+						camFollow.y = 550;
+						isCameraOnForcedPos = true;
+					case 1376:
+						isCameraOnForcedPos = false;
+					case 1440:
+						colorTween([aolBG, aolBack, aolFloor], 0.8, 0xFF2C2425, FlxColor.WHITE);
+						particleEmitter.alpha.set(0, 0);
+						veryEpicVignette.alpha = 0;
 				}
 			case 'phantasm':
 				switch(curStep)
@@ -7415,20 +7475,22 @@ class PlayState extends MusicBeatState
 					case 64 | 224 | 320:
 						bestPart2 = true;
 						blackBars(1);
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.1, FlxColor.WHITE, 0xFF191919);
+						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
 						babyArrowCamGame = true;
 						opponentStrums.forEach(function(spr:StrumNote) {
 							spr.x = 1050 + 112 * spr.ID;
 						});
+						
+						FlxG.camera.setFilters([new ShaderFilter(new PincushionShader())]);
 					case 96 | 256:
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
 						bestPart2 = false;
 						blackBars(0);
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.8, 0xFF191919, FlxColor.WHITE);
+						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						babyArrowCamGame = false;
 					case 384:
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow], 0.8, 0xFF191919, FlxColor.WHITE);
+						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						blackBars(0);
 				}
 				
