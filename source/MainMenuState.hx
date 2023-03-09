@@ -57,6 +57,7 @@ class MainMenuState extends MusicBeatState
 	var zoomTween:FlxTween;
 	var bg:FlxSprite;
 	var blank:FlxSprite;
+	public var camHUD:FlxCamera;
 	
 	public var removeShaderHandler:FlxShader;
 
@@ -76,10 +77,15 @@ class MainMenuState extends MusicBeatState
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
+		
+		camHUD = new FlxCamera();
+		camHUD.bgColor.alpha = 0;
+		FlxG.cameras.add(camHUD, false);
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -222,18 +228,6 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 		
-		if (selectedSomethin)
-		{
-			menuItems.forEach(function(spr:FlxSprite)
-			{
-				if (curSelected == spr.ID)
-				{
-					spr.acceleration.y = FlxG.random.int(200, 300);
-					spr.velocity.y -= FlxG.random.int(140, 160);
-				}
-			});
-		}
-		
 		super.create();
 	}
 
@@ -264,6 +258,15 @@ class MainMenuState extends MusicBeatState
 		
 		text1.x -= 0.45;
 		text2.x -= 0.45;
+		
+		#if debug
+		
+		if (FlxG.keys.justPressed.K)
+		{
+			MusicBeatState.switchState(new VaultState());
+			FlxG.sound.playMusic(Paths.music('secret_menu'), 0);
+		}
+		#end
 
 		menuItems.forEach(function(menuItem:FlxSprite){
 			switch(menuItem.ID){
@@ -348,7 +351,14 @@ class MainMenuState extends MusicBeatState
 							}
 						});
 					}
-					});
+					
+					if (curSelected == spr.ID)
+					{
+						spr.acceleration.y = 5550;
+						spr.velocity.y -= 5550;
+					}
+					
+				});
 			}
 			
 			#if desktop

@@ -352,6 +352,7 @@ class PlayState extends MusicBeatState
 	    //adobe:
 			var Crowd:BGSprite;
 			var Background1:BGSprite;
+			var shine:BGSprite;
 			var Floor:BGSprite;
 			var spotlightdad:FlxSprite;
 	        var spotlightbf:FlxSprite;
@@ -804,6 +805,9 @@ class PlayState extends MusicBeatState
 					add(Background1);
 					
 					whiteScreen.color = Background1.color;
+					
+					shine = new BGSprite('shine', 'chapter1', 0, 0, 1, 1);
+					shine.screenCenter();
 				
 					switch(SONG.song.toLowerCase())
 					{
@@ -835,9 +839,9 @@ class PlayState extends MusicBeatState
 							
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0005));
 					
-						case 'tco' | 'phantasm':
+						case 'outrage' | 'phantasm':
 							
-							if(songName == 'tco') addCharacterToList('stick-bf', 0);
+							if(songName == 'outrage') addCharacterToList('stick-bf', 0);
 							
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 							
@@ -858,7 +862,7 @@ class PlayState extends MusicBeatState
 							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -80, 127, 0.95, 0.95, ['BG Guys Scared0']);
 							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.25));
 							ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
-							if(songName == 'tco') add(ScaredCrowd);
+							if(songName == 'outrage') add(ScaredCrowd);
 							
 							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -650, -500, 0.9, 0.9);
 							stickpage.setGraphicSize(Std.int(stickpage.width * 1.1));
@@ -1437,6 +1441,7 @@ class PlayState extends MusicBeatState
 					var char:Character = boyfriend;
 					
 					GameOverSubstate.characterName = 'yt-gameover';
+					GameOverSubstate.deathSoundName = 'tsc_green_loss_sfx';
 					
 				}
 				
@@ -1596,6 +1601,7 @@ class PlayState extends MusicBeatState
 					oldVideoResolution = true;
 					
 					GameOverSubstate.characterName = 'tco-aol-dead';
+					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 					
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 				}
@@ -1730,7 +1736,7 @@ class PlayState extends MusicBeatState
 			case 'adobe':
 				switch(SONG.song.toLowerCase())
 				{
-					case 'tco':
+					case 'outrage':
 						add(stickpage);
 						add(stickpageFloor);
 						add(bsod);
@@ -1764,6 +1770,10 @@ class PlayState extends MusicBeatState
 					case 'adobe':
 						add(spotlightbf);
 						add(spotlightdad);
+						add(shine);
+						
+					case 'end process':
+						add(shine);
 				}
 			case 'unfaith-BG':
 				add(unfaithFRONT);
@@ -1902,11 +1912,11 @@ class PlayState extends MusicBeatState
 		
 		if (songHasOtherPlayer)
 		{
-		    bf2 = new Boyfriend(470, 20, bf2Name);
+		    bf2 = new Boyfriend(270, 20, bf2Name);
 			startCharacterPos(bf2);
 			if (bf2 != null) boyfriendGroup.add(bf2);
 					
-			bf3 = new Boyfriend(870, 20, bf3Name);
+			bf3 = new Boyfriend(670, 20, bf3Name);
 			startCharacterPos(bf3);
 			if (bf3 != null) boyfriendGroup.add(bf3);
 		}
@@ -3739,6 +3749,14 @@ class PlayState extends MusicBeatState
 			{
 				setSongTime(0);
 				return;
+			}
+			
+			if (SONG.song.toLowerCase() == 'tune in')
+			{
+				bf2.alpha = 0;
+				bf3.alpha = 0;
+				
+				boyfriend.y = BF_Y - 150;
 			}
 			
 			//shit
@@ -6185,7 +6203,7 @@ class PlayState extends MusicBeatState
 		}
 
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
-		rating.cameras = [camHUD];
+		rating.cameras = [camGame];
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -6197,7 +6215,7 @@ class PlayState extends MusicBeatState
 		rating.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
-		comboSpr.cameras = [camHUD];
+		comboSpr.cameras = [camGame];
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
@@ -6263,7 +6281,7 @@ class PlayState extends MusicBeatState
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
-			numScore.cameras = [camHUD];
+			numScore.cameras = [camGame];
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
@@ -7221,7 +7239,7 @@ class PlayState extends MusicBeatState
 						bestPart2 = false;
 				}
 				
-			case 'tco':
+			case 'outrage':
 				switch(curStep)
 				{
 					case 1 | 8 | 16 | 32 | 40 | 48 | 64 | 72 | 80 | 96 | 104 | 112:
@@ -7452,7 +7470,7 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 		{
-			case 'tco':
+			case 'outrage':
 				switch(curBeat)
 				{
 					case 32:
@@ -7608,6 +7626,14 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(boyfriend, {alpha:0}, 1.5);
 						FlxTween.tween(camHUD, {alpha:0}, 1);
 				}
+				
+			case 'tune in':
+				switch(curBeat)
+				{
+					case 40:
+						bf2.alpha = 1;
+						bf3.alpha = 1;
+				}
 			case 'unfaithful':
 				switch(curBeat)
 				{
@@ -7694,7 +7720,7 @@ class PlayState extends MusicBeatState
 					{
 						case 'adobe':
 							if (curBeat % 2 == 0 && Crowd != null) setDance([Crowd], true);
-						case 'tco':
+						case 'outrage':
 							if (ScaredCrowd != null) setDance([ScaredCrowd], true);
 						case 'end process':
 							if (curBeat % 2 == 0 && virabot1 != null && virabot2 != null && virabot3 != null

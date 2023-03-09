@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				32,
 				48
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "AOL left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "AOL left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-109,
 				12
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "AOL down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "AOL down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-12,
 				6
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "AOL up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "AOL up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-81,
 				149
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "AOL right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "AOL right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 12,
-			"name": "AOL idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "AOL idle"
 		}
 	],
 	"no_antialiasing": false,
@@ -70,8 +70,8 @@
 		0
 	],
 	"camera_position": [
-		300,
-		80
+		200,
+		20
 	],
 	"sing_duration": 6.1,
 	"scale": 1.5

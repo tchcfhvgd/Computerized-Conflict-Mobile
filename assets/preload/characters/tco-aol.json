@@ -56,7 +56,7 @@
 			"indices": []
 		}
 	],
-	"no_antialiasing": false,
+	"no_antialiasing": true,
 	"image": "characters/CC/extras/tco_aol",
 	"position": [
 		-120,
@@ -71,7 +71,7 @@
 	],
 	"camera_position": [
 		0,
-		150
+		140
 	],
 	"sing_duration": 6.1,
 	"scale": 1

@@ -186,7 +186,7 @@ class TCOStoryState extends MusicBeatState
 				FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
 				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 				{
-					playSongs(['adobe', 'tco', 'end process']);
+					playSongs(['adobe', 'outrage', 'end process']);
 				});
 			}
 		}

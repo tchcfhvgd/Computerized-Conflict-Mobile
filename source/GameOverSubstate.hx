@@ -67,8 +67,18 @@ class GameOverSubstate extends MusicBeatSubstate
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
-
-		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+		
+		switch(characterName)
+		{
+			case 'tco-aol-dead':
+				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 200, boyfriend.getGraphicMidpoint().y + 150);
+			case 'yt-gameover':
+				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 100, boyfriend.getGraphicMidpoint().y + 500);
+			case 'stick-bf-death':
+				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 100, boyfriend.getGraphicMidpoint().y + 100);
+			default:
+				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+		}
 
 		FlxG.sound.play(Paths.sound(deathSoundName));
 		Conductor.changeBPM(100);
