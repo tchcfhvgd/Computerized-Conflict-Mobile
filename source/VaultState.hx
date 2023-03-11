@@ -54,6 +54,9 @@ class VaultState extends MusicBeatState
 		['world1', 'Fancy Funk'],
 		['skrunkly', 'catto']
 	];
+
+	var isWriting:Bool = false;
+	var letterWritten:String;
 	
 	override public function create()
 	{
@@ -127,10 +130,29 @@ class VaultState extends MusicBeatState
 
 							CoolUtil.songsUnlocked.data.songs.set(codesAndShit[i][1], true);
 							CoolUtil.songsUnlocked.flush();
+
+
+							PlayState.storyPlaylist = [codesAndShit[i][1]];
+							PlayState.isStoryMode = false;
+
+							var diffic = CoolUtil.getDifficultyFilePath(curDifficulty);
+							if(diffic == '-null') diffic = '-hard';
+
+							trace(diffic);
+
+							PlayState.storyDifficulty = curDifficulty;
+
+							PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+							
+							selectedSmth = true;
+
+							LoadingState.loadAndSwitchState(new PlayState(), true);
+							FreeplayState.destroyFreeplayVocals();
 						}
 					}
 				}
 			}
+			isWriting = true;
 		}
 		
 		if(FlxG.sound.music == null) {
@@ -185,7 +207,7 @@ class VaultState extends MusicBeatState
 		{
 			if (FlxG.keys.justPressed.ANY) FlxG.sound.play(Paths.sound('keyboardPress'));
 			
-			if (controls.BACK)
+			if (controls.BACK && !isWriting)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
@@ -194,11 +216,16 @@ class VaultState extends MusicBeatState
 				escapeTween();
 			}
 			
-			if (controls.UI_LEFT_P)
-				changeDiff(-1);
-			else if (controls.UI_RIGHT_P)
-				changeDiff(1);
+			if (!isWriting){
+				if (controls.UI_LEFT_P)
+					changeDiff(-1);
+				else if (controls.UI_RIGHT_P)
+					changeDiff(1);
+			}
 		}
+
+		isWriting = false;
+
 		super.update(elapsed);
 	}
 	
