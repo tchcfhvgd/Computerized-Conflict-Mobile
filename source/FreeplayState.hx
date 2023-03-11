@@ -108,6 +108,7 @@ class FreeplayState extends MusicBeatState
 				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
 			}
 		}
+
 		WeekData.loadTheFirstEnabledMod();
 
 				//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
@@ -262,7 +263,17 @@ class FreeplayState extends MusicBeatState
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
 	{
-		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+		var skipAdd:Bool = false;
+		for (i in 0...VaultState.codesAndShit.length){
+			for (i in 0...VaultState.codesAndShit.length){
+				if(VaultState.codesAndShit[i][1].toLowerCase() == songName.toLowerCase())
+					if (CoolUtil.songsUnlocked.data.songs.get(VaultState.codesAndShit[i][1]) == false)
+						skipAdd = true;
+			}
+		}
+
+		if (!skipAdd)
+			songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
 	}
 
 	function weekIsLocked(name:String):Bool {

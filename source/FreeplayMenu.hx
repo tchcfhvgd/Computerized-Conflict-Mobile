@@ -58,11 +58,6 @@ class FreeplayMenu extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	
-	public static var touchedStory:Bool = false;
-	public static var touchedExtra:Bool = false;
-	public static var touchedCover:Bool = false;
-	public static var touchedOld:Bool = false;
-	
 	
 	override function create()
 	{

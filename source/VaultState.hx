@@ -46,6 +46,14 @@ class VaultState extends MusicBeatState
 	var modesText:FlxText;
 	var curDifficulty:Int = -1;
 	private static var lastDifficultyName:String = '';
+
+	public static var codesAndShit:Array<Array<String>> = [
+		['videos', 'Tune In'], 
+		['hatred', 'Unfaithful'],
+		['joe', 'Rombie'],
+		['world1', 'Fancy Funk'],
+		['skrunkly', 'catto']
+	];
 	
 	override public function create()
 	{
@@ -113,19 +121,13 @@ class VaultState extends MusicBeatState
 			{
 				if (controls.ACCEPT && !selectedSmth)
 				{
-					selectedSmth = true;
-					switch(text.toLowerCase())
-					{
-						case 'videos':
-							
-						case 'hatred':
-							
-						case 'joe':
-							
-						case 'world1':
-							
-						case 'skrunkly':
-							
+					for (i in 0...codesAndShit.length){
+						if (text.toLowerCase() == codesAndShit[i][0]){
+							trace('the code ' + codesAndShit[i][0] + ' is correct and it unlocks the song ' + codesAndShit[i][1] + '!');
+
+							CoolUtil.songsUnlocked.data.songs.set(codesAndShit[i][1], true);
+							CoolUtil.songsUnlocked.flush();
+						}
 					}
 				}
 			}

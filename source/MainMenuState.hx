@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSave;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -144,16 +145,11 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
-		
-		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
 		var scale:Float = 1;
-		/*if(optionShit.length > 6) {
-			scale = 6 / optionShit.length;
-		}*/
 
 		for (i in 0...optionShit.length)
 		{
@@ -189,16 +185,26 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 		
-		//menuItems.forEach(function(spr:FlxSprite)
-		//{
-		//	switch(spr.ID)
-		//	{
-		//		case 1:
-		//			x += 100;
-		//		case 2 | 3 | 4:
-		//		    alpha = 0;
-			//}
-		//});
+
+		if (CoolUtil.songsUnlocked == null){
+			trace('null null null');
+			CoolUtil.songsUnlocked = new FlxSave();
+			CoolUtil.songsUnlocked.bind("Computarized-Conflict");
+
+			if (CoolUtil.songsUnlocked.data.songs == null) {
+				CoolUtil.songsUnlocked.data.songs = new Map<String, Bool>();
+				for (i in 0...VaultState.codesAndShit.length){
+					CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
+				}
+			}
+
+			CoolUtil.songsUnlocked.flush();
+		}
+
+		/*for (i in 0...VaultState.codesAndShit.length){
+			CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
+		}
+		CoolUtil.songsUnlocked.flush();*/
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
@@ -259,14 +265,11 @@ class MainMenuState extends MusicBeatState
 		text1.x -= 0.45;
 		text2.x -= 0.45;
 		
-		#if debug
-		
 		if (FlxG.keys.justPressed.K)
 		{
 			MusicBeatState.switchState(new VaultState());
 			FlxG.sound.playMusic(Paths.music('secret_menu'), 0);
 		}
-		#end
 
 		menuItems.forEach(function(menuItem:FlxSprite){
 			switch(menuItem.ID){
