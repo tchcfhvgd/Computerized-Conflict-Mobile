@@ -5701,48 +5701,41 @@ class PlayState extends MusicBeatState
 				}
 				
 			case 'Popup':
-				if (popUp != null) {
-					return;
+				if (!cpuControlled){
+					if (popUp != null) {
+						return;
+					}
+
+					FlxG.sound.play(Paths.sound("erro"));
+					popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
+					popUp.cameras = [camGame];
+					popUp.scrollFactor.set();
+					popUp.updateHitbox();
+					add(popUp);
+
+					closePopup = new FlxSprite().loadGraphic(Paths.image('EProcess/popups/close_icon', 'chapter1'));
+					closePopup.cameras = [camGame];
+					closePopup.scale.set(0.20, 0.20);
+					closePopup.x = popUp.x + 436;
+					closePopup.y = popUp.y + 22;
+					closePopup.scrollFactor.set();
+					closePopup.updateHitbox();
+					add(closePopup);
+					
+					var timeThing = 10;
+					switch(CoolUtil.difficultyString())
+					{
+						case 'SIMPLE':
+							timeThing = 20;
+						case 'HARD':
+							timeThing = 15;
+					}
+
+					popUpTimer = new FlxTimer();
+					popUpTimer.start(timeThing, function(timer:FlxTimer) {
+						health = -0.1;
+					});
 				}
-
-				FlxG.sound.play(Paths.sound("erro"));
-				popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
-				popUp.cameras = [camGame];
-				popUp.scrollFactor.set();
-				popUp.updateHitbox();
-				add(popUp);
-
-				closePopup = new FlxSprite().loadGraphic(Paths.image('EProcess/popups/close_icon', 'chapter1'));
-				closePopup.cameras = [camGame];
-				closePopup.scale.set(0.20, 0.20);
-				closePopup.x = popUp.x + 436;
-				closePopup.y = popUp.y + 22;
-				closePopup.scrollFactor.set();
-				closePopup.updateHitbox();
-				add(closePopup);
-				
-				var timeThing = 10;
-				switch(CoolUtil.difficultyString())
-				{
-					case 'SIMPLE':
-						timeThing = 20;
-					case 'HARD':
-						timeThing = 15;
-				}
-
-				var timeThing = 10;
-				switch(CoolUtil.difficultyString())
-				{
-					case 'SIMPLE':
-						timeThing = 20;
-					case 'HARD':
-						timeThing = 15;
-				}
-
-				popUpTimer = new FlxTimer();
-				popUpTimer.start(timeThing, function(timer:FlxTimer) {
-					health = -0.1;
-				});
 				
 			case 'zoomBeatType1':
 				if(ClientPrefs.camZooms) zoomType1 = true;
@@ -6602,6 +6595,16 @@ class PlayState extends MusicBeatState
 		});
 		combo = 0;
 		health -= daNote.missHealth * healthLoss;
+
+		if(daNote.noteType == 'Tdl note'){
+			FlxG.sound.play(Paths.sound("darkLordAttack"));
+			
+			dad.playAnim('attack', true);
+			dad.specialAnim = true;
+
+			boyfriend.playAnim('dodge', true);
+			boyfriend.specialAnim = true;
+		}
 		
 		if(instakillOnMiss)
 		{
@@ -6818,6 +6821,14 @@ class PlayState extends MusicBeatState
 							funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
 							ratingPercentTT = ratingPercent;
 							PauseSubState.restartSong(true);
+						case 'Tdl note':
+							boyfriend.playAnim('dodge', true);
+							boyfriend.specialAnim = true;
+							
+							if(dad.animation.getByName('attack') != null) {
+								dad.playAnim('attack', true);
+								dad.specialAnim = true;
+							}
 					}
 				}
 
@@ -6829,6 +6840,18 @@ class PlayState extends MusicBeatState
 					note.destroy();
 				}
 				return;
+			}
+
+			if (note.noteType == 'Tdl note'){
+				FlxG.sound.play(Paths.sound("darkLordAttack"));
+
+				boyfriend.playAnim('dodge', true);
+				boyfriend.specialAnim = true;
+							
+				if(dad.animation.getByName('attack') != null) {
+					dad.playAnim('attack', true);
+					dad.specialAnim = true;
+				}
 			}
 
 			if (!note.isSustainNote)

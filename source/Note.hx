@@ -186,6 +186,13 @@ class Note extends FlxSprite
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
 					noteSplashTexture = "fuck off";
+				case 'Tdl note':
+					loadGraphic(Paths.image('dangerNotes/tdl_blade'));
+					missHealth = 1.6;
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					noteSplashTexture = "fuck off";
 			}
 			noteType = value;
 		}
