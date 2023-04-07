@@ -97,6 +97,8 @@ class Note extends FlxSprite
 
 	public var hitsoundDisabled:Bool = false;
 
+	public var checkedSlash:Bool = false;
+
 	private function set_multSpeed(value:Float):Float {
 		resizeByRatio(value / multSpeed);
 		multSpeed = value;
@@ -182,6 +184,14 @@ class Note extends FlxSprite
 					lowPriority = true;
 					loadGraphic(Paths.image('dangerNotes/stopwatch'));
 					hitCausesMiss = true;
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					noteSplashTexture = "fuck off";
+				case 'Tdl note':
+					loadGraphic(Paths.image('dangerNotes/tdl_blade'));
+					noAnimation = true;
+					missHealth = 1.6;
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;

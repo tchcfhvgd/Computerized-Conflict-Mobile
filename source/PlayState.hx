@@ -558,6 +558,8 @@ class PlayState extends MusicBeatState
 	var timeWithLowerFps:Float;
 	var laggyText:FlxText;
 
+	var slashing:Bool = false;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -4758,7 +4760,7 @@ class PlayState extends MusicBeatState
 			health -= 0.0015 * (elapsed / (1/60));
 		}
 
-		trace(1/elapsed +' ' + elapsed + ' ' + FlxG.updateFramerate + '   ' + timeWithLowerFps);
+		//trace(1/elapsed +' ' + elapsed + ' ' + FlxG.updateFramerate + '   ' + timeWithLowerFps);
 
 		if ((60 > 1/elapsed) && ClientPrefs.shaders){
 			timeWithLowerFps += elapsed;
@@ -5222,6 +5224,24 @@ class PlayState extends MusicBeatState
 						daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
+					}
+
+					if (!daNote.checkedSlash && (daNote.strumTime - Conductor.songPosition) < 180 && daNote.noteType == 'Tdl note') {
+						if (!slashing){
+							slashing = true;
+							if(dad.animation.getByName('attack') != null) {
+								dad.playAnim('attack', true);
+								dad.specialAnim = true;
+								trace('attack!');
+								new FlxTimer().start(1, function(timer:FlxTimer)
+								{
+									slashing = false;	
+									dad.specialAnim = false;
+								});
+							}
+						}
+
+						daNote.checkedSlash = true;
 					}
 				});
 			}
@@ -5763,48 +5783,41 @@ class PlayState extends MusicBeatState
 				}
 				
 			case 'Popup':
-				if (popUp != null) {
-					return;
+				if (!cpuControlled){
+					if (popUp != null) {
+						return;
+					}
+
+					FlxG.sound.play(Paths.sound("erro"));
+					popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
+					popUp.cameras = [camGame];
+					popUp.scrollFactor.set();
+					popUp.updateHitbox();
+					add(popUp);
+
+					closePopup = new FlxSprite().loadGraphic(Paths.image('EProcess/popups/close_icon', 'chapter1'));
+					closePopup.cameras = [camGame];
+					closePopup.scale.set(0.20, 0.20);
+					closePopup.x = popUp.x + 436;
+					closePopup.y = popUp.y + 22;
+					closePopup.scrollFactor.set();
+					closePopup.updateHitbox();
+					add(closePopup);
+					
+					var timeThing = 10;
+					switch(CoolUtil.difficultyString())
+					{
+						case 'SIMPLE':
+							timeThing = 20;
+						case 'HARD':
+							timeThing = 15;
+					}
+
+					popUpTimer = new FlxTimer();
+					popUpTimer.start(timeThing, function(timer:FlxTimer) {
+						health = -0.1;
+					});
 				}
-
-				FlxG.sound.play(Paths.sound("erro"));
-				popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
-				popUp.cameras = [camGame];
-				popUp.scrollFactor.set();
-				popUp.updateHitbox();
-				add(popUp);
-
-				closePopup = new FlxSprite().loadGraphic(Paths.image('EProcess/popups/close_icon', 'chapter1'));
-				closePopup.cameras = [camGame];
-				closePopup.scale.set(0.20, 0.20);
-				closePopup.x = popUp.x + 436;
-				closePopup.y = popUp.y + 22;
-				closePopup.scrollFactor.set();
-				closePopup.updateHitbox();
-				add(closePopup);
-				
-				var timeThing = 10;
-				switch(CoolUtil.difficultyString())
-				{
-					case 'SIMPLE':
-						timeThing = 20;
-					case 'HARD':
-						timeThing = 15;
-				}
-
-				var timeThing = 10;
-				switch(CoolUtil.difficultyString())
-				{
-					case 'SIMPLE':
-						timeThing = 20;
-					case 'HARD':
-						timeThing = 15;
-				}
-
-				popUpTimer = new FlxTimer();
-				popUpTimer.start(timeThing, function(timer:FlxTimer) {
-					health = -0.1;
-				});
 				
 			case 'zoomBeatType1':
 				if(ClientPrefs.camZooms) zoomType1 = true;
@@ -6664,6 +6677,13 @@ class PlayState extends MusicBeatState
 		});
 		combo = 0;
 		health -= daNote.missHealth * healthLoss;
+
+		if(daNote.noteType == 'Tdl note'){
+			FlxG.sound.play(Paths.sound("darkLordAttack"));
+
+			boyfriend.playAnim('dodge', true);
+			boyfriend.specialAnim = true;
+		}
 		
 		if(instakillOnMiss)
 		{
@@ -6785,7 +6805,7 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 
-			if(char != null)
+			if(char != null && !slashing)
 			{
 				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
@@ -6880,6 +6900,9 @@ class PlayState extends MusicBeatState
 							funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
 							ratingPercentTT = ratingPercent;
 							PauseSubState.restartSong(true);
+						case 'Tdl note':
+							boyfriend.playAnim('dodge', true);
+							boyfriend.specialAnim = true;
 					}
 				}
 
@@ -6891,6 +6914,13 @@ class PlayState extends MusicBeatState
 					note.destroy();
 				}
 				return;
+			}
+
+			if (note.noteType == 'Tdl note'){
+				FlxG.sound.play(Paths.sound("darkLordAttack"));
+
+				boyfriend.playAnim('dodge', true);
+				boyfriend.specialAnim = true;
 			}
 
 			if (!note.isSustainNote)

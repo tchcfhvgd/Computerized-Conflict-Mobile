@@ -44,8 +44,7 @@ class VaultState extends MusicBeatState
 	var coolDown:Bool = true;
 	var scrollingThing:FlxBackdrop;
 	var modesText:FlxText;
-	var curDifficulty:Int = -1;
-	private static var lastDifficultyName:String = '';
+	var curDifficulty = 1;
 
 	public static var codesAndShit:Array<Array<String>> = [
 		['videos', 'Tune In'], 
@@ -61,6 +60,7 @@ class VaultState extends MusicBeatState
 	override public function create()
 	{
 		Paths.clearStoredMemory();
+		WeekData.reloadWeekFiles(false);
 		
 		glitchBG = new FlxSprite().loadGraphic(Paths.image('vault/glitchBG'));
 		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;
@@ -135,14 +135,9 @@ class VaultState extends MusicBeatState
 							PlayState.storyPlaylist = [codesAndShit[i][1]];
 							PlayState.isStoryMode = false;
 
-							var diffic = CoolUtil.getDifficultyFilePath(curDifficulty);
-							if(diffic == '-null') diffic = '-hard';
-
-							trace(diffic);
-
 							PlayState.storyDifficulty = curDifficulty;
 
-							PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+							PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-hard', PlayState.storyPlaylist[0].toLowerCase());
 							
 							selectedSmth = true;
 
@@ -186,15 +181,6 @@ class VaultState extends MusicBeatState
 		FlxG.mouse.unload();
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 		
-		if(lastDifficultyName == '')
-		{
-			lastDifficultyName = CoolUtil.defaultDifficulty;
-		}
-		
-		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
-		
-		changeDiff();
-		
 		super.create();
 	}
 	
@@ -214,13 +200,6 @@ class VaultState extends MusicBeatState
 				Paths.clearUnusedMemory();
 				selectedSmth = true;
 				escapeTween();
-			}
-			
-			if (!isWriting){
-				if (controls.UI_LEFT_P)
-					changeDiff(-1);
-				else if (controls.UI_RIGHT_P)
-					changeDiff(1);
 			}
 		}
 
@@ -242,23 +221,5 @@ class VaultState extends MusicBeatState
 		
 		FlxTween.tween(convertPopUp, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(convertPopUp, {x: -250}, 0.4, {ease:FlxEase.smoothStepInOut});
-	}
-	
-	function changeDiff(change:Int = 0)
-	{
-		curDifficulty += change;
-
-		if (curDifficulty < 1)
-			curDifficulty = CoolUtil.difficulties.length-1;
-		if (curDifficulty >= CoolUtil.difficulties.length)
-			curDifficulty = 1;
-
-		lastDifficultyName = CoolUtil.difficulties[curDifficulty];
-
-		PlayState.storyDifficulty = curDifficulty;
-		
-		modesText.text = '< ' + CoolUtil.difficultyString() + ' >';
-		
-		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 	}
 }
