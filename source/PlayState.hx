@@ -478,9 +478,12 @@ class PlayState extends MusicBeatState
 			var songHasOtherPlayer:Bool = false;
 			var bf2Name:String = "";
 			var bf3Name:String = "";
+			var radialLine:BGSprite;
+			var ytBG:BGSprite;
 			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
+			var rombBG:BGSprite;
 			var rombieEndProcessReference:BGSprite;
 			public var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
 			public var distortShaderHUD:Shaders.DistortedTVEffectHUD = new DistortedTVEffectHUD(); //fuck
@@ -493,6 +496,10 @@ class PlayState extends MusicBeatState
 		//phantasm:
 		    var controlDad:Bool = false;
 			public var barDirection:FlxBarFillDirection = LEFT_TO_RIGHT;
+			
+		//aurora:
+		    var auroraLight:BGSprite;
+			var auroraTrees:BGSprite;
 			
 	//end
 	
@@ -815,8 +822,8 @@ class PlayState extends MusicBeatState
 							
 							noCurLight = true;
 							
-							Crowd = new BGSprite('theBGGuyz', 'chapter1', -280, -47, 0.95, 0.95, ['BG Guys0']);
-							Crowd.setGraphicSize(Std.int(Crowd.width * 1.25));
+							Crowd = new BGSprite('theBGGuyz', 'chapter1', -400, 7, 0.95, 0.95, ['BG  Guys']);
+							Crowd.setGraphicSize(Std.int(Crowd.width * 1.1));
 							Crowd.updateHitbox();
 							Crowd.antialiasing = ClientPrefs.globalAntialiasing;
 							add(Crowd);
@@ -859,8 +866,8 @@ class PlayState extends MusicBeatState
 							fires2.visible = false;
 							add(fires2);
 							
-							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -80, 127, 0.95, 0.95, ['BG Guys Scared0']);
-							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.25));
+							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -400, 7, 0.95, 0.95, ['BG Guys Scared'], true);
+							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.1));
 							ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
 							if(songName == 'outrage') add(ScaredCrowd);
 							
@@ -1062,7 +1069,8 @@ class PlayState extends MusicBeatState
 				
 			case 'rombieBG': //the joe rombie is real
 				{
-					var rombBG:BGSprite = new BGSprite('rombie/rombie_bg', -1050 , -1140, 1, 1);
+					camZooming = true;
+					rombBG = new BGSprite('rombie/rombie_bg', -1050 , -1140, 1, 1);
 					rombBG.setGraphicSize(Std.int(rombBG.width * 1.2));
 					rombBG.antialiasing = ClientPrefs.globalAntialiasing;
 					add(rombBG);
@@ -1094,11 +1102,6 @@ class PlayState extends MusicBeatState
 ⠀				⠀⠀⠀⠈⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡟⠈⣴⠏⠹⣆⠀⠀
 				⠀⠀⠀⠀⠀⠀⠙⠶⣴⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣴⣿⣧⣾⣿⡇⠀⠘⢦⡀ */
 				
-				    rombieBecomesUncanny =  new BGSprite('rombie/rombie_bg_2', -1050 , -640, 1, 1); //UNCANNY REFERENCE
-					rombieBecomesUncanny.setGraphicSize(Std.int(rombieBecomesUncanny.width * 1.2));
-					rombieBecomesUncanny.antialiasing = ClientPrefs.globalAntialiasing;
-					rombieBecomesUncanny.alpha = 0;
-					add(rombieBecomesUncanny);
 					
 				    rombieEndProcessReference = new BGSprite('rombie/rombie_bg_3', -1050 , -640, 1, 1);
 					rombieEndProcessReference.setGraphicSize(Std.int(rombieEndProcessReference.width * 1.2));
@@ -1370,9 +1373,6 @@ class PlayState extends MusicBeatState
 					
 					needsBlackBG = true;
 					
-					camGame.x = FlxG.width / 2;
-					
-					
 					add(alanBG);
 					add(fires1);
 					add(fires2);
@@ -1419,12 +1419,12 @@ class PlayState extends MusicBeatState
 				
 			case 'yt': //YT song
 				{
-					var bg:BGSprite = new BGSprite('yt_bg', 0, 0, 1, 1);
-					bg.setGraphicSize(Std.int(bg.width * 1.5));
-					bg.screenCenter();
-					bg.updateHitbox();
-					if (ClientPrefs.shaders) bg.shader = new CRTShader();
-					add(bg);
+					ytBG = new BGSprite('yt_bg', 0, 0, 1, 1);
+					ytBG.setGraphicSize(Std.int(ytBG.width * 1.5));
+					ytBG.screenCenter();
+					ytBG.updateHitbox();
+					if (ClientPrefs.shaders) ytBG.shader = new CRTShader();
+					add(ytBG);
 					
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -1442,6 +1442,24 @@ class PlayState extends MusicBeatState
 					
 					GameOverSubstate.characterName = 'yt-gameover';
 					GameOverSubstate.deathSoundName = 'tsc_green_loss_sfx';
+					
+					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camHUD];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					add(topBarsALT);
+			
+					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camHUD];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					add(bottomBarsALT);
+					
+					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
+					radialLine.cameras = [camHUD];
+					radialLine.screenCenter();
+					add(radialLine);
+					radialLine.alpha = 0;
 					
 				}
 				
@@ -1627,24 +1645,31 @@ class PlayState extends MusicBeatState
 				
 			case 'flashBG': //showdown collab
 				{
-					var bg:BGSprite = new BGSprite('collab/showdown/flashBg', 0, 0, 0.9, 0.9);
+					var bg:BGSprite = new BGSprite('collab/showdown/flashBg', 0, 0, 1, 1);
 					bg.setGraphicSize(Std.int(bg.width * 2));
 					bg.screenCenter();
+					bg.y -= 100;
 					bg.antialiasing = ClientPrefs.globalAntialiasing;
 					add(bg);
 					
 					tcoPlataform = new BGSprite('collab/showdown/platform_tco', 0, 0, 1, 1);
 					tcoPlataform.screenCenter();
+					tcoPlataform.x -= 800;
+					tcoPlataform.y -= 100;
 					tcoPlataform.antialiasing = ClientPrefs.globalAntialiasing;
 					add(tcoPlataform);
 					
 					tcoPlataform2 = new BGSprite('collab/showdown/platform_tco', 0, 0, 1, 1);
 					tcoPlataform2.screenCenter();
+					tcoPlataform2.x -= 650;
+					tcoPlataform2.y += 100;
 					tcoPlataform2.antialiasing = ClientPrefs.globalAntialiasing;
 					add(tcoPlataform2);
 					
 					bfGfPlataform = new BGSprite('collab/showdown/platform_bfgf', 0, 0, 1, 1);
 					bfGfPlataform.screenCenter();
+					bfGfPlataform.x += 500;
+					bfGfPlataform.y -= 80;
 					bfGfPlataform.antialiasing = ClientPrefs.globalAntialiasing;
 					add(bfGfPlataform);
 					
@@ -1656,10 +1681,21 @@ class PlayState extends MusicBeatState
 				
 			case 'aurora': //Cover 2
 				{
-					var bg:BGSprite = new BGSprite('aurora/wow_1', -820, -535, 1, 1);
+					var bg:BGSprite = new BGSprite('aurora/wow_1', 0, 0, 1, 1);
 					bg.setGraphicSize(Std.int(bg.width * 1.31));
+					bg.screenCenter();
 					bg.updateHitbox();
 					add(bg);
+					
+					auroraTrees = new BGSprite('aurora/tree', 0, 0, 1, 1);
+					auroraTrees.setGraphicSize(Std.int(auroraTrees.width * 1.31));
+					auroraTrees.screenCenter();
+					auroraTrees.updateHitbox();
+					
+					auroraLight = new BGSprite('aurora/light', 0, 0, 1, 1);
+					auroraLight.setGraphicSize(Std.int(auroraLight.width * 1.31));
+					auroraLight.screenCenter();
+					auroraLight.updateHitbox();
 					
 					/*jumpScare = new FlxSprite().loadGraphic(Paths.image('aurora/auroraJumpScare', 'extras'));
 					jumpScare.setGraphicSize(Std.int(FlxG.width * 1.15), Std.int(FlxG.height * 1.15));
@@ -1668,6 +1704,16 @@ class PlayState extends MusicBeatState
 					add(jumpScare);
 					jumpScare.visible = false;
 					jumpScare.cameras = [camHUD];*/
+					
+					if (SONG.song.toLowerCase() == 'aurora')
+					{
+						camHUD.alpha = 0;
+						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+						defaultCamZoom = 1.2;
+					}
+					
+					GameOverSubstate.characterName = 'the-chosen-one-death';
+					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 				}
 				
 			case 'catto':
@@ -1704,7 +1750,7 @@ class PlayState extends MusicBeatState
 					CrowdOld.setGraphicSize(Std.int(CrowdOld.width * 2.8));
 					add(CrowdOld);
 					
-					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -350, 0.9, 0.9);
+					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -250, 0.9, 0.9);
 					pisoAnim.setGraphicSize(Std.int(pisoAnim.width * 1.1));
 					add(pisoAnim);
 				}
@@ -1725,7 +1771,7 @@ class PlayState extends MusicBeatState
 			introSoundsSuffix = '-pixel';
 		}
 
-		if(songName != 'phantasm' || boyfriend.curCharacter.startsWith('stick-')) add(gfGroup); //Needed for blammed lights
+		if(songName != 'phantasm') add(gfGroup); //Needed for blammed lights
 
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
@@ -1788,6 +1834,10 @@ class PlayState extends MusicBeatState
 				
 			case 'aol':
 				add(veryEpicVignette);
+				
+			case 'aurora':
+				add(auroraTrees);
+				add(auroraLight);
 		}
 
 		#if LUA_ALLOWED
@@ -1997,6 +2047,7 @@ class PlayState extends MusicBeatState
 		timeBarBG.color = FlxColor.BLACK;
 		timeBarBG.xAdd = -4;
 		timeBarBG.yAdd = -4;
+		timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 0.85));
 		timeBarBG.screenCenter(X);
 		add(timeBarBG);
 		
@@ -2012,6 +2063,7 @@ class PlayState extends MusicBeatState
 		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
+		timeBar.setGraphicSize(Std.int(timeBar.width * 0.85));
 		add(timeBar);
 		reloadTimeBarColors();
 		add(timeTxt);
@@ -2091,6 +2143,8 @@ class PlayState extends MusicBeatState
 		healthBar.y += 10;
 		
 		healthBar.scale.set(1.0, 0.7);
+		healthBar.setGraphicSize(Std.int(healthBar.width * 0.8));
+		healthBarBG.setGraphicSize(Std.int(healthBarBG.width * 0.8));
 		
 		add(healthBar);
 		add(healthBarBG);
@@ -2102,6 +2156,7 @@ class PlayState extends MusicBeatState
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
+		iconP1.setGraphicSize(Std.int(iconP1.width * 0.8));
 
 		if (leftSide) iconP1.changeIcon(dad.healthIcon);
 		
@@ -2111,6 +2166,7 @@ class PlayState extends MusicBeatState
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
+		iconP2.setGraphicSize(Std.int(iconP2.width * 0.8));
 		
 		if (leftSide) iconP2.changeIcon(boyfriend.healthIcon);
 		
@@ -3756,7 +3812,7 @@ class PlayState extends MusicBeatState
 				bf2.alpha = 0;
 				bf3.alpha = 0;
 				
-				boyfriend.y = BF_Y - 150;
+				boyfriend.y = BF_Y - 160;
 			}
 			
 			//shit
@@ -3795,6 +3851,12 @@ class PlayState extends MusicBeatState
 					isCameraOnForcedPos = true;
 					camFollow.x = gf.getMidpoint().x + gf.cameraPosition[1] + girlfriendCameraOffset[1]; 
 					camFollow.y = gf.getMidpoint().y + gf.cameraPosition[2] + girlfriendCameraOffset[2]; 
+				
+				case 'aurora':
+					isCameraOnForcedPos = true;
+					camFollow.x = 1150;
+					camFollow.y = 150;
+					
 			}
 			
 			if (oldVideoResolution)
@@ -7625,12 +7687,30 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camHUD, {alpha:0}, 1);
 				}
 				
+			case 'aurora':
+				switch(curBeat)
+				{
+					case 1:
+						FlxG.camera.fade(FlxColor.BLACK, 2, true);
+						triggerEventNote('Tween Zoom', '0.53', '5.3');
+						
+					case 16:
+						FlxTween.tween(camHUD, {alpha:1}, 1);
+						isCameraOnForcedPos = false;
+				}
+				
 			case 'tune in':
 				switch(curBeat)
 				{
 					case 40:
 						bf2.alpha = 1;
 						bf3.alpha = 1;
+						
+					case 160:
+						
+						radialLine.alpha = 1;
+						colorTween([ytBG], 0.8, FlxColor.WHITE, 0xFF2C2425);
+						redthing.alpha = 0;
 				}
 			case 'unfaithful':
 				switch(curBeat)
@@ -7649,18 +7729,17 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 168:
-						setAlpha([rombieBecomesUncanny], 1);
-						objectColor([boyfriend, dad], 0xFF2C2425);
+						colorTween([rombBG, boyfriend, dad], 0.45, FlxColor.WHITE, 0xFF1F3054);
 					case 296:
 						alphaTween([rombieEndProcessReference], 1, 0.85);
-						colorTween([boyfriend, dad], 0.85, 0xFF2C2425, FlxColor.WHITE);
+						colorTween([boyfriend, dad], 0.85, 0xFF1F3054, FlxColor.WHITE);
 					case 360:
 						objectColor([boyfriend, dad], FlxColor.BLACK);
 						setAlpha([whiteScreen], 1);
 						
 					case 392:
 						setAlpha([rombieEndProcessReference], 0);
-						objectColor([boyfriend, dad], 0xFF2C2425);
+						objectColor([boyfriend, dad], 0xFF1F3054);
 						setAlpha([whiteScreen], 0);
 				}
 			case 'catto':
@@ -7717,9 +7796,7 @@ class PlayState extends MusicBeatState
 					switch (SONG.song.toLowerCase())
 					{
 						case 'adobe':
-							if (curBeat % 2 == 0 && Crowd != null) setDance([Crowd], true);
-						case 'outrage':
-							if (ScaredCrowd != null) setDance([ScaredCrowd], true);
+							if (curBeat % 1 == 0 && Crowd != null) setDance([Crowd], true);
 						case 'end process':
 							if (curBeat % 2 == 0 && virabot1 != null && virabot2 != null && virabot3 != null
 							&& virabot4 != null) setDance([virabot1, virabot2, virabot3, virabot4], true);

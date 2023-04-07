@@ -7906,8 +7906,7 @@
 		"song": "Aurora",
 		"needsVoices": true,
 		"validScore": true,
-		"arrowSkin": "NOTE_assets",
-		"stage": "aurorawoods",
+		"stage": "aurora",
                 "composer": "Armydillo, ExpKing",
 		"bpm": 160,
 		"speed": 3.1

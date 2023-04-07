@@ -258,5 +258,7 @@ class VaultState extends MusicBeatState
 		PlayState.storyDifficulty = curDifficulty;
 		
 		modesText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		
+		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 	}
 }

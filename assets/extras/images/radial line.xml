@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="radial line.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Símbolo 20000" x="4" y="4" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20001" x="1944" y="4" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20002" x="3884" y="4" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20003" x="5824" y="4" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20004" x="4" y="1104" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20005" x="1944" y="1104" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20006" x="3884" y="1104" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20007" x="5824" y="1104" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20008" x="4" y="2204" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20009" x="1944" y="2204" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20010" x="3884" y="2204" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20011" x="5824" y="2204" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20012" x="4" y="3304" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20013" x="1944" y="3304" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20014" x="3884" y="3304" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20015" x="5824" y="3304" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20016" x="4" y="4404" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20017" x="1944" y="4404" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20018" x="3884" y="4404" width="1920" height="1080"/>
+	<SubTexture name="Símbolo 20019" x="5824" y="4404" width="1920" height="1080"/>
+</TextureAtlas>

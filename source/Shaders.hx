@@ -1334,7 +1334,7 @@ class DistortedTVShader extends FlxShader //https://www.shadertoy.com/view/ldXGW
 	float vertMovementOpt = 1.0;
 	float bottomStaticOpt = 1.0;
 	float scalinesOpt = 1.0;
-	float rgbOffsetOpt = 1.0;
+	float rgbOffsetOpt = 0.8;
 	float horzFuzzOpt = 1.0;
 
 	// Noise generation functions borrowed from: 
@@ -1475,7 +1475,7 @@ class DistortedTVShaderHUD extends FlxShader //https://www.shadertoy.com/view/ld
 	float vertMovementOpt = 0.0;
 	float bottomStaticOpt = 1.0;
 	float scalinesOpt = 1.0;
-	float rgbOffsetOpt = 1.0;
+	float rgbOffsetOpt = 0.8;
 	float horzFuzzOpt = 1.0;
 
 	// Noise generation functions borrowed from: 
