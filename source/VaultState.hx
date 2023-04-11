@@ -61,6 +61,8 @@ class VaultState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		WeekData.reloadWeekFiles(false);
+
+		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 		
 		glitchBG = new FlxSprite().loadGraphic(Paths.image('vault/glitchBG'));
 		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;

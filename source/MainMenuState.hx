@@ -43,7 +43,8 @@ class MainMenuState extends MusicBeatState
 		'storymode',
 		'credits',
 		'art_gallery',
-		'options'
+		'options',
+		'vault'
 	];
 
 	var magenta:FlxSprite;
@@ -146,6 +147,32 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 
+		FlxG.mouse.visible = true;
+				
+		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
+
+		if (CoolUtil.songsUnlocked == null){
+			trace('null null null');
+			CoolUtil.songsUnlocked = new FlxSave();
+			CoolUtil.songsUnlocked.bind("Computarized-Conflict");
+
+			if (CoolUtil.songsUnlocked.data.songs == null) {
+				CoolUtil.songsUnlocked.data.songs = new Map<String, Bool>();
+				for (i in 0...VaultState.codesAndShit.length){
+					CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
+				}
+			}
+
+			if (CoolUtil.songsUnlocked.data.mainWeek == null) {
+				CoolUtil.songsUnlocked.data.mainWeek = false;
+			}
+			trace(CoolUtil.songsUnlocked.data.mainWeek);
+
+			CoolUtil.songsUnlocked.flush();
+		}
+
+		if(!CoolUtil.songsUnlocked.data.mainWeek) optionShit.remove('vault');
+
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -165,40 +192,29 @@ class MainMenuState extends MusicBeatState
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+			var off = 0;
+			if(CoolUtil.songsUnlocked.data.mainWeek) off = -100;
 			switch(i){
 				case 0:
 					menuItem.x = 50;
-					menuItem.y = 50;
+					menuItem.y = 50 + off;
 				case 1:
 					menuItem.x = 450;
-					menuItem.y = 50;
+					menuItem.y = 50 + off;
 				case 2:
 					menuItem.x = 850;
-					menuItem.y = 100;
+					menuItem.y = 100 + off;
 				case 3:
-					menuItem.x = 245;
-					menuItem.y = 400;
+					menuItem.x = 245 + off;
+					menuItem.y = 400 + off;
 				case 4:
-					menuItem.x = 645;
-					menuItem.y = 400;
+					menuItem.x = 645 + off;
+					menuItem.y = 400 + off;
+				case 5:
+					menuItem.x = 1045 + off;
+					menuItem.y = 400 + off;
 			}
 			menuItem.updateHitbox();
-		}
-		
-
-		if (CoolUtil.songsUnlocked == null){
-			trace('null null null');
-			CoolUtil.songsUnlocked = new FlxSave();
-			CoolUtil.songsUnlocked.bind("Computarized-Conflict");
-
-			if (CoolUtil.songsUnlocked.data.songs == null) {
-				CoolUtil.songsUnlocked.data.songs = new Map<String, Bool>();
-				for (i in 0...VaultState.codesAndShit.length){
-					CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
-				}
-			}
-
-			CoolUtil.songsUnlocked.flush();
 		}
 
 		/*for (i in 0...VaultState.codesAndShit.length){
@@ -264,30 +280,29 @@ class MainMenuState extends MusicBeatState
 		
 		text1.x -= 0.45;
 		text2.x -= 0.45;
-		
-		if (FlxG.keys.justPressed.K)
-		{
-			MusicBeatState.switchState(new VaultState());
-			FlxG.sound.playMusic(Paths.music('secret_menu'), 0);
-		}
 
 		menuItems.forEach(function(menuItem:FlxSprite){
+			var off = 0;
+			if(CoolUtil.songsUnlocked.data.mainWeek) off = -100;
 			switch(menuItem.ID){
 				case 0:
 					menuItem.x = 50;
-					menuItem.y = 50;
+					menuItem.y = 50 + off;
 				case 1:
 					menuItem.x = 450;
-					menuItem.y = 50;
+					menuItem.y = 50 + off;
 				case 2:
 					menuItem.x = 850;
-					menuItem.y = 50;
+					menuItem.y = 100 + off;
 				case 3:
-					menuItem.x = 245;
-					menuItem.y = 400;
+					menuItem.x = 245 + off;
+					menuItem.y = 400 + off;
 				case 4:
-					menuItem.x = 645;
-					menuItem.y = 400;
+					menuItem.x = 645 + off;
+					menuItem.y = 400 + off;
+				case 5:
+					menuItem.x = 1045 + off;
+					menuItem.y = 400 + off;
 			}
 			menuItem.updateHitbox();
 		});
@@ -315,53 +330,7 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-
-				menuItems.forEach(function(spr:FlxSprite)
-				{
-					if (curSelected != spr.ID)
-					{
-						FlxTween.tween(spr, {alpha: 0}, 0.4, {
-							ease: FlxEase.quadOut,
-							onComplete: function(twn:FlxTween)
-							{
-								spr.kill();
-							}
-						});
-					}
-					else
-					{
-						
-						new FlxTimer().start(1.5, function(tmr:FlxTimer)
-						{
-							var daChoice:String = optionShit[curSelected];
-
-							switch (daChoice)
-							{
-								case 'storymode':
-									MusicBeatState.switchState(new TCOStoryState());
-								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayMenu());
-								case 'awards':
-									MusicBeatState.switchState(new AchievementsMenuState());
-								case 'art_gallery':
-									MusicBeatState.switchState(new FanArtState());
-								case 'credits':
-									MusicBeatState.switchState(new LanguageSelectState());
-								case 'options':
-									LoadingState.loadAndSwitchState(new options.OptionsState());
-							}
-						});
-					}
-					
-					if (curSelected == spr.ID)
-					{
-						spr.acceleration.y = 5550;
-						spr.velocity.y -= 5550;
-					}
-					
-				});
+				loadState();
 			}
 			
 			#if desktop
@@ -371,11 +340,79 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
+
+			menuItems.forEach(function(spr:FlxSprite)
+			{
+				if (FlxG.mouse.overlaps(spr) && !selectedSomethin)
+				{
+					changeItem();
+
+					FlxG.sound.play(Paths.sound('mouseClick'));
+					
+					curSelected = spr.ID;
+
+					if (FlxG.mouse.justPressed){
+						loadState();
+					}
+				}
+			});
 		}
 
 		super.update(elapsed);
 	}
 	
+	function loadState()
+	{
+		selectedSomethin = true;
+		FlxG.sound.play(Paths.sound('confirmMenu'));
+
+		menuItems.forEach(function(spr:FlxSprite)
+		{
+			if (curSelected != spr.ID)
+			{
+				FlxTween.tween(spr, {alpha: 0}, 0.4, {
+					ease: FlxEase.quadOut,
+					onComplete: function(twn:FlxTween)
+					{
+						spr.kill();
+					}
+				});
+			}
+			else
+			{
+				
+				new FlxTimer().start(1.5, function(tmr:FlxTimer)
+				{
+					var daChoice:String = optionShit[curSelected];
+
+					switch (daChoice)
+					{
+						case 'storymode':
+							MusicBeatState.switchState(new TCOStoryState());
+						case 'freeplay':
+							MusicBeatState.switchState(new FreeplayMenu());
+						case 'awards':
+							MusicBeatState.switchState(new AchievementsMenuState());
+						case 'art_gallery':
+							MusicBeatState.switchState(new FanArtState());
+						case 'credits':
+							MusicBeatState.switchState(new LanguageSelectState());
+						case 'options':
+							LoadingState.loadAndSwitchState(new options.OptionsState());
+						case 'vault':
+							MusicBeatState.switchState(new VaultState());
+							FlxG.sound.playMusic(Paths.music('secret_menu'), 0);
+					}
+				});
+			}
+			
+			/*if (curSelected == spr.ID)
+			{
+				spr.acceleration.y = 5550;
+				spr.velocity.y -= 5550;
+			}*/
+		});
+	}
 
 	function changeItem(huh:Int = 0)
 	{
@@ -435,6 +472,14 @@ class MainMenuState extends MusicBeatState
 						colorTween = null;
 					}
 			    });
+				
+			case 'vault':
+				
+				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF5E4F4F, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+				});
 		}
 
 		menuItems.forEach(function(spr:FlxSprite)
@@ -460,16 +505,11 @@ class MainMenuState extends MusicBeatState
 				zoomTween = FlxTween.tween(spr, {"scale.x": 0.3, "scale.y": 0.3}, 0.2, {ease: FlxEase.quadOut});
 				
 				spr.alpha = 1;
-				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
-				}
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
 				spr.centerOffsets();
 			}else{
 				FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {ease: FlxEase.quadOut});
 			}
+
 		});
 	}
-	
 }

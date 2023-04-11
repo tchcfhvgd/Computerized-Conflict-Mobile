@@ -352,7 +352,7 @@ class PlayState extends MusicBeatState
 	    //adobe:
 			var Crowd:BGSprite;
 			var Background1:BGSprite;
-			var shine:BGSprite;
+			//var shine:BGSprite;
 			var Floor:BGSprite;
 			var spotlightdad:FlxSprite;
 	        var spotlightbf:FlxSprite;
@@ -815,8 +815,8 @@ class PlayState extends MusicBeatState
 					
 					whiteScreen.color = Background1.color;
 					
-					shine = new BGSprite('shine', 'chapter1', 0, 0, 1, 1);
-					shine.screenCenter();
+					/*shine = new BGSprite('shine', 'chapter1', 0, 0, 1, 1);
+					shine.screenCenter();*/
 				
 					switch(SONG.song.toLowerCase())
 					{
@@ -1818,10 +1818,10 @@ class PlayState extends MusicBeatState
 					case 'adobe':
 						add(spotlightbf);
 						add(spotlightdad);
-						add(shine);
+						//add(shine);
 						
 					case 'end process':
-						add(shine);
+						//add(shine);
 				}
 			case 'unfaith-BG':
 				add(unfaithFRONT);
@@ -6047,6 +6047,12 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
+
+		if(isStoryMode && storyPlaylist.length <= 1 && SONG.song.toLowerCase() == 'end process') {
+			CoolUtil.songsUnlocked.data.mainWeek = true;
+
+			CoolUtil.songsUnlocked.flush();
+		}
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
