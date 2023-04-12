@@ -346,12 +346,11 @@ class MainMenuState extends MusicBeatState
 				if (FlxG.mouse.overlaps(spr) && !selectedSomethin)
 				{
 					changeItem();
-
-					FlxG.sound.play(Paths.sound('mouseClick'));
 					
 					curSelected = spr.ID;
 
 					if (FlxG.mouse.justPressed){
+						FlxG.sound.play(Paths.sound('mouseClick'));
 						loadState();
 					}
 				}
