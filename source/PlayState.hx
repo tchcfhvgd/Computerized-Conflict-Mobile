@@ -803,7 +803,7 @@ class PlayState extends MusicBeatState
 				{
 					defaultCamZoom = 0.7;
 					
-					whiteScreen = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
 					whiteScreen.screenCenter();
 					add(whiteScreen);
@@ -1029,7 +1029,7 @@ class PlayState extends MusicBeatState
 				
 			case 'alan': //Freeplay Song.
 				{
-					whiteScreen = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
 					whiteScreen.screenCenter();
 					add(whiteScreen);
@@ -1039,7 +1039,7 @@ class PlayState extends MusicBeatState
 				
 			case 'whiteSpace': //Placeholder
 				{
-					whiteScreen = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
 					whiteScreen.screenCenter();
 					add(whiteScreen);
@@ -1112,13 +1112,13 @@ class PlayState extends MusicBeatState
 					rombieEndProcessReference.alpha = 0;
 					add(rombieEndProcessReference);
 
-					whiteScreen = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
 					whiteScreen.screenCenter();
 					whiteScreen.alpha = 0;
 					add(whiteScreen);
 					
-					topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					topBars = new FlxSprite().makeGraphic(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
 					topBars.y -= 850;
@@ -1755,6 +1755,15 @@ class PlayState extends MusicBeatState
 					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -250, 0.9, 0.9);
 					pisoAnim.setGraphicSize(Std.int(pisoAnim.width * 1.1));
 					add(pisoAnim);
+				}
+			case 'red-zone-error':
+				{
+					rsod = new BGSprite('EProcess/rsod', 'chapter1', -650, -500, 1, 1);
+					rsod.setGraphicSize(Std.int(rsod.width * 1.1));
+					rsod.antialiasing = ClientPrefs.globalAntialiasing;
+					if (ClientPrefs.shaders) rsod.shader = new CRTShader();
+
+					add(rsod);
 				}
 		}
 
@@ -4735,13 +4744,21 @@ class PlayState extends MusicBeatState
 		
 		testShader3D.shader.iTime.value[0] += elapsed;
 		
-		if (SONG.song.toLowerCase() == 'trojan')
+		/*if (SONG.song.toLowerCase() == 'trojan')
 		{
 			if (!dodged && FlxG.keys.justPressed.SPACE)
 			{
 				dodged = true;
 			}
-		} 
+		}*/
+
+		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 5, Std.int(FlxG.height/FlxG.camera.zoom) + 5);
+
+		if (SONG.song.toLowerCase() == 'redzone error') {
+			for (i in 0...opponentStrums.length) opponentStrums.members[i].visible = false;
+			iconP2.visible = false;
+			dad.visible = false;
+		}
 
 		if(dad.curCharacter == 'cursor'){
 			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/30);
@@ -4937,6 +4954,8 @@ class PlayState extends MusicBeatState
 						heyTimer = 0;
 					}
 				}
+			case 'whiteSpace':
+
 		}
 
 		if(!inCutscene) {

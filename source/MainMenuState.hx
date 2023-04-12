@@ -56,7 +56,6 @@ class MainMenuState extends MusicBeatState
 	var text2:FlxBackdrop;
 	var colorTween:FlxTween;
 	public var repeatAxes:FlxAxes = XY;
-	var zoomTween:FlxTween;
 	var bg:FlxSprite;
 	var blank:FlxSprite;
 	public var camHUD:FlxCamera;
@@ -354,6 +353,23 @@ class MainMenuState extends MusicBeatState
 						loadState();
 					}
 				}
+				
+				if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();
+				spr.alpha = 0.5;
+				spr.updateHitbox();
+						
+				if (spr.ID != curSelected){
+					spr.scale.x += (0.25-spr.scale.x)/(250*elapsed);
+					spr.scale.y = spr.scale.x;
+				}else{
+					spr.shader = removeShaderHandler;
+					spr.alpha = 1;
+			
+					spr.scale.x += (0.3-spr.scale.x)/(250*elapsed);
+					spr.scale.y = spr.scale.x;
+			
+					spr.centerOffsets();
+				}
 			});
 		}
 
@@ -421,10 +437,6 @@ class MainMenuState extends MusicBeatState
 			curSelected = 0;
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
-			
-		if(zoomTween != null) {
-			zoomTween.cancel();
-		}
 		
 		if(colorTween != null) {
 			colorTween.cancel();
@@ -480,35 +492,5 @@ class MainMenuState extends MusicBeatState
 					}
 				});
 		}
-
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();
-			spr.alpha = 0.5;
-			spr.updateHitbox();
-			
-			if (spr.ID != curSelected){
-				zoomTween = FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {
-					ease: FlxEase.quadOut,
-					onComplete: function(twn:FlxTween) {
-						zoomTween = null;
-					}
-				});
-			}
-			//spr.updateHitbox();
-
-			if (spr.ID == curSelected)
-			{
-				spr.shader = removeShaderHandler;
-				
-				zoomTween = FlxTween.tween(spr, {"scale.x": 0.3, "scale.y": 0.3}, 0.2, {ease: FlxEase.quadOut});
-				
-				spr.alpha = 1;
-				spr.centerOffsets();
-			}else{
-				FlxTween.tween(spr, {"scale.x": 0.25, "scale.y": 0.25}, 0.2, {ease: FlxEase.quadOut});
-			}
-
-		});
 	}
 }
