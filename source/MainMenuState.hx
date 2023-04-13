@@ -59,6 +59,12 @@ class MainMenuState extends MusicBeatState
 	var bg:FlxSprite;
 	var blank:FlxSprite;
 	public var camHUD:FlxCamera;
+	var typin:String;
+	var KONAMI:String = 'up up down down left right left right b a '; 
+	var codeClearTimer:Float;
+
+	var showTyping:Bool = true;
+	var typinText:FlxText;
 	
 	public var removeShaderHandler:FlxShader;
 
@@ -223,31 +229,16 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		//add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		//add(versionShit);
+		if (showTyping){
+			typinText = new FlxText(0, FlxG.height / 16, 0, "", 12);
+			typinText.scrollFactor.set();
+			typinText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			add(typinText);
+		}
 
 		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem(1-curSelected);
-
-		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
-			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
-				ClientPrefs.saveSettings();
-			}
-		}
-		#end
 		
 		super.create();
 	}
@@ -371,6 +362,33 @@ class MainMenuState extends MusicBeatState
 					spr.centerOffsets();
 				}
 			});
+
+			if(codeClearTimer>0)codeClearTimer-=elapsed;
+			if(codeClearTimer<=0)typin='';
+			if(codeClearTimer<0)codeClearTimer=0;
+
+			if(FlxG.keys.firstJustPressed()!=-1){
+				var key:FlxKey = FlxG.keys.firstJustPressed();
+				key = key.toString();
+
+				typin += key + ' ';
+
+				trace(key + ' // ' + typin);
+
+				codeClearTimer = 1;
+			}
+
+			if (typin.toLowerCase() == KONAMI){
+				typin = 'LOADING REDZONE ERROR';
+				PlayState.SONG = Song.loadFromJson('redzone-error-insane', 'redzone-error');
+				LoadingState.loadAndSwitchState(new PlayState(), true);
+			}
+
+			if (typinText != null){
+				typinText.text = typin.toLowerCase() + '_';
+				typinText.screenCenter(X);
+				typinText.y = FlxG.height / 16;
+			}
 		}
 
 		super.update(elapsed);
