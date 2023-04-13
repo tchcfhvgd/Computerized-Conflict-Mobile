@@ -1678,9 +1678,10 @@ class PlayState extends MusicBeatState
 					bfGfPlataform.antialiasing = ClientPrefs.globalAntialiasing;
 					add(bfGfPlataform);
 					
-		            bf2 = new Boyfriend(470, 20, "showdown-tco");
+		            bf2 = new Boyfriend(420, 190, "showdown-tco");
 			        startCharacterPos(bf2);
-					bf2.originalFlipX = true;
+					bf2.flipX = false;
+
 			        if (bf2 != null) dadGroup.add(bf2);
 				}
 				
