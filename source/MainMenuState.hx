@@ -63,7 +63,7 @@ class MainMenuState extends MusicBeatState
 	var KONAMI:String = 'up up down down left right left right b a '; 
 	var codeClearTimer:Float;
 
-	var showTyping:Bool = true;
+	public static var showTyping:Bool = true;
 	var typinText:FlxText;
 	
 	public var removeShaderHandler:FlxShader;
