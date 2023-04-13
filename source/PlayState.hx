@@ -1069,7 +1069,7 @@ class PlayState extends MusicBeatState
 					leftSide = true;
 					
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 				}
 				
 			case 'rombieBG': //the joe rombie is real
@@ -6830,6 +6830,8 @@ class PlayState extends MusicBeatState
 				
 				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
 				else setCamShake([camHUD, camGame, camBars, camOther], 0.015, 0.05, 0.005);
+
+				if (healthBar.percent > 10 && SONG.song.toLowerCase() == 'enmity' && !note.tscNote) healthDrainRates(0, 0.02, 0.03);
 				
 			case 'angry-minus-tco':
 				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camGame], 0.015, 0.05, 0.005);
