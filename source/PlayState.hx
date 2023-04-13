@@ -1681,6 +1681,7 @@ class PlayState extends MusicBeatState
 		            bf2 = new Boyfriend(420, 190, "showdown-tco");
 			        startCharacterPos(bf2);
 					bf2.flipX = false;
+					bf2.actuallyDad = true;
 
 			        if (bf2 != null) dadGroup.add(bf2);
 				}
@@ -2805,8 +2806,16 @@ class PlayState extends MusicBeatState
 				
 				if (SONG.notes[curSection].bf2Section)
 				{
-					camFollow.set(bf2.getMidpoint().x - 100  + cameraXBF, bf2.getMidpoint().y - 100  + cameraYBF);
-					camFollow.x -= bf2.cameraPosition[0];
+					if (!bf2.actuallyDad)
+					{
+						camFollow.set(bf2.getMidpoint().x - 100  + cameraXBF, bf2.getMidpoint().y - 100  + cameraYBF);
+						camFollow.x -= bf2.cameraPosition[0];
+					}
+					else
+					{
+						camFollow.set(bf2.getMidpoint().x + 150 + cameraX, bf2.getMidpoint().y - 100 + cameraY);
+						camFollow.x += bf2.cameraPosition[0];
+					}
 					camFollow.y += bf2.cameraPosition[1];
 				}
 				else if (SONG.notes[curSection].bf3Section)
