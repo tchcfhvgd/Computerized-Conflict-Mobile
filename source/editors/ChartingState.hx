@@ -472,7 +472,7 @@ class ChartingState extends MusicBeatState
 				loadJson(_song.song.toLowerCase());
 
 				var songName:String = UI_songTitle.text.toLowerCase();
-				if (songName == 'redzone-error') {
+				if (songName == 'redzone-error' || songName == 'redzone error') {
 					Application.current.window.alert("Hint: It's something in the main menu", "Try getting to this song another way!");
 					System.exit(0);
 				}
