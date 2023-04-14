@@ -484,7 +484,6 @@ class PlayState extends MusicBeatState
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
 			var rombBG:BGSprite;
-			var rombieEndProcessReference:BGSprite;
 			public var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
 			public var distortShaderHUD:Shaders.DistortedTVEffectHUD = new DistortedTVEffectHUD(); //fuck
 			
@@ -1108,12 +1107,6 @@ class PlayState extends MusicBeatState
 				⠀⠀⠀⠀⠀⠀⠙⠶⣴⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣴⣿⣧⣾⣿⡇⠀⠘⢦⡀ */
 				
 					
-				    rombieEndProcessReference = new BGSprite('rombie/rombie_bg_3', -1050 , -640, 1, 1);
-					rombieEndProcessReference.setGraphicSize(Std.int(rombieEndProcessReference.width * 1.2));
-					rombieEndProcessReference.shader = new CRTShader();
-					rombieEndProcessReference.antialiasing = ClientPrefs.globalAntialiasing;
-					rombieEndProcessReference.alpha = 0;
-					add(rombieEndProcessReference);
 
 					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
@@ -7837,14 +7830,11 @@ class PlayState extends MusicBeatState
 					case 168:
 						colorTween([rombBG, boyfriend, dad], 0.45, FlxColor.WHITE, 0xFF1F3054);
 					case 296:
-						alphaTween([rombieEndProcessReference], 1, 0.85);
 						colorTween([boyfriend, dad], 0.85, 0xFF1F3054, FlxColor.WHITE);
 					case 360:
 						objectColor([boyfriend, dad], FlxColor.BLACK);
 						setAlpha([whiteScreen], 1);
-						
 					case 392:
-						setAlpha([rombieEndProcessReference], 0);
 						objectColor([boyfriend, dad], 0xFF1F3054);
 						setAlpha([whiteScreen], 0);
 				}
