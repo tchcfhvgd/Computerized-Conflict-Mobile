@@ -46,6 +46,8 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
+import openfl.system.System;
+import lime.app.Application;
 
 using StringTools;
 #if sys
@@ -466,7 +468,15 @@ class ChartingState extends MusicBeatState
 
 		var reloadSongJson:FlxButton = new FlxButton(reloadSong.x, saveButton.y + 30, "Reload JSON", function()
 		{
-			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){loadJson(_song.song.toLowerCase()); }, null,ignoreWarnings));
+			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){
+				loadJson(_song.song.toLowerCase());
+
+				var songName:String = UI_songTitle.text.toLowerCase();
+				if (songName == 'redzone-error') {
+					Application.current.window.alert("Hint: It's something in the main menu", "Try getting to this song another way!");
+					System.exit(0);
+				}
+			}, null,ignoreWarnings));
 		});
 
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
