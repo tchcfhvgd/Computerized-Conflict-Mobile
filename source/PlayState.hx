@@ -560,7 +560,12 @@ class PlayState extends MusicBeatState
 	var timeWithLowerFps:Float;
 	var laggyText:FlxText;
 
+	//tdl note
 	var slashing:Bool = false;
+
+	//demonetization note
+	var strikes:Int = 0;
+	var strikesTxt:FlxText;
 
 	override public function create()
 	{
@@ -1459,6 +1464,14 @@ class PlayState extends MusicBeatState
 					add(radialLine);
 					radialLine.alpha = 0;
 					
+					if(CoolUtil.difficultyString() == 'INSANE'){
+						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
+						strikesTxt.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+						strikesTxt.borderSize = 2;
+						strikesTxt.visible = !ClientPrefs.hideHud;
+						strikesTxt.cameras = [camHUD];
+						add(strikesTxt);
+					}
 				}
 				
 			case 'carykh': //CARYKH
@@ -4772,6 +4785,17 @@ class PlayState extends MusicBeatState
 
 		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 5, Std.int(FlxG.height/FlxG.camera.zoom) + 5);
 
+		if (strikesTxt != null) {
+			strikesTxt.x = FlxG.width / 1.5 - strikesTxt.width;
+			strikesTxt.y = FlxG.height / 12;
+			if(ClientPrefs.downScroll) strikesTxt.y = FlxG.height - FlxG.height / 8;
+		}
+
+		if (strikes >= 3) {
+			vocals.volume = 0;
+			health = -1;
+		}
+
 		if (SONG.song.toLowerCase() == 'redzone error') {
 			for (i in 0...opponentStrums.length) opponentStrums.members[i].visible = false;
 			iconP2.visible = false;
@@ -6727,7 +6751,7 @@ class PlayState extends MusicBeatState
 		if(daNote.noteType == 'Tdl note'){
 			FlxG.sound.play(Paths.sound("darkLordAttack"));
 
-			boyfriend.playAnim('dodge', true);
+			boyfriend.playAnim('hurt', true);
 			boyfriend.specialAnim = true;
 		}
 		
@@ -6948,9 +6972,6 @@ class PlayState extends MusicBeatState
 							funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
 							ratingPercentTT = ratingPercent;
 							PauseSubState.restartSong(true);
-						case 'Tdl note':
-							boyfriend.playAnim('dodge', true);
-							boyfriend.specialAnim = true;
 					}
 				}
 
@@ -6962,13 +6983,6 @@ class PlayState extends MusicBeatState
 					note.destroy();
 				}
 				return;
-			}
-
-			if (note.noteType == 'Tdl note'){
-				FlxG.sound.play(Paths.sound("darkLordAttack"));
-
-				boyfriend.playAnim('dodge', true);
-				boyfriend.specialAnim = true;
 			}
 
 			if (!note.isSustainNote)
@@ -7048,6 +7062,28 @@ class PlayState extends MusicBeatState
 					spr.playAnim('confirm', true);
 				}
 			}
+
+			switch(note.noteType){
+				case 'Tdl note':
+					FlxG.sound.play(Paths.sound("darkLordAttack"));
+
+					boyfriend.playAnim('dodge', true);
+					boyfriend.specialAnim = true;
+				case 'demonetization brah':
+					strikes++;
+
+					var char:Character = boyfriend; //fun fact: boyfriend is the only one getting strikes because it's his youitube channel
+
+					if(char != null && (!note.noMissAnimation || char == bf2) && char.hasMissAnimations)
+					{
+						var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + 'miss' + note.animSuffix;
+						char.playAnim(animToPlay, true);
+						char.specialAnim = true;
+					}
+
+					if (strikesTxt != null) strikesTxt.text = 'Strikes: ' + strikes;
+			}
+
 			note.wasGoodHit = true;
 			vocals.volume = 1;
 

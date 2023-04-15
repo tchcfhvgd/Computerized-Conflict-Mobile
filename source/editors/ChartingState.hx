@@ -73,7 +73,8 @@ class ChartingState extends MusicBeatState
 		'Green Sing',
 		'No Animation',
 		'Tdl note',
-		'stopwatch'
+		'stopwatch',
+		'demonetization brah'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();

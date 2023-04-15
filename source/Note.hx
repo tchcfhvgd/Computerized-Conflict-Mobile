@@ -196,6 +196,14 @@ class Note extends FlxSprite
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
 					noteSplashTexture = "fuck off";
+				case 'demonetization brah':
+					loadGraphic(Paths.image('dangerNotes/demonetization'));
+					ignoreNote = true;
+					noAnimation = true;
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					noteSplashTexture = "fuck off";
 			}
 			noteType = value;
 		}
