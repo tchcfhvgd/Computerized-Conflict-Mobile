@@ -121,7 +121,7 @@ class TCOStoryState extends MusicBeatState
 		fires.setGraphicSize(Std.int(fires.width * 0.9));
 		fires.updateHitbox();
 		fires.screenCenter();
-		fires.y += 60;
+		fires.y += 200;
 		fires.alpha = 0;
 		fires.antialiasing = ClientPrefs.globalAntialiasing;
 		
@@ -216,6 +216,15 @@ class TCOStoryState extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('intro', 'Intro' + diff, 24, false);
 		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
 		sprDifficulty.animation.play('intro');
+
+		var offsetX:Int = 0;
+		var offsetY:Int = 0;
+
+		if(diff == 'Hard') {offsetX = 105; offsetY = -125;}
+		if(diff == 'Insane') {offsetY = -160; offsetX = -75;}
+
+		sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
+		sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
 		
 		chosenOne.screenCenter();
 		
@@ -228,8 +237,9 @@ class TCOStoryState extends MusicBeatState
 				chosenOne.y += 100;
 				chosenOne.x += 270;
 				fires.alpha = 0;
+				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
+				if (!onInsane) bgSprite.color = FlxColor.WHITE;
 				onInsane = false;
-				bgSprite.color = FlxColor.WHITE;
 				bgSprite.alpha = 1;
 				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				clearShaderFromCamera('camgame');
@@ -241,8 +251,9 @@ class TCOStoryState extends MusicBeatState
 				chosenOne.y += 100;
 				chosenOne.x += 290;
 				fires.alpha = 0;
+				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
+				if (!onInsane) bgSprite.color = FlxColor.WHITE;
 				onInsane = false;
-				bgSprite.color = FlxColor.WHITE;
 				bgSprite.alpha = 1;
 				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				clearShaderFromCamera('camgame');
@@ -262,7 +273,6 @@ class TCOStoryState extends MusicBeatState
 		}
 		lastDifficultyName = diff;
 		trace(diff);
-		    
 	}
 	
     public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
