@@ -380,7 +380,10 @@ class MainMenuState extends MusicBeatState
 			}
 
 			if (typin.toLowerCase() == KONAMI){
+				CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+				selectedSomethin = true;
 				typin = 'LOADING REDZONE ERROR';
+				PlayState.storyDifficulty = 2;
 				PlayState.SONG = Song.loadFromJson('redzone-error-insane', 'redzone-error');
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 			}

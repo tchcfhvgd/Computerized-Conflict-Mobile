@@ -475,7 +475,10 @@ class PlayState extends MusicBeatState
 		//tune in:
 		    var bf2:Boyfriend = null;
 			var bf3:Boyfriend = null;
+			var iconP3:HealthIcon;
+			var iconP4:HealthIcon;
 			var songHasOtherPlayer:Bool = false;
+			var songHasOtherPlayer2:Bool = false;
 			var bf2Name:String = "";
 			var bf3Name:String = "";
 			var radialLine:BGSprite;
@@ -1438,6 +1441,7 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0015));
 					
 					songHasOtherPlayer = true;
+					songHasOtherPlayer2 = true;
 					bf2Name = "tsc-yt";
 					bf3Name = "green-yt";
 					
@@ -1987,11 +1991,15 @@ class PlayState extends MusicBeatState
 		    bf2 = new Boyfriend(270, 20, bf2Name);
 			startCharacterPos(bf2);
 			if (bf2 != null) boyfriendGroup.add(bf2);
-					
+		}
+
+		if (songHasOtherPlayer2)
+		{
 			bf3 = new Boyfriend(670, 20, bf3Name);
 			startCharacterPos(bf3);
 			if (bf3 != null) boyfriendGroup.add(bf3);
 		}
+
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -2195,6 +2203,28 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		iconP2.setGraphicSize(Std.int(iconP2.width * 0.8));
+
+		if (bf2 != null) 
+		{
+			iconP3 = new HealthIcon(bf2.healthIcon, false);
+			iconP3.y = healthBar.y - 80;
+			iconP3.x += 150;
+			iconP3.visible = !ClientPrefs.hideHud;
+			iconP3.alpha = ClientPrefs.healthBarAlpha;
+			add(iconP3);
+			iconP3.setGraphicSize(Std.int(iconP3.width * 0.8));
+		}
+
+		if (bf3 != null) 
+		{
+			iconP4 = new HealthIcon(bf3.healthIcon, false);
+			iconP4.y = healthBar.y - 80;
+			iconP4.x += 150;
+			iconP4.visible = !ClientPrefs.hideHud;
+			iconP4.alpha = ClientPrefs.healthBarAlpha;
+			add(iconP4);
+			iconP4.setGraphicSize(Std.int(iconP4.width * 0.8));
+		}
 		
 		if (leftSide) iconP2.changeIcon(boyfriend.healthIcon);
 		
@@ -2245,6 +2275,8 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
+		if (iconP3 != null) iconP3.cameras = [camHUD];
+		if (iconP4 != null) iconP4.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
@@ -2262,6 +2294,8 @@ class PlayState extends MusicBeatState
 		healthBarBG.alpha = 0;
 		iconP1.alpha = 0;
 		iconP2.alpha = 0;
+		if (iconP3 != null) iconP3.alpha = 0;
+		if (iconP4 != null) iconP4.alpha = 0;
 		scoreTxt.alpha = 0;
 		judgementCounter.alpha = 0;
 		
@@ -3086,6 +3120,8 @@ class PlayState extends MusicBeatState
 	{
 		if(!ClientPrefs.hideHud) {
 			alphaTween([healthBar, healthBarBG, iconP1, iconP2, scoreTxt, judgementCounter, botplayTxt], duration, alpha);
+			if (iconP3 != null) alphaTween([iconP3], duration, alpha);
+			if (iconP4 != null) alphaTween([iconP4], duration, alpha);
 		}
 		
 		if(ClientPrefs.timeBarType != 'Disabled') {
@@ -3094,7 +3130,7 @@ class PlayState extends MusicBeatState
 		
 		for (i in 0...playerStrums.length) alphaTween([playerStrums.members[i]], duration, alpha);
 		
-		if (ClientPrefs.middleScroll && alpha == 1)
+		if (ClientPrefs.middleScroll && alpha <= 0.35)
 		{
 			for (i in 0...opponentStrums.length) alphaTween([opponentStrums.members[i]], duration, 0.35);
 		}
@@ -4229,6 +4265,8 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(healthBarBG, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 			FlxTween.tween(iconP1, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 	    	FlxTween.tween(iconP2, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+			if (iconP3 != null) FlxTween.tween(iconP3, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+	    	if (iconP4 != null) FlxTween.tween(iconP4, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 
 			FlxTween.tween(scoreTxt, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 			FlxTween.tween(judgementCounter, {alpha:1}, 0.5, {ease: FlxEase.circOut});
@@ -5055,21 +5093,71 @@ class PlayState extends MusicBeatState
 				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		}
 
+		if (iconP3 != null) 
+		{
+			if (bf2.actuallyDad != true)
+			{
+				iconP3.scale.set(iconP1.scale.x - 0.3, iconP1.scale.y - 0.3);
+				iconP3.x = iconP1.x + 50;
+				iconP3.y = iconP1.y - 40;
+				iconP3.flipX = !iconP1.flipX;
+				iconP3.angle = iconP1.angle;
+			}
+			else
+			{
+				iconP3.scale.set(iconP2.scale.x - 0.3, iconP2.scale.y - 0.3);
+				iconP3.x = iconP2.x - 50;
+				iconP3.y = iconP2.y - 40;
+				iconP3.flipX = iconP2.flipX;
+				iconP3.angle = iconP2.angle;
+			}
+		}
+
+		if (iconP4 != null) 
+		{
+			if (bf3.actuallyDad != true)
+			{
+				iconP4.scale.set(iconP1.scale.x - 0.3, iconP1.scale.y - 0.3);
+				iconP4.x = iconP1.x + 50;
+				iconP4.y = iconP1.y + 40;
+				iconP4.flipX = !iconP1.flipX;
+				iconP4.angle = iconP1.angle;
+			}
+			else
+			{
+				iconP4.scale.set(iconP2.scale.x - 0.3, iconP2.scale.y - 0.3);
+				iconP4.x = iconP2.x - 50;
+				iconP4.y = iconP2.y + 40;
+				iconP4.flipX = iconP2.flipX;
+				iconP4.angle = iconP2.angle;
+			}
+		}
+
 		
 		if (health > 2 && !leftSide)
 			health = 2;
 		if (health < 0 && leftSide)
 			health = 0;
 
-		if (healthBar.percent < 20)
+		if (healthBar.percent < 20){
 			iconP1.animation.curAnim.curFrame = 1;
-		else
+			if (iconP3 != null && bf2.actuallyDad != true) iconP3.animation.curAnim.curFrame = 1;
+			if (iconP4 != null && bf3.actuallyDad != true) iconP4.animation.curAnim.curFrame = 1;
+		}else{
 			iconP1.animation.curAnim.curFrame = 0;
+			if (iconP3 != null && bf2.actuallyDad != true) iconP3.animation.curAnim.curFrame = 0;
+			if (iconP4 != null && bf3.actuallyDad != true) iconP4.animation.curAnim.curFrame = 0;
+		}
 
-		if (healthBar.percent > 80)
+		if (healthBar.percent > 80){
 			iconP2.animation.curAnim.curFrame = 1;
-		else
+			if (iconP3 != null && bf2.actuallyDad) iconP3.animation.curAnim.curFrame = 1;
+			if (iconP4 != null && bf3.actuallyDad) iconP4.animation.curAnim.curFrame = 1;
+		}else{
 			iconP2.animation.curAnim.curFrame = 0;
+			if (iconP3 != null && bf2.actuallyDad) iconP3.animation.curAnim.curFrame = 0;
+			if (iconP4 != null && bf3.actuallyDad) iconP4.animation.curAnim.curFrame = 0;
+		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -5125,7 +5213,7 @@ class PlayState extends MusicBeatState
 			// Conductor.lastSongPos = FlxG.sound.music.time;
 		}
 
-		if (camZooming)
+		;if (camZooming)
 		{
 			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
@@ -6845,7 +6933,7 @@ class PlayState extends MusicBeatState
 		{
 			case 'the-chosen-one':
 				
-				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
+				if ((!FlxG.fullscreen || !Application.current.window.maximized) && note.tscNote != true) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
 				else setCamShake([camHUD, camGame, camBars, camOther], 0.015, 0.05, 0.005);
 
 				if (healthBar.percent > 10 && SONG.song.toLowerCase() == 'enmity' && !note.tscNote) healthDrainRates(0, 0.02, 0.03);
@@ -7071,6 +7159,8 @@ class PlayState extends MusicBeatState
 					boyfriend.specialAnim = true;
 				case 'demonetization brah':
 					strikes++;
+
+					songScore -= 2500 * strikes;
 
 					var char:Character = boyfriend; //fun fact: boyfriend is the only one getting strikes because it's his youitube channel
 
