@@ -43,8 +43,8 @@ class MainMenuState extends MusicBeatState
 		'storymode',
 		'credits',
 		'art_gallery',
-		'options',
-		'vault'
+		'vault',
+		'options'
 	];
 
 	var magenta:FlxSprite;
@@ -63,7 +63,7 @@ class MainMenuState extends MusicBeatState
 	var KONAMI:String = 'up up down down left right left right b a '; 
 	var codeClearTimer:Float;
 
-	public static var showTyping:Bool = true;
+	public static var showTyping:Bool = false;
 	var typinText:FlxText;
 	
 	public var removeShaderHandler:FlxShader;
@@ -171,6 +171,7 @@ class MainMenuState extends MusicBeatState
 			if (CoolUtil.songsUnlocked.data.mainWeek == null) {
 				CoolUtil.songsUnlocked.data.mainWeek = false;
 			}
+			CoolUtil.songsUnlocked.data.mainWeek = true;
 			trace(CoolUtil.songsUnlocked.data.mainWeek);
 
 			CoolUtil.songsUnlocked.flush();
@@ -379,7 +380,10 @@ class MainMenuState extends MusicBeatState
 			}
 
 			if (typin.toLowerCase() == KONAMI){
+				CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+				selectedSomethin = true;
 				typin = 'LOADING REDZONE ERROR';
+				PlayState.storyDifficulty = 2;
 				PlayState.SONG = Song.loadFromJson('redzone-error-insane', 'redzone-error');
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 			}

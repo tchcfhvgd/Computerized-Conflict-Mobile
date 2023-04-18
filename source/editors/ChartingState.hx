@@ -46,6 +46,8 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
+import openfl.system.System;
+import lime.app.Application;
 
 using StringTools;
 #if sys
@@ -71,7 +73,8 @@ class ChartingState extends MusicBeatState
 		'Green Sing',
 		'No Animation',
 		'Tdl note',
-		'stopwatch'
+		'stopwatch',
+		'demonetization brah'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
@@ -466,7 +469,27 @@ class ChartingState extends MusicBeatState
 
 		var reloadSongJson:FlxButton = new FlxButton(reloadSong.x, saveButton.y + 30, "Reload JSON", function()
 		{
-			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){loadJson(_song.song.toLowerCase()); }, null,ignoreWarnings));
+			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){
+
+				var loadSong:Bool = true;
+				var songName:String = UI_songTitle.text.toLowerCase();
+				for (i in 0...VaultState.codesAndShit.length) {
+					if (songName.toLowerCase() == 'tune-in') songName = 'tune in';
+					if (songName.toLowerCase() == 'fancy-funk') songName = 'fancy funk';
+					if (songName.toLowerCase() == VaultState.codesAndShit[i][1].toLowerCase()){
+						if (CoolUtil.songsUnlocked.data.songs.get(VaultState.codesAndShit[i][1]) == false) {
+							loadSong = false;
+						}
+					}
+					
+				}
+				if (songName == 'redzone-error' || songName == 'redzone error') {
+					Application.current.window.alert("Hint: It's something in the main menu", "Try getting to this song another way!");
+					System.exit(0);
+				}
+
+				if (loadSong) loadJson(_song.song.toLowerCase());
+			}, null,ignoreWarnings));
 		});
 
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
