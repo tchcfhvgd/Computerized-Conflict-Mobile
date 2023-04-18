@@ -484,6 +484,7 @@ class PlayState extends MusicBeatState
 			var radialLine:BGSprite;
 			var ytBG:BGSprite;
 			var ytBGVideo:BGSprite;
+			var videoTI:MP4BG;
 			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
@@ -1475,8 +1476,8 @@ class PlayState extends MusicBeatState
 					add(radialLine);
 					radialLine.alpha = 0;
 
-					var video:MP4Handler2 = new MP4Handler2();
-					video.playMP42(Paths.video('tunein_vidbg'), true, ytBGVideo);
+					videoTI = new MP4BG(ytBGVideo);
+					videoTI.playVideo(Paths.video('tunein_vidbg'), true);
 					
 					if(CoolUtil.difficultyString() == 'INSANE'){
 						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
@@ -4834,6 +4835,8 @@ class PlayState extends MusicBeatState
 		}*/
 
 		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 5, Std.int(FlxG.height/FlxG.camera.zoom) + 5);
+
+		if (ytBGVideo != null) ytBGVideo.screenCenter();
 
 		if (strikesTxt != null) {
 			strikesTxt.x = FlxG.width / 1.5 - strikesTxt.width;
