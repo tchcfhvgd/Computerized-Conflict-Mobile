@@ -1150,6 +1150,25 @@ class PlayState extends MusicBeatState
 					overlayCubify =  new BGSprite('cubify/overlay', 0 , 0, 1, 1);
 					overlayCubify.setGraphicSize(Std.int(overlayCubify.width * 1.2));
 					overlayCubify.screenCenter();
+					
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen.scrollFactor.set();
+					whiteScreen.screenCenter();
+					whiteScreen.alpha = 0;
+					add(whiteScreen);
+					
+					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camBars];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					add(topBarsALT);
+			
+					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camBars];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					add(bottomBarsALT);
+					
 				}
 				
 			case 'garden':
@@ -4979,7 +4998,6 @@ class PlayState extends MusicBeatState
 						heyTimer = 0;
 					}
 				}
-			case 'whiteSpace':
 
 		}
 
@@ -7357,8 +7375,39 @@ class PlayState extends MusicBeatState
 			case 'cubify':
 				switch(curStep)
 				{
-					case 2:
-						dadGroup.shader = new EpicRainbowTrailShader();
+					case 640:
+						whiteScreen.alpha = 1;
+						boyfriendGroup.alpha = 0;
+						iconP1.alpha = 0;
+						playerStrums.forEach(function(spr:StrumNote) spr.alpha = 0);
+						
+					case 768:
+						FlxTween.tween(dadGroup, {alpha:1}, 0.5);
+						FlxTween.tween(boyfriendGroup, {alpha:0}, 0.5);
+						FlxTween.tween(iconP1, {alpha:0}, 0.5);
+						FlxTween.tween(iconP2, {alpha:1}, 0.5);
+						opponentStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:1}, 0.5));
+						playerStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:0}, 0.5));
+						
+					case 700 | 828:
+						playerStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:1}, 0.5));
+						
+						
+					case 704 | 832:
+						FlxTween.tween(boyfriendGroup, {alpha:1}, 0.5);
+						FlxTween.tween(dadGroup, {alpha:0}, 0.5);
+						FlxTween.tween(iconP1, {alpha:1}, 0.5);
+						FlxTween.tween(iconP2, {alpha:0}, 0.5);
+						opponentStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:0}, 0.5));
+					case 896:
+						FlxG.camera.fade(FlxColor.BLACK, 1, false);
+						FlxTween.tween(camHUD, {alpha:0}, 1.5);
+					case 912:
+						whiteScreen.alpha = 0;
+						FlxG.camera.fade(FlxColor.BLACK, 0, true);
+						dadGroup.alpha = 1;
+						opponentStrums.forEach(function(spr:StrumNote) spr.alpha = 1);
+						camHUD.alpha = 1;
 				}
 			case 'adobe':
 				switch(curStep)
