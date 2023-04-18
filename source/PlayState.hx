@@ -347,7 +347,7 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 	
-//MOD THINGS LOL!!!!!!!!!!
+	//MOD THINGS LOL!!!!!!!!!!
 	//week 1:
 	    //adobe:
 			var Crowd:BGSprite;
@@ -483,6 +483,7 @@ class PlayState extends MusicBeatState
 			var bf3Name:String = "";
 			var radialLine:BGSprite;
 			var ytBG:BGSprite;
+			var ytBGVideo:BGSprite;
 			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
@@ -1431,6 +1432,12 @@ class PlayState extends MusicBeatState
 					ytBG.updateHitbox();
 					if (ClientPrefs.shaders) ytBG.shader = new CRTShader();
 					add(ytBG);
+
+					ytBGVideo = new BGSprite('yt_bg', 0, 0, 1, 1);
+					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.5));
+					ytBGVideo.screenCenter();
+					ytBGVideo.updateHitbox();
+					add(ytBGVideo);
 					
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -1467,6 +1474,9 @@ class PlayState extends MusicBeatState
 					radialLine.screenCenter();
 					add(radialLine);
 					radialLine.alpha = 0;
+
+					var video:MP4Handler2 = new MP4Handler2();
+					video.playMP42(Paths.video('tunein_vidbg'), true, ytBGVideo);
 					
 					if(CoolUtil.difficultyString() == 'INSANE'){
 						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
@@ -3887,6 +3897,8 @@ class PlayState extends MusicBeatState
 			
 			if (SONG.song.toLowerCase() == 'tune in')
 			{
+				iconP3.alpha = 0;
+				iconP4.alpha = 0;
 				bf2.alpha = 0;
 				bf3.alpha = 0;
 				
@@ -7928,14 +7940,18 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 40:
+						iconP3.alpha = 1;
+						iconP4.alpha = 1;
 						bf2.alpha = 1;
 						bf3.alpha = 1;
-						
+
 					case 160:
-						
 						radialLine.alpha = 1;
 						colorTween([ytBG], 0.8, FlxColor.WHITE, 0xFF2C2425);
 						redthing.alpha = 0;
+
+					case 224:
+
 				}
 			case 'unfaithful':
 				switch(curBeat)
