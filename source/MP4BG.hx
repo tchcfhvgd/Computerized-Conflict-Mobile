@@ -16,11 +16,9 @@ class MP4BG extends VlcBitmap
 	public var readyCallback:Void->Void;
 	public var finishCallback:Void->Void;
 
-	var pauseMusic:Bool;
+    public var pathToVideo:String;
 
-    var imageToMakeVid:FlxSprite;
-
-	public function new(thingToMakeVideo:FlxSprite = null,?width:Float = 320, ?height:Float = 240, ?autoScale:Bool = true)
+	public function new(?width:Float = 320, ?height:Float = 240, ?autoScale:Bool = true)
 	{
 		super(width, height, autoScale);
 
@@ -41,20 +39,16 @@ class MP4BG extends VlcBitmap
 			pause();
 		});
 
-        if (thingToMakeVideo != null) imageToMakeVid = thingToMakeVideo;
+        alpha = 0;
 
-        this.alpha = 0;
-
-        this.volume = 0;
+        volume = 0;
 	}
 
 	function update(e:Event)
 	{
-        this.alpha = 0;
+        alpha = 0;
 
-		this.volume = 0;
-
-        if (imageToMakeVid != null) imageToMakeVid.loadGraphic(this.bitmapData);
+		volume = 0;
 	}
 
 	#if sys
@@ -92,39 +86,22 @@ class MP4BG extends VlcBitmap
 
 	public function finishVideo()
 	{
-		if (FlxG.sound.music != null && pauseMusic)
-			FlxG.sound.music.resume();
-
-		FlxG.stage.removeEventListener(Event.ENTER_FRAME, update);
-
-		dispose();
-
-		if (FlxG.game.contains(this))
-		{
-			FlxG.game.removeChild(this);
-
-			if (finishCallback != null)
-				finishCallback();
-		}
+		#if sys
+		play(checkFile(pathToVideo));
+		#else
+		throw "Doesn't support sys";
+		#end
 	}
 
 	/**
-	 * Native video support for Flixel & OpenFL
+	 * Native video support for Flixel & OpenFL & my ass
 	 * @param path Example: `your/video/here.mp4`
-	 * @param repeat Repeat the video.
-	 * @param pauseMusic Pause music until done video.
 	 */
 	public function playVideo(path:String, ?repeat:Bool = false, pauseMusic:Bool = false)
 	{
-		this.pauseMusic = pauseMusic;
-
-		if (FlxG.sound.music != null && pauseMusic)
-			FlxG.sound.music.pause();
-
+        pathToVideo = path;
 		#if sys
-		play(checkFile(path));
-
-		this.repeat = repeat ? -1 : 0;
+		play(checkFile(pathToVideo));
 		#else
 		throw "Doesn't support sys";
 		#end

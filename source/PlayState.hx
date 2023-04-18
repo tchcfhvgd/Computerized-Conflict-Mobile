@@ -1435,7 +1435,7 @@ class PlayState extends MusicBeatState
 					add(ytBG);
 
 					ytBGVideo = new BGSprite('yt_bg', 0, 0, 1, 1);
-					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.5));
+					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.2));
 					ytBGVideo.screenCenter();
 					ytBGVideo.updateHitbox();
 					add(ytBGVideo);
@@ -1476,7 +1476,7 @@ class PlayState extends MusicBeatState
 					add(radialLine);
 					radialLine.alpha = 0;
 
-					videoTI = new MP4BG(ytBGVideo);
+					videoTI = new MP4BG();
 					videoTI.playVideo(Paths.video('tunein_vidbg'), true);
 					
 					if(CoolUtil.difficultyString() == 'INSANE'){
@@ -4836,7 +4836,11 @@ class PlayState extends MusicBeatState
 
 		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 5, Std.int(FlxG.height/FlxG.camera.zoom) + 5);
 
-		if (ytBGVideo != null) ytBGVideo.screenCenter();
+		if (ytBGVideo != null) {
+			ytBGVideo.loadGraphic(videoTI.bitmapData);
+			ytBGVideo.screenCenter();
+			ytBGVideo.updateHitbox();
+		}
 
 		if (strikesTxt != null) {
 			strikesTxt.x = FlxG.width / 1.5 - strikesTxt.width;
