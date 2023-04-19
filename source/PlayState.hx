@@ -1458,6 +1458,8 @@ class PlayState extends MusicBeatState
 					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.5));
 					ytBGVideo.alpha = 0;
 					add(ytBGVideo);
+
+					Paths.video('tunein_vidbg');
 					
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
