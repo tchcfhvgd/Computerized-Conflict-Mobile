@@ -484,7 +484,8 @@ class PlayState extends MusicBeatState
 			var radialLine:BGSprite;
 			var ytBG:BGSprite;
 			var ytBGVideo:BGSprite;
-			var videoTI:MP4BG;
+			var videoTI:MP4Handler;
+			var skipMoveCam:Bool = false;
 			
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
@@ -1453,10 +1454,9 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) ytBG.shader = new CRTShader();
 					add(ytBG);
 
-					ytBGVideo = new BGSprite('yt_bg', 0, 0, 1, 1);
-					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.2));
-					ytBGVideo.screenCenter();
-					ytBGVideo.updateHitbox();
+					ytBGVideo = new BGSprite('yt_bg', 500, 0, 1, 1);
+					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.5));
+					ytBGVideo.alpha = 0;
 					add(ytBGVideo);
 					
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
@@ -1489,14 +1489,11 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
 					
-					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
+					/*radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
 					radialLine.cameras = [camHUD];
 					radialLine.screenCenter();
 					add(radialLine);
-					radialLine.alpha = 0;
-
-					videoTI = new MP4BG();
-					videoTI.playVideo(Paths.video('tunein_vidbg'), true);
+					radialLine.alpha = 0;*/
 					
 					if(CoolUtil.difficultyString() == 'INSANE'){
 						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
@@ -4314,6 +4311,12 @@ class PlayState extends MusicBeatState
 			triggerEventNote('Play Animation', 'cutsceneTALK', 'dad');
 		}
 
+		if (SONG.song.toLowerCase() == 'tune in') 
+		{
+			iconP3.visible = false;
+			iconP4.visible = false;
+		}
+
 		switch(curStage)
 		{
 			case 'tank':
@@ -4729,6 +4732,7 @@ class PlayState extends MusicBeatState
 				timer.active = true;
 			}
 			paused = false;
+			if (videoTI != null) videoTI.resume();
 			callOnLuas('onResume', []);
 
 			#if desktop
@@ -4855,11 +4859,7 @@ class PlayState extends MusicBeatState
 
 		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 5, Std.int(FlxG.height/FlxG.camera.zoom) + 5);
 
-		if (ytBGVideo != null) {
-			ytBGVideo.loadGraphic(videoTI.bitmapData);
-			ytBGVideo.screenCenter();
-			ytBGVideo.updateHitbox();
-		}
+		if (ytBGVideo != null && videoTI != null) ytBGVideo.loadGraphic(videoTI.bitmapData);
 
 		if (strikesTxt != null) {
 			strikesTxt.x = FlxG.width / 1.5 - strikesTxt.width;
@@ -5490,6 +5490,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
+		if (videoTI != null) videoTI.pause();
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
@@ -6101,56 +6102,58 @@ class PlayState extends MusicBeatState
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
-			moveCamera(true);
+			moveCamera(true, skipMoveCam);
 			callOnLuas('onMoveCamera', ['dad']);
 		}
 		else
 		{
-			moveCamera(false);
+			moveCamera(false, skipMoveCam);
 			callOnLuas('onMoveCamera', ['boyfriend']);
 		}
 	}
 
 	var cameraTwn:FlxTween;
-	public function moveCamera(isDad:Bool)
+	public function moveCamera(isDad:Bool, ?skip:Bool = false)
 	{
-		if(isDad)
-		{
-			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
-			tweenCamIn();
-		}
-		else
-		{
-			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
-			
-			if (bf2 != null || bf3 != null)
+		if (!skip){
+			if(isDad)
 			{
-				if (SONG.notes[curSection].bf2Section)
-				{
-					camFollow.set(bf2.getMidpoint().x - 100, bf2.getMidpoint().y - 100);
-					camFollow.x -= bf2.cameraPosition[0];
-					camFollow.y += bf2.cameraPosition[1];
-				}
-				else if (SONG.notes[curSection].bf3Section)
-				{
-					camFollow.set(bf3.getMidpoint().x - 100, bf3.getMidpoint().y - 100);
-					camFollow.x -= bf3.cameraPosition[0];
-					camFollow.y += bf3.cameraPosition[1];
-				}
+				camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+				camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+				camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+				tweenCamIn();
 			}
-
-			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
+			else
 			{
-				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-					function (twn:FlxTween)
+				camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+				camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+				camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
+				
+				if (bf2 != null || bf3 != null)
+				{
+					if (SONG.notes[curSection].bf2Section)
 					{
-						cameraTwn = null;
+						camFollow.set(bf2.getMidpoint().x - 100, bf2.getMidpoint().y - 100);
+						camFollow.x -= bf2.cameraPosition[0];
+						camFollow.y += bf2.cameraPosition[1];
 					}
-				});
+					else if (SONG.notes[curSection].bf3Section)
+					{
+						camFollow.set(bf3.getMidpoint().x - 100, bf3.getMidpoint().y - 100);
+						camFollow.x -= bf3.cameraPosition[0];
+						camFollow.y += bf3.cameraPosition[1];
+					}
+				}
+
+				if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
+				{
+					cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
+						function (twn:FlxTween)
+						{
+							cameraTwn = null;
+						}
+					});
+				}
 			}
 		}
 	}
@@ -7539,7 +7542,7 @@ class PlayState extends MusicBeatState
 						opponentStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:0}, 0.5));
 					case 896:
 						FlxG.camera.fade(FlxColor.BLACK, 1, false);
-						FlxTween.tween(camHUD, {alpha:0}, 1.5);
+						FlxTween.tween(camHUD, {alpha:0}, 1.5, {ease: FlxEase.circOut});
 					case 912:
 						whiteScreen.alpha = 0;
 						FlxG.camera.fade(FlxColor.BLACK, 0, true);
@@ -7996,18 +7999,33 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 40:
-						iconP3.alpha = 1;
-						iconP4.alpha = 1;
+						iconP3.visible = true;
+						iconP4.visible = true;
 						bf2.alpha = 1;
 						bf3.alpha = 1;
 
+						//thanks ne_eo
 					case 160:
-						radialLine.alpha = 1;
+						skipMoveCam = true;
+
+						triggerEventNote('Camera Follow Pos', Std.string(dad.getMidpoint().x + 600), Std.string(dad.getMidpoint().y + 150));
+
+						ytBGVideo.alpha = 1;
+
+						videoTI = new MP4Handler();
+						videoTI.playVideo(Paths.video('tunein_vidbg'), true);
+						videoTI.visible = false;
+						videoTI.volume = 0;
+						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
+
+						//radialLine.alpha = 1;
 						colorTween([ytBG], 0.8, FlxColor.WHITE, 0xFF2C2425);
 						redthing.alpha = 0;
 
 					case 224:
+						ytBGVideo.alpha = 0;
 
+						triggerEventNote('Camera Follow Pos', '', '');
 				}
 			case 'unfaithful':
 				switch(curBeat)
