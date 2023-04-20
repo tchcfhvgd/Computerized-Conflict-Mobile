@@ -17,6 +17,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
+import flixel.FlxCamera;
 import WeekData;
 
 using StringTools;
@@ -49,10 +50,26 @@ class StoryMenuState extends MusicBeatState
 
 	var loadedWeeks:Array<WeekData> = [];
 
+	public var camNormal:FlxCamera;
+	public var camExtra:FlxCamera;
+
+	public var blackScreen:FlxSpriteExtra;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+
+		camNormal = new FlxCamera();
+		camExtra = new FlxCamera();
+		
+		camExtra.bgColor.alpha = 0;
+
+		FlxG.cameras.reset(camNormal);
+
+		FlxG.cameras.add(camExtra, false);
+
+		FlxG.cameras.setDefaultDrawTarget(camNormal, true);
 
 		PlayState.isStoryMode = true;
 		WeekData.reloadWeekFiles(true);
@@ -182,6 +199,13 @@ class StoryMenuState extends MusicBeatState
 		add(scoreText);
 		add(txtWeekTitle);
 
+		//Std.int(FlxG.width / camExtra.zoom), Std.int(FlxG.height / camExtra.zoom)
+		blackScreen = new FlxSpriteExtra(0, 0).makeSolid(99999, 99999, FlxColor.BLACK);
+		blackScreen.cameras = [camExtra];
+		blackScreen.screenCenter();
+		blackScreen.alpha = 0.6;
+		add(blackScreen);
+
 		changeWeek();
 		changeDifficulty();
 
@@ -203,6 +227,11 @@ class StoryMenuState extends MusicBeatState
 		scoreText.text = "WEEK SCORE:" + lerpScore;
 
 		// FlxG.watch.addQuick('font', scoreText.font);
+
+		blackScreen.scale.set(99999, 99999);
+		blackScreen.screenCenter();
+
+		trace(camExtra);
 
 		if (!movedBack && !selectedWeek)
 		{
