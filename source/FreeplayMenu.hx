@@ -199,6 +199,12 @@ class FreeplayMenu extends MusicBeatState
 				changeItem(1);
 			}
 
+			if(FlxG.mouse.wheel != 0)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.2);
+				changeItem(-FlxG.mouse.wheel);
+			}
+
 			if (controls.BACK)
 			{
 				selectedSmth = true;
