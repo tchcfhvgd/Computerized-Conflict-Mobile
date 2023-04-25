@@ -13,6 +13,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.addons.display.FlxBackdrop;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
@@ -30,6 +31,8 @@ class CreditsState extends MusicBeatState
 	private var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
+	var ok:FlxSprite;
+	var scrollingThing:FlxBackdrop;
 	var descText:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -45,9 +48,19 @@ class CreditsState extends MusicBeatState
 		#end
 
 		persistentUpdate = true;
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('creditsmenu/background'));
 		add(bg);
 		bg.screenCenter();
+		
+		scrollingThing = new FlxBackdrop(Paths.image('creditsmenu/Main_Checker'), XY, 0, 0);
+		scrollingThing.scrollFactor.set(0, 0.07);
+		scrollingThing.alpha = 0.85;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		add(scrollingThing);
+		
+		ok = new FlxSprite().loadGraphic(Paths.image('creditsmenu/ok'));
+		add(ok);
+		ok.screenCenter();
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -82,28 +95,28 @@ class CreditsState extends MusicBeatState
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Psych Engine Team'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
-			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
-			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						'https://twitter.com/yoshubs',			'5E99DF'],
+			['JetTRG',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
+			['MijaeLio',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
+			['Tiburones202',				'shubs',			'Additional Programmer of Psych Engine',						'https://twitter.com/yoshubs',			'5E99DF'],
 			[''],
 			['Former Engine Members'],
-			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								'https://twitter.com/bbsub3',			'3E813A'],
+			['amaarzadjali',			'bb',				'Ex-Programmer of Psych Engine',								'https://twitter.com/bbsub3',			'3E813A'],
 			[''],
-			['Engine Contributors'],
-			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		'https://twitter.com/flicky_i',			'9E29CF'],
-			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	'https://twitter.com/gedehari',			'E1843A'],
-			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',										'https://twitter.com/EliteMasterEric',	'FFBD40'],
-			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',							'https://twitter.com/polybiusproxy',	'DCD294'],
-			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			'https://twitter.com/kade0912',			'64A250'],
-			['Keoiki',				'keoiki',			'Note Splash Animations',										'https://twitter.com/Keoiki_',			'D2D2D2'],
-			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',							'https://twitter.com/Nebula_Zorua',		'7D40B2'],
-			['Smokey',				'smokey',			'Sprite Atlas Support',											'https://twitter.com/Smokey_5_',		'483D92'],
+			['Joa'],
+			['SharkFaceGaming',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		'https://twitter.com/flicky_i',			'9E29CF'],
+			['JaceLOL',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	'https://twitter.com/gedehari',			'E1843A'],
+			['Prod.kxri',		'mastereric',		'Runtime Shaders support',										'https://twitter.com/EliteMasterEric',	'FFBD40'],
+			['Magbros.ogg',		'proxy',			'.MP4 Video Loader Library (hxCodec)',							'https://twitter.com/polybiusproxy',	'DCD294'],
+			['Splat',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			'https://twitter.com/kade0912',			'64A250'],
+			['Tentilog',				'keoiki',			'Note Splash Animations',										'https://twitter.com/Keoiki_',			'D2D2D2'],
+			['12kNoodles',	'nebula',			'LUA JIT Fork and some Lua reworks',							'https://twitter.com/Nebula_Zorua',		'7D40B2'],
+			['UnnamedPersonXP',				'smokey',			'Sprite Atlas Support',											'https://twitter.com/Smokey_5_',		'483D92'],
 			[''],
 			["Funkin' Crew"],
-			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",							'https://twitter.com/ninja_muffin99',	'CF2D2D'],
-			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",								'https://twitter.com/PhantomArcade3K',	'FADC45'],
-			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
+			['Xyriax',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",							'https://twitter.com/ninja_muffin99',	'CF2D2D'],
+			['shammal',		'phantomarcade',	"Animator of Friday Night Funkin'",								'https://twitter.com/PhantomArcade3K',	'FADC45'],
+			['Scorpzie',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
+			['XG_Chris',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
 		];
 		
 		for(i in pisspoop){
@@ -126,8 +139,8 @@ class CreditsState extends MusicBeatState
 					Paths.currentModDirectory = creditsStuff[i][5];
 				}
 
-				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
-				icon.xAdd = optionText.width + 10;
+				var icon:AttachedSprite = new AttachedSprite('creditsmenu/icon');
+				icon.xAdd = optionText.width - 800;
 				icon.sprTracker = optionText;
 	
 				// using a FlxGroup is too much fuss!
@@ -141,7 +154,7 @@ class CreditsState extends MusicBeatState
 		}
 		
 		descBox = new AttachedSprite();
-		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.makeGraphic(1, 1, 0xFF79c5ff);
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
@@ -169,6 +182,9 @@ class CreditsState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+		
+		scrollingThing.x -= 0.45;
+		scrollingThing.y -= 0.16;
 
 		if(!quitting)
 		{

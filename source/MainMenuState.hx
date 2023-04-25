@@ -433,7 +433,7 @@ class MainMenuState extends MusicBeatState
 						case 'art_gallery':
 							MusicBeatState.switchState(new FanArtState());
 						case 'credits':
-							MusicBeatState.switchState(new LanguageSelectState());
+							MusicBeatState.switchState(new CreditsState());
 						case 'options':
 							LoadingState.loadAndSwitchState(new options.OptionsState());
 						case 'vault':

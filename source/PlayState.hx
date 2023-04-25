@@ -643,6 +643,7 @@ class PlayState extends MusicBeatState
 		camOther = new FlxCamera();
 		camBars = new FlxCamera();
 		camChar = new FlxCamera();
+		
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camBars.bgColor.alpha = 0;
@@ -1796,7 +1797,7 @@ class PlayState extends MusicBeatState
 					CrowdOld.setGraphicSize(Std.int(CrowdOld.width * 2.8));
 					add(CrowdOld);
 					
-					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -250, 0.9, 0.9);
+					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -300, 0.9, 0.9);
 					pisoAnim.setGraphicSize(Std.int(pisoAnim.width * 1.1));
 					add(pisoAnim);
 				}
