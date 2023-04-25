@@ -130,7 +130,7 @@ class FreeplayState extends MusicBeatState
 		add(layervig);
 		layervig.screenCenter();
 		
-		for (i in 0...weeks.length) barName = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/' + weeks[0] + '-songs'));
+		for (i in 0...weeks.length) barName = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/type of freeplay/' + weeks[0] + '-songs'));
 		barName.antialiasing = ClientPrefs.globalAntialiasing;
 		add(barName);
 		barName.screenCenter();
