@@ -72,12 +72,9 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
-	var ngSpr:FlxSprite;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
-
-	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
 
@@ -130,8 +127,6 @@ class TitleState extends MusicBeatState
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		PlayerSettings.init();
-
-		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		// DEBUG BULLSHIT
 
@@ -347,14 +342,6 @@ class TitleState extends MusicBeatState
 		// credTextShit.alignment = CENTER;
 
 		credTextShit.visible = false;
-
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
-		add(ngSpr);
-		ngSpr.visible = false;
-		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
-		ngSpr.updateHitbox();
-		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -606,64 +593,31 @@ class TitleState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					#if PSYCH_WATERMARKS
 					createCoolText(['Psych Engine by'], 15);
-					#else
-					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-					#end
-				// credTextShit.visible = true;
 				case 4:
-					#if PSYCH_WATERMARKS
 					addMoreText('Shadow Mario', 15);
 					addMoreText('RiverOaken', 15);
 					addMoreText('shubs', 15);
-					#else
-					addMoreText('present');
-					#end
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
 				case 5:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
 				case 6:
-					#if PSYCH_WATERMARKS
-					createCoolText(['Not associated', 'with'], -40);
-					#else
-					createCoolText(['In association', 'with'], -40);
-					#end
+					createCoolText(['It\'s finally here', 'yeah'], -40);
 				case 8:
-					addMoreText('newgrounds', -40);
-					ngSpr.visible = true;
-				// credTextShit.text += '\nNewgrounds';
+					deleteCoolText();
 				case 9:
-					deleteCoolText();
-					ngSpr.visible = false;
-				// credTextShit.visible = false;
-
-				// credTextShit.text = 'Shoutouts Tom Fulp';
-				// credTextShit.screenCenter();
+					createCoolText(['A mod by a lot of people'], 15);
 				case 10:
-					createCoolText([curWacky[0]]);
-				// credTextShit.visible = true;
+					addMoreText('I think', 15);
 				case 12:
-					addMoreText(curWacky[1]);
-				// credTextShit.text += '\nlmao';
-				case 13:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
-				case 14:
+				case 13:
 					if(!skippedIntro) FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.45);
-					if(ngSpr != null) remove(ngSpr);
 					if (credGroup != null) remove(credGroup);
 					
 					if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: 0 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-				case 15:
+				case 14:
 					if (logoBl != null) FlxTween.tween(logoBl, { x: 550 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-				case 17:
+				case 16:
 					skipIntro();
 			}
 		}
@@ -694,7 +648,6 @@ class TitleState extends MusicBeatState
 						sound = FlxG.sound.play(Paths.sound('JingleBB'));
 
 					default: //Go back to normal ugly ass boring GF
-						remove(ngSpr);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
@@ -710,7 +663,6 @@ class TitleState extends MusicBeatState
 				{
 					new FlxTimer().start(3.2, function(tmr:FlxTimer)
 					{
-						remove(ngSpr);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 0.6);
 						transitioning = false;
@@ -718,7 +670,6 @@ class TitleState extends MusicBeatState
 				}
 				else
 				{
-					remove(ngSpr);
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
@@ -731,7 +682,6 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
-				if(ngSpr != null) remove(ngSpr);
 				if (credGroup != null) remove(credGroup);
 				chosenTDL.x = 0;
 				logoBl.x = 550;

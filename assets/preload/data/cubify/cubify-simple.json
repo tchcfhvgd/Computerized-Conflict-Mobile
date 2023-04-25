@@ -4,7 +4,7 @@
 		"player1": "animator-bf",
 		"events": [],
 		"gfVersion": "no-gf",
-		"player2": "black-STICK",
+		"player2": "blackSTICK",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -5076,7 +5076,7 @@
 		],
 		"player3": null,
 		"song": "Cubify",
-		"stage": "cubify-stage",
+		"stage": "outside-desktop",
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": true,

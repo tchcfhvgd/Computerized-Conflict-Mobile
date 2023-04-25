@@ -191,7 +191,8 @@ class Note extends FlxSprite
 				case 'Tdl note':
 					loadGraphic(Paths.image('dangerNotes/tdl_blade'));
 					noAnimation = true;
-					missHealth = 1.6;
+					missHealth = 0.8;
+					if (CoolUtil.difficultyString() == 'INSANE') missHealth = 1.5;
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
