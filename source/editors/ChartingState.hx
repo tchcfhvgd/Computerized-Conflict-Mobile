@@ -120,7 +120,9 @@ class ChartingState extends MusicBeatState
 		['blackBars test', "testing"],
 		['cancel blackbars', "testing"],
 		['blackBars2 test', "testing"],
-		['cancel blackbars2', "testing"]
+		['cancel blackbars2', "testing"],
+		['change notes type 1', "Val 1: bf, dad or everyone\nVal 2: power, default: 30"],
+		['change notes BACK type 1', "Val 1: bf, dad or everyone"]
 	];
 
 	var _file:FileReference;
