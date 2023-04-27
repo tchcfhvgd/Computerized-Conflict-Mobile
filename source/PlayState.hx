@@ -459,6 +459,7 @@ class PlayState extends MusicBeatState
 			public var NTSCshader:Shaders.NTSCEffect = new NTSCEffect(); //fuck
 			
 		//kickstarter:
+			var bgKickstarter:BGSprite; //changed it to here becuse it gets dark later or something 
 		    var leftSide:Bool = false;
 			var overlayKick:BGSprite;
 			
@@ -1065,10 +1066,10 @@ class PlayState extends MusicBeatState
 				
 			case 'kickstarter': //kickstart
 				{
-					var bg:BGSprite = new BGSprite('win7/Windows7_Bg', -30, 0, 0.9, 0.9);
-					bg.setGraphicSize(Std.int(bg.width * 1.5));
-					bg.screenCenter();
-					add(bg);
+					bgKickstarter = new BGSprite('win7/Windows7_Bg', -30, 0, 0.9, 0.9);
+					bgKickstarter.setGraphicSize(Std.int(bgKickstarter.width * 1.5));
+					bgKickstarter.screenCenter();
+					add(bgKickstarter);
 					
 					var solitarie:BGSprite = new BGSprite('win7/solitaire_floor', -30, 0, 1, 1);
 					solitarie.setGraphicSize(Std.int(solitarie.width * 2));
@@ -8132,6 +8133,12 @@ class PlayState extends MusicBeatState
 					case 260:
 						topBarsALT.alpha = 0;
 						bottomBarsALT.alpha = 0;
+				}
+			case 'kickstarter':
+				switch(curBeat)
+				{
+					case 576:
+						if (ClientPrefs.shaders) colorTween([bgKickstarter], 0.7, FlxColor.WHITE, 0xFF6E6E6E); //it looks bad without shaders
 				}
 		}
 
