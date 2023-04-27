@@ -1332,6 +1332,25 @@ class PlayState extends MusicBeatState
 					add(daFloor);
 					add(tscseeing);
 					
+					particleEmitter = new FlxEmitter(0, 1000);
+                    particleEmitter.launchMode = FlxEmitterMode.SQUARE;
+                    particleEmitter.velocity.set(-50, -200, 50, -600, -90, 0, 90, -600);
+                    particleEmitter.scale.set(2, 2, 2, 2, 0, 0, 0, 0);
+                    particleEmitter.drag.set(0, 0, 0, 0, 5, 5, 10, 10);
+                    particleEmitter.width = 2787.45;
+                    //particleEmitter.alpha.set(0, 0);
+                    particleEmitter.lifespan.set(1.9, 4.9);
+					
+                    particleEmitter.loadParticles(Paths.image('particle'), 500, 16, true);
+					particleEmitter.color.set(FlxColor.YELLOW, FlxColor.YELLOW);
+
+                    particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
+                    add(particleEmitter);
+					
+					scroll = new FlxBackdrop(Paths.image('scrollmidsong'), XY, 0, 0);
+					scroll.setGraphicSize(Std.int(scroll.width * 0.8));
+					add(scroll);
+					
 					//for (i in 0...4) babyArrowBG = new StrumNote(0,  0, i, playerHandler);
 					//babyArrowBG.screenCenter();
 					//opponentStrums.add(babyArrowBG);
@@ -7879,22 +7898,20 @@ class PlayState extends MusicBeatState
 				{
 					case 64 | 224 | 320:
 						bestPart2 = true;
-						blackBars(1);
+						//blackBars(1);
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
-						babyArrowCamGame = true;
+						/*babyArrowCamGame = true;
 						opponentStrums.forEach(function(spr:StrumNote) {
 							spr.x = 1050 + 112 * spr.ID;
-						});
-
-						FlxG.camera.filtersEnabled = true;
-						FlxG.camera.setFilters([new ShaderFilter(new PincushionShader())]);
+						});*/
+						
 					case 96 | 256:
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
 						bestPart2 = false;
-						blackBars(0);
+						//blackBars(0);
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
-						babyArrowCamGame = false;
+						/*babyArrowCamGame = false;
 						FlxG.camera.filtersEnabled = false;
 
 						opponentStrums.forEach(function(spr:StrumNote) {
@@ -7914,10 +7931,10 @@ class PlayState extends MusicBeatState
 							{
 								note.angle = 0;
 							}
-						}
+						}*/
 					case 384:
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
-						blackBars(0);
+						//blackBars(0);
 				}
 				
 			case 'conflict':
