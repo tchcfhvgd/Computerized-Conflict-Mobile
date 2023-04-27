@@ -573,6 +573,10 @@ class PlayState extends MusicBeatState
 	var strikes:Int = 0;
 	var strikesTxt:FlxText;
 
+	//trying to do events for dashpulse
+	var notesFunny1:Array<Bool> = [false, false];
+	var normalThingOrShit:Array<Float> = [];
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -3907,11 +3911,13 @@ class PlayState extends MusicBeatState
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+				normalThingOrShit.push(playerStrums.members[i].y);
 			}
 			for (i in 0...opponentStrums.length) {
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+				normalThingOrShit.push(opponentStrums.members[i].y);
 			}
 
 			startedCountdown = true;
@@ -6105,6 +6111,46 @@ class PlayState extends MusicBeatState
 				
 			case 'Kaboom':
 				kaboomEnabled = true;
+
+			case 'change notes type 1': //I need to fix this
+				var silly = 2;
+				if (value1 == 'bf') silly = 0;
+				if (value1 == 'dad') silly = 1;
+				if (silly != 2){
+					notesFunny1[silly] = !notesFunny1[silly];
+				}else{
+					notesFunny1[0] = !notesFunny1[0];
+					notesFunny1[1] = !notesFunny1[1];
+				}
+
+				var power = Std.parseInt(value2);
+				switch(value1)
+				{
+					case 'dad':
+						if (notesFunny1[silly] != true) power = -power;
+						for (i in 0... opponentStrums.members.length)
+						{
+							opponentStrums.members[i].y = Std.int(normalThingOrShit[i+4] + power*Math.sin(i*100));
+						}
+					case 'bf':
+						if (notesFunny1[silly] != true) power = -power;
+						for (i in 0...playerStrums.members.length)
+						{
+							playerStrums.members[i].y = Std.int(normalThingOrShit[i] + power*Math.sin(i*100));
+							trace(Std.int(normalThingOrShit[i] + power*Math.sin(i*100)));
+						}
+					default:
+						for (i in 0... strumLineNotes.length)
+						{
+							if (i < 4){
+								if (notesFunny1[0] != true) power = -power;
+								strumLineNotes.members[i].y = Std.int(normalThingOrShit[i] + power*Math.sin(i*100));
+							}else{
+								if (notesFunny1[1] != true) power = -power;
+								strumLineNotes.members[i].y = Std.int(normalThingOrShit[i] + power*Math.sin(i*100));
+							}
+						}
+				}
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -7969,6 +8015,10 @@ class PlayState extends MusicBeatState
 			case 'dashpulse':
 				switch(curBeat)
 				{
+					case 28 | 84:
+						FlxTween.tween(FlxG.camera, {zoom:1.3}, 1.5, {ease: FlxEase.sineInOut});
+					case 99:
+						FlxTween.tween(FlxG.camera, {zoom:FlxG.camera.zoom - 0.2}, 3, {ease: FlxEase.sineInOut});
 					case 256:
 						colorTween([gf, otakuBG], 0.7, FlxColor.WHITE, 0xFF191919);
 						defaultCamZoom = 1.1;
