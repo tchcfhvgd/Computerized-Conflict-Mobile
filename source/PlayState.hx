@@ -228,6 +228,7 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
+	public var camLYRICS:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var camBars:FlxCamera;
@@ -454,7 +455,7 @@ class PlayState extends MusicBeatState
 			public static var timeTraveled:Bool;
 			public static var funnyArray:Array<Int>;
 			public static var ratingPercentTT:Float;
-			var Text:FlxTypeText; //the dialog text
+			var textLyrics:FlxTypeText; //the dialog text
 		
 		//dashpulse:
 			var otakuBG:BGSprite;
@@ -580,6 +581,11 @@ class PlayState extends MusicBeatState
 	var notesFunny1:Array<Bool> = [false, false];
 	var normalThingOrShit:Array<Float> = [];
 
+	//remove the lyrics
+	var lyricsDestroyTimer:FlxTimer;
+	var textTween:FlxTween;
+	var textTweenAlpha:FlxTween;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -647,11 +653,13 @@ class PlayState extends MusicBeatState
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
+		camLYRICS = new FlxCamera();
 		camOther = new FlxCamera();
 		camBars = new FlxCamera();
 		camChar = new FlxCamera();
 		
 		camHUD.bgColor.alpha = 0;
+		camLYRICS.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camBars.bgColor.alpha = 0;
 		camChar.bgColor.alpha = 0;
@@ -662,6 +670,7 @@ class PlayState extends MusicBeatState
 		
 		FlxG.cameras.add(camBars, false);
 		FlxG.cameras.add(camHUD, false);
+		FlxG.cameras.add(camLYRICS, false);
 		FlxG.cameras.add(camOther, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
@@ -1469,9 +1478,8 @@ class PlayState extends MusicBeatState
 				
 			case 'contrivance': //Contrivance song
 				{
-					var bg:BGSprite = new BGSprite('contrivance_bg', 0, 0, 1, 1);
-					bg.setGraphicSize(Std.int(bg.width * 0.5));
-					bg.screenCenter();
+					var bg:BGSprite = new BGSprite('contrivance_bg', -800, -500, 1, 1);
+					//bg.screenCenter();
 					bg.updateHitbox();
 					add(bg);
 					
@@ -2932,30 +2940,32 @@ class PlayState extends MusicBeatState
 	
 	public function dialogOnSong(dialog:String, duration:Float, color:FlxColor)
 	{
-			Text = new FlxTypeText(0, -40, FlxG.width, dialog, 24);
-			Text.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			Text.cameras = [camHUD];
-			Text.screenCenter();
-			Text.y += 250;
-			Text.scrollFactor.set();
-			Text.color = color;
-			add(Text);
-			Text.alpha = 0;
+		if (lyricsDestroyTimer != null) lyricsDestroyTimer.cancel();
+		if (textTween != null) textTween.cancel();
+		if (textTweenAlpha != null) textTweenAlpha.cancel();
+		if (textLyrics != null) {remove(textLyrics); textLyrics.destroy();}
+		textLyrics = new FlxTypeText(0, -40, FlxG.width, dialog, 24);
+		textLyrics.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		textLyrics.cameras = [camLYRICS];
+		textLyrics.screenCenter();
+		textLyrics.y += 250;
+		textLyrics.scrollFactor.set();
+		textLyrics.color = color;
+		add(textLyrics);
+		textLyrics.alpha = 0;
 			
-			Text.start(0.03, true);
-			FlxTween.tween(Text, {alpha:1}, 0.5);
-			
-			new FlxTimer().start(duration, function(A:FlxTimer)
-			{
-				FlxTween.tween(Text, {alpha: 0}, 0.5, {
-			    ease: FlxEase.linear,
-		        onComplete: function(twn:FlxTween) {
-					remove(Text);
-					Text.destroy();
-					Text.erase(0.01, true);
-				}
-			  });
-		    });
+		textLyrics.start(0.03, true);
+		textTweenAlpha = FlxTween.tween(textLyrics, {alpha:1}, 0.5);
+		
+		lyricsDestroyTimer = new FlxTimer().start(duration, function(A:FlxTimer)
+		{
+			textTween = FlxTween.tween(textLyrics, {alpha: 0}, 0.5, {
+		    ease: FlxEase.linear,
+		    onComplete: function(twn:FlxTween) {
+				remove(textLyrics);
+				textLyrics.destroy();
+			}});
+		});
 	}
 	
 	public function dialogOnSongNoTween(dialog:String, duration:Float, color:FlxColor)
@@ -4948,7 +4958,7 @@ class PlayState extends MusicBeatState
 				laggyText = new FlxText(0, 0, FlxG.width, "IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE SHADERS", 20);
 				laggyText.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				laggyText.borderSize = 2;
-				laggyText.visible = !ClientPrefs.hideHud;
+				laggyText.visible = !ClientPrefs.hideHud || ClientPrefs.shaders;
 				laggyText.cameras = [camOther];
 				add(laggyText);
 			}
@@ -7697,6 +7707,7 @@ class PlayState extends MusicBeatState
 					case 1470:
 						endProcessBSODS(false, 2);
 				}
+
 			case 'time travel':
 				switch(curStep)
 				{
@@ -7718,6 +7729,58 @@ class PlayState extends MusicBeatState
 					case 1136:
 						FlxTween.tween(this, {songLength: actualSongLength, timeBar: 1}, 3);
 				}
+
+			case 'contrivance':
+				switch(curStep) {
+						case 412:
+							blackBars(1);
+						case 416:
+							FlxTween.tween(camHUD, {alpha: 0}, 1);
+						case 418:
+							dialogOnSong("So, you never give shit about what you do?", 7, 0xFF3A3A3A);
+						case 446:
+							dialogOnSong("Rapping out on randoms like you've never met them in life?", 7, 0xFF3A3A3A);
+							for (i in 0...opponentStrums.length) {
+								opponentStrums.members[i].visible = false;
+								opponentStrums.members[i].x -= 1200;
+							}
+						case 476:
+							blackBars(0);
+							FlxTween.tween(camHUD, {alpha: 1}, 1);
+							boyfriend.playAnim('singUP', true);
+						case 482:
+							dialogOnSong("Well, I'll tell you what", 1, 0xFF3A3A3A);
+						case 494:
+							dialogOnSong("ya better get off track.", 1.5, 0xFF3A3A3A);
+						case 496:
+							for (i in 0...opponentStrums.length) {
+								opponentStrums.members[i].alpha = 0;
+								opponentStrums.members[i].visible = true;
+							}
+						case 504:
+							for (i in 0...opponentStrums.length) {
+								if (!ClientPrefs.middleScroll) {
+									FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 1);
+									FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + 1200}, 2, {ease: FlxEase.sineInOut});
+								}else{
+									FlxTween.tween(opponentStrums.members[i], {alpha: 0.35}, 1);
+									opponentStrums.members[i].x += 1200;
+								}
+							}
+						case 1384:
+							for (i in 0...opponentStrums.length) {
+								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
+							}
+						case 1392:
+							dialogOnSong("AAA *helicopter noises*", 3, 0xFF3A3A3A);
+						case 1416:
+							dialogOnSong("Fuck this shit I'm off to read out error messages in my computer.", 7, 0xFF3A3A3A);
+						case 1454:
+							dialogOnSong("Now,", 2, 0xFF3A3A3A);
+						case 1466:
+							dialogOnSong("get out!", 7, 0xFF3A3A3A);
+				}
+
 			case 'messenger':
 				switch(curStep)
 				{

@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				63,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Samright"
+			"fps": 24,
+			"name": "Samright",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"indices": [],
-			"fps": 16,
 			"anim": "idle",
-			"loop": false,
-			"name": "Samidle"
+			"fps": 16,
+			"name": "Samidle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				87,
 				-17
 			],
-			"indices": [],
-			"fps": 16,
 			"anim": "singLEFT",
-			"loop": false,
-			"name": "Samleft"
+			"fps": 16,
+			"name": "Samleft",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				20,
 				-1
 			],
-			"indices": [],
-			"fps": 16,
 			"anim": "singDOWN",
-			"loop": false,
-			"name": "Samdown"
+			"fps": 16,
+			"name": "Samdown",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				74,
 				-7
 			],
-			"indices": [],
-			"fps": 16,
 			"anim": "singUP",
-			"loop": false,
-			"name": "Samup"
+			"fps": 16,
+			"name": "Samup",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -62,12 +62,12 @@
 		-230,
 		-20
 	],
-	"healthicon": "dad",
+	"healthicon": "mcsam",
 	"flip_x": false,
 	"healthbar_colors": [
-		175,
-		102,
-		206
+		0,
+		0,
+		0
 	],
 	"camera_position": [
 		0,
