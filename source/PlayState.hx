@@ -417,6 +417,8 @@ class PlayState extends MusicBeatState
 			var daFloor:BGSprite;
 			var adobeWindow:BGSprite;
 			var sFWindow:BGSprite;
+			var scroll:FlxBackdrop;
+			var vignettMid:FlxSprite;
 			
 			//kaboom effect
 			var angleshit = 1;
@@ -655,7 +657,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 		
-		if (SONG.song.toLowerCase() == 'amity') FlxG.cameras.add(camChar, false);
+		if (SONG.song.toLowerCase() == 'amity' || SONG.song.toLowerCase() == 'trojan') FlxG.cameras.add(camChar, false);
 		
 		FlxG.cameras.add(camBars, false);
 		FlxG.cameras.add(camHUD, false);
@@ -1351,9 +1353,15 @@ class PlayState extends MusicBeatState
                     particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
                     add(particleEmitter);
 					
-					scroll = new FlxBackdrop(Paths.image('scrollmidsong'), XY, 0, 0);
+					scroll = new FlxBackdrop(Paths.image('trojan/scrollmidsong', 'extras'), XY, 0, 0);
 					scroll.setGraphicSize(Std.int(scroll.width * 0.8));
+					scroll.cameras = [camChar];
 					add(scroll);
+					
+					vignettMid = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vignettemidsong', 'extras'));
+					vignettMid.antialiasing = ClientPrefs.globalAntialiasing;
+					vignettMid.cameras = [camChar];
+					add(vignettMid);
 					
 					//for (i in 0...4) babyArrowBG = new StrumNote(0,  0, i, playerHandler);
 					//babyArrowBG.screenCenter();
