@@ -156,8 +156,8 @@ class TCOStoryState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		
-		scrollingThing.x -= 0.45;
-		scrollingThing.y -= 0.16;
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
 		
 		if (!selectedSmth)
 		{

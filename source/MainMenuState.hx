@@ -259,18 +259,18 @@ class MainMenuState extends MusicBeatState
 	{
 		if (FlxG.sound.music.volume < 0.8)
 		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			FlxG.sound.music.volume += 0.5 * elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
-		
-		scrollingThing.x -= 0.45;
-		scrollingThing.y -= 0.16;
-		
-		text1.x -= 0.45;
-		text2.x -= 0.45;
+
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
+
+		text1.x -= 0.45 * 60 * elapsed;
+		text2.x -= 0.45 * 60 * elapsed;
 
 		menuItems.forEach(function(menuItem:FlxSprite){
 			var off = 0;

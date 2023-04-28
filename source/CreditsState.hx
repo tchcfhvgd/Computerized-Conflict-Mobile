@@ -180,11 +180,11 @@ class CreditsState extends MusicBeatState
 	{
 		if (FlxG.sound.music.volume < 0.7)
 		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			FlxG.sound.music.volume += 0.5 * elapsed;
 		}
-		
-		scrollingThing.x -= 0.45;
-		scrollingThing.y -= 0.16;
+
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
 
 		if(!quitting)
 		{

@@ -78,14 +78,6 @@ class TitleState extends MusicBeatState
 
 	var wackyImage:FlxSprite;
 
-	#if TITLE_SCREEN_EASTER_EGG
-	var easterEggKeys:Array<String> = [
-		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU'
-	];
-	var allowedKeys:String = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	var easterEggKeysBuffer:String = '';
-	#end
-
 	var mustUpdate:Bool = false;
 
 	var titleJSON:TitleData;
@@ -161,25 +153,6 @@ class TitleState extends MusicBeatState
 		#end
 
 		Highscore.load();
-
-		#if TITLE_SCREEN_EASTER_EGG
-		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
-		switch(FlxG.save.data.psychDevsEasterEgg.toUpperCase())
-		{
-			case 'SHADOW':
-				titleJSON.gfx += 210;
-				titleJSON.gfy += 40;
-			case 'RIVER':
-				titleJSON.gfx += 100;
-				titleJSON.gfy += 20;
-			case 'SHUBS':
-				titleJSON.gfx += 160;
-				titleJSON.gfy -= 10;
-			case 'BBPANZU':
-				titleJSON.gfx += 45;
-				titleJSON.gfy += 100;
-		}
-		#end
 
 		if(!initialized)
 		{
@@ -470,56 +443,6 @@ class TitleState extends MusicBeatState
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
-			#if TITLE_SCREEN_EASTER_EGG
-			else if (FlxG.keys.firstJustPressed() != FlxKey.NONE)
-			{
-				var keyPressed:FlxKey = FlxG.keys.firstJustPressed();
-				var keyName:String = Std.string(keyPressed);
-				if(allowedKeys.contains(keyName)) {
-					easterEggKeysBuffer += keyName;
-					if(easterEggKeysBuffer.length >= 32) easterEggKeysBuffer = easterEggKeysBuffer.substring(1);
-					//trace('Test! Allowed Key pressed!!! Buffer: ' + easterEggKeysBuffer);
-
-					for (wordRaw in easterEggKeys)
-					{
-						var word:String = wordRaw.toUpperCase(); //just for being sure you're doing it right
-						if (easterEggKeysBuffer.contains(word))
-						{
-							//trace('YOOO! ' + word);
-							if (FlxG.save.data.psychDevsEasterEgg == word)
-								FlxG.save.data.psychDevsEasterEgg = '';
-							else
-								FlxG.save.data.psychDevsEasterEgg = word;
-							FlxG.save.flush();
-
-							FlxG.sound.play(Paths.sound('ToggleJingle'));
-
-							var black:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-							black.alpha = 0;
-							add(black);
-
-							FlxTween.tween(black, {alpha: 1}, 1, {onComplete:
-								function(twn:FlxTween) {
-									FlxTransitionableState.skipNextTransIn = true;
-									FlxTransitionableState.skipNextTransOut = true;
-									MusicBeatState.switchState(new TitleState());
-								}
-							});
-							FlxG.sound.music.fadeOut();
-							if(FreeplayState.vocals != null)
-							{
-								FreeplayState.vocals.fadeOut();
-							}
-							closedState = true;
-							transitioning = true;
-							playJingle = true;
-							easterEggKeysBuffer = '';
-							break;
-						}
-					}
-				}
-			}
-			#end
 		}
 
 		if (initialized && pressedEnter && !skippedIntro)
@@ -529,8 +452,8 @@ class TitleState extends MusicBeatState
 		
 		if (initialized)
 		{
-			scrollingThing.x -= 0.45;
-			scrollingThing.y -= 0.16;
+			scrollingThing.x -= 0.45 * 60 * elapsed;
+			scrollingThing.y -= 0.16 * 60 * elapsed;
 		}
 
 		super.update(elapsed);

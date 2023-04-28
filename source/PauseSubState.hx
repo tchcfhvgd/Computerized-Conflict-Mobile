@@ -204,8 +204,8 @@ class PauseSubState extends MusicBeatSubstate
 		super.update(elapsed);
 		updateSkipTextStuff();
 		
-		scrollingThing.x -= 0.45;
-		scrollingThing.y -= 0.16;
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;

@@ -146,11 +146,11 @@ class FreeplayMenu extends MusicBeatState
 	
 	override function update(elapsed:Float)
 	{
-		scrollingThing.x -= 0.45;
-		scrollingThing.y -= 0.16;
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
 		
-		scrollingText1.x -= 0.45;
-		scrollingText2.x -= 0.45;
+		scrollingText1.x -= 0.45 * 60 * elapsed;
+		scrollingText2.x -= 0.45 * 60 * elapsed;
 		
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));

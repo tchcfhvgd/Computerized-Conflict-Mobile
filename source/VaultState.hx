@@ -68,10 +68,11 @@ class VaultState extends MusicBeatState
 		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(glitchBG);
 		
-		scrollingThing = new FlxBackdrop(Paths.image('FAMenu/scroll'), XY, 0, 0);
-		scrollingThing.scrollFactor.set(0, 0.07);
-		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
-		scrollingThing.alpha = 0.5;
+		//scrollingThing = new FlxBackdrop(Paths.image('FAMenu/scroll'), XY, 0, 0);
+		//scrollingThing.scrollFactor.set(0, 0.07);
+		//scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		//scrollingThing.alpha = 0.5;
+		//scrollingThing.antialiasing = ClientPrefs.globalAntialiasing;
 		//add(scrollingThing);
 		
 		vignette2 = new FlxSprite().loadGraphic(Paths.image('vault/vig2'));
@@ -84,12 +85,12 @@ class VaultState extends MusicBeatState
 		
 		downBarText = new FlxSprite(0, 150).loadGraphic(Paths.image('vault/downBarText'));
 		downBarText.antialiasing = ClientPrefs.globalAntialiasing;
-		downBarText.alpha = 0;
+		downBarText.alpha = 0.000001;
 		add(downBarText);
 		
 		barTitle = new FlxSprite(0, -150).loadGraphic(Paths.image('vault/barTitle'));
 		barTitle.antialiasing = ClientPrefs.globalAntialiasing;
-		barTitle.alpha = 0;
+		barTitle.alpha = 0.000001;
 		add(barTitle);
 		
 		vignette = new FlxSprite().loadGraphic(Paths.image('vault/blueVig'));
@@ -98,12 +99,12 @@ class VaultState extends MusicBeatState
 		
 		tipPopUp = new FlxSprite(250, 0).loadGraphic(Paths.image('vault/tip'));
 		tipPopUp.antialiasing = ClientPrefs.globalAntialiasing;
-		tipPopUp.alpha = 0;
+		tipPopUp.alpha = 0.000001;
 		add(tipPopUp);
 		
 		convertPopUp = new FlxSprite(-250, 0).loadGraphic(Paths.image('vault/convertToSymbol'));
 		convertPopUp.antialiasing = ClientPrefs.globalAntialiasing;
-		convertPopUp.alpha = 0;
+		convertPopUp.alpha = 0.000001;
 		add(convertPopUp);
 		
 		inputText = new FlxInputText(235, 326, FlxG.width, "", 20, FlxColor.BLACK, FlxColor.TRANSPARENT, true);
@@ -188,8 +189,8 @@ class VaultState extends MusicBeatState
 	
 	override function update(elapsed:Float)
 	{
-		//scrollingThing.x -= 0.45;
-		//scrollingThing.y -= 0.16;
+		//scrollingThing.x -= 0.45 * 60 * elapsed;
+		//scrollingThing.y -= 0.16 * 60 * elapsed;
 		
 		if (!selectedSmth && !coolDown)
 		{

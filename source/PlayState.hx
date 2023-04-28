@@ -85,7 +85,9 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import vlc.MP4Handler;
+#if (hxCodec >= "2.6.1") import hxcodec.VideoHandler as MP4Handler;
+#elseif (hxCodec == "2.6.0") import VideoHandler as MP4Handler;
+#else import vlc.MP4Handler; #end
 #end
 
 using StringTools;
@@ -5010,7 +5012,7 @@ class PlayState extends MusicBeatState
 						trainFrameTiming = 0;
 					}
 				}
-				phillyWindow.alpha -= (Conductor.crochet / 1000) * FlxG.elapsed * 1.5;
+				phillyWindow.alpha -= (Conductor.crochet / 1000) * elapsed * 1.5;
 
 				if(phillyGlowParticles != null)
 				{
@@ -5252,7 +5254,7 @@ class PlayState extends MusicBeatState
 		
 		if (startedCountdown)
 		{
-			Conductor.songPosition += FlxG.elapsed * 1000 * playbackRate;
+			Conductor.songPosition += elapsed * 1000 * playbackRate;
 		}
 
 		if (startingSong)
@@ -5266,18 +5268,6 @@ class PlayState extends MusicBeatState
 		{
 			if (!paused)
 			{
-				songTime += FlxG.game.ticks - previousFrameTime;
-				previousFrameTime = FlxG.game.ticks;
-
-				// Interpolation type beat
-				if (Conductor.lastSongPos != Conductor.songPosition)
-				{
-					songTime = (songTime + Conductor.songPosition) / 2;
-					Conductor.lastSongPos = Conductor.songPosition;
-					// Conductor.songPosition += FlxG.elapsed * 1000;
-					// trace('MISSED FRAME');
-				}
-
 				if(updateTime) {
 					var curTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
 					if(curTime < 0) curTime = 0;

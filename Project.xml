@@ -42,22 +42,17 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
 
 	<classpath name="source" />
-	
+
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop" />
 	<define name="LUA_ALLOWED" if="desktop" />
 	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="VIDEOS_ALLOWED" if="web || windows" unless="32bits"/>
+	<define name="VIDEOS_ALLOWED" if="web || windows || mac" unless="32bits"/>
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
-	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CRASH_HANDLER" if="desktop release" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
-	<section if="TITLE_SCREEN_EASTER_EGG">
-		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
-	</section>
 
 	<!-- DONT ENABLE THIS -->
 	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
@@ -121,7 +116,7 @@
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
 	<haxelib name="faxe" if='switch'/>
 	<!--<haxelib name="polymod"/> -->
-	<haxelib name="discord_rpc_yc" if="desktop"/> <!-- haxelib git discord_rpc https://github.com/YoshiCrafter29/linc_discord-rpc !-->
+	<haxelib name="discord_rpc_yc" if="desktop"/> <!-- haxelib git discord_rpc_yc https://github.com/YoshiCrafter29/LincDiscordRPCButtons !-->
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
