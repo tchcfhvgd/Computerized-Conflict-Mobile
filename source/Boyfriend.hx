@@ -13,7 +13,7 @@ class Boyfriend extends Character
 
 	public var actuallyDad:Bool = false; //actuallyDad is for the er showdown tco camera
 
-	public function new(x:Float, y:Float, ?char:String = 'bf') 
+	public function new(x:Float, y:Float, ?char:String = 'bf')
 	{
 		super(x, y, char, true);
 	}
@@ -29,7 +29,7 @@ class Boyfriend extends Character
 			else
 				holdTimer = 0;
 
-			if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
+			if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished)
 			{
 				playAnim('idle', true, false, 10);
 			}
