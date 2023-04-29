@@ -7373,7 +7373,8 @@ class PlayState extends MusicBeatState
 						case 476:
 							blackBars(0);
 							FlxTween.tween(camHUD, {alpha: 1}, 1);
-							boyfriend.playAnim('singUP', true);
+							boyfriend.playAnim('hey', true);
+							boyfriend.specialAnim = true;
 						case 482:
 							dialogOnSong("Well, I'll tell you what", 1, 0xFF3A3A3A);
 						case 494:
