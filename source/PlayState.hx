@@ -895,11 +895,6 @@ class PlayState extends MusicBeatState
 							fires2.visible = false;
 							add(fires2);
 							
-							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -400, 7, 0.95, 0.95, ['BG Guys Scared'], true);
-							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.1));
-							ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
-							if(songName == 'outrage') add(ScaredCrowd);
-							
 							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -650, -500, 0.9, 0.9);
 							stickpage.setGraphicSize(Std.int(stickpage.width * 1.1));
 							stickpage.alpha = 0;
@@ -908,6 +903,11 @@ class PlayState extends MusicBeatState
 							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.2));
 							stickpageFloor.screenCenter();
 							stickpageFloor.alpha = 0;
+
+							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -400, 200, 0.95, 0.95, ['BG Guys Scared'], true);
+							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.1));
+							ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
+							if(songName == 'outrage') add(ScaredCrowd);
 							
 							bsod = new BGSprite('victim/error', 'chapter1', -650, -500, 1, 1);
 							bsod.setGraphicSize(Std.int(bsod.width * 1.1));
@@ -1832,11 +1832,11 @@ class PlayState extends MusicBeatState
 					backgroundAnim.setGraphicSize(Std.int(backgroundAnim.width * 1.1));
 					add(backgroundAnim);
 					
-					var CrowdOld = new BGSprite('old/CheerCrowd', 450, -50, 0.9, 0.9, ['CheerCrowd'], true);
+					var CrowdOld = new BGSprite('old/CheerCrowd', 450, 130, 0.9, 0.9, ['CheerCrowd'], true);
 					CrowdOld.setGraphicSize(Std.int(CrowdOld.width * 2.8));
 					add(CrowdOld);
 					
-					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -300, 0.9, 0.9);
+					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -340, 0.9, 0.9);
 					pisoAnim.setGraphicSize(Std.int(pisoAnim.width * 1.1));
 					add(pisoAnim);
 				}
@@ -3066,7 +3066,7 @@ class PlayState extends MusicBeatState
 	{
 		for (i in 0...shit.length)
 		{
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
+			if (SONG.notes[curSection].mustHitSection)
 			{
 				camGame.shake(intensityAlt, duration);
 			}

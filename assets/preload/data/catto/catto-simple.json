@@ -1,6 +1,6 @@
 {
 	"song": {
-                "composer": "SharkFaceGaming",
+		"composer": "SharkFaceGaming",
 		"player1": "bf",
 		"events": [
 			[
@@ -11660,8 +11660,8 @@
 		],
 		"player2": "omg-cta-real",
 		"player3": null,
-		"song": "Catto",
-		"stage": "catto",
+		"song": "catto",
+		"stage": "stage",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 205,
