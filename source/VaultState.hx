@@ -200,6 +200,7 @@ class VaultState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				Paths.clearUnusedMemory();
 				selectedSmth = true;
 				escapeTween();

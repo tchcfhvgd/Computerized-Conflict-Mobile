@@ -68,6 +68,8 @@ class MainMenuState extends MusicBeatState
 	
 	public var removeShaderHandler:FlxShader;
 
+	var recentMouseOption:Int;
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -171,7 +173,6 @@ class MainMenuState extends MusicBeatState
 			if (CoolUtil.songsUnlocked.data.mainWeek == null) {
 				CoolUtil.songsUnlocked.data.mainWeek = false;
 			}
-			CoolUtil.songsUnlocked.data.mainWeek = true;
 			trace(CoolUtil.songsUnlocked.data.mainWeek);
 
 			CoolUtil.songsUnlocked.flush();
@@ -312,6 +313,14 @@ class MainMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
+			if (controls.UI_UP_P || controls.UI_DOWN_P)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				var targetOption:Int = 3;
+				if (curSelected >= 3) targetOption = 0;
+				changeItem(targetOption-curSelected);
+			}
+
 			if (controls.BACK)
 			{
 				selectedSomethin = true;
@@ -334,16 +343,17 @@ class MainMenuState extends MusicBeatState
 
 			menuItems.forEach(function(spr:FlxSprite)
 			{
-				if (FlxG.mouse.overlaps(spr) && !selectedSomethin)
-				{
-					changeItem();
-					
+				if (FlxG.mouse.overlaps(spr) && !selectedSomethin && spr.ID != recentMouseOption)
+				{			
 					curSelected = spr.ID;
 
-					if (FlxG.mouse.justPressed){
-						FlxG.sound.play(Paths.sound('mouseClick'));
-						loadState();
-					}
+					changeItem();
+					recentMouseOption = curSelected;
+				}
+				
+				if (FlxG.mouse.justPressed){
+					FlxG.sound.play(Paths.sound('mouseClick'));
+					loadState();
 				}
 				
 				if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();

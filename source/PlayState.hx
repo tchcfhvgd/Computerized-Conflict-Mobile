@@ -1497,7 +1497,7 @@ class PlayState extends MusicBeatState
 					ytBGVideo.alpha = 0;
 					add(ytBGVideo);
 
-					Paths.video('tunein_vidbg');
+					precacheList.set('tunein_vidbg', 'video');
 					
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -2654,6 +2654,8 @@ class PlayState extends MusicBeatState
 					Paths.sound(key);
 				case 'music':
 					Paths.music(key);
+				case 'video':
+					Paths.video(key);
 			}
 		}
 		Paths.clearUnusedMemory();

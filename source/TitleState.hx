@@ -41,7 +41,6 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 using StringTools;
 typedef TitleData =
 {
-
 	titlex:Float,
 	titley:Float,
 	startx:Float,
