@@ -1155,6 +1155,8 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(distortShaderHUD.shader)]);
 					
 					oldVideoResolution = true;
+
+					skipCountdown = true;
 					
 				}
 				
@@ -2539,7 +2541,6 @@ class PlayState extends MusicBeatState
 					
 				case 'adobe':
 					startDialogueScript(ScriptdialogueJson);
-
 				default:
 					startCountdown();
 			}
@@ -2606,6 +2607,15 @@ class PlayState extends MusicBeatState
 			FlxG.resizeWindow(960, 720);
 			camGame.width = 360;
 			camGame.height = 720;
+
+			playerStrums.forEach(function(spr:StrumNote) {
+				spr.x -= 170;
+			
+				if (ClientPrefs.middleScroll)
+				{
+					spr.x += 100;
+				}
+			});
 		}
 		
 		switch(SONG.song.toLowerCase())
@@ -4009,19 +4019,6 @@ class PlayState extends MusicBeatState
 					isCameraOnForcedPos = true;
 					camFollow.x = 1150;
 					camFollow.y = 150;
-					
-			}
-			
-			if (oldVideoResolution)
-			{
-				playerStrums.forEach(function(spr:StrumNote) {
-					spr.x -= 170;
-				
-					if (ClientPrefs.middleScroll)
-					{
-						spr.x += 100;
-					}
-				});
 			}
 			
 			if (leftSide)
@@ -4809,7 +4806,8 @@ class PlayState extends MusicBeatState
 			}
 		}*/
 
-		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 5, Std.int(FlxG.height/FlxG.camera.zoom) + 5);
+		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 50, Std.int(FlxG.height/FlxG.camera.zoom) + 50);
+		if (whiteScreen != null && SONG.song.toLowerCase() == 'rombie') whiteScreen.scale.set(Std.int(FlxG.width*2/FlxG.camera.zoom), Std.int(FlxG.height*2/FlxG.camera.zoom));
 
 		if (ytBGVideo != null && videoTI != null) ytBGVideo.loadGraphic(videoTI.bitmapData);
 
@@ -6696,6 +6694,10 @@ class PlayState extends MusicBeatState
 				else setCamShake([camGame, camBars, camOther], 0.015, 0.05, 0.005);
 			case 'the-dark-lord':
 				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023);
+			case 'joe-rombie':
+				var mult:Float = 1;
+				if (note.isSustainNote) mult = 0.3;
+				if (healthBar.percent > 10) healthDrainRates(0.01 * mult, 0.03 * mult, 0.04 * mult);
 		}
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
