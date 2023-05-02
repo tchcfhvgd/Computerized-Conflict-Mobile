@@ -494,6 +494,7 @@ class PlayState extends MusicBeatState
 			var rombBG:BGSprite;
 			public var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
 			public var distortShaderHUD:Shaders.DistortedTVEffectHUD = new DistortedTVEffectHUD(); //fuck
+			var zoomTweenStart:FlxTween;
 			
 		//enmity:
 		    var tcoPlataform:BGSprite;
@@ -2625,6 +2626,9 @@ class PlayState extends MusicBeatState
 				
 			case 'amity':
 				addCharacterToList('angry-minus-tco', 1);
+				
+			case 'rombie':
+				defaultCamZoom = 2;
 		}
 
 		if (timeTraveled == true){
@@ -4006,9 +4010,6 @@ class PlayState extends MusicBeatState
 						spr.x -= 1000;
 					});
 					
-				case 'rombie':
-					defaultCamZoom = 2;
-					
 				case 'amity':
 					
 					isCameraOnForcedPos = true;
@@ -4327,20 +4328,29 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(judgementCounter, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 		
 		}
-		
-		if(SONG.song.toLowerCase()=='time travel'){
-			songLength = 110000;
-			camGame.alpha = 1;
-			theHOGOVERLAYOMG.alpha = 1;
-			blackBars(1);
-			triggerEventNote('Change Character', 'dad', 'carykhTALK');
-			triggerEventNote('Play Animation', 'cutsceneTALK', 'dad');
-		}
 
-		if (SONG.song.toLowerCase() == 'tune in') 
+		switch(SONG.song.toLowerCase())
 		{
-			iconP3.visible = false;
-			iconP4.visible = false;
+			case 'time travel':
+				songLength = 110000;
+				camGame.alpha = 1;
+				theHOGOVERLAYOMG.alpha = 1;
+				blackBars(1);
+				triggerEventNote('Change Character', 'dad', 'carykhTALK');
+				triggerEventNote('Play Animation', 'cutsceneTALK', 'dad');
+
+			case 'tune in':
+				iconP3.visible = false;
+				iconP4.visible = false;
+
+			case 'rombie':
+				zoomTweenStart = FlxTween.tween(FlxG.camera, {zoom: 1}, 3 * playbackRate, {
+				ease: FlxEase.quadInOut,
+				onComplete: function(twn)
+					{
+						defaultCamZoom = 1;
+					},
+				});
 		}
 
 		switch(curStage)
@@ -4682,6 +4692,7 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			if (videoTI != null) videoTI.resume();
+			if (zoomTweenStart != null) zoomTweenStart.active = true;
 			callOnLuas('onResume', []);
 
 			#if desktop
@@ -5307,6 +5318,7 @@ class PlayState extends MusicBeatState
 			vocals.pause();
 		}
 		if (videoTI != null) videoTI.pause();
+		if (zoomTweenStart != null) zoomTweenStart.active = false;
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
