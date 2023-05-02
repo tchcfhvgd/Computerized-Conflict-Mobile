@@ -561,6 +561,7 @@ class PlayState extends MusicBeatState
 
 	//special game over
 	public var gameOverType:String = 'default';
+	public var countDownType:String = 'default';
 
 	//custom health bars wowie
 	public var uiType:String = 'default';
@@ -1551,6 +1552,7 @@ class PlayState extends MusicBeatState
 			case 'carykh': //CARYKH
 				{	
 					gameOverType = 'Time Travel';
+					countDownType = 'Time Travel';
 
 					var bg:BGSprite = new BGSprite('time-travel/timetravel_bg', 0, 0, 0.9, 0.9);
 					bg.screenCenter();
@@ -1865,6 +1867,12 @@ class PlayState extends MusicBeatState
 
 		if(isPixelStage) {
 			introSoundsSuffix = '-pixel';
+		}
+
+		switch(countDownType)
+		{
+			case 'Time Travel':
+				introSoundsSuffix += '-cary'; //+= because if we also want custom pixel countdows or something
 		}
 
 		if(songName != 'phantasm') add(gfGroup); //Needed for blammed lights
@@ -2626,9 +2634,6 @@ class PlayState extends MusicBeatState
 				
 			case 'amity':
 				addCharacterToList('angry-minus-tco', 1);
-				
-			case 'rombie':
-				defaultCamZoom = 2;
 		}
 
 		if (timeTraveled == true){
@@ -4168,6 +4173,8 @@ class PlayState extends MusicBeatState
 				// generateSong('fresh');
 			}, 5);
 		}
+
+		if(SONG.song.toLowerCase() == 'rombie') defaultCamZoom = 2;
 	}
 
 	public function addBehindGF(obj:FlxObject)

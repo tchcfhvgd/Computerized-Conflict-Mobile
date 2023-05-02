@@ -32,7 +32,7 @@ using StringTools;
 class MainMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
-	public static var curSelected:Int = 0;
+	var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
@@ -240,7 +240,7 @@ class MainMenuState extends MusicBeatState
 
 		// NG.core.calls.event.logEvent('swag').send();
 
-		changeItem(1-curSelected);
+		changeItem();
 		
 		super.create();
 	}
@@ -318,6 +318,7 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				var targetOption:Int = 3;
 				if (curSelected >= 3) targetOption = 0;
+					
 				changeItem(targetOption-curSelected);
 			}
 
