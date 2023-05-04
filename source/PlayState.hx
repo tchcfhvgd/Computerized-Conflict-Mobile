@@ -811,13 +811,13 @@ class PlayState extends MusicBeatState
 						add(stageCurtains);
 					}
 					
-					topBars = new FlxSprite().makeGraphic(2580, 320, FlxColor.BLACK);
+					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
 					topBars.y -= 850;
 					add(topBars);
 					
-					bottomBars = new FlxSprite().makeGraphic(2580, 320, FlxColor.BLACK);
+					bottomBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					bottomBars.cameras = [camBars];
 					bottomBars.screenCenter();
 					bottomBars.y += 850;
@@ -1024,26 +1024,26 @@ class PlayState extends MusicBeatState
 					Floor.setGraphicSize(Std.int(Floor.width * 1.2));
 					add(Floor);
 					
-					topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
 					topBars.y -= 850;
 					add(topBars);
 					
-					bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					bottomBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					bottomBars.cameras = [camBars];
 					bottomBars.screenCenter();
 					bottomBars.y += 850;
 					add(bottomBars);	
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					if(SONG.song.toLowerCase() != 'end process') topBarsALT.alpha = 0;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1091,6 +1091,23 @@ class PlayState extends MusicBeatState
 					overlayKick = new BGSprite('win7/overlay', 0, 0, 1, 1);
 					overlayKick.setGraphicSize(Std.int(overlayKick.width * 1.5));
 					overlayKick.screenCenter();
+
+					topBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
+					topBars.cameras = [camBars];
+					topBars.screenCenter();
+					topBars.y -= 850;
+					topBars.x -= 10;
+					add(topBars);
+					
+					bottomBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
+					bottomBars.cameras = [camBars];
+					bottomBars.screenCenter();
+					bottomBars.y += 850;
+					bottomBars.x -= 10;
+					add(bottomBars);
+
+					camBars.x += 0.5;
+
 					
 					leftSide = true;
 					
@@ -1141,13 +1158,13 @@ class PlayState extends MusicBeatState
 					whiteScreen.alpha = 0;
 					add(whiteScreen);
 					
-					topBars = new FlxSprite().makeGraphic(2580, 320, FlxColor.BLACK);
+					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
 					topBars.y -= 850;
 					add(topBars);
 					
-					bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					bottomBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					bottomBars.cameras = [camBars];
 					bottomBars.screenCenter();
 					bottomBars.y += 850;
@@ -1179,13 +1196,13 @@ class PlayState extends MusicBeatState
 					whiteScreen.alpha = 0;
 					add(whiteScreen);
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1202,13 +1219,13 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = ClientPrefs.globalAntialiasing;
 					add(bg);
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1235,13 +1252,13 @@ class PlayState extends MusicBeatState
 					otakuBG.antialiasing = false;
 					add(otakuBG);
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1301,25 +1318,25 @@ class PlayState extends MusicBeatState
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 					
 					
-					topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
 					topBars.y -= 850;
 					add(topBars);
 					
-					bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					bottomBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					bottomBars.cameras = [camBars];
 					bottomBars.screenCenter();
 					bottomBars.y += 850;
 					add(bottomBars);
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1414,25 +1431,25 @@ class PlayState extends MusicBeatState
 					redthing.cameras = [camBars];
 					add(redthing);
 					
-					topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
 					topBars.y -= 850;
 					add(topBars);
 					
-					bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+					bottomBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					bottomBars.cameras = [camBars];
 					bottomBars.screenCenter();
 					bottomBars.y += 850;
 					add(bottomBars);
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1483,6 +1500,22 @@ class PlayState extends MusicBeatState
 					//bg.screenCenter();
 					bg.updateHitbox();
 					add(bg);
+
+					topBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
+					topBars.cameras = [camBars];
+					topBars.screenCenter();
+					topBars.y -= 850;
+					topBars.x -= 10;
+					add(topBars);
+					
+					bottomBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
+					bottomBars.cameras = [camBars];
+					bottomBars.screenCenter();
+					bottomBars.y += 850;
+					bottomBars.x -= 10;
+					add(bottomBars);
+
+					camBars.x += 0.5;
 					
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 				}
@@ -1521,13 +1554,13 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.characterName = 'yt-gameover';
 					GameOverSubstate.deathSoundName = 'tsc_green_loss_sfx';
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camHUD];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camHUD];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1576,6 +1609,22 @@ class PlayState extends MusicBeatState
                 	theHOGOVERLAYOMG.scale.y = 1.25;
 					theHOGOVERLAYOMG.blend = LIGHTEN;
 					theHOGOVERLAYOMG.alpha = 0;
+
+					topBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
+					topBars.cameras = [camBars];
+					topBars.screenCenter();
+					topBars.y -= 850;
+					topBars.x -= 10;
+					add(topBars);
+					
+					bottomBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
+					bottomBars.cameras = [camBars];
+					bottomBars.screenCenter();
+					bottomBars.y += 850;
+					bottomBars.x -= 10;
+					add(bottomBars);
+
+					camBars.x += 0.5;
 					
 					if (ClientPrefs.shaders) if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 					//if (ClientPrefs.shaders) addShaderToCamera('camhud', new ChromaticAberrationEffect(0.0015));
@@ -1626,13 +1675,13 @@ class PlayState extends MusicBeatState
 					
 					FlxTween.tween(unfaithFRONT, {y: unfaithFRONT.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camHUD];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camHUD];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1814,13 +1863,13 @@ class PlayState extends MusicBeatState
 					if(ClientPrefs.shaders) bg.shader = wavShader.shader;
 					add(bg);
 					
-					topBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 			
-					bottomBarsALT = new FlxSprite().makeGraphic (2580,320, FlxColor.BLACK);
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
@@ -1902,7 +1951,7 @@ class PlayState extends MusicBeatState
 			
 		if (needsBlackBG)
 		{
-			blackBG = new FlxSprite(-120, -120).makeGraphic(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
+			blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
 			blackBG.scrollFactor.set();
         	blackBG.alpha = 0;
 			blackBG.screenCenter();
@@ -2488,66 +2537,6 @@ class PlayState extends MusicBeatState
 		{
 			switch (daSong)
 			{
-				case "monster":
-					var whiteScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
-					add(whiteScreen);
-					whiteScreen.scrollFactor.set();
-					whiteScreen.blend = ADD;
-					camHUD.visible = false;
-					snapCamFollowToPos(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-					inCutscene = true;
-
-					FlxTween.tween(whiteScreen, {alpha: 0}, 1, {
-						startDelay: 0.1,
-						ease: FlxEase.linear,
-						onComplete: function(twn:FlxTween)
-						{
-							camHUD.visible = true;
-							remove(whiteScreen);
-							startCountdown();
-						}
-					});
-					FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
-					if(gf != null) gf.playAnim('scared', true);
-					boyfriend.playAnim('scared', true);
-
-				case "winter-horrorland":
-					var blackScreen:FlxSprite = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
-					add(blackScreen);
-					blackScreen.scrollFactor.set();
-					camHUD.visible = false;
-					inCutscene = true;
-
-					FlxTween.tween(blackScreen, {alpha: 0}, 0.7, {
-						ease: FlxEase.linear,
-						onComplete: function(twn:FlxTween) {
-							remove(blackScreen);
-						}
-					});
-					FlxG.sound.play(Paths.sound('Lights_Turn_On'));
-					snapCamFollowToPos(400, -2050);
-					FlxG.camera.focusOn(camFollow);
-					FlxG.camera.zoom = 1.5;
-
-					new FlxTimer().start(0.8, function(tmr:FlxTimer)
-					{
-						camHUD.visible = true;
-						remove(blackScreen);
-						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5, {
-							ease: FlxEase.quadInOut,
-							onComplete: function(twn:FlxTween)
-							{
-								startCountdown();
-							}
-						});
-					});
-				case 'senpai' | 'roses' | 'thorns':
-					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
-					schoolIntro(doof);
-
-				case 'ugh' | 'guns' | 'stress':
-					tankIntro();
-					
 				case 'adobe':
 					startDialogueScript(ScriptdialogueJson);
 				default:
@@ -3521,93 +3510,6 @@ class PlayState extends MusicBeatState
 				startCountdown();
 			}
 		}
-	}
-
-	function schoolIntro(?dialogueBox:DialogueBox):Void
-	{
-		inCutscene = true;
-		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		black.scrollFactor.set();
-		add(black);
-
-		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
-		red.scrollFactor.set();
-
-		var senpaiEvil:FlxSprite = new FlxSprite();
-		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
-		senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
-		senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
-		senpaiEvil.scrollFactor.set();
-		senpaiEvil.updateHitbox();
-		senpaiEvil.screenCenter();
-		senpaiEvil.x += 300;
-
-		var songName:String = Paths.formatToSongPath(SONG.song);
-		if (songName == 'roses' || songName == 'thorns')
-		{
-			remove(black);
-
-			if (songName == 'thorns')
-			{
-				add(red);
-				camHUD.visible = false;
-			}
-		}
-
-		new FlxTimer().start(0.3, function(tmr:FlxTimer)
-		{
-			black.alpha -= 0.15;
-
-			if (black.alpha > 0)
-			{
-				tmr.reset(0.3);
-			}
-			else
-			{
-				if (dialogueBox != null)
-				{
-					if (Paths.formatToSongPath(SONG.song) == 'thorns')
-					{
-						add(senpaiEvil);
-						senpaiEvil.alpha = 0;
-						new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
-						{
-							senpaiEvil.alpha += 0.15;
-							if (senpaiEvil.alpha < 1)
-							{
-								swagTimer.reset();
-							}
-							else
-							{
-								senpaiEvil.animation.play('idle');
-								FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function()
-								{
-									remove(senpaiEvil);
-									remove(red);
-									FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
-									{
-										add(dialogueBox);
-										camHUD.visible = true;
-									}, true);
-								});
-								new FlxTimer().start(3.2, function(deadTime:FlxTimer)
-								{
-									FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
-								});
-							}
-						});
-					}
-					else
-					{
-						add(dialogueBox);
-					}
-				}
-				else
-					startCountdown();
-
-				remove(black);
-			}
-		});
 	}
 
 	function tankIntro()
@@ -6703,10 +6605,10 @@ class PlayState extends MusicBeatState
 		{
 			case 'the-chosen-one':
 				
-				if ((!FlxG.fullscreen || !Application.current.window.maximized) && note.tscNote != true) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
-				else setCamShake([camHUD, camGame, camBars, camOther], 0.015, 0.05, 0.005);
+				if ((!FlxG.fullscreen || !Application.current.window.maximized) && !SONG.notes[curSection].bf2Section) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
+				else if (!SONG.notes[curSection].bf2Section) setCamShake([camHUD, camGame, camBars, camOther], 0.015, 0.05, 0.0045);
 
-				if (healthBar.percent > 10 && SONG.song.toLowerCase() == 'enmity' && !note.tscNote) healthDrainRates(0, 0.02, 0.03);
+				if (healthBar.percent > 10 && !SONG.notes[curSection].bf2Section) healthDrainRates(0, 0.02, 0.045);
 				
 			case 'angry-minus-tco':
 				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camGame], 0.015, 0.05, 0.005);
@@ -7875,6 +7777,10 @@ class PlayState extends MusicBeatState
 				{
 					case 576:
 						if (ClientPrefs.shaders) colorTween([bgKickstarter], 0.7, FlxColor.WHITE, 0xFF6E6E6E); //it looks bad without shaders
+					case 384:
+						blackBars(1);
+					case 448:
+						blackBars(0);
 				}
 		}
 

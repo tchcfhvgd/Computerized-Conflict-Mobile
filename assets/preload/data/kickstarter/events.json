@@ -158,6 +158,11 @@
 						"defaultCamZoom",
 						"0.75",
 						""
+					],
+					[
+						"Flash Camera WHITE",
+						"WHITE",
+						"0.5"
 					]
 				]
 			],
@@ -358,6 +363,16 @@
 						"defaultCamZoom",
 						"0.6",
 						""
+					]
+				]
+			],
+			[
+				43636.3636363636,
+				[
+					[
+						"Flash Camera WHITE",
+						"WHITE",
+						"0.5"
 					]
 				]
 			],
@@ -758,6 +773,11 @@
 						"defaultCamZoom",
 						"0.9",
 						""
+					],
+					[
+						"Flash Camera WHITE",
+						"WHITE",
+						"0.5"
 					]
 				]
 			],
@@ -1038,6 +1058,11 @@
 						"defaultCamZoom",
 						"0.9",
 						""
+					],
+					[
+						"Flash Camera WHITE",
+						"WHITE",
+						"0.5"
 					]
 				]
 			],
@@ -1148,6 +1173,11 @@
 						"defaultCamZoom",
 						"0.5",
 						""
+					],
+					[
+						"Flash Camera WHITE",
+						"WHITE",
+						"0.5"
 					]
 				]
 			],
@@ -1208,6 +1238,11 @@
 						"defaultCamZoom",
 						"0.9",
 						""
+					],
+					[
+						"Flash Camera WHITE",
+						"WHITE",
+						"1"
 					]
 				]
 			]
