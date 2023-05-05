@@ -2623,6 +2623,18 @@ class PlayState extends MusicBeatState
 				
 			case 'amity':
 				addCharacterToList('angry-minus-tco', 1);
+			case 'rombie':
+				dad.visible = false;
+				iconP2.visible = false;
+				healthBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+
+				triggerEventNote('Camera Follow Pos', Std.string(boyfriend.getMidpoint().x + 100), Std.string(boyfriend.getMidpoint().y - 100));
+			case 'redzone error':
+				healthBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+
+				for (i in 0...opponentStrums.length) opponentStrums.members[i].visible = false;
+				iconP2.visible = false;
+				dad.visible = false;
 		}
 
 		if (timeTraveled == true){
@@ -4075,8 +4087,6 @@ class PlayState extends MusicBeatState
 				// generateSong('fresh');
 			}, 5);
 		}
-
-		if(SONG.song.toLowerCase() == 'rombie') defaultCamZoom = 2;
 	}
 
 	public function addBehindGF(obj:FlxObject)
@@ -4740,12 +4750,6 @@ class PlayState extends MusicBeatState
 		if (strikes >= 3) {
 			vocals.volume = 0;
 			health = -1;
-		}
-
-		if (SONG.song.toLowerCase() == 'redzone error') {
-			for (i in 0...opponentStrums.length) opponentStrums.members[i].visible = false;
-			iconP2.visible = false;
-			dad.visible = false;
 		}
 
 		if(dad.curCharacter == 'cursor'){
@@ -7742,16 +7746,26 @@ class PlayState extends MusicBeatState
 			case 'rombie':
 				switch(curBeat)
 				{
+					case 8:
+						dad.visible = true;
+						iconP2.visible = true;
+						reloadHealthBarColors();
+
+						triggerEventNote('Camera Follow Pos', '', '');
+
 					case 168:
 						colorTween([rombBG, boyfriend, dad], 0.45, FlxColor.WHITE, 0xFF1F3054);
 					case 296:
 						colorTween([boyfriend, dad], 0.85, 0xFF1F3054, FlxColor.WHITE);
 					case 360:
-						objectColor([boyfriend, dad], FlxColor.BLACK);
+						objectColor([boyfriend, dad, iconP1, iconP2], FlxColor.BLACK);
 						setAlpha([whiteScreen], 1);
+						healthBar.createFilledBar(FlxColor.WHITE, FlxColor.WHITE);
 					case 392:
 						objectColor([boyfriend, dad], 0xFF1F3054);
+						objectColor([iconP1, iconP2], 0xFFFFFFFF);
 						setAlpha([whiteScreen], 0);
+						reloadHealthBarColors();
 				}
 			case 'catto':
 				switch(curBeat)
