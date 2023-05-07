@@ -33,7 +33,6 @@ class FanArtState extends MusicBeatState
 	public var image:FlxSprite;
 	public var coolArtistArray:Array<String> = [];
 	public var actualNum = 0;
-	//public var numOfThings = 0;
 
 	var selectedSmth:Bool = false;
 	var vignette:FlxSprite;
@@ -55,6 +54,11 @@ class FanArtState extends MusicBeatState
 	override public function create()
 	{
 		Paths.clearStoredMemory();
+
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Art Gallery", null);
+		#end
 
 		var thing:Array<String> = FileSystem.readDirectory('assets/images/fan-arts/ingame-fanart');
 		for (i in 0...thing.length){

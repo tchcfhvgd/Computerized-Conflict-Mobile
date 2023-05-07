@@ -65,6 +65,11 @@ class TCOStoryState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Story Mode", null);
+		#end
 		
 		PlayState.isStoryMode = true;
 		
