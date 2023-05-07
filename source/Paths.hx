@@ -198,7 +198,9 @@ class Paths
 			return file;
 		}
 		#end
-		return 'assets/videos/$key.$VIDEO_EXT';
+		var path:String = 'assets/videos/$key.$VIDEO_EXT';
+		localTrackedAssets.push(path);
+		return path;
 	}
 
 	static public function sound(key:String, ?library:String):Sound

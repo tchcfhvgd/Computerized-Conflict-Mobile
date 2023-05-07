@@ -7419,23 +7419,6 @@ class PlayState extends MusicBeatState
 						FlxG.camera.fade(FlxColor.BLACK, 1, true);
 						showHUDTween(1, 1);
 				}
-			case 'tune in':
-				switch(curStep)
-				{
-					case 639:
-						//thanks ne_eo
-						skipMoveCam = true;
-
-						triggerEventNote('Camera Follow Pos', Std.string(dad.getMidpoint().x + 600), Std.string(dad.getMidpoint().y + 150));
-
-						ytBGVideo.alpha = 1;
-
-						videoTI = new MP4Handler();
-						videoTI.playVideo(Paths.video('tunein_vidbg'), true);
-						videoTI.visible = false;
-						videoTI.volume = 0;
-						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
-				}
 		}
 		
 		if (kaboomEnabled)
@@ -7717,13 +7700,25 @@ class PlayState extends MusicBeatState
 						bf2.alpha = 1;
 						bf3.alpha = 1;
 
-					case 159:
-						
-
 					case 160:
 						//radialLine.alpha = 1;
 						colorTween([ytBG], 0.8, FlxColor.WHITE, 0xFF2C2425);
 						redthing.alpha = 0;
+
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+
+						//thanks ne_eo
+						skipMoveCam = true;
+
+						triggerEventNote('Camera Follow Pos', Std.string(dad.getMidpoint().x + 600), Std.string(dad.getMidpoint().y + 150));
+
+						ytBGVideo.alpha = 1;
+
+						videoTI = new MP4Handler();
+						videoTI.playVideo(Paths.video('tunein_vidbg'), true);
+						videoTI.visible = false;
+						videoTI.volume = 0;
+						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 
 					case 224:
 						ytBGVideo.alpha = 0;
