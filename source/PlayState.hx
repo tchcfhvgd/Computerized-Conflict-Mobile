@@ -7737,8 +7737,10 @@ class PlayState extends MusicBeatState
 						//if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(rainbowShader.shader)]);
 						//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(rainbowShader.shader)]);
 						bestPart2 =  true;
+
 					case 224:
 						FlxG.camera.fade(FlxColor.BLACK, 1, false);
+
 					case 240:
 						FlxG.camera.fade(FlxColor.BLACK, 1, true);
 						clearShaderFromCamera(['camgame', 'camhud']);
@@ -7758,7 +7760,8 @@ class PlayState extends MusicBeatState
 					case 296:
 						colorTween([boyfriend, dad], 0.85, 0xFF1F3054, FlxColor.WHITE);
 					case 360:
-						objectColor([boyfriend, dad, iconP1, iconP2], FlxColor.BLACK);
+						objectColor([boyfriend, dad], FlxColor.BLACK);
+						objectColor([iconP1, iconP2], 0xFF080808);
 						setAlpha([whiteScreen], 1);
 						healthBar.createFilledBar(FlxColor.WHITE, FlxColor.WHITE);
 					case 392:
