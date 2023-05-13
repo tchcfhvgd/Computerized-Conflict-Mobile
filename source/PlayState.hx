@@ -2638,7 +2638,6 @@ class PlayState extends MusicBeatState
 		}
 
 		if (timeTraveled == true){
-			timeTraveled = false;
 			if(boyfriend.animation.getByName('hurt') != null) {
 				boyfriend.playAnim('hurt', true);
 				boyfriend.specialAnim = true;
@@ -4254,7 +4253,11 @@ class PlayState extends MusicBeatState
 				songLength = 110000;
 				camGame.alpha = 1;
 				theHOGOVERLAYOMG.alpha = 1;
-				blackBars(1);
+				if (!timeTraveled)
+				{
+					blackBars(1);
+					timeTraveled = false;
+				}
 				triggerEventNote('Change Character', 'dad', 'carykhTALK');
 				triggerEventNote('Play Animation', 'cutsceneTALK', 'dad');
 
