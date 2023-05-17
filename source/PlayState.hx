@@ -2326,6 +2326,7 @@ class PlayState extends MusicBeatState
 				healthBar.y += 10;
 				
 				healthBar.scale.set(0.7, 0.4);
+
 				healthBarBG.setGraphicSize(Std.int(healthBarBG.width * 0.7));
 				
 				add(healthBar);
@@ -2661,17 +2662,12 @@ class PlayState extends MusicBeatState
 				boyfriend.specialAnim = true;
 			}
 			trace(funnyArray);
-			sicks = funnyArray[0];
-			goods = funnyArray[1];
-			bads = funnyArray[2];
-			shits = funnyArray[3];
 			songMisses = funnyArray[4];
 			songScore = funnyArray[5];
 			songHits = funnyArray[6];
 			ratingPercent = ratingPercentTT;
 			health = timeTravelHP;
 			showHUDTween(1, 1);
-			RecalculateRating();
 			funnyArray = [];
 		}
 
@@ -4290,7 +4286,6 @@ class PlayState extends MusicBeatState
 				if (!timeTraveled)
 				{
 					blackBars(1);
-					timeTraveled = false;
 				}
 				triggerEventNote('Change Character', 'dad', 'carykhTALK');
 				triggerEventNote('Play Animation', 'cutsceneTALK', 'dad');
@@ -4308,6 +4303,8 @@ class PlayState extends MusicBeatState
 					},
 				});
 		}
+
+		timeTraveled = false;
 
 		switch(curStage)
 		{
@@ -4917,8 +4914,8 @@ class PlayState extends MusicBeatState
 		
 		switch (uiType){
 			default:
-				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+				iconP1.x = healthBar.x + (healthBar.width) * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+				iconP2.x = healthBar.x + (healthBar.width) * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		}
 
 		if (iconP3 != null) 
