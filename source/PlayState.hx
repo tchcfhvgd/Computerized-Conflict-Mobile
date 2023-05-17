@@ -1318,6 +1318,17 @@ class PlayState extends MusicBeatState
 					tscseeing.y += 180;
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 					
+					var coolVig:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/soCOOLvig', 'extras'));
+					coolVig.antialiasing = ClientPrefs.globalAntialiasing;
+					coolVig.cameras = [camBars];
+					add(coolVig);
+					
+					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
+					radialLine.cameras = [camBars];
+					radialLine.screenCenter();
+					add(radialLine);
+					radialLine.alpha = 0;
+					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
@@ -3945,6 +3956,12 @@ class PlayState extends MusicBeatState
 					isCameraOnForcedPos = true;
 					camFollow.x = 1150;
 					camFollow.y = 150;
+					
+				case 'phantasm':
+					
+					playerStrums.forEach(function(spr:StrumNote) {
+						if (!ClientPrefs.middleScroll) spr.x = STRUM_X_MIDDLESCROLL;
+					});
 			}
 			
 			opponentStrums.forEach(function(spr:StrumNote) {
@@ -7588,11 +7605,14 @@ class PlayState extends MusicBeatState
 							spr.x = 1050 + 112 * spr.ID;
 						});*/
 						
+						radialLine.alpha = 1;
+						
 					case 96:
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
 						bestPart2 = false;
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
+						radialLine.alpha = 0;
 						
 					case 256:
 						vignetteTrojan.alpha = 0;
@@ -7602,8 +7622,8 @@ class PlayState extends MusicBeatState
 						camChar.flash(FlxColor.WHITE, 0.85);
 						dadGroup.cameras = [camChar];
 						boyfriendGroup.cameras = [camChar];
-						boyfriend.color = 0xFFA9CBFF;
-						dad.color = 0xFFFF2F60;
+						boyfriend.setColorTransform(1, 1, 1, 1, 169, 203, 255, 0);
+						dad.setColorTransform(1, 1, 1, 1, 255, 47, 96, 0);
 						//boyfriend.x -= 250;
 						dad.x -= 950;
 						dad.y -= 100;
