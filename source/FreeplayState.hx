@@ -21,6 +21,7 @@ import WeekData;
 import FreeplayMenu;
 import flixel.FlxObject;
 import flixel.tweens.FlxEase;
+import flixel.addons.display.FlxBackdrop;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -44,13 +45,13 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
-	private var grpSongs:FlxTypedGroup<Alphabet>;
+	private var grpSongs:FlxTypedGroup<FlxText>;
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
 
 	var bg:FlxSprite;
-	var layer:FlxSprite;
+	var scrollingThing:FlxBackdrop;
 	var featuredChar:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -59,6 +60,8 @@ class FreeplayState extends MusicBeatState
 	var alphaTween:FlxTween;
 	var weeks:Null<Array<String>>;
 	var barName:FlxSprite;
+	var arrow:FlxSprite;
+	var flippedArrow:FlxSprite;
 	
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
@@ -115,45 +118,47 @@ class FreeplayState extends MusicBeatState
 		bg = new FlxSprite();
 		add(bg);
 		
+		scrollingThing = new FlxBackdrop(Paths.image('FAMenu/scroll'), XY, 0, 0);
+		scrollingThing.scrollFactor.set(0, 0.07);
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		scrollingThing.antialiasing = ClientPrefs.globalAntialiasing;
+		add(scrollingThing);
+		
 		for (i in 0...songs.length) precacheList.set('freeplayArt/freeplayImages/bgs/' + songs[i].songName, 'image');
 		
 		featuredChar = new FlxSprite();
 		add(featuredChar);
 		
-		layer = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/layer'));
-		layer.antialiasing = ClientPrefs.globalAntialiasing;
-		add(layer);
-		layer.screenCenter();
+		var vignetteCircle:FlxSprite = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/dea'));
+		vignetteCircle.antialiasing = ClientPrefs.globalAntialiasing;
+		add(vignetteCircle);
+		vignetteCircle.screenCenter();
 		
-		var layervig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/layervig'));
-		layervig.antialiasing = ClientPrefs.globalAntialiasing;
-		add(layervig);
-		layervig.screenCenter();
+		var upBar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/upBar'));
+		upBar.antialiasing = ClientPrefs.globalAntialiasing;
+		add(upBar);
+		upBar.screenCenter();
+		
+		var downBar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/downBar'));
+		downBar.antialiasing = ClientPrefs.globalAntialiasing;
+		add(downBar);
+		downBar.screenCenter();
 		
 		for (i in 0...weeks.length) barName = new FlxSprite().loadGraphic(Paths.image('freeplayArt/freeplayImages/type of freeplay/' + weeks[0] + '-songs'));
 		barName.antialiasing = ClientPrefs.globalAntialiasing;
 		add(barName);
 		barName.screenCenter();
 
-		grpSongs = new FlxTypedGroup<Alphabet>();
+		grpSongs = new FlxTypedGroup<FlxText>();
 		add(grpSongs);
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(500, 610, songs[i].songName, true);
-			songText.targetY = i - curSelected;
-			songText.isMenuItem = true;
-			songText.changeY = false;
-			songText.distancePerItem.x = 800;
+			var songText:FlxText = new FlxText(500, 650, songs[i].songName.toUpperCase(), 44);
+			songText.setFormat(Paths.font("phantommuff.ttf"), 44, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 			songText.scrollFactor.set(1, 0);
+			add(songText);
 			grpSongs.add(songText);
-
-			var maxWidth = 980;
-			if (songText.width > maxWidth)
-			{
-				songText.scaleX = maxWidth / songText.width;
-			}
-			songText.snapToPosition();
 
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
@@ -169,25 +174,44 @@ class FreeplayState extends MusicBeatState
 			// songText.screenCenter(X);
 		}
 		
+		arrow = new FlxSprite(1150, 593);
+		arrow.frames = Paths.getSparrowAtlas('FAMenu/arrows');
+		arrow.animation.addByPrefix('idle', 'arrow0', 24, false);
+		arrow.animation.addByPrefix('smash', 'arrow press', 24, false);
+		arrow.setGraphicSize(Std.int(arrow.width * 0.4));
+		arrow.scrollFactor.set();
+		arrow.antialiasing = ClientPrefs.globalAntialiasing;
+		add(arrow);
+
+		flippedArrow = new FlxSprite(0, 593);
+		flippedArrow.frames = Paths.getSparrowAtlas('FAMenu/arrows');
+		flippedArrow.animation.addByPrefix('idle', 'arrow0', 24, false);
+		flippedArrow.animation.addByPrefix('smash', 'arrow press', 24, false);
+		flippedArrow.setGraphicSize(Std.int(flippedArrow.width * 0.4));
+		flippedArrow.scrollFactor.set();
+		flippedArrow.flipX = true;
+		flippedArrow.antialiasing = ClientPrefs.globalAntialiasing;
+		add(flippedArrow);
+		
 		WeekData.setDirectoryFromWeek();
 
-		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText = new FlxText(FlxG.width * 0.7, 405, 0, "", 24);
+		scoreText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
+		scoreBG = new FlxSprite(scoreText.x - 6, 400).makeGraphic(1, 126, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
-		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
-		diffText.font = scoreText.font;
+		diffText = new FlxText(scoreText.x, scoreText.y + 48, 0, "", 24);
+		diffText.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, CENTER);
 		add(diffText);
 
 		add(scoreText);
 
 		if (curSelected >= songs.length) curSelected = 0;
-		layer.color = songs[curSelected].color;
-		intendedColor = layer.color;
-
+		scrollingThing.color = songs[curSelected].color;
+		intendedColor = scrollingThing.color;
+		
 		if(lastDifficultyName == '')
 		{
 			lastDifficultyName = CoolUtil.defaultDifficulty;
@@ -218,7 +242,7 @@ class FreeplayState extends MusicBeatState
 
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
-		add(textBG);
+		//add(textBG);
 
 		#if PRELOAD_ALL
 		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
@@ -230,7 +254,7 @@ class FreeplayState extends MusicBeatState
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
-		add(text);
+		//add(text);
 		super.create();
 		
 		for (key => type in precacheList)
@@ -298,6 +322,11 @@ class FreeplayState extends MusicBeatState
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
+		
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
+		
+		scrollingThing.alpha = 0.7;
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
@@ -313,7 +342,7 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = 'PERSONAL BEST: \n' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
@@ -329,11 +358,13 @@ class FreeplayState extends MusicBeatState
 		{
 			if (controls.UI_LEFT_P)
 			{
+				flippedArrow.animation.play('smash');
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
 			if (controls.UI_RIGHT_P)
 			{
+				arrow.animation.play('smash');
 				changeSelection(shiftMult);
 				holdTime = 0;
 			}
@@ -475,7 +506,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		PlayState.storyDifficulty = curDifficulty;
-		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		diffText.text = '< \n' + CoolUtil.difficultyString() + '\n >';
 		positionHighscore();
 	}
 
@@ -508,7 +539,7 @@ class FreeplayState extends MusicBeatState
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
-			colorTween = FlxTween.color(layer, 1, layer.color, intendedColor, {
+			colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
 					colorTween = null;
 				}
@@ -553,7 +584,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...iconArray.length)
 		{
-			iconArray[i].alpha = 0.6;
+			iconArray[i].alpha = 0;
 			
 			zoomTween = FlxTween.tween(iconArray[i], {"scale.x": 0.85, "scale.y": 0.85}, 0.2, {
 				ease: FlxEase.quadOut,
@@ -564,7 +595,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		iconArray[curSelected].alpha = 1;
-		zoomTween = FlxTween.tween(iconArray[curSelected], {"scale.x": 1, "scale.y": 1}, 0.2, {
+		zoomTween = FlxTween.tween(iconArray[curSelected], {"scale.x": 0.85, "scale.y": 1}, 0.85, {
 				ease: FlxEase.quadOut,
 				onComplete: function(twn:FlxTween) {
 					zoomTween = null;
@@ -573,10 +604,10 @@ class FreeplayState extends MusicBeatState
 
 		for (item in grpSongs.members)
 		{
-			item.targetY = bullShit - curSelected;
+			var shit = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
+			item.alpha = 0;
 			
 				zoomTween = FlxTween.tween(item, {"scale.x": 0.85, "scale.y": 0.85}, 0.2, {
 					ease: FlxEase.quadOut,
@@ -586,7 +617,7 @@ class FreeplayState extends MusicBeatState
 				});
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
+			if (shit == 0)
 			{
 				item.alpha = 1;
 				

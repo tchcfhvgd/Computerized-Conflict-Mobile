@@ -277,6 +277,12 @@ class ClientPrefs {
 		if (FlxG.save.data.screenShake != null) {
 			screenShake = FlxG.save.data.screenShake;
 		}
+		if(FlxG.save.data.laneunderlay != null) {
+			laneunderlay = FlxG.save.data.laneunderlay;
+		}
+		if(FlxG.save.data.laneTransparency != null) {
+			laneTransparency = FlxG.save.data.laneTransparency;
+		}
 		
 		if(FlxG.save.data.gameplaySettings != null)
 		{

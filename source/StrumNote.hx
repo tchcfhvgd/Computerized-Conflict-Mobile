@@ -89,7 +89,7 @@ class StrumNote extends FlxSprite
 			animation.addByPrefix('red', 'arrowRIGHT');
 
 			antialiasing = ClientPrefs.globalAntialiasing;
-			setGraphicSize(Std.int(width * 0.65));
+			setGraphicSize(Std.int(width * 0.6));
 
 			switch (Math.abs(noteData) % 4)
 			{
@@ -122,7 +122,7 @@ class StrumNote extends FlxSprite
 	public function postAddedToGroup() {
 		playAnim('static');
 		x += Note.swagWidth * noteData;
-		x += 50;
+		x += 170;
 		x += ((FlxG.width / 2) * player);
 		ID = noteData;
 	}
