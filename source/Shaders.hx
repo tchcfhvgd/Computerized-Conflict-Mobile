@@ -1022,19 +1022,6 @@ class NightTimeShader extends FlxShader // https://www.shadertoy.com/view/3tfcD8
 
 
 
-	//margins from: https://www.shadertoy.com/view/wl2SDt
-	vec3 margins(vec3 color, vec2 uv, float marginSize) {
-		if(uv.y < marginSize || uv.y > 1.0-marginSize) {
-			return vec3(0.0);
-		}
-		else {
-			return color;
-		}
-	}
-
-
-
-
 	void main() {
 		vec2 uv = openfl_TextureCoordv.xy;
 		vec3 color = flixel_texture2D(bitmap, uv).xyz;
@@ -1064,10 +1051,7 @@ class NightTimeShader extends FlxShader // https://www.shadertoy.com/view/3tfcD8
 	
 		//flare
 		color += flares(bitmap, uv, 0.9, 200.0, .04, 0.1);
-	
-	
-		//margins
-		color = margins(color, uv, 0.1);
+
 		
 		float theAlpha = flixel_texture2D(bitmap,uv).a;
 	

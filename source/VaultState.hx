@@ -62,6 +62,11 @@ class VaultState extends MusicBeatState
 		Paths.clearStoredMemory();
 		WeekData.reloadWeekFiles(false);
 
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Vault", null);
+		#end
+
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 		
 		glitchBG = new FlxSprite().loadGraphic(Paths.image('vault/glitchBG'));
@@ -200,6 +205,7 @@ class VaultState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				Paths.clearUnusedMemory();
 				selectedSmth = true;
 				escapeTween();

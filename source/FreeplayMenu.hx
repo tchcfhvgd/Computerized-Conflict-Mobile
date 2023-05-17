@@ -61,7 +61,8 @@ class FreeplayMenu extends MusicBeatState
 	
 	override function create()
 	{
-		
+		Paths.clearStoredMemory();
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Freeplay Menu", null);
@@ -140,6 +141,8 @@ class FreeplayMenu extends MusicBeatState
 		FlxG.camera.follow(camFollowPos, null, 1);
 		
 		changeItem();
+
+		Paths.clearUnusedMemory();
 		
 		super.create();
 	}

@@ -179,6 +179,7 @@ class Note extends FlxSprite
 					colorSwap.brightness = 0;
 					noteSplashTexture = "fuck off";
 					hitCausesMiss = true;
+					missHealth = 0.5;
 				case 'stopwatch':
 					ignoreNote = mustPress;
 					lowPriority = true;

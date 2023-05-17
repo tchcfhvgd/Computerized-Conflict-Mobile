@@ -31,8 +31,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
-	public static var curSelected:Int = 0;
+	var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
@@ -67,6 +66,8 @@ class MainMenuState extends MusicBeatState
 	var typinText:FlxText;
 	
 	public var removeShaderHandler:FlxShader;
+
+	var recentMouseOption:Int;
 
 	override function create()
 	{
@@ -171,7 +172,6 @@ class MainMenuState extends MusicBeatState
 			if (CoolUtil.songsUnlocked.data.mainWeek == null) {
 				CoolUtil.songsUnlocked.data.mainWeek = false;
 			}
-			CoolUtil.songsUnlocked.data.mainWeek = true;
 			trace(CoolUtil.songsUnlocked.data.mainWeek);
 
 			CoolUtil.songsUnlocked.flush();
@@ -239,7 +239,7 @@ class MainMenuState extends MusicBeatState
 
 		// NG.core.calls.event.logEvent('swag').send();
 
-		changeItem(1-curSelected);
+		changeItem();
 		
 		super.create();
 	}
@@ -312,6 +312,15 @@ class MainMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
+			if (controls.UI_UP_P || controls.UI_DOWN_P)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				var targetOption:Int = 3;
+				if (curSelected >= 3) targetOption = 0;
+					
+				changeItem(targetOption-curSelected);
+			}
+
 			if (controls.BACK)
 			{
 				selectedSomethin = true;
@@ -334,16 +343,17 @@ class MainMenuState extends MusicBeatState
 
 			menuItems.forEach(function(spr:FlxSprite)
 			{
-				if (FlxG.mouse.overlaps(spr) && !selectedSomethin)
-				{
-					changeItem();
-					
+				if (FlxG.mouse.overlaps(spr) && !selectedSomethin && spr.ID != recentMouseOption)
+				{			
 					curSelected = spr.ID;
 
-					if (FlxG.mouse.justPressed){
-						FlxG.sound.play(Paths.sound('mouseClick'));
-						loadState();
-					}
+					changeItem();
+					recentMouseOption = curSelected;
+				}
+				
+				if (FlxG.mouse.justPressed){
+					FlxG.sound.play(Paths.sound('mouseClick'));
+					loadState();
 				}
 				
 				if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();
@@ -401,7 +411,7 @@ class MainMenuState extends MusicBeatState
 	function loadState()
 	{
 		selectedSomethin = true;
-		FlxG.sound.play(Paths.sound('confirmMenu'));
+		FlxG.sound.play(Paths.sound('confirmMenu'), 0.5);
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{

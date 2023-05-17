@@ -65,6 +65,11 @@ class TCOStoryState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Story Mode", null);
+		#end
 		
 		PlayState.isStoryMode = true;
 		
@@ -243,7 +248,7 @@ class TCOStoryState extends MusicBeatState
 				bgSprite.alpha = 1;
 				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				clearShaderFromCamera('camgame');
-				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 1);
+				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 1:
 				sprDifficulty.animation.play('intro');
 				FlxG.cameras.flash(FlxColor.WHITE, 0.50);
@@ -257,7 +262,7 @@ class TCOStoryState extends MusicBeatState
 				bgSprite.alpha = 1;
 				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				clearShaderFromCamera('camgame');
-				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 1);
+				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 2:
 				sprDifficulty.animation.play('intro');
 		        FlxG.cameras.flash(FlxColor.RED, 0.50);
