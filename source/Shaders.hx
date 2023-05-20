@@ -73,8 +73,8 @@ class PincushionShader extends FlxShader
 	    //------------------------------------------------
     
 	    // I picked these somewhat arbitrarily
-	    const float BARREL = -1.0;
-	    const float PINCUSHION = 0.1;
+	    const float BARREL = 0.25;
+	    const float PINCUSHION = 0.25;
     
 	    float effect = PINCUSHION; // Set effect to either BARREL or PINCUSHION
 	    float effect_scale = 1.0;  // Play with this to slightly vary the results

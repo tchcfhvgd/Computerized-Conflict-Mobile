@@ -1702,7 +1702,7 @@ class PlayState extends MusicBeatState
 					
 					//colorShad = new ColorSwap();
 					
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new PincushionShader())]);
 				}
 				
 			case 'aol': //ava 2
@@ -7775,9 +7775,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 160:
-						//if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(rainbowShader.shader)]);
 						//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(rainbowShader.shader)]);
-						bestPart2 =  true;
 
 					case 224:
 						FlxG.camera.fade(FlxColor.BLACK, 1, false);
