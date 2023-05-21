@@ -492,7 +492,7 @@ class PlayState extends MusicBeatState
 		//rombie:
 		    var rombieBecomesUncanny:BGSprite;
 			var rombBG:BGSprite;
-			public var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
+			public static var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
 			public var distortShaderHUD:Shaders.DistortedTVEffectHUD = new DistortedTVEffectHUD(); //fuck
 			var zoomTweenStart:FlxTween;
 			
@@ -516,6 +516,7 @@ class PlayState extends MusicBeatState
 	var tweenZoomEvent:FlxTween;
 	var LightsColors:Array<FlxColor>; //for the vignette changing color
 	public var oldVideoResolution:Bool = false; // simulate 4:3 resolution like Alan old videos
+	public static var centerNotes:Bool = false;
 	var judgementCounter:FlxText; //the combo counter that appears in the left of your screen
 	var needsBlackBG:Bool = false; //for songs that need to have a black bg (not hiding bf or dad)
 	
@@ -1907,6 +1908,8 @@ class PlayState extends MusicBeatState
 			healthLoss*=-1;
 		}
 
+		centerNotes = oldVideoResolution;
+
 		switch(Paths.formatToSongPath(SONG.song))
 		{
 			case 'stress':
@@ -2447,16 +2450,16 @@ class PlayState extends MusicBeatState
 		
 		if (oldVideoResolution)
 		{
-		    timeBarBG.x -= 70;
-			timeBar.x -= 70;
+		    timeBarBG.x -= 80;
+			timeBar.x -= 80;
 			healthBar.x -= 110;
 		    healthBarBG.x -= 110;
 			iconP1.x -= 110;
 			iconP2.x -= 110;
-			scoreTxt.x += 70;
-			timeTxt.x -= 70;
+			scoreTxt.x += 80;
+			timeTxt.x -= 80;
 			judgementCounter.x += 70;
-			botplayTxt.x -= 70;
+			botplayTxt.x -= 80;
 		}
 
 		// if (SONG.song == 'South')
@@ -2624,15 +2627,6 @@ class PlayState extends MusicBeatState
 			FlxG.resizeWindow(960, 720);
 			camGame.width = 360;
 			camGame.height = 720;
-
-			playerStrums.forEach(function(spr:StrumNote) {
-				spr.x -= 170;
-			
-				if (ClientPrefs.middleScroll)
-				{
-					spr.x += 100;
-				}
-			});
 		}
 		
 		switch(SONG.song.toLowerCase())
@@ -3872,6 +3866,7 @@ class PlayState extends MusicBeatState
 
 			generateStaticArrows(0);
 			generateStaticArrows(1);
+
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
@@ -4543,6 +4538,7 @@ class PlayState extends MusicBeatState
 		{
 			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			babyArrow.downScroll = ClientPrefs.downScroll;
+
 			if (!isStoryMode && !skipArrowStartTween)
 			{
 				//babyArrow.y -= 10;
@@ -4552,6 +4548,30 @@ class PlayState extends MusicBeatState
 			else
 			{
 				babyArrow.alpha = targetAlpha;
+			}
+
+			if (centerNotes)
+			{
+				var offsetBOYFRIEND = 120;
+				var offsetDAD = -45;
+				if (skipCountdown) offsetDAD = 120;
+				if (player == 1)
+				{
+					babyArrow.x -= 120 + offsetBOYFRIEND;
+					if(ClientPrefs.middleScroll) babyArrow.x += 160;
+				}
+				else
+				{
+					babyArrow.x += 15 - offsetDAD;
+					if(ClientPrefs.middleScroll) {
+						var offset2 = 45;
+						if(i > 1) { //Up and Right
+							babyArrow.x -= offset2;
+						}else{
+							babyArrow.x += 45 + offset2;
+						}
+					}
+				}
 			}
 
 			if (player == 1)
@@ -4567,6 +4587,7 @@ class PlayState extends MusicBeatState
 						babyArrow.x += FlxG.width / 2 + 25;
 					}
 				}
+
 				opponentStrums.add(babyArrow);
 			}
 
@@ -4856,11 +4877,6 @@ class PlayState extends MusicBeatState
 				popUpTimer.cancel();
 				popUpTimer.destroy();
 			}
-		}
-
-		switch (curStage)
-		{
-
 		}
 
 		if(!inCutscene) {

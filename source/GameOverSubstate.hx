@@ -167,6 +167,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
+
+		if (PlayState.curStage == 'rombieBG') PlayState.distortShader.shader.iTime.value[0] += elapsed;
+
 		PlayState.instance.callOnLuas('onUpdatePost', [elapsed]);
 	}
 
