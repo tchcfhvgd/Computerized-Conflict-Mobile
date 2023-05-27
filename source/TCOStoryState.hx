@@ -43,24 +43,24 @@ class TCOStoryState extends MusicBeatState
 	var diff:String;
 	var scrollingThing:FlxBackdrop;
 	var vignette:FlxSprite;
-	
+
 	public var camGame:FlxCamera;
 	public var camGameShaders:Array<ShaderEffect> = [];
-	
+
 	var selectedSmth:Bool = false;
-	
+
 	private static var lastDifficultyName:String = '';
 	var curDifficulty:Int = 0;
 	//var curDifficulty2:Int = 0;
 	var onInsane:Bool =  false;
 	var outline:FlxSprite;
-	
+
 	var difficulties:Array<String> = [
 	    'Simple',
 		'Hard',
 		'Insane'
 	];
-	
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -70,42 +70,42 @@ class TCOStoryState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Story Mode", null);
 		#end
-		
+
 		PlayState.isStoryMode = true;
-		
+
 		camGame = new FlxCamera();
 		FlxG.cameras.reset(camGame);
 		FlxCamera.defaultCameras = [camGame];
-		
+
 		border = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/border'));
 		border.updateHitbox();
 		border.screenCenter();
 		border.antialiasing = ClientPrefs.globalAntialiasing;
 		border.color = 0xFF111111;
-		
+
 		outline = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/outline'));
 		outline.updateHitbox();
 		outline.screenCenter();
 		outline.antialiasing = ClientPrefs.globalAntialiasing;
-		
+
 		vignette = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/vignette'));
 		vignette.updateHitbox();
 		vignette.screenCenter();
 		vignette.antialiasing = ClientPrefs.globalAntialiasing;
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.color = 0xFF0E0E0E;
-		
+
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
-		
+
 		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/week1BG'));
 		bgSprite.updateHitbox();
 		bgSprite.screenCenter();
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		
+
 		//fuck
-		
+
 		chosenOne = new FlxSprite();
 		chosenOne.frames = Paths.getSparrowAtlas('storymenu/tcoStoryMode');
 		chosenOne.animation.addByPrefix('simple', 'ChosenSimple', 24, true);
@@ -118,7 +118,7 @@ class TCOStoryState extends MusicBeatState
 		chosenOne.y += 100;
 		chosenOne.x += 270;
 		chosenOne.antialiasing = ClientPrefs.globalAntialiasing;
-		
+
 		fires = new FlxSprite();
 		fires.frames = Paths.getSparrowAtlas('storymenu/StoryMenuFire');
 		fires.animation.addByPrefix('tCoGoesInsane', 'StoryMenuFire', 24, true);
@@ -129,7 +129,7 @@ class TCOStoryState extends MusicBeatState
 		fires.y += 200;
 		fires.alpha = 0;
 		fires.antialiasing = ClientPrefs.globalAntialiasing;
-		
+
 		add(border);
 		add(scrollingThing);
 		add(outline);
@@ -137,33 +137,33 @@ class TCOStoryState extends MusicBeatState
 		add(bgSprite);
 		add(fires);
 		add(chosenOne);
-		
+
 		sprDifficulty = new FlxSprite();
 		add(sprDifficulty);
-		
+
 		//CoolUtil.difficulties = CoolUtil.storyDifficulties.copy();
-		
+
 		/*if(lastDifficultyName == '')
 		{
 			for(i in 0...difficulties.length) lastDifficultyName = difficulties[i];
 		}
 		for(i in 0...difficulties.length) curDifficulty = Math.round(Math.max(0, difficulties[i].indexOf(lastDifficultyName)));*/
-		
+
 		//curDifficulty2 = Math.round(Math.max(0, CoolUtil.storyDifficultiesCOPY.indexOf(lastDifficultyName)));
-		
+
 		trace(diff);
-		
+
 		changeDifficulty();
-		
+
 		super.create();
 	}
-	
+
 	override function update(elapsed:Float)
 	{
-		
+
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
-		
+
 		if (!selectedSmth)
 		{
 			if (controls.BACK)
@@ -171,7 +171,7 @@ class TCOStoryState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 			}
-		
+
 			if (controls.UI_RIGHT_P)
 			{
 				sprDifficulty.animation.play('bye');
@@ -195,15 +195,15 @@ class TCOStoryState extends MusicBeatState
 				});
 			}
 		}
-			
+
 		super.update(elapsed);
 	}
-	
+
 	override function beatHit()
 	{
 		super.beatHit();
 	}
-	
+
 	function changeDifficulty(change:Int = 0):Void
 	{
 		curDifficulty += change;
@@ -214,7 +214,7 @@ class TCOStoryState extends MusicBeatState
 			curDifficulty = 0;
 
 		var diff:String = difficulties[curDifficulty];
-		
+
 		sprDifficulty.frames = Paths.getSparrowAtlas('storymenu/difficult/' + diff);
 		sprDifficulty.animation.addByPrefix('diff', diff, 24, false);
 		sprDifficulty.animation.addByPrefix('bye', 'Bye' + diff, 24, false);
@@ -230,9 +230,9 @@ class TCOStoryState extends MusicBeatState
 
 		sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
 		sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
-		
+
 		chosenOne.screenCenter();
-		
+
 		switch(curDifficulty)
 		{
 			case 0:
@@ -279,9 +279,9 @@ class TCOStoryState extends MusicBeatState
 		lastDifficultyName = diff;
 		trace(diff);
 	}
-	
+
     public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
-		
+
 		switch(cam.toLowerCase()) {
 			case 'camgame' | 'game':
 					camGameShaders.push(effect);
@@ -292,7 +292,7 @@ class TCOStoryState extends MusicBeatState
 					camGame.setFilters(newCamEffects);
 		}
 	}
-	
+
 	public function removeShaderFromCamera(cam:String, effect:ShaderEffect){
 		switch(cam.toLowerCase()) {
 			case 'camgame' | 'game':
@@ -304,10 +304,10 @@ class TCOStoryState extends MusicBeatState
 				camGame.setFilters(newCamEffects);
 		}
 	}
-	
+
     public function clearShaderFromCamera(cam:String){
-	  
-	  
+
+
 		switch(cam.toLowerCase()) {
 			case 'camgame':
 				camGameShaders = [];
@@ -315,13 +315,13 @@ class TCOStoryState extends MusicBeatState
 				camGame.setFilters(newCamEffects);
 		}
     }
-	
+
     function playSongs(songlist:Array<String>)
-    {		
+    {
 		PlayState.storyPlaylist = songlist;
 		PlayState.isStoryMode = true;
 		PlayState.storyDifficulty = curDifficulty;
-		
+
 		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-' + lastDifficultyName, PlayState.storyPlaylist[0].toLowerCase());
 		PlayState.campaignScore = 0;
 		PlayState.campaignMisses = 0;
@@ -329,7 +329,7 @@ class TCOStoryState extends MusicBeatState
 		PlayState.seenCutscene = false;
 		PlayState.weekNames = 'Chapter 1:';
 		LoadingState.loadAndSwitchState(new PlayState(), true);
-		
+
 		FreeplayState.destroyFreeplayVocals();
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 	}

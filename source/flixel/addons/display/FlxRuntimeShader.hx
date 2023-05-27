@@ -11,13 +11,13 @@ import openfl.display.ShaderParameterType;
  * An wrapper for Flixel/OpenFL's shaders, which takes fragment and vertex source
  * in the constructor instead of using macros, so it can be provided data
  * at runtime (for example, when using mods).
- * 
+ *
  * HOW TO USE:
  * 1. Create an instance of this class, passing the text of the `.frag` and `.vert` files.
  *    Note that you can set either of these to null (making them both null would make the shader do nothing???).
  * 2. Use `flxSprite.shader = runtimeShader` to apply the shader to the sprite.
  * 3. Use `runtimeShader.setFloat()`, `setBool()`, etc. to modify any uniforms.
- * 
+ *
  * @author MasterEric
  * @see https://github.com/openfl/openfl/blob/develop/src/openfl/utils/_internal/ShaderMacro.hx
  * @see https://dixonary.co.uk/blog/shadertoy
@@ -33,154 +33,154 @@ class FlxRuntimeShader extends FlxShader
 	// and from flixel.graphics.tile.FlxGraphicsShader,
 	// and probably won't change ever.
 	static final BASE_VERTEX_HEADER:String = "
-		#pragma version
+#pragma version
 
-		#pragma precision
+#pragma precision
 
-		attribute float openfl_Alpha;
-		attribute vec4 openfl_ColorMultiplier;
-		attribute vec4 openfl_ColorOffset;
-		attribute vec4 openfl_Position;
-		attribute vec2 openfl_TextureCoord;
-		varying float openfl_Alphav;
-		varying vec4 openfl_ColorMultiplierv;
-		varying vec4 openfl_ColorOffsetv;
-		varying vec2 openfl_TextureCoordv;
-		uniform mat4 openfl_Matrix;
-		uniform bool openfl_HasColorTransform;
-		uniform vec2 openfl_TextureSize;
-	";
+attribute float openfl_Alpha;
+attribute vec4 openfl_ColorMultiplier;
+attribute vec4 openfl_ColorOffset;
+attribute vec4 openfl_Position;
+attribute vec2 openfl_TextureCoord;
+varying float openfl_Alphav;
+varying vec4 openfl_ColorMultiplierv;
+varying vec4 openfl_ColorOffsetv;
+varying vec2 openfl_TextureCoordv;
+uniform mat4 openfl_Matrix;
+uniform bool openfl_HasColorTransform;
+uniform vec2 openfl_TextureSize;
+";
 	static final BASE_VERTEX_BODY:String = "
-		openfl_Alphav = openfl_Alpha;
-		openfl_TextureCoordv = openfl_TextureCoord;
-		if (openfl_HasColorTransform) {
-			openfl_ColorMultiplierv = openfl_ColorMultiplier;
-			openfl_ColorOffsetv = openfl_ColorOffset / 255.0;
-		}
-		gl_Position = openfl_Matrix * openfl_Position;
-	";
+openfl_Alphav = openfl_Alpha;
+openfl_TextureCoordv = openfl_TextureCoord;
+if (openfl_HasColorTransform) {
+	openfl_ColorMultiplierv = openfl_ColorMultiplier;
+	openfl_ColorOffsetv = openfl_ColorOffset / 255.0;
+}
+gl_Position = openfl_Matrix * openfl_Position;
+";
 
 	static final BASE_FRAGMENT_HEADER:String = "
-		#pragma version
+#pragma version
 
-		#pragma precision
+#pragma precision
 
-		varying float openfl_Alphav;
-		varying vec4 openfl_ColorMultiplierv;
-		varying vec4 openfl_ColorOffsetv;
-		varying vec2 openfl_TextureCoordv;
-		uniform bool openfl_HasColorTransform;
-		uniform vec2 openfl_TextureSize;
-		uniform sampler2D bitmap;
-	"
+varying float openfl_Alphav;
+varying vec4 openfl_ColorMultiplierv;
+varying vec4 openfl_ColorOffsetv;
+varying vec2 openfl_TextureCoordv;
+uniform bool openfl_HasColorTransform;
+uniform vec2 openfl_TextureSize;
+uniform sampler2D bitmap;
+"
 
 	#if FLX_DRAW_QUADS
 	// Add on more stuff!
 	+ "
-		uniform bool hasTransform;
-		uniform bool hasColorTransform;
-		vec4 flixel_texture2D(sampler2D bitmap, vec2 coord)
-		{
-			vec4 color = texture2D(bitmap, coord);
-			if (!hasTransform)
-			{
-				return color;
-			}
-			if (color.a == 0.0)
-			{
-				return vec4(0.0, 0.0, 0.0, 0.0);
-			}
-			if (!hasColorTransform)
-			{
-				return color * openfl_Alphav;
-			}
-			color = vec4(color.rgb / color.a, color.a);
-			mat4 colorMultiplier = mat4(0);
-			colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
-			colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
-			colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
-			colorMultiplier[3][3] = openfl_ColorMultiplierv.w;
-			color = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
-			if (color.a > 0.0)
-			{
-				return vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
-			}
-			return vec4(0.0, 0.0, 0.0, 0.0);
-		}
-	";
+uniform bool hasTransform;
+uniform bool hasColorTransform;
+vec4 flixel_texture2D(sampler2D bitmap, vec2 coord)
+{
+	vec4 color = texture2D(bitmap, coord);
+	if (!hasTransform)
+	{
+		return color;
+	}
+	if (color.a == 0.0)
+	{
+		return vec4(0.0, 0.0, 0.0, 0.0);
+	}
+	if (!hasColorTransform)
+	{
+		return color * openfl_Alphav;
+	}
+	color = vec4(color.rgb / color.a, color.a);
+	mat4 colorMultiplier = mat4(0);
+	colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
+	colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
+	colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
+	colorMultiplier[3][3] = openfl_ColorMultiplierv.w;
+	color = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
+	if (color.a > 0.0)
+	{
+		return vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
+	}
+	return vec4(0.0, 0.0, 0.0, 0.0);
+}
+";
 	#else
 	// No additional data.
 	;
 	#end
 	static final BASE_FRAGMENT_BODY:String = "
-		vec4 color = texture2D (bitmap, openfl_TextureCoordv);
-		if (color.a == 0.0) {
-			gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
-		} else if (openfl_HasColorTransform) {
-			color = vec4 (color.rgb / color.a, color.a);
-			mat4 colorMultiplier = mat4 (0);
-			colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
-			colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
-			colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
-			colorMultiplier[3][3] = 1.0; // openfl_ColorMultiplierv.w;
-			color = clamp (openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
-			if (color.a > 0.0) {
-				gl_FragColor = vec4 (color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
-			} else {
-				gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
-			}
-		} else {
-			gl_FragColor = color * openfl_Alphav;
-		}
-	";
+vec4 color = texture2D (bitmap, openfl_TextureCoordv);
+if (color.a == 0.0) {
+	gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
+} else if (openfl_HasColorTransform) {
+	color = vec4 (color.rgb / color.a, color.a);
+	mat4 colorMultiplier = mat4 (0);
+	colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
+	colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
+	colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
+	colorMultiplier[3][3] = 1.0; // openfl_ColorMultiplierv.w;
+	color = clamp (openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
+	if (color.a > 0.0) {
+		gl_FragColor = vec4 (color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
+	} else {
+		gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
+	}
+} else {
+	gl_FragColor = color * openfl_Alphav;
+}
+";
 
 	#if FLX_DRAW_QUADS
 	static final DEFAULT_FRAGMENT_SOURCE:String = "
-		#pragma header
-		
-		void main(void)
-		{
-			gl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
-		}
-	";
+#pragma header
+
+void main(void)
+{
+	gl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
+}
+";
 	#else
 	static final DEFAULT_FRAGMENT_SOURCE:String = "
-		#pragma header
-		void main(void) {
-			#pragma body
-		}
-	";
+#pragma header
+void main(void) {
+	#pragma body
+}
+";
 	#end
 
 	#if FLX_DRAW_QUADS
 	static final DEFAULT_VERTEX_SOURCE:String = "
-		#pragma header
-		
-		attribute float alpha;
-		attribute vec4 colorMultiplier;
-		attribute vec4 colorOffset;
-		uniform bool hasColorTransform;
-		
-		void main(void)
-		{
-			#pragma body
-			
-			openfl_Alphav = openfl_Alpha * alpha;
-			
-			if (hasColorTransform)
-			{
-				openfl_ColorOffsetv = colorOffset / 255.0;
-				openfl_ColorMultiplierv = colorMultiplier;
-			}
-		}
-	";
+#pragma header
+
+attribute float alpha;
+attribute vec4 colorMultiplier;
+attribute vec4 colorOffset;
+uniform bool hasColorTransform;
+
+void main(void)
+{
+	#pragma body
+
+	openfl_Alphav = openfl_Alpha * alpha;
+
+	if (hasColorTransform)
+	{
+		openfl_ColorOffsetv = colorOffset / 255.0;
+		openfl_ColorMultiplierv = colorMultiplier;
+	}
+}
+";
 	#else
 	static final DEFAULT_VERTEX_SOURCE:String = "
-		#pragma header
-		void main(void) {
-			#pragma body
-		}
-	";
+#pragma header
+void main(void) {
+	#pragma body
+}
+";
 	#end
 
 	static final PRAGMA_HEADER:String = "#pragma header";
@@ -231,7 +231,7 @@ class FlxRuntimeShader extends FlxShader
 
 		super();
 	}
-	
+
 	/**
 	 * Replace the `#pragma header` and `#pragma body` with the fragment shader header and body.
 	 */
@@ -297,7 +297,7 @@ class FlxRuntimeShader extends FlxShader
 			vertex = StringTools.replace(vertex, PRAGMA_VERSION, versionHeader);
 			var fragment = StringTools.replace(glFragmentSource, PRAGMA_PRECISION, precisionHeaders);
 			fragment = StringTools.replace(fragment, PRAGMA_VERSION, versionHeader);
-			
+
 			var id = vertex + fragment;
 
 			if (__context.__programs.exists(id)) {

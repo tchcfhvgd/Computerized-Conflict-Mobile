@@ -55,14 +55,14 @@ class DialogueScript extends FlxSpriteGroup
 			FlxG.sound.playMusic(Paths.music(song), 0);
 			FlxG.sound.music.fadeIn(2, 0, 1);
 		}
-		
+
 		bgFade = new FlxSprite(-500, -500).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		bgFade.scrollFactor.set();
 		bgFade.visible = true;
 		add(bgFade);
 
 		this.dialogueList = dialogueList;
-		
+
 		daText = new TypedAlphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, '');
 		daText.scaleX = 0.7;
 		daText.scaleY = 0.7;
@@ -103,7 +103,7 @@ class DialogueScript extends FlxSpriteGroup
 					}
 				} else if(currentText >= dialogueList.dialogue.length) {
 					dialogueEnded = true;
-					
+
 					if(daText != null)
 					{
 						daText.kill();
@@ -116,7 +116,7 @@ class DialogueScript extends FlxSpriteGroup
 				}
 				FlxG.sound.play(Paths.sound(closeSound), closeVolume);
 			}
-			
+
 		} else { //Dialogue ending
 
 			if(bgFade != null) {
@@ -136,7 +136,7 @@ class DialogueScript extends FlxSpriteGroup
 		}
 		super.update(elapsed);
 	}
-	
+
 	function startNextDialog():Void
 	{
 		var curDialogue:ScriptDialogueLine = null;
@@ -146,20 +146,20 @@ class DialogueScript extends FlxSpriteGroup
 
 		if(curDialogue.text == null || curDialogue.text.length < 1) curDialogue.text = ' ';
 		if(curDialogue.speed == null || Math.isNaN(curDialogue.speed)) curDialogue.speed = 0.05;
-		
+
 		var centerPrefix:String = '';
 
 		daText.text = curDialogue.text;
 		daText.sound = curDialogue.sound;
 		if(daText.sound == null || daText.sound.trim() == '') daText.sound = 'dialogue';
-		
+
 		daText.y = DEFAULT_TEXT_Y;
 		if (daText.rows > 2) daText.y -= LONG_TEXT_ADD;
 
 		var rate:Float = 24 - (((curDialogue.speed - 0.05) / 5) * 480);
 		if(rate < 12) rate = 12;
 		else if (rate > 48) rate = 48;
-		
+
 		currentText++;
 
 		if(nextDialogueThing != null) {

@@ -33,17 +33,17 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	
+
 	public static var laneunderlay:Bool = false;
 	public static var laneTransparency:Float = 0.5;
 	public static var language:String = 'English';
 	public static var mechanics:String = 'Enabled';
 	public static var cameraMovement = true;
 	public static var screenShake = true;
-	
+
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
-		'scrolltype' => 'multiplicative', 
+		'scrolltype' => 'multiplicative',
 		// anyone reading this, amod is multiplicative speed mod, cmod is constant speed mod, and xmod is bpm based speed mod.
 		// an amod example would be chartSpeed * multiplier
 		// cmod would just be constantSpeed = chartSpeed
@@ -76,21 +76,21 @@ class ClientPrefs {
 		'note_down'		=> [S, DOWN],
 		'note_up'		=> [W, UP],
 		'note_right'	=> [D, RIGHT],
-		
+
 		'ui_left'		=> [A, LEFT],
 		'ui_down'		=> [S, DOWN],
 		'ui_up'			=> [W, UP],
 		'ui_right'		=> [D, RIGHT],
-		
+
 		'accept'		=> [SPACE, ENTER],
 		'back'			=> [BACKSPACE, ESCAPE],
 		'pause'			=> [ENTER, ESCAPE],
 		'reset'			=> [R, NONE],
-		
+
 		'volume_mute'	=> [ZERO, NONE],
 		'volume_up'		=> [NUMPADPLUS, PLUS],
 		'volume_down'	=> [NUMPADMINUS, MINUS],
-		
+
 		'debug_1'		=> [SEVEN, NONE],
 		'debug_2'		=> [EIGHT, NONE]
 	];
@@ -138,14 +138,14 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
-		
+
 		FlxG.save.data.language = language;
 		FlxG.save.data.mechanics = mechanics;
 		FlxG.save.data.laneunderlay = laneunderlay;
 		FlxG.save.data.laneTransparency = laneTransparency;
 		FlxG.save.data.cameraMovement = cameraMovement;
 		FlxG.save.data.screenShake = screenShake;
-	
+
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -232,7 +232,7 @@ class ClientPrefs {
 		if(FlxG.save.data.comboOffset != null) {
 			comboOffset = FlxG.save.data.comboOffset;
 		}
-		
+
 		if(FlxG.save.data.ratingOffset != null) {
 			ratingOffset = FlxG.save.data.ratingOffset;
 		}
@@ -257,23 +257,23 @@ class ClientPrefs {
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
 		}
-		
+
 		if(FlxG.save.data.language != null) {
 			language = FlxG.save.data.language;
 		}
-		
+
 		if(FlxG.save.data.mechanics != null) {
 			mechanics = FlxG.save.data.mechanics;
 		}
-		
+
 		if(FlxG.save.data.laneunderlay != null) {
 			laneunderlay = FlxG.save.data.laneunderlay;
 		}
-		
+
 		if (FlxG.save.data.cameraMovement != null) {
 			cameraMovement = FlxG.save.data.cameraMovement;
 		}
-		
+
 		if (FlxG.save.data.screenShake != null) {
 			screenShake = FlxG.save.data.screenShake;
 		}
@@ -283,7 +283,7 @@ class ClientPrefs {
 		if(FlxG.save.data.laneTransparency != null) {
 			laneTransparency = FlxG.save.data.laneTransparency;
 		}
-		
+
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
@@ -292,7 +292,7 @@ class ClientPrefs {
 				gameplaySettings.set(name, value);
 			}
 		}
-		
+
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null)
 		{

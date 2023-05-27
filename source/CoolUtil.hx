@@ -1,5 +1,7 @@
 package;
 
+import flixel.util.FlxGradient;
+import flixel.util.FlxColor;
 import flixel.util.FlxSave;
 import flixel.FlxG;
 import openfl.utils.Assets;
@@ -23,14 +25,14 @@ class CoolUtil
 		'Hard',
 		'Insane'
 	];
-	
+
 	public static var ClassicDifficulties:Array<String> = [
 		'Easy',
 		'Normal',
 		'Hard'
 	];
-	
-	
+
+
 	public static var defaultDifficulty:String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
 
 	public static var difficulties:Array<String> = [];
@@ -43,7 +45,7 @@ class CoolUtil
 		trace(snap);
 		return (m / snap);
 	}
-	
+
 	public static function getDifficultyFilePath(num:Null<Int> = null)
 	{
 		if(num == null) num = PlayState.storyDifficulty;
@@ -149,7 +151,7 @@ class CoolUtil
 		FlxG.openURL(site);
 		#end
 	}
-	
+
 
 	/** Quick Function to Fix Save Files for Flixel 5
 		if you are making a mod, you are gonna wanna change "ShadowMario" to something else
@@ -170,5 +172,36 @@ class CoolUtil
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Modulo that works for negative numbers
+	 */
+	public inline static function mod(n:Int, m:Int) {
+		return ((n % m) + m) % m;
+	}
+
+	public static function makeGradient(width:Int, height:Int, colors:Array<FlxColor>, chunkSize:UInt = 1, rotation:Int = 90, interpolate:Bool = true) {
+		var gradWidth = width;
+		var gradHeight = height;
+		var gradXScale = 1;
+		var gradYScale = 1;
+
+		var modRotation = mod(rotation, 360);
+
+		if(modRotation == 90 || modRotation == 270) {
+			gradXScale = width;
+			gradWidth = 1;
+		}
+
+		if(modRotation == 0 || modRotation == 180) {
+			gradYScale = height;
+			gradHeight = 1;
+		}
+
+		var gradient = FlxGradient.createGradientFlxSprite(gradWidth, gradHeight, colors, chunkSize, rotation, interpolate);
+		gradient.scale.set(gradXScale, gradYScale);
+		gradient.updateHitbox();
+		return gradient;
 	}
 }

@@ -51,11 +51,11 @@ class MinusCharSelector extends MusicBeatState
 	'Blue\nBoyfriend',
 	'Mean\nBoyfriend'];
 	var iconP1:HealthIcon;
-	
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
-		
+
 		bg = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		//bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -63,49 +63,49 @@ class MinusCharSelector extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.35));
 		scrollingThing.alpha = 0.8;
 		add(scrollingThing);
-		
+
 		topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
 		topBars.screenCenter();
 		topBars.y -= 400;
 		topBars.angle -= 8;
 		add(topBars);
-					
+
 		bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
 		bottomBars.screenCenter();
 		bottomBars.y += 420;
 		bottomBars.angle -= 8;
 		add(bottomBars);
-		
+
 		LittleTopBars = new FlxSprite().makeGraphic (2580, 20, FlxColor.BLACK);
 		LittleTopBars.screenCenter();
 		LittleTopBars.y -= 225;
 		LittleTopBars.angle -= 8;
 		add(LittleTopBars);
-					
+
 		LittleBottomBars = new FlxSprite().makeGraphic (2580, 20, FlxColor.BLACK);
 		LittleBottomBars.screenCenter();
 		LittleBottomBars.y += 245;
 		LittleBottomBars.angle -= 8;
 		add(LittleBottomBars);
-		
+
 		arrows = new FlxSprite().loadGraphic(Paths.image('arrowSelection'));
 		arrows.updateHitbox();
 		arrows.screenCenter();
 		arrows.antialiasing = ClientPrefs.globalAntialiasing;
 		add(arrows);
-		
+
 		CharMenuText = new FlxText(0, 0, "Choose your character!", 52);
 		CharMenuText.setFormat(Paths.font("phantommuff.ttf"), 52, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(CharMenuText);
-		
+
 		Paths.setCurrentLevel('shared');
-		
-			
+
+
         boyfriend = new Character(0, 0, bfSkins[actualNum], true);
 		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.85));
 		boyfriend.screenCenter();
@@ -113,43 +113,43 @@ class MinusCharSelector extends MusicBeatState
 		boyfriend.updateHitbox();
 		boyfriend.dance();
 		insert(2, boyfriend);
-		
+
 		namesText = new Alphabet(0, 0, "", true);
 		namesText.alignment = CENTERED;
 		namesText.screenCenter();
 		namesText.x -= 200;
 		namesText.y -= 50;
 		add(namesText);
-		
-		
+
+
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = 580;
 		iconP1.x += 1050;
 		add(iconP1);
-		
+
 		for (anim in boyfriend.animOffsets.keys()) {
 			boyfriend.animOffsets[anim] = [boyfriend.animOffsets[anim][0]* 0.85,boyfriend.animOffsets[anim][1]* 0.85];
 		}
-		
+
 		changeBF();
-		
+
 		for (i in 0...bfSkins.length) preloadChar(bfSkins[i]);
-		
+
 		super.create();
 	}
-	
+
 	override function update(elapsed:Float)
-	{	
+	{
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
-		
+
 		if (!selectedSmth)
 		{
 
 			if(boyfriend != null && boyfriend.animation.curAnim.finished) {
 				boyfriend.dance();
 			}
-			
+
 			if (controls.BACK)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -171,13 +171,13 @@ class MinusCharSelector extends MusicBeatState
 						LoadingState.loadAndSwitchState(new PlayState());
 					});
 				});
-				
+
 				PlayState.SONG.player1 = bfSkins[actualNum];
 				PlayState.amityChar = bfSkins[actualNum];
 				//PlayState.SONG.player1 = bfSkins[actualNum];
 			}
-			
-			
+
+
 			if (controls.UI_RIGHT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -191,22 +191,22 @@ class MinusCharSelector extends MusicBeatState
 		}
 		super.update(elapsed);
 	}
-	
+
 	function changeBF(number:Int = 0)
 	{
-		
+
 		actualNum += number;
-		
+
 		if (actualNum >= bfSkins.length)
 			actualNum = 0;
 		if (actualNum < 0)
 			actualNum = bfSkins.length - 1;
-		
-		
+
+
 		if(colorTween != null) {
 			colorTween.cancel();
 		}
-		
+
 		namesText.text = charNames[actualNum];
 
 		remove(boyfriend);
@@ -218,7 +218,7 @@ class MinusCharSelector extends MusicBeatState
 		boyfriend.dance();
 		insert(2, boyfriend);
 		iconP1.changeIcon(boyfriend.healthIcon);
-		
+
 		switch(actualNum) //shittest code ever fr
 		{
 			case 0:
@@ -227,7 +227,7 @@ class MinusCharSelector extends MusicBeatState
 						colorTween = null;
 					}
 			    });
-			
+
 			case 1:
 				colorTween = FlxTween.color(bg, 1, bg.color, 0xFF28A8C8, {
 					onComplete: function(twn:FlxTween) {
@@ -242,7 +242,7 @@ class MinusCharSelector extends MusicBeatState
 			    });
 		}
 	}
-	
+
 	function preloadChar(character:String) {
 		Paths.image('characters/CC/extras/minus/' + character);
 	}

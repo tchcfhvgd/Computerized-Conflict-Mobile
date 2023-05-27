@@ -38,36 +38,36 @@ class LanguageSelectState extends MusicBeatState
 	public static var curSelected:Int = 0;
 	var stuff = 0.0;
 	var camFollow:FlxObject;
-	
+
 	var languages:Array<String> = [
 	    'spanish',
 		'english',
 		'portuguese'
 	]; //on my way to add more (for v2)
-	
+
 	override function create()
 	{
-		
+
 		var yScroll:Float = Math.max(0.25 - (0.05 * (languages.length - 4)), 0.1);
-		
+
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.set(0, 0);
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), repeatAxes, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0.8;
 		add(scrollingThing);
-		
+
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
-		
+
 		for(i in 0...languages.length) // main menu code copy so I can save time heheheha
 		{
 			var country:FlxSprite = new FlxSprite(0, 0);
@@ -79,14 +79,14 @@ class LanguageSelectState extends MusicBeatState
 			country.updateHitbox();
 			country.screenCenter();
 		}
-		
+
 		changeItem();
-		
+
 		super.create();
 	}
-	
+
 	var selectedSomethin:Bool = false;
-	
+
 	override function update(elapsed:Float)
 	{
 		stuff = elapsed;
@@ -103,12 +103,12 @@ class LanguageSelectState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
-			
+
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
-				
+
 					menuItems.forEach(function(spr:FlxSprite)
 					{
 						if (curSelected != spr.ID)
@@ -121,41 +121,41 @@ class LanguageSelectState extends MusicBeatState
 								}
 							});
 					    }
-						
+
 						var daChoice:String = languages[curSelected];
 
 						switch (daChoice)
 						{
 							case 'spanish':
 								ClientPrefs.language == 'Español'; //why this doesn't work
-								
+
 							case 'english':
 								ClientPrefs.language == 'English';
-								
+
 							case 'portuguese':
 								ClientPrefs.language == 'Portuguese';
 						}
-						
+
 						ClientPrefs.saveSettings();
-						
+
 						if(FlxG.save.data.language != null) {
 							FlxG.save.data.language;
-							
+
 						}
-						
+
 						FlxG.save.flush();
-						
+
 						MusicBeatState.switchState(new FlashingState());
 					});
 			}
 		}
-		
+
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.x = FlxMath.lerp(spr.x, ((spr.ID - curSelected) * 800) + (FlxG.height * 0.65), CoolUtil.boundTo(stuff * 9.6, 0, 1));
 		});
 	}
-	
+
 	function changeItem(huh:Int = 1)
 	{
 		curSelected += huh;
@@ -169,13 +169,13 @@ class LanguageSelectState extends MusicBeatState
 		{
 			spr.alpha = 0.5;
 			spr.updateHitbox();
-			
+
 			FlxTween.tween(spr, {"scale.x": 1, "scale.y": 1}, 0.2, {ease: FlxEase.quadOut});
 
 			if (spr.ID == curSelected)
-			{	
+			{
 				FlxTween.tween(spr, {"scale.x": 1.1, "scale.y": 1.1}, 0.2, {ease: FlxEase.quadOut});
-				
+
 				spr.alpha = 1;
 				var add:Float = 0;
 				if(menuItems.length > 4) {

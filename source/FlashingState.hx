@@ -22,7 +22,7 @@ class FlashingState extends MusicBeatState
 
 	var warnText:FlxText;
 	var warnText2:FlxText;
-	
+
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;
 	private var optionsArray:Array<Option>;
@@ -32,19 +32,19 @@ class FlashingState extends MusicBeatState
 	var grpTexts:FlxTypedGroup<AttachedText>;
 	public var camGame:FlxCamera;
 	public var camHUD:FlxCamera;
-	
+
 	override function create()
 	{
 		super.create();
 
 		camGame = new FlxCamera();
-		
+
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 1;
-		
+
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
-		
+
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
@@ -57,7 +57,7 @@ class FlashingState extends MusicBeatState
 		warnText.screenCenter(Y);
 		warnText.cameras = [camGame];
 		add(warnText);
-		
+
 		warnText2 = new FlxText(0, 0, FlxG.width,
 			"If you have a low end PC, it's not recommended to play this mod.\n
 			Since it could present various bugs that could ruin your experience.",
@@ -67,30 +67,30 @@ class FlashingState extends MusicBeatState
 		add(warnText2);
 		warnText2.cameras = [camHUD];
 		warnText2.alpha = 0;
-		
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
-		
+
 		grpTexts = new FlxTypedGroup<AttachedText>();
 		add(grpTexts);
 
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
-		
+
 		var option:Option = new Option('Do Not Show Me This Again', "", 'shaders', 'bool', true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Flashing Lights', "", 'flashing', 'bool', true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Screen Shake', "", 'screenShake', 'bool', true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Shaders', "", 'shaders', 'bool', true);
 		addOption(option);
-		
-		
-		
+
+
+
 		for (i in 0...optionsArray.length)
 		{
 			var optionText:Alphabet = new Alphabet(150, 260, optionsArray[i].name, false);
@@ -107,7 +107,7 @@ class FlashingState extends MusicBeatState
 			checkboxGroup.add(checkbox);
 			checkbox.cameras = [camGame];
 		}
-		
+
 		changeSelection();
 		reloadCheckboxes();
 	}
@@ -116,7 +116,7 @@ class FlashingState extends MusicBeatState
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		
+
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -125,7 +125,7 @@ class FlashingState extends MusicBeatState
 		{
 			changeSelection(1);
 		}
-		
+
 		if(controls.ACCEPT)
 		{
 			FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -133,7 +133,7 @@ class FlashingState extends MusicBeatState
 			curOption.change();
 			reloadCheckboxes();
 		}
-		
+
 		if(!leftState) {
 			var space:Bool = FlxG.keys.justPressed.SPACE;
 			if (space) {
@@ -145,12 +145,12 @@ class FlashingState extends MusicBeatState
 		}
 		super.update(elapsed);
 	}
-	
+
 	public function addOption(option:Option) {
 		if(optionsArray == null || optionsArray.length < 1) optionsArray = [];
 		optionsArray.push(option);
 	}
-	
+
 	function clearHold()
 	{
 		if(holdTime > 0.5) {
@@ -158,7 +158,7 @@ class FlashingState extends MusicBeatState
 		}
 		holdTime = 0;
 	}
-	
+
 	function changeSelection(change:Int = 0)
 	{
 		curSelected += change;
@@ -184,22 +184,22 @@ class FlashingState extends MusicBeatState
 				text.alpha = 1;
 			}
 		}
-		
+
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
-	
+
 	function reloadCheckboxes() {
 		for (checkbox in checkboxGroup) {
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
 	}
-	
+
 	function goinToTitleState()
 	{
 		ClientPrefs.saveSettings();
 		FlxG.sound.play(Paths.sound('confirmMenu'));
-		
+
 		FlxTween.tween(camGame, {alpha: 0}, 1, {
 			onComplete: function(twn:FlxTween) {
 		        FlxTween.tween(camHUD, {alpha: 1}, 1);

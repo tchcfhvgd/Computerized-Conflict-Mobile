@@ -33,7 +33,7 @@ class ModOptionsSubState extends BaseOptionsMenu
 	{
 		title = 'Mod Settings';
 		rpcTitle = 'TCO Mod Settings Menu'; //for Discord Rich Presence
-		
+
 		var option:Option = new Option('Language:',
 			"Select the language you want the mod to have\n(Just works with in-game text).",
 			'language',
@@ -55,7 +55,7 @@ class ModOptionsSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Lane Underlay Transparency',
 			'Set the Lane Underlay Transparency (Lane Underlay must be enabled)',
 			'laneTransparency',
@@ -67,7 +67,7 @@ class ModOptionsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
-		
+
 		var option:Option = new Option('Mechanics:',
 			"Select the language you want the mod to have (Just works with in-game text).",
 			'mechanics',

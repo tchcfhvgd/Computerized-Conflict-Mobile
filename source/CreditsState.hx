@@ -51,17 +51,17 @@ class CreditsState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('creditsmenu/background'));
 		add(bg);
 		bg.screenCenter();
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('creditsmenu/Main_Checker'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0.85;
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
 		add(scrollingThing);
-		
+
 		ok = new FlxSprite().loadGraphic(Paths.image('creditsmenu/ok'));
 		add(ok);
 		ok.screenCenter();
-		
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
@@ -118,11 +118,11 @@ class CreditsState extends MusicBeatState
 			['Scorpzie',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
 			['XG_Chris',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
 		];
-		
+
 		for(i in pisspoop){
 			creditsStuff.push(i);
 		}
-	
+
 		for (i in 0...creditsStuff.length)
 		{
 			var isSelectable:Bool = !unselectableCheck(i);
@@ -142,7 +142,7 @@ class CreditsState extends MusicBeatState
 				var icon:AttachedSprite = new AttachedSprite('creditsmenu/icon');
 				icon.xAdd = optionText.width - 800;
 				icon.sprTracker = optionText;
-	
+
 				// using a FlxGroup is too much fuss!
 				iconArray.push(icon);
 				add(icon);
@@ -152,7 +152,7 @@ class CreditsState extends MusicBeatState
 			}
 			else optionText.alignment = CENTERED;
 		}
-		
+
 		descBox = new AttachedSprite();
 		descBox.makeGraphic(1, 1, 0xFF79c5ff);
 		descBox.xAdd = -10;
@@ -233,7 +233,7 @@ class CreditsState extends MusicBeatState
 				quitting = true;
 			}
 		}
-		
+
 		for (item in grpOptions.members)
 		{
 			if(!item.bold)
