@@ -315,8 +315,9 @@ class MainMenuState extends MusicBeatState
 			if (controls.UI_UP_P || controls.UI_DOWN_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-				var targetOption:Int = 3;
-				if (curSelected >= 3) targetOption = 0;
+				var targetOption:Int = curSelected + 3;
+				if (curSelected > 2) targetOption = curSelected - 3;
+				if (curSelected == 1 || curSelected == 2 && !CoolUtil.songsUnlocked.data.mainWeek) targetOption = 4;
 
 				changeItem(targetOption-curSelected);
 			}
