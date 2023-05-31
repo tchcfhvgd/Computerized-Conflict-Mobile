@@ -1331,7 +1331,7 @@ class PlayState extends MusicBeatState
 					add(daFloor);
 					add(tscseeing);
 
-					particleEmitter = new FlxEmitter(0, 1000);
+					/*particleEmitter = new FlxEmitter(0, 1000);
 					particleEmitter.launchMode = FlxEmitterMode.SQUARE;
 					particleEmitter.velocity.set(-50, -200, 50, -600, -90, 0, 90, -600);
 					particleEmitter.scale.set(2, 2, 2, 2, 0, 0, 0, 0);
@@ -1349,7 +1349,7 @@ class PlayState extends MusicBeatState
 					scroll = new FlxBackdrop(Paths.image('trojan/scrollmidsong', 'extras'), XY, 0, 0);
 					scroll.setGraphicSize(Std.int(scroll.width * 0.8));
 					scroll.cameras = [camChar];
-					add(scroll);
+					add(scroll);*/
 
 					vignettMid = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vignettemidsong', 'extras'));
 					vignettMid.antialiasing = ClientPrefs.globalAntialiasing;
@@ -2593,6 +2593,22 @@ class PlayState extends MusicBeatState
 			funnyArray = [];
 		}
 
+		if (isStoryMode)
+		{
+			FlxG.save.data.checkpoint = 
+			{
+				campaignScore: campaignScore,
+				campaignMisses: campaignMisses,
+				playlist: storyPlaylist,
+				difficulty: storyDifficulty
+			}
+			FlxG.save.flush();
+		}
+		else
+		{
+			FlxG.save.data.checkpoint = null;
+			FlxG.save.flush();
+		}
 
 		super.create();
 
@@ -4679,9 +4695,9 @@ class PlayState extends MusicBeatState
 		{
 			case 'alan-pc-conflict':
 				confBSODShake(1.0);
-			case 'alan-pc-virabot':
+			/*case 'alan-pc-virabot':
 				scroll.x -= 0.45 * 60 * elapsed;
-				scroll.y -= 0.16 * 60 * elapsed;
+				scroll.y -= 0.16 * 60 * elapsed;*/
 		}
 
 		switch(curStage)
@@ -5887,6 +5903,8 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
+					FlxG.save.data.checkpoint = null;
+					FlxG.save.flush();
 					MusicBeatState.switchState(new TCOStoryState());
 
 					// if ()

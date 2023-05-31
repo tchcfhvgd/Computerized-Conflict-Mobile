@@ -61,6 +61,11 @@ class TCOStoryState extends MusicBeatState
 		'Insane'
 	];
 
+	var checkpointSystemON:Bool;
+
+	var blackThing:FlxSpriteExtra;
+	var text:FlxText;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -76,6 +81,10 @@ class TCOStoryState extends MusicBeatState
 		camGame = new FlxCamera();
 		FlxG.cameras.reset(camGame);
 		FlxCamera.defaultCameras = [camGame];
+
+		checkpointSystemON = FlxG.save.data.checkpoint != null;
+		trace(checkpointSystemON);
+		trace(FlxG.save.data.checkpoint);
 
 		border = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/border'));
 		border.updateHitbox();
@@ -151,6 +160,22 @@ class TCOStoryState extends MusicBeatState
 
 		//curDifficulty2 = Math.round(Math.max(0, CoolUtil.storyDifficultiesCOPY.indexOf(lastDifficultyName)));
 
+		//couldn't get the cameras to work
+		if (checkpointSystemON){
+			blackThing = new FlxSpriteExtra();
+			blackThing.makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
+			blackThing.alpha = 0.7;
+			blackThing.screenCenter();
+			add(blackThing);
+
+			var TEXT_IN_THE_THING = 'Looks like you left in the middle of a week, \n press enter if you want to continue from where you left off, \n or backspace if you want to play another week';
+			text = new FlxText(0, 0, FlxG.width,TEXT_IN_THE_THING);
+			text.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.screenCenter();
+			text.borderSize = 1.25;
+			add(text);
+		}
+
 		trace(diff);
 
 		changeDifficulty();
@@ -168,8 +193,32 @@ class TCOStoryState extends MusicBeatState
 		{
 			if (controls.BACK)
 			{
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
+				if (!checkpointSystemON){
+					FlxG.sound.play(Paths.sound('cancelMenu'));
+					MusicBeatState.switchState(new MainMenuState());
+				}else{
+					checkpointSystemON = false;
+					FlxG.save.data.checkpoint = null;
+					FlxG.save.flush();
+					
+					FlxTween.tween(blackThing, {alpha: 0}, 1, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							remove(blackThing);
+							blackThing.destroy();
+						}
+					});
+
+					FlxTween.tween(text, {alpha: 0}, 1, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							remove(text);
+							text.destroy();
+						}
+					});
+				}
 			}
 
 			if (controls.UI_RIGHT_P)
@@ -186,13 +235,38 @@ class TCOStoryState extends MusicBeatState
 			}
 			else if (controls.ACCEPT)
 			{
-				selectedSmth = true;
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
-				{
-					playSongs(['adobe', 'outrage', 'end process']);
-				});
+				if (!checkpointSystemON){
+					selectedSmth = true;
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+					{
+						playSongs(['adobe', 'outrage', 'end process'], 0, 0, curDifficulty);
+					});
+				}else{
+					checkpointSystemON = false;
+					selectedSmth = true;
+					
+					/*FlxTween.tween(blackThing, {alpha: 0}, 1, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							remove(blackThing);
+							blackThing.destroy();
+						}
+					});
+
+					FlxTween.tween(text, {alpha: 0}, 1, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							remove(text);
+							text.destroy();
+						}
+					});*/
+
+					playSongs(FlxG.save.data.checkpoint.playlist, FlxG.save.data.checkpoint.campaignScore, FlxG.save.data.checkpoint.campaignMisses, FlxG.save.data.checkpoint.difficulty);
+				}
 			}
 		}
 
@@ -316,15 +390,15 @@ class TCOStoryState extends MusicBeatState
 		}
     }
 
-    function playSongs(songlist:Array<String>)
+    function playSongs(songlist:Array<String>, campaignScore:Int, campaignMisses:Int, difficultyStory:Int)
     {
 		PlayState.storyPlaylist = songlist;
 		PlayState.isStoryMode = true;
-		PlayState.storyDifficulty = curDifficulty;
+		PlayState.storyDifficulty = difficultyStory;
 
-		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-' + lastDifficultyName, PlayState.storyPlaylist[0].toLowerCase());
-		PlayState.campaignScore = 0;
-		PlayState.campaignMisses = 0;
+		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-' + difficulties[difficultyStory], PlayState.storyPlaylist[0].toLowerCase());
+		PlayState.campaignScore = campaignScore;
+		PlayState.campaignMisses = campaignMisses;
 	    PlayState.storyWeek = 1;
 		PlayState.seenCutscene = false;
 		PlayState.weekNames = 'Chapter 1:';
