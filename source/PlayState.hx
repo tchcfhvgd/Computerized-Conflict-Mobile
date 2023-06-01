@@ -870,9 +870,8 @@ class PlayState extends MusicBeatState
 							stickpage.setGraphicSize(Std.int(stickpage.width * 1.1));
 							stickpage.alpha = 0;
 
-							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -750, -360, 1, 1);
-							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.2));
-							stickpageFloor.screenCenter();
+							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, -625, 1, 1);
+							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.25));
 							stickpageFloor.alpha = 0;
 
 							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -400, 200, 0.95, 0.95, ['BG Guys Scared'], true);
@@ -3811,18 +3810,6 @@ class PlayState extends MusicBeatState
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 
-			for (i in 0...playerStrums.length) {
-				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
-				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
-				normalThingOrShit.push(playerStrums.members[i].y);
-			}
-			for (i in 0...opponentStrums.length) {
-				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
-				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
-				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
-				normalThingOrShit.push(opponentStrums.members[i].y);
-			}
-
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
 			setOnLuas('startedCountdown', true);
@@ -3918,6 +3905,18 @@ class PlayState extends MusicBeatState
 				for (i in 0...opponentStrums.length) {
 					opponentStrums.members[i].x -= ((FlxG.width / 2) * playerStrums.members[i].x);
 				}
+			}
+
+			for (i in 0...playerStrums.length) {
+				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
+				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+				normalThingOrShit.push(playerStrums.members[i].y);
+			}
+			for (i in 0...opponentStrums.length) {
+				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
+				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
+				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+				normalThingOrShit.push(opponentStrums.members[i].y);
 			}
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
