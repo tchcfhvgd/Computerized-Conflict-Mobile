@@ -481,7 +481,6 @@ class PlayState extends MusicBeatState
 	var tweenZoomEvent:FlxTween;
 	var LightsColors:Array<FlxColor>; //for the vignette changing color
 	public var oldVideoResolution:Bool = false; // simulate 4:3 resolution like Alan old videos
-	public static var centerNotes:Bool = false;
 	var judgementCounter:FlxText; //the combo counter that appears in the left of your screen
 	var needsBlackBG:Bool = false; //for songs that need to have a black bg (not hiding bf or dad)
 
@@ -1872,8 +1871,6 @@ class PlayState extends MusicBeatState
 			healthLoss*=-1;
 		}
 
-		centerNotes = oldVideoResolution;
-
 		switch(Paths.formatToSongPath(SONG.song))
 		{
 			case 'stress':
@@ -2117,24 +2114,24 @@ class PlayState extends MusicBeatState
 		timeTxt.borderSize = 2;
 		timeTxt.visible = showTime;
 
-		laneunderlayOpponent = new FlxSpriteExtra(0, 0).makeSolid(110 * 4 + 50, FlxG.height * 2);
-		laneunderlayOpponent.alpha = ClientPrefs.laneTransparency;
-		laneunderlayOpponent.color = FlxColor.BLACK;
-		laneunderlayOpponent.scrollFactor.set();
-
-		laneunderlay = new FlxSpriteExtra(0, 0).makeSolid(110 * 4 + 50, FlxG.height * 2);
-		laneunderlay.alpha = ClientPrefs.laneTransparency;
-		laneunderlay.color = FlxColor.BLACK;
-		laneunderlay.scrollFactor.set();
-
 		if (ClientPrefs.laneunderlay)
 		{
+			laneunderlayOpponent = new FlxSpriteExtra().makeSolid(90 * 4 + 50, FlxG.height * 2);
+			laneunderlayOpponent.alpha = ClientPrefs.laneTransparency;
+			laneunderlayOpponent.color = FlxColor.BLACK;
+			laneunderlayOpponent.scrollFactor.set();
+
+			laneunderlay = new FlxSpriteExtra().makeSolid(90 * 4 + 50, FlxG.height * 2);
+			laneunderlay.alpha = ClientPrefs.laneTransparency;
+			laneunderlay.color = FlxColor.BLACK;
+			laneunderlay.scrollFactor.set();
+		
 			add(laneunderlay);
 			add(laneunderlayOpponent);
 			if(ClientPrefs.middleScroll)
 			{
 				remove(laneunderlayOpponent);
-				laneunderlayOpponent.visible = false;
+				laneunderlayOpponent.destroy();
 			}
 		}
 
@@ -2353,8 +2350,8 @@ class PlayState extends MusicBeatState
 		if (iconP4 != null) iconP4.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
-		laneunderlay.cameras = [camHUD];
-		laneunderlayOpponent.cameras = [camHUD];
+		if (laneunderlay != null) laneunderlay.cameras = [camHUD];
+		if (laneunderlayOpponent != null) laneunderlayOpponent.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -3890,12 +3887,6 @@ class PlayState extends MusicBeatState
 				spr.x -= 170;
 			});
 
-			laneunderlay.x = playerStrums.members[0].x - 25;
-			laneunderlayOpponent.x = opponentStrums.members[0].x - 25;
-
-			laneunderlay.screenCenter(Y);
-			laneunderlayOpponent.screenCenter(Y);
-
 			if (leftSide && !ClientPrefs.middleScroll)
 			{
 				for (i in 0...playerStrums.length) {
@@ -3918,6 +3909,12 @@ class PlayState extends MusicBeatState
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 				normalThingOrShit.push(opponentStrums.members[i].y);
 			}
+
+			if (laneunderlay != null) laneunderlay.x = (playerStrums.members[0].x + playerStrums.members[1].x) / 2 - 60;
+			if (laneunderlayOpponent != null) laneunderlayOpponent.x = (opponentStrums.members[0].x + opponentStrums.members[1].x) / 2 - 60;
+
+			if (laneunderlay != null) laneunderlay.screenCenter(Y);
+			if (laneunderlayOpponent != null) laneunderlayOpponent.screenCenter(Y);
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 			introAssets.set('default', ['ready', 'set', 'go']);
@@ -4161,6 +4158,14 @@ class PlayState extends MusicBeatState
 		}
 		vocals.play();
 		Conductor.songPosition = time;
+
+		if (SONG.song.toLowerCase() == 'rombie'){
+			if (laneunderlay != null) laneunderlay.x = (playerStrums.members[0].x + playerStrums.members[1].x) / 2 - 60;
+			if (laneunderlayOpponent != null) laneunderlayOpponent.x = (opponentStrums.members[0].x + opponentStrums.members[1].x) / 2 - 60;
+
+			if (laneunderlay != null) laneunderlay.screenCenter(Y);
+			if (laneunderlayOpponent != null) laneunderlayOpponent.screenCenter(Y);
+		}
 	}
 
 	function startNextDialogue() {
@@ -4487,7 +4492,7 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = targetAlpha;
 			}
 
-			if (centerNotes)
+			if (oldVideoResolution)
 			{
 				var offsetBOYFRIEND = 120;
 				var offsetDAD = -45;
@@ -4519,9 +4524,13 @@ class PlayState extends MusicBeatState
 			{
 				if(ClientPrefs.middleScroll)
 				{
-					babyArrow.x += 310;
+					var add:Int = 395;
+					var add2:Int = 200;
+					if(oldVideoResolution) add = 310;
+					if(oldVideoResolution) add2 = 30;
+					babyArrow.x += add;
 					if(i > 1) { //Up and Right
-						babyArrow.x += FlxG.width / 2 + 25;
+						babyArrow.x += FlxG.width / 2 + add2;
 					}
 				}
 
