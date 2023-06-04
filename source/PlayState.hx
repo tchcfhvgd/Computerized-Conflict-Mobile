@@ -7117,6 +7117,7 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
 							}
 						case 1392:
+							blackBars(1);
 							dialogOnSong("AAA *helicopter noises*", 3, 0xFF3A3A3A);
 						case 1416:
 							dialogOnSong("Fuck this shit I'm off to read out error messages in my computer.", 7, 0xFF3A3A3A);
