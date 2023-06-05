@@ -1077,7 +1077,7 @@ class PlayState extends MusicBeatState
 					leftSide = true;
 
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-						//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 				}
 
 			case 'rombieBG': //the joe rombie is real
@@ -1480,7 +1480,7 @@ class PlayState extends MusicBeatState
 
 					camBars.x += 0.5;
 
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0012));
 				}
 
 			case 'yt': //YT song
@@ -7112,6 +7112,9 @@ class PlayState extends MusicBeatState
 									opponentStrums.members[i].x += 1200;
 								}
 							}
+						case 944:
+							if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+							if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 						case 1384:
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
@@ -7125,6 +7128,8 @@ class PlayState extends MusicBeatState
 							dialogOnSong("Now,", 2, 0xFF3A3A3A);
 						case 1466:
 							dialogOnSong("get out!", 7, 0xFF3A3A3A);
+						case 1476:
+							FlxG.camera.fade(FlxColor.BLACK, 3, false);
 				}
 
 			case 'messenger':
