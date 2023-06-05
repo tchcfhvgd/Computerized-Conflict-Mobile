@@ -238,7 +238,7 @@ class FreeplayMenu extends MusicBeatState
 						MusicBeatState.switchState(new FreeplayState(weeks[curSelected]));
 					});
 				});
-		    }
+			}
 		}
 
 		super.update(elapsed);
