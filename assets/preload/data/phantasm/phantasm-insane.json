@@ -1743,7 +1743,7 @@
 						36468.75,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -1858,13 +1858,13 @@
 						37593.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						38718.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2043,13 +2043,13 @@
 						41156.25,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						41250,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2312,13 +2312,13 @@
 						45000,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						45562.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2378,13 +2378,13 @@
 						46500,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						47062.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2469,7 +2469,7 @@
 						49312.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2658,13 +2658,13 @@
 						52125,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						51937.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2833,13 +2833,13 @@
 						54093.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						54562.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -2954,7 +2954,7 @@
 						56531.25,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -3153,7 +3153,7 @@
 						58593.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -3899,25 +3899,25 @@
 						73687.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						74718.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						74812.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						74906.25,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4012,7 +4012,7 @@
 						76312.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4107,13 +4107,13 @@
 						77250,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						77625,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4312,13 +4312,13 @@
 						79687.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						80812.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4507,19 +4507,19 @@
 						82687.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						82875,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						83062.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4584,13 +4584,13 @@
 						84937.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						85312.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4675,7 +4675,7 @@
 						86812.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4775,7 +4775,7 @@
 						88312.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -4870,7 +4870,7 @@
 						89250,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -5158,7 +5158,7 @@
 						93187.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -5258,13 +5258,13 @@
 						94687.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						95437.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6177,19 +6177,19 @@
 						120562.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						120937.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						121312.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6264,7 +6264,7 @@
 						122625,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6349,7 +6349,7 @@
 						124218.75,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6419,13 +6419,13 @@
 						125062.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						125625,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6470,13 +6470,13 @@
 						126562.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						127125,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6551,7 +6551,7 @@
 						127687.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -6596,19 +6596,19 @@
 						129000,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						129562.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						130125,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -7453,13 +7453,13 @@
 						145593.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						146718.75,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -7549,19 +7549,19 @@
 						147375,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						147562.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						147937.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -7656,25 +7656,25 @@
 						148500,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						148875,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						149062.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						149625,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -7873,13 +7873,13 @@
 						151687.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						152250,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -7999,7 +7999,7 @@
 						153000,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8079,19 +8079,19 @@
 						154687.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						154875,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						155062.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8161,19 +8161,19 @@
 						156187.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						156562.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						156937.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8268,13 +8268,13 @@
 						157593.75,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						158812.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8349,19 +8349,19 @@
 						159187.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						159562.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						159937.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8461,13 +8461,13 @@
 						160593.75,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						161812.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8542,19 +8542,19 @@
 						162187.5,
 						7,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						162562.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						162937.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8659,7 +8659,7 @@
 						164812.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8739,13 +8739,13 @@
 						165187.5,
 						5,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					],
 					[
 						165937.5,
 						4,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
@@ -8855,7 +8855,7 @@
 						167812.5,
 						6,
 						0,
-						"Hurt Note"
+						"Fire Note"
 					]
 				],
 				"mustHitSection": false,
