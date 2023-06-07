@@ -316,7 +316,7 @@ class PlayState extends MusicBeatState
 		//adobe:
 			var Crowd:BGSprite;
 			var Background1:BGSprite;
-			//var shine:BGSprite;
+			var shine:BGSprite;
 			var Floor:BGSprite;
 			var spotlightdad:FlxSprite;
 			var spotlightbf:FlxSprite;
@@ -1738,6 +1738,23 @@ class PlayState extends MusicBeatState
 					floor.antialiasing = ClientPrefs.globalAntialiasing;
 					floor.updateHitbox();
 					add(floor);
+					
+					shine = new BGSprite('world1/shine', 0, 0, 1, 1);
+					shine.screenCenter();
+					shine.antialiasing = ClientPrefs.globalAntialiasing;
+					shine.updateHitbox();
+					
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camBars];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					add(topBarsALT);
+			
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camBars];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					add(bottomBarsALT);
 
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 				}
@@ -1950,6 +1967,9 @@ class PlayState extends MusicBeatState
 			case 'aurora':
 				add(auroraTrees);
 				add(auroraLight);
+				
+			case 'World 1':
+				add(shine);
 		}
 
 		#if LUA_ALLOWED
@@ -2566,6 +2586,7 @@ class PlayState extends MusicBeatState
 				healthBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 
 				triggerEventNote('Camera Follow Pos', Std.string(boyfriend.getMidpoint().x + 100), Std.string(boyfriend.getMidpoint().y - 100));
+				FlxG.camera.fade(FlxColor.BLACK, 0, false);
 			case 'redzone error':
 				healthBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 
@@ -3877,10 +3898,17 @@ class PlayState extends MusicBeatState
 					camFollow.y = 150;
 
 				case 'phantasm':
-
+					
 					playerStrums.forEach(function(spr:StrumNote) {
-						if (!ClientPrefs.middleScroll) spr.x = STRUM_X_MIDDLESCROLL;
+						if (!ClientPrefs.middleScroll) spr.x -= 368;
 					});
+					
+						opponentStrums.forEach(function(spr:StrumNote) {
+						 spr.x -= 5000;
+					});
+					
+					iconP2.alpha = 0;
+					healthBar.createFilledBar(0xFF141414, 0xFF141414);
 			}
 
 			opponentStrums.forEach(function(spr:StrumNote) {
@@ -7172,30 +7200,57 @@ class PlayState extends MusicBeatState
 						isCameraOnForcedPos = true;
 						camFollow.x = boyfriendCameraOffset[0] + 1200;
 						camFollow.y -= 50;
+						dad.alpha = 0;
 
 					case 112:
-						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+						camGame.alpha = 0;
 
 					case 128:
-						FlxG.camera.fade(FlxColor.BLACK, 0, true);
+						camGame.alpha = 1;
 						isCameraOnForcedPos = false;
 						defaultCamZoom = 0.7;
 
-					case 384 | 768 | 1151 | 1172 | 1282 | 1536 | 1922 | 1937 | 1943 | 1956:
+					case 383:
+						camGame.alpha = 0;
+						camOther.alpha = 0;
+						
+					case 416:
+						camGame.alpha = 1;
+						camOther.alpha = 1;
+						
+					case 384 | 768 | 1282 | 1536:
 						controlDad = true;
-
+						
 						barDirection = RIGHT_TO_LEFT;
 						objectColor([Floor, Background1, whiteScreen], 0xFF2C2425);
 						setAlpha([redthing], 1);
 						setVisible([fires1, fires2], true);
+						iconP1.changeIcon('the-chosen-one');
+						healthBar.createFilledBar(0xFFfcae00, 0xFFfcae00);
+						dad.alpha = 1;
+						boyfriend.alpha = 0;
 
-					case 640 | 1024 | 1154 | 1176 | 1408 | 1792 | 1926 | 1940 | 1946 | 1960:
+					case 640 | 1024 | 1408 | 1792:
 						controlDad = false;
-
+						
 						barDirection = LEFT_TO_RIGHT;
 						objectColor([Floor, Background1, whiteScreen], FlxColor.WHITE);
 						setAlpha([redthing], 0);
 						setVisible([fires1, fires2], false);
+						iconP1.changeIcon('the-chosen-one-adobe');
+						healthBar.createFilledBar(0xFF141414, 0xFF141414);
+						dad.alpha = 0;
+						boyfriend.alpha = 1;
+						
+					case 1664:
+						bsod.alpha = 1;
+						
+					case 1791:
+						bsod.alpha = 0;
+						
+					case 1920:
+						FlxTween.tween(camGame, {angle: 360}, 3, {ease: FlxEase.quartIn});
+						FlxG.camera.fade(FlxColor.BLACK, 3, false);
 				}
 
 			case 'fancy funk':
@@ -7203,18 +7258,17 @@ class PlayState extends MusicBeatState
 				{
 					case 448:
 						iconP2.alpha = 1;
-					case 507 | 571 | 1595 | 1659:
-						showHUDTween(0, 0.3);
-						//dadGroup.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-						//dadGroup.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
-					case 511 | 575 | 1599 | 1663:
-						showHUDTween(1, 0.3);
-					case 704 | 1920:
-						showHUDTween(0, 1);
-						FlxG.camera.fade(FlxColor.BLACK, 1, false);
+						
+					case 704:
+						FlxTween.tween(camHUD, {alpha: 0}, 1);
+						
 					case 768:
-						FlxG.camera.fade(FlxColor.BLACK, 1, true);
-						showHUDTween(1, 1);
+						FlxTween.tween(camHUD, {alpha: 1}, 0.5);
+						
+					case 1920:
+						FlxG.camera.fade(FlxColor.BLACK, 3, false);
+						camHUD.fade(FlxColor.BLACK, 3, false);
+						
 				}
 		}
 
@@ -7542,6 +7596,8 @@ class PlayState extends MusicBeatState
 			case 'rombie':
 				switch(curBeat)
 				{
+					case 1:
+						FlxG.camera.fade(FlxColor.BLACK, 1.5 * playbackRate, true);
 					case 8:
 						dad.visible = true;
 						iconP2.visible = true;
@@ -7563,6 +7619,10 @@ class PlayState extends MusicBeatState
 						objectColor([iconP1, iconP2], 0xFFFFFFFF);
 						setAlpha([whiteScreen], 0);
 						reloadHealthBarColors();
+				    case 456:
+						FlxTween.tween(camHUD, {alpha:0}, 0.5);
+					case 488:
+						camGame.alpha = 0;
 				}
 			case 'catto':
 				switch(curBeat)
