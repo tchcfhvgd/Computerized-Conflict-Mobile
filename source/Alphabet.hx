@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxCamera;
+import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -27,17 +29,24 @@ class Alphabet extends FlxSpriteGroup
 	public var letters:Array<AlphaCharacter> = [];
 
 	public var isMenuItem:Bool = false;
+	public var isCreditItem:Bool = false;
 	public var targetY:Int = 0;
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;
+
+	public var textOffsetX:Float = 0;
+	public var textOffsetY:Float = 0;
 
 	public var alignment(default, set):Alignment = LEFT;
 	public var scaleX(default, set):Float = 1;
 	public var scaleY(default, set):Float = 1;
 	public var rows:Int = 0;
 
+
 	public var distancePerItem:FlxPoint = new FlxPoint(20, 120);
 	public var startPosition:FlxPoint = new FlxPoint(0, 0); //for the calculations
+
+	public var fontColor(default, set):FlxColor = 0x000000;
 
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = true)
 	{
@@ -47,6 +56,19 @@ class Alphabet extends FlxSpriteGroup
 		this.startPosition.y = y;
 		this.bold = bold;
 		this.text = text;
+	}
+
+	function setFontColor(letter:AlphaCharacter, color:FlxColor) {
+		if(!letter.isBold) {
+			letter.colorTransform.color = color;
+		}
+	}
+
+	function set_fontColor(newColor:FlxColor) {
+		for(letter in letters) {
+			setFontColor(letter, newColor);
+		}
+		return fontColor = newColor;
 	}
 
 	public function setAlignmentFromString(align:String)
@@ -61,6 +83,27 @@ class Alphabet extends FlxSpriteGroup
 				alignment = LEFT;
 		}
 	}
+
+	/*override public function draw():Void
+		@:privateAccess
+	{
+		var oldDefaultCameras = FlxCamera._defaultCameras;
+		if (cameras != null)
+		{
+			FlxCamera._defaultCameras = group.cameras;
+		}
+
+		for (basic in group.members)
+		{
+			if (basic != null && basic.exists && basic.visible)
+			{
+
+				basic.draw();
+			}
+		}
+
+		FlxCamera._defaultCameras = oldDefaultCameras;
+	}*/
 
 	private function set_alignment(align:Alignment)
 	{
@@ -83,7 +126,7 @@ class Alphabet extends FlxSpriteGroup
 				default:
 					newOffset = 0;
 			}
-	
+
 			letter.offset.x -= letter.alignOffset;
 			letter.offset.x += newOffset;
 			letter.alignOffset = newOffset;
@@ -128,7 +171,7 @@ class Alphabet extends FlxSpriteGroup
 			if(letter != null)
 			{
 				letter.updateHitbox();
-				//letter.updateLetterOffset();
+				letter.updateLetterOffset();
 				var ratio:Float = (value / letter.spawnScale.x);
 				letter.x = letter.spawnPos.x * ratio;
 			}
@@ -162,9 +205,18 @@ class Alphabet extends FlxSpriteGroup
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 			if(changeX)
-				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
+				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x + textOffsetX, lerpVal);
 			if(changeY)
-				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
+				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y + textOffsetY, lerpVal);
+		}
+		if (isCreditItem)
+		{
+			var lerpValX:Float = CoolUtil.boundTo(elapsed * 0.6 * 60, 0, 1);
+			var lerpValY:Float = CoolUtil.boundTo(elapsed * 0.2 * 60, 0, 1);
+			if(changeX)
+				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x + textOffsetX, lerpValX);
+			if(changeY)
+				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y + textOffsetY, lerpValY);
 		}
 		super.update(elapsed);
 	}
@@ -174,9 +226,16 @@ class Alphabet extends FlxSpriteGroup
 		if (isMenuItem)
 		{
 			if(changeX)
-				x = (targetY * distancePerItem.x) + startPosition.x;
+				x = (targetY * distancePerItem.x) + startPosition.x + textOffsetX;
 			if(changeY)
-				y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
+				y = (targetY * 1.3 * distancePerItem.y) + startPosition.y + textOffsetY;
+		}
+		if (isCreditItem)
+		{
+			if(changeX)
+				x = (targetY * distancePerItem.x) + startPosition.x + textOffsetX;
+			if(changeY)
+				y = (targetY * 1.3 * distancePerItem.y) + startPosition.y + textOffsetY;
 		}
 	}
 
@@ -191,13 +250,13 @@ class Alphabet extends FlxSpriteGroup
 		rows = 0;
 		for (character in newText.split(''))
 		{
-			
+
 			if(character != '\n')
 			{
 				var spaceChar:Bool = (character == " " || (bold && character == "_"));
 				if (spaceChar) consecutiveSpaces++;
 
-				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
+				//var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
 				if (AlphaCharacter.allLetters.exists(character.toLowerCase()) && (!bold || !spaceChar))
 				{
 					if (consecutiveSpaces > 0)
@@ -221,6 +280,7 @@ class Alphabet extends FlxSpriteGroup
 					xPos += letter.width + (letter.letterOffset[0] + off) * scaleX;
 					rowData[rows] = xPos;
 
+					setFontColor(letter, fontColor);
 					add(letter);
 					letters.push(letter);
 				}
@@ -241,6 +301,39 @@ class Alphabet extends FlxSpriteGroup
 
 		if(letters.length > 0) rows++;
 	}
+
+	override function set_alpha(val:Float) {
+		super.set_alpha(val);
+		for (letter in letters)
+			setFontColor(letter, fontColor);
+		return alpha;
+	}
+
+	public var outline(default, set):Float;
+	public var outlineColor(default, set):FlxColor;
+	public var outlineAlpha(default, set):Float;
+	public var outlineCameras(default, set):Array<FlxCamera>;
+
+	public function set_outline(val:Float) {
+		for (letter in letters)
+			letter.outline = val;
+		return outline = val;
+	}
+	public function set_outlineColor(val:FlxColor) {
+		for (letter in letters)
+			letter.outlineColor = val;
+		return outlineColor = val;
+	}
+	public function set_outlineAlpha(val:Float) {
+		for (letter in letters)
+			letter.outlineAlpha = val;
+		return outlineAlpha = val;
+	}
+	public function set_outlineCameras(val:Array<FlxCamera>) {
+		for (letter in letters)
+			letter.outlineCameras = val;
+		return outlineCameras = val;
+	}
 }
 
 
@@ -260,7 +353,7 @@ typedef Letter = {
 	?offsetsBold:Array<Float>
 }
 
-class AlphaCharacter extends FlxSprite
+class AlphaCharacter extends FlxOutlineSprite
 {
 	//public static var alphabet:String = "abcdefghijklmnopqrstuvwxyz";
 	//public static var numbers:String = "1234567890";
@@ -275,7 +368,7 @@ class AlphaCharacter extends FlxSprite
 		'm'  => null, 'n'  => null, 'o'  => null, 'p'  => null, 'q'  => null, 'r'  => null,
 		's'  => null, 't'  => null, 'u'  => null, 'v'  => null, 'w'  => null, 'x'  => null,
 		'y'  => null, 'z'  => null,
-		
+
 		//numbers
 		'0'  => null, '1'  => null, '2'  => null, '3'  => null, '4'  => null,
 		'5'  => null, '6'  => null, '7'  => null, '8'  => null, '9'  => null,
@@ -323,6 +416,7 @@ class AlphaCharacter extends FlxSprite
 
 	public var row:Int = 0;
 	public var rowWidth:Float = 0;
+	public var isBold:Bool = false;
 	public function new(x:Float, y:Float, character:String, bold:Bool, parent:Alphabet)
 	{
 		super(x, y);
@@ -333,6 +427,8 @@ class AlphaCharacter extends FlxSprite
 		var curLetter:Letter = allLetters.get('?');
 		var lowercase = character.toLowerCase();
 		if(allLetters.exists(lowercase)) curLetter = allLetters.get(lowercase);
+
+		isBold = bold;
 
 		var suffix:String = '';
 		if(!bold)
@@ -399,12 +495,12 @@ class AlphaCharacter extends FlxSprite
 		this.scale.x = parent.scaleX;
 		this.scale.y = parent.scaleY;
 		alignOffset = 0;
-		
+
 		if (lastAnim != null)
 		{
 			animation.addByPrefix(lastAnim, lastAnim, 24);
 			animation.play(lastAnim, true);
-			
+
 			updateHitbox();
 			updateLetterOffset();
 		}
@@ -413,9 +509,9 @@ class AlphaCharacter extends FlxSprite
 
 	public function updateLetterOffset()
 	{
-		if (animation.curAnim == null) return;
+		//if (animation.curAnim == null) return;
 
-		if(!animation.curAnim.name.endsWith('bold'))
+		if(!isBold)
 		{
 			offset.y += -(110 - height);
 		}

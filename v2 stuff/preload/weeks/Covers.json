@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["enmity", "the-chosen-one-adobe", [252, 174, 0]],
+		["aurora", "the-dark-lord", [255, 0, 0]],
+		["phantasm", "the-chosen-one", [252, 174, 0]]
+        ],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "stage",
+
+	"storyName": "",
+	"weekBefore": "Tutorial Week",
+	"weekName": "Miscellaneous Songs",
+	"startUnlocked": true,
+
+	"hideStoryMode": true,
+	"hideFreeplay": false
+}

@@ -33,7 +33,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	{
 		title = 'Gameplay Settings';
 		rpcTitle = 'Gameplay Settings Menu'; //for Discord Rich Presence
-		
+
 		var option:Option = new Option('Camera Movement',
 			'If checked, the game camera will move depending on the animation of a character.',
 			'cameraMovement',
@@ -62,14 +62,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
-		
+
 		var option:Option = new Option('Enable Lane Underlay',
 			"Enables a black underlay behind the notes\nfor better reading!\n(Similar to Funky Friday's Scroll Underlay or osu!mania's thing)",
 			'laneunderlay',
 			'bool',
 			true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Lane Underlay Transparency',
 			'Set the Lane Underlay Transparency (Lane Underlay must be enabled)',
 			'laneTransparency',
@@ -88,14 +88,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Opponent Notes',
 			'If unchecked, opponent notes get hidden.',
 			'opponentStrums',
 			'bool',
 			true);
 		addOption(option);
-		
+
 		var option:Option = new Option('Disable Reset Button',
 			"If checked, pressing Reset won't do anything.",
 			'noReset',

@@ -99,7 +99,7 @@ class CharacterEditorState extends MusicBeatState
 		add(charLayer);
 
 		FlxG.mouse.visible = true;
-				
+
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 
 		var pointer:FlxGraphic = FlxGraphic.fromClass(GraphicCursorCross);

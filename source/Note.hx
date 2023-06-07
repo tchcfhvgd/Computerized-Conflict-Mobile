@@ -41,6 +41,7 @@ class Note extends FlxSprite
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
+	public var isHoldEnd:Bool = false;
 	public var noteType(default, set):String = null;
 
 	public var eventName:String = '';
@@ -60,7 +61,7 @@ class Note extends FlxSprite
 	public var lowPriority:Bool = false;
 
 	public static var swagWidth:Float = 160 * 0.6;
-	
+
 	private var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
 	private var pixelInt:Array<Int> = [0, 1, 2, 3];
 
@@ -156,7 +157,7 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
-					
+
 				case 'Green Sing':
 					greenNote = true;
 				case 'TSC Sing':
@@ -261,6 +262,7 @@ class Note extends FlxSprite
 
 			offsetX += width / 2;
 			copyAngle = false;
+			isHoldEnd = true;
 
 			animation.play(colArray[noteData % 4] + 'holdend');
 
@@ -274,6 +276,7 @@ class Note extends FlxSprite
 			if (prevNote.isSustainNote)
 			{
 				prevNote.animation.play(colArray[prevNote.noteData % 4] + 'hold');
+				prevNote.isHoldEnd = false;
 
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.05;
 				if(PlayState.instance != null)

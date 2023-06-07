@@ -36,7 +36,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	
+
 	var optionShit:Array<String> = [
 		'freeplay',
 		'storymode',
@@ -59,12 +59,12 @@ class MainMenuState extends MusicBeatState
 	var blank:FlxSprite;
 	public var camHUD:FlxCamera;
 	var typin:String;
-	var KONAMI:String = 'up up down down left right left right b a '; 
+	var KONAMI:String = 'up up down down left right left right b a ';
 	var codeClearTimer:Float;
 
 	public static var showTyping:Bool = false;
 	var typinText:FlxText;
-	
+
 	public var removeShaderHandler:FlxShader;
 
 	var recentMouseOption:Int;
@@ -85,7 +85,7 @@ class MainMenuState extends MusicBeatState
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
-		
+
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 		FlxG.cameras.add(camHUD, false);
@@ -93,7 +93,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		
+
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -107,31 +107,31 @@ class MainMenuState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), repeatAxes, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0.8;
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
 		add(scrollingThing);
-		
+
 		var vignette:FlxSprite = new FlxSprite();
 		vignette.loadGraphic(Paths.image('mainmenu/rosevignette'));
 		vignette.scrollFactor.set();
 		add(vignette);
-		
+
 		blank = new FlxSprite();
 		blank.loadGraphic(Paths.image('mainmenu/blank'));
 		blank.scrollFactor.set();
 		blank.color = 0xFFFF8A00;
 		add(blank);
 
-		
+
 		text1 = new FlxBackdrop(Paths.image('mainmenu/text1'), X, 0, 0);
 		text1.scale.set(0.55, 0.55);
 		text1.y -= 20;
 		text1.scrollFactor.set(0, 0);
 		add(text1);
-		
+
 		text2 = new FlxBackdrop(Paths.image('mainmenu/text2'), X, 0, 0);
 		text2.scale.set(0.55, 0.55);
 		text2.y += 660;
@@ -154,7 +154,7 @@ class MainMenuState extends MusicBeatState
 		add(magenta);
 
 		FlxG.mouse.visible = true;
-				
+
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 
 		if (CoolUtil.songsUnlocked == null){
@@ -240,7 +240,7 @@ class MainMenuState extends MusicBeatState
 		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem();
-		
+
 		super.create();
 	}
 
@@ -315,9 +315,10 @@ class MainMenuState extends MusicBeatState
 			if (controls.UI_UP_P || controls.UI_DOWN_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-				var targetOption:Int = 3;
-				if (curSelected >= 3) targetOption = 0;
-					
+				var targetOption:Int = curSelected + 3;
+				if (curSelected > 2) targetOption = curSelected - 3;
+				if (curSelected == 1 || curSelected == 2 && !CoolUtil.songsUnlocked.data.mainWeek) targetOption = 4;
+
 				changeItem(targetOption-curSelected);
 			}
 
@@ -332,7 +333,7 @@ class MainMenuState extends MusicBeatState
 			{
 				loadState();
 			}
-			
+
 			#if desktop
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
@@ -344,32 +345,32 @@ class MainMenuState extends MusicBeatState
 			menuItems.forEach(function(spr:FlxSprite)
 			{
 				if (FlxG.mouse.overlaps(spr) && !selectedSomethin && spr.ID != recentMouseOption)
-				{			
+				{
 					curSelected = spr.ID;
 
 					changeItem();
 					recentMouseOption = curSelected;
 				}
-				
+
 				if (FlxG.mouse.justPressed){
 					FlxG.sound.play(Paths.sound('mouseClick'));
 					loadState();
 				}
-				
+
 				if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();
 				spr.alpha = 0.5;
 				spr.updateHitbox();
-						
+
 				if (spr.ID != curSelected){
 					spr.scale.x += (0.25-spr.scale.x)/(250*elapsed);
 					spr.scale.y = spr.scale.x;
 				}else{
 					spr.shader = removeShaderHandler;
 					spr.alpha = 1;
-			
+
 					spr.scale.x += (0.3-spr.scale.x)/(250*elapsed);
 					spr.scale.y = spr.scale.x;
-			
+
 					spr.centerOffsets();
 				}
 			});
@@ -407,7 +408,7 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 	}
-	
+
 	function loadState()
 	{
 		selectedSomethin = true;
@@ -427,7 +428,7 @@ class MainMenuState extends MusicBeatState
 			}
 			else
 			{
-				
+
 				new FlxTimer().start(1.5, function(tmr:FlxTimer)
 				{
 					var daChoice:String = optionShit[curSelected];
@@ -443,7 +444,7 @@ class MainMenuState extends MusicBeatState
 						case 'art_gallery':
 							MusicBeatState.switchState(new FanArtState());
 						case 'credits':
-							MusicBeatState.switchState(new CreditsState());
+							MusicBeatState.switchState(new TCOCreditsState());
 						case 'options':
 							LoadingState.loadAndSwitchState(new options.OptionsState());
 						case 'vault':
@@ -452,7 +453,7 @@ class MainMenuState extends MusicBeatState
 					}
 				});
 			}
-			
+
 			/*if (curSelected == spr.ID)
 			{
 				spr.acceleration.y = 5550;
@@ -469,55 +470,55 @@ class MainMenuState extends MusicBeatState
 			curSelected = 0;
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
-		
+
 		if(colorTween != null) {
 			colorTween.cancel();
 		}
-		
+
 		switch(optionShit[curSelected])
 		{
 			case 'storymode':
-				
+
 				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFFF7E00, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 			case 'freeplay':
-				
+
 				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF0AB5FF, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 			case 'credits':
-				
+
 				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF4EFF00, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 			case 'art_gallery':
-				
+
 				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFEAFF00, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 			case 'options':
-				
+
 				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFFF0000, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 			case 'vault':
-				
+
 				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF5E4F4F, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;

@@ -441,7 +441,7 @@ class ChartingState extends MusicBeatState
 	{
 		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
 		blockPressWhileTypingOn.push(UI_songTitle);
-		
+
 		UI_composerTitle = new FlxUIInputText(80, 100, 70, _song.composer, 8);
 		blockPressWhileTypingOn.push(UI_composerTitle);
 
@@ -480,7 +480,7 @@ class ChartingState extends MusicBeatState
 							loadSong = false;
 						}
 					}
-					
+
 				}
 				if (songName == 'redzone-error' || songName == 'redzone error') {
 					Application.current.window.alert("Hint: It's something in the main menu", "Try getting to this song another way!");
@@ -726,11 +726,11 @@ class ChartingState extends MusicBeatState
 		check_gfSection.name = 'check_gf';
 		check_gfSection.checked = _song.notes[curSec].gfSection;
 		// _song.needsVoices = check_mustHit.checked;
-		
+
 		check_bf2Section = new FlxUICheckBox(10, check_mustHitSection.y + 52, null, null, "BF 2 section", 100);
 		check_bf2Section.name = 'check_bf2';
 		check_bf2Section.checked = _song.notes[curSec].bf2Section;
-		
+
 		check_bf3Section = new FlxUICheckBox(check_gfSection.x + 120, check_mustHitSection.y + 52, null, null, "BF 3 section", 100);
 		check_bf3Section.name = 'check_bf3';
 		check_bf3Section.checked = _song.notes[curSec].bf3Section;
@@ -856,7 +856,7 @@ class ChartingState extends MusicBeatState
 		});
 		clearSectionButton.color = FlxColor.RED;
 		clearSectionButton.label.color = FlxColor.WHITE;
-		
+
 		check_notesSec = new FlxUICheckBox(10, clearSectionButton.y + 25, null, null, "Notes", 100);
 		check_notesSec.checked = true;
 		check_eventsSec = new FlxUICheckBox(check_notesSec.x + 100, check_notesSec.y, null, null, "Events", 100);
@@ -911,7 +911,7 @@ class ChartingState extends MusicBeatState
 		});
 		copyLastButton.setGraphicSize(80, 30);
 		copyLastButton.updateHitbox();
-		
+
 		stepperCopy = new FlxUINumericStepper(copyLastButton.x + 100, copyLastButton.y, 1, 1, -999, 999, 0);
 		blockPressWhileTypingOnStepper.push(stepperCopy);
 
@@ -1020,7 +1020,7 @@ class ChartingState extends MusicBeatState
 		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/custom_notetypes/'));
 		#end
-		
+
 		directories.push('assets/custom_notetypes/');
 
 		for (i in 0...directories.length) {
@@ -1386,7 +1386,7 @@ class ChartingState extends MusicBeatState
 		voicesVolume.value = vocals.volume;
 		voicesVolume.name = 'voices_volume';
 		blockPressWhileTypingOnStepper.push(voicesVolume);
-		
+
 		#if !html5
 		sliderRate = new FlxUISlider(this, 'playbackSpeed', 120, 120, 0.5, 3, 150, null, 5, FlxColor.WHITE, FlxColor.BLACK);
 		sliderRate.nameLabel.text = 'Playback Rate';
@@ -1489,13 +1489,13 @@ class ChartingState extends MusicBeatState
 
 					updateGrid();
 					updateHeads();
-					
+
 				case 'BF 2 section':
 					_song.notes[curSec].bf2Section = check.checked;
 
 					updateGrid();
 					updateHeads();
-					
+
 				case 'BF 3 section':
 					_song.notes[curSec].bf3Section = check.checked;
 
@@ -2215,7 +2215,7 @@ class ChartingState extends MusicBeatState
 		}
 		else nextGridBG = new FlxSprite().makeGraphic(1, 1, FlxColor.TRANSPARENT);
 		nextGridBG.y = gridBG.height;
-		
+
 		gridLayer.add(nextGridBG);
 		gridLayer.add(gridBG);
 
@@ -2540,7 +2540,7 @@ class ChartingState extends MusicBeatState
 			var blah1:Float = getSectionBeats();
 			var blah2:Float = getSectionBeats(curSec + 1);
 			if(sectionStartTime(1) > FlxG.sound.music.length) blah2 = 0;
-	
+
 			if(blah1 != lastSecBeats || blah2 != lastSecBeatsNext)
 			{
 				reloadGridLayer();
@@ -2838,7 +2838,6 @@ class ChartingState extends MusicBeatState
 			bf2Section: false,
 			bf3Section: false,
 			sectionNotes: [],
-			typeOfSection: 0,
 			altAnim: false
 		};
 
@@ -3018,7 +3017,7 @@ class ChartingState extends MusicBeatState
 		if(!doZoomCalc) leZoom = 1;
 		return FlxMath.remapToRange(strumTime, 0, 16 * Conductor.stepCrochet, gridBG.y, gridBG.y + gridBG.height * leZoom);
 	}
-	
+
 	function getYfromStrumNotes(strumTime:Float, beats:Float):Float
 	{
 		var value:Float = strumTime / (beats * 4 * Conductor.stepCrochet);
@@ -3148,7 +3147,7 @@ class ChartingState extends MusicBeatState
 	{
 		if (section == null) section = curSec;
 		var val:Null<Float> = null;
-		
+
 		if(_song.notes[section] != null) val = _song.notes[section].sectionBeats;
 		return val != null ? val : 4;
 	}

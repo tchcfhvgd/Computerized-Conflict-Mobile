@@ -62,7 +62,7 @@ class TitleState extends MusicBeatState
 	var scrollingThing:FlxBackdrop;
 	var chosenTDL:FlxSprite;
 	var socialItems:FlxTypedGroup<FlxSprite>;
-	
+
 	var socialMedia:Array<String> = [
 		'twitter',
 		'gamebanana',
@@ -71,7 +71,7 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
-	
+
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
 
@@ -212,17 +212,17 @@ class TitleState extends MusicBeatState
 		bg.loadGraphic(Paths.image('title/background'));
 		bg.alpha = 0;
 		add(bg);
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.5));
 		scrollingThing.alpha = 0;
 		add(scrollingThing);
-		
+
 		vignette = new FlxSprite();
 		vignette.loadGraphic(Paths.image('title/vignette'));
 		vignette.alpha = 0;
 		add(vignette);
-		
+
 		bluething = new FlxSprite();
 		bluething.loadGraphic(Paths.image('title/shit'));
 		bluething.alpha = 0;
@@ -239,7 +239,7 @@ class TitleState extends MusicBeatState
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 		add(logoBl);
-		
+
 		chosenTDL = new FlxSprite(-800);
 		chosenTDL.frames = Paths.getSparrowAtlas('title/ChosenTDL-title');
 		chosenTDL.animation.addByPrefix('idle', 'ChosenTDL title', 24, false);
@@ -250,10 +250,10 @@ class TitleState extends MusicBeatState
 		titleText.borderSize = 2;
 		titleText.alpha = 0;
 		add(titleText);
-		
+
 		socialItems = new FlxTypedGroup<FlxSprite>();
 		add(socialItems);
-		
+
 		for (i in 0...socialMedia.length)
 		{
 			var socialItem:FlxSprite = new FlxSprite(803, 621);
@@ -264,8 +264,8 @@ class TitleState extends MusicBeatState
 			socialItems.add(socialItem);
 			socialItem.antialiasing = ClientPrefs.globalAntialiasing;
 		}
-		
-		
+
+
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
 		logo.screenCenter();
@@ -316,7 +316,7 @@ class TitleState extends MusicBeatState
 
 	var transitioning:Bool = false;
 	private static var playJingle:Bool = false;
-	
+
 	var newTitle:Bool = false;
 	var titleTimer:Float = 0;
 
@@ -329,7 +329,7 @@ class TitleState extends MusicBeatState
 				if (FlxG.mouse.overlaps(socialItems) && FlxG.mouse.justPressed)
 				{
 					FlxG.sound.play(Paths.sound('mouseClick'));
-					
+
 					switch(i)
 					{
 						case 0:
@@ -342,7 +342,7 @@ class TitleState extends MusicBeatState
 				}
 			}
 		}
-		
+
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
@@ -371,7 +371,7 @@ class TitleState extends MusicBeatState
 				pressedEnter = true;
 			#end
 		}
-		
+
 		if (newTitle) {
 			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
 			if (titleTimer > 2) titleTimer -= 2;
@@ -386,13 +386,13 @@ class TitleState extends MusicBeatState
 				var timer:Float = titleTimer;
 				if (timer >= 1)
 					timer = (-timer) + 2;
-				
+
 				timer = FlxEase.quadInOut(timer);
-				
+
 				titleText.color = FlxColor.interpolate(titleTextColors[0], titleTextColors[1], timer);
 				titleText.alpha = FlxMath.lerp(titleTextAlphas[0], titleTextAlphas[1], timer);
 			}
-			
+
 			if(pressedEnter)
 			{
 				titleText.color = FlxColor.WHITE;
@@ -419,7 +419,7 @@ class TitleState extends MusicBeatState
 		{
 			skipIntro();
 		}
-		
+
 		if (initialized)
 		{
 			scrollingThing.x -= 0.45 * 60 * elapsed;
@@ -471,10 +471,10 @@ class TitleState extends MusicBeatState
 
 		if(logoBl != null)
 			logoBl.animation.play('bump', true);
-			
+
 		if(chosenTDL != null)
 			chosenTDL.animation.play('idle', true);
-			
+
 		FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 
 		if(!closedState) {
@@ -506,7 +506,7 @@ class TitleState extends MusicBeatState
 				case 13:
 					if(!skippedIntro) FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.45);
 					if (credGroup != null) remove(credGroup);
-					
+
 					if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: 0 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 				case 14:
 					if (logoBl != null) FlxTween.tween(logoBl, { x: 550 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
@@ -585,17 +585,17 @@ class TitleState extends MusicBeatState
 				bg.alpha = 1;
 				titleText.alpha = 1;
 				socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);
-				
+
 				FlxG.mouse.visible = true;
-				
+
 				FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
-				
+
 		        if (chosenTDL != null)
 		            FlxTween.tween(chosenTDL, { y: -10 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
-			
+
 		        if (logoBl != null)
 		            FlxTween.tween(logoBl, { y: -45 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
-			
+
 		        if (titleText != null)
 		            FlxTween.tween(titleText, { y: 495 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 

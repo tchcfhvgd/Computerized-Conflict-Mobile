@@ -47,7 +47,7 @@ class FreeplayMenu extends MusicBeatState
 		'cover',
 		'old'
 	];
-	
+
 	var weeks:Array<Array<String>> = [
 		['Chapter 1'],
 		['Tutorial Week', 'Extras', 'Secret'],
@@ -57,8 +57,8 @@ class FreeplayMenu extends MusicBeatState
 	var selectedSmth:Bool = false;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
-	
-	
+
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -67,28 +67,28 @@ class FreeplayMenu extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Freeplay Menu", null);
 		#end
-		
+
 		bg = new FlxSprite().loadGraphic(Paths.image('freeplayArt/selectMenu/bgAngled'));
 		bg.scrollFactor.set();
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
+
 		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.alpha = 0.8;
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.4));
 		add(scrollingThing);
-		
+
 		vignette = new FlxSprite();
 		vignette.loadGraphic(Paths.image('freeplayArt/selectMenu/vignette'));
 		vignette.scrollFactor.set();
 		add(vignette);
-		
+
 		folderGroup = new FlxTypedGroup<FlxSprite>();
 		add(folderGroup);
-		
+
 		for (i in 0...folders.length)
 		{
 			var folderItem:FlxSprite = new FlxSprite(150, (i * 330)  + 70);
@@ -97,7 +97,7 @@ class FreeplayMenu extends MusicBeatState
 			folderItem.scrollFactor.set(0, 1);
 			folderGroup.add(folderItem);
 			folderItem.antialiasing = ClientPrefs.globalAntialiasing;
-			
+
 			switch(i)
 			{
 				case 2:
@@ -105,59 +105,59 @@ class FreeplayMenu extends MusicBeatState
 			}
 			folderItem.updateHitbox();
 		}
-		
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
-		
+
 		scrollingText1 = new FlxBackdrop(Paths.image('mainmenu/text1'), X, 0, 0);
 		scrollingText1.scale.set(0.55, 0.55);
 		scrollingText1.y -= 20;
 		scrollingText1.scrollFactor.set(0, 0);
 		add(scrollingText1);
-		
+
 		scrollingText2 = new FlxBackdrop(Paths.image('mainmenu/text2'), X, 0, 0);
 		scrollingText2.scale.set(0.55, 0.55);
 		scrollingText2.y += 660;
 		scrollingText2.scrollFactor.set(0, 0);
 		add(scrollingText2);
-		
+
 		littleBar = new FlxSprite();
 		littleBar.loadGraphic(Paths.image('freeplayArt/selectMenu/bar'));
 		littleBar.scrollFactor.set();
 		add(littleBar);
-		
+
 		freeplayMenuText = new FlxSprite();
 		freeplayMenuText.loadGraphic(Paths.image('freeplayArt/selectMenu/freeplay-text'));
 		freeplayMenuText.scrollFactor.set();
 		add(freeplayMenuText);
-		
+
 		infoBar = new FlxSprite();
 		infoBar.loadGraphic(Paths.image('freeplayArt/selectMenu/textShit'));
 		infoBar.scrollFactor.set();
 		add(infoBar);
-		
+
 		FlxG.camera.follow(camFollowPos, null, 1);
-		
+
 		changeItem();
 
 		Paths.clearUnusedMemory();
-		
+
 		super.create();
 	}
-	
+
 	override function update(elapsed:Float)
 	{
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
-		
+
 		scrollingText1.x -= 0.45 * 60 * elapsed;
 		scrollingText2.x -= 0.45 * 60 * elapsed;
-		
+
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
-		
+
 		folderGroup.forEach(function(spr:FlxSprite){
 			switch(spr.ID){
 				case 0:
@@ -185,9 +185,9 @@ class FreeplayMenu extends MusicBeatState
 
 			spr.updateHitbox();
 		});
-		
+
 		//folderGroup.forEach(function(folderItem:FlxSprite) folderItem.x = 150);
-		
+
 		if (!selectedSmth)
 		{
 			if (controls.UI_UP_P)
@@ -214,12 +214,12 @@ class FreeplayMenu extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 			}
-			
+
 			if (controls.ACCEPT)
 			{
 				selectedSmth = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
-				
+
 				folderGroup.forEach(function(spr:FlxSprite)
 				{
 					if (curSelected != spr.ID)
@@ -232,18 +232,18 @@ class FreeplayMenu extends MusicBeatState
 							}
 						});
 					}
-					
+
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
 						MusicBeatState.switchState(new FreeplayState(weeks[curSelected]));
 					});
 				});
-		    }
+			}
 		}
-			
+
 		super.update(elapsed);
 	}
-	
+
 	function changeItem(huh:Int = 0)
 	{
 		curSelected += huh;
@@ -252,18 +252,18 @@ class FreeplayMenu extends MusicBeatState
 			curSelected = 0;
 		if (curSelected < 0)
 			curSelected = folderGroup.length - 1;
-			
+
 
 		folderGroup.forEach(function(spr:FlxSprite)
 		{
 			spr.alpha = 0.5;
 			//spr.updateHitbox();
-			
+
 			if (spr.ID == curSelected)
 			{
 				spr.alpha = 1;
 				var add:Float = 0;
-				
+
 				if(folderGroup.length > 4) {
 					add = folderGroup.length * 8;
 				}

@@ -45,7 +45,7 @@ class CutsceneState extends MusicBeatState
 	public var videoName:String;
 	public var endingCutscene:Bool = false;
 	public var isIntro:Bool = false;
-	
+
 	public function new(videoName:String, isEnd:Bool, ?finishCallback:Void->Void)
 	{
 		super();
@@ -55,19 +55,19 @@ class CutsceneState extends MusicBeatState
 
 		this.videoName = videoName;
 	}
-	
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
-		
+
 		startVideo(videoName + '-cutscene');
 	}
-	
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 	}
-	
+
 	public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
@@ -94,7 +94,7 @@ class CutsceneState extends MusicBeatState
 		goToState();
 		#end
 	}
-	
+
 	function goToState()
 	{
 		LoadingState.loadAndSwitchState(new PlayState());
