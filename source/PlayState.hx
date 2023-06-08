@@ -3900,11 +3900,11 @@ class PlayState extends MusicBeatState
 				case 'phantasm':
 					
 					playerStrums.forEach(function(spr:StrumNote) {
-						if (!ClientPrefs.middleScroll) spr.x -= 368;
+						if (!ClientPrefs.middleScroll) spr.x -= 412;
 					});
 					
-						opponentStrums.forEach(function(spr:StrumNote) {
-						 spr.x -= 5000;
+					opponentStrums.forEach(function(spr:StrumNote) {
+						spr.x -= 5000;
 					});
 					
 					iconP2.alpha = 0;
