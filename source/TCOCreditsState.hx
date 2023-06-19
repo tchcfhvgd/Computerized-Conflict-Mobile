@@ -68,13 +68,58 @@ class TCOCreditsState extends MusicBeatState
 		CustomFadeTransition.nextCamera = camTexts;
 
 		credits = [
+			//Tco Dev Team
+			
 			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, ""),
-			new CreditsMetadata("Jet", "jet", "Director 2"),
-			new CreditsMetadata("Jet", "jet", "Director 3"),
-			new CreditsMetadata("Jet", "jet", "Director 4"),
-			new CreditsMetadata("Jet", "jet", "Director 5"),
-			new CreditsMetadata("Jet", "jet", "Director 6"),
-			new CreditsMetadata("Jet", "jet", "Director 7"),
+			new CreditsMetadata("MijaeLio", "mijae", "Main Coder", 0xFF5F5D5D),
+			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000),
+			new CreditsMetadata("Ne_Eo", "no-icon", "Coder", 0xFF8A8484),
+			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, ""),
+			new CreditsMetadata("joa", "joa", "Musician", 0xFF0000FF, ""),
+			new CreditsMetadata("SharkFaceGaming", "shark", "Musician", 0xFF4ECDFF, ""),
+			new CreditsMetadata("ExpKing", "Jace", "Musician", 0xFF0000FF, ""),
+			new CreditsMetadata("TheNatz", "no-icon", "Musician", 0xFFFF7B22, ""),
+			new CreditsMetadata("Prod.kxri", "prodkxri", "Musician", 0xFFFF0000, ""),
+			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, ""),
+			new CreditsMetadata("Magbros.ogg", "magbros", "Musician", 0xFFFF7B22, ""),
+			new CreditsMetadata("Splat", "splat", "Sprite Artist", 0xFF6D6767, ""),
+			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, ""),
+			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, ""),
+			new CreditsMetadata("Dittosactualoreo", "Ditto", "Sprite/Background Artist", 0xFFFF00AA, ""),
+			new CreditsMetadata("12kNoodles", "no-icon", "Background Artist", 0xFFFF3CBE, ""),
+			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, ""),
+			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, ""),
+			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, ""),
+			new CreditsMetadata("Hexal", "no-icon", "Cutscene Maker (Outrage and End Process)", 0xFF585454, ""),
+			new CreditsMetadata("Xyriax", "xyriax", "Insane difficulty charter (some charts are made by Jet tho)", 0xFF0000FF, ""),
+			new CreditsMetadata("Shammal", "shammal", "Extra Charter", 0xFF7AFF7A, ""),
+			new CreditsMetadata("LeLazyOne", "lelazyone", "trailer editor", 0xFFFFBA7A, ""),
+
+			//Contributers (no icons)
+			//Also try making credit sections if you can lol
+
+			new CreditsMetadata("Scorpzie", "", "Original vocals for \"Old Adobe\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("XG_Chris", "", "Old Artist", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Cheese Farmer", "", "Old Sprite Artist", 0xFFFFFFFF, ""),
+			new CreditsMetadata("ROCKY", "", "\"Dashpulse\" vocals composer", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Deltom", "", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("atpx8", "", "Helped with the End Process pop-ups mechanic", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Tentilog", "", "3D Black STICK Sprite", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Koi", "", "Rombie BG Artist", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Blonic", "", "Logo Artist", 0xFFFFFFFF, ""),
+
+			//Special Thanks (no icons)
+
+			new CreditsMetadata("Alan Becker", "", "Creator of \"Aniamtion Vs Aniamtion\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Biddle3", "", "Original composer of \"Phantasm\"", 0xFFFFFFFF, ""),
+			//the Aurora cover is for the hotfix
+			//new CreditsMetadata("Armydillo", "", "Original composer of \"Aurora\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Azel", "", "Creator of FNF: The Showdown mod (collab)", 0xFFFFFFFF, ""),
+			new CreditsMetadata("TzenNime", "", "Cool BF Sprite", 0xFFFFFFFF, ""),
+
+
+			//new CreditsMetadata("", "jet", "", 0xFF, ""),
 		];
 
 		bg = new FlxSprite().loadGraphic(Paths.image('creditsmenu/background'));
@@ -148,7 +193,7 @@ class TCOCreditsState extends MusicBeatState
 			creditText.outlineCameras = [camDefault];
 			creditText.cameras = [camTexts];
 
-			var icon = new AttachedSprite("credits/" + credits[i].icon);
+			var icon = new AttachedSprite("creditsmenu/icons/" + credits[i].icon);
 			icon.sprTracker = creditText.letters[0];
 			icon.yAdd = -100;
 			icon.xAdd = -320;
@@ -312,7 +357,8 @@ class CreditsMetadata
 	public function new(name:String, icon:String, desc:String, color:FlxColor = 0xffffff, link:String = "")
 	{
 		this.name = name;
-		this.icon = icon;
+		if (icon == "") this.icon = "no";
+		else this.icon = icon;
 		this.desc = desc;
 		this.color = color;
 		this.link = link;
