@@ -86,7 +86,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, ""),
 			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, ""),
 			new CreditsMetadata("Dittosactualoreo", "Ditto", "Sprite/Background Artist", 0xFFFF00AA, ""),
-			new CreditsMetadata("12kNoodles", "no-icon", "Background Artist", 0xFFFF3CBE, ""),
+			new CreditsMetadata("12kNoodles", "noodles", "Background Artist", 0xFFFF3CBE, ""),
 			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, ""),
 			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, ""),
 			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, ""),
