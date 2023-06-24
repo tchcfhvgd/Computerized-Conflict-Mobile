@@ -73,7 +73,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, ""),
 			new CreditsMetadata("MijaeLio", "mijae", "Main Coder", 0xFF5F5D5D),
 			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000),
-			new CreditsMetadata("Ne_Eo", "no-icon", "Coder", 0xFF8A8484),
+			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF8A8484),
 			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, ""),
 			new CreditsMetadata("joa", "joa", "Musician", 0xFF0000FF, ""),
 			new CreditsMetadata("SharkFaceGaming", "shark", "Musician", 0xFF4ECDFF, ""),
