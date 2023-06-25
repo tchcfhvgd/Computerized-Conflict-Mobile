@@ -433,7 +433,8 @@ class TitleState extends MusicBeatState
 	{
 		for (i in 0...textArray.length)
 		{
-			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
+			var money:FlxText = new FlxText(0, 0, FlxG.width, textArray[i], 48);
+			money.setFormat("phantommuff.ttf", 48, FlxColor.WHITE, CENTER);
 			money.screenCenter(X);
 			money.y += (i * 60) + 200 + offset;
 			if(credGroup != null && textGroup != null) {
@@ -446,7 +447,8 @@ class TitleState extends MusicBeatState
 	function addMoreText(text:String, ?offset:Float = 0)
 	{
 		if(textGroup != null && credGroup != null) {
-			var coolText:Alphabet = new Alphabet(0, 0, text, true);
+			var coolText:FlxText = new FlxText(0, 0, FlxG.width, text, 48);
+			coolText.setFormat("phantommuff.ttf", 48, FlxColor.WHITE, CENTER);
 			coolText.screenCenter(X);
 			coolText.y += (textGroup.length * 60) + 200 + offset;
 			credGroup.add(coolText);
@@ -486,21 +488,29 @@ class TitleState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['Psych Engine by'], 15);
+					createCoolText(['A lot of people'], 15);
+				case 3:
+					addMoreText('proudly presents...', 15);
 				case 4:
-					addMoreText('Shadow Mario', 15);
-					addMoreText('RiverOaken', 15);
-					addMoreText('shubs', 15);
-				case 5:
 					deleteCoolText();
+					createCoolText(['After 1 year and more of work'], 15);
+				case 5:
+					addMoreText('Its finally here...', 15);
 				case 6:
-					createCoolText(['It\'s finally here', 'yeah'], -40);
+					deleteCoolText();
+					createCoolText(['Animation vs.'], -40);
+				case 7:
+					addMoreText('by: Alan Becker', -40);
 				case 8:
 					deleteCoolText();
+					createCoolText(['The ultimate stickfigure mod?'], 15);
 				case 9:
-					createCoolText(['A mod by a lot of people'], 15);
+					addMoreText('Idk maybe', 15);
 				case 10:
-					addMoreText('I think', 15);
+					deleteCoolText();
+					createCoolText(['Vs. The Chosen One?'], 15);
+				case 11:
+					addMoreText('More like...', 15);
 				case 12:
 					deleteCoolText();
 				case 13:

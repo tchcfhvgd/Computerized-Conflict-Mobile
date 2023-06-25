@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				63,
 				0
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Samright",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Samright"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 16,
-			"name": "Samidle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Samidle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				87,
 				-17
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 16,
-			"name": "Samleft",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Samleft"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				20,
 				-1
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 16,
-			"name": "Samdown",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Samdown"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				74,
 				-7
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 16,
-			"name": "Samup",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Samup"
 		}
 	],
 	"no_antialiasing": false,
@@ -65,9 +65,9 @@
 	"healthicon": "mcsam",
 	"flip_x": false,
 	"healthbar_colors": [
-		0,
-		0,
-		0
+		20,
+		20,
+		20
 	],
 	"camera_position": [
 		0,

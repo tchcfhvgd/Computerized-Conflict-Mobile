@@ -26,6 +26,16 @@ import flixel.addons.display.FlxBackdrop;
 import sys.FileSystem;
 #end
 
+import openfl.display.Shader;
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
+import Shaders;
+
+#if !flash
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
+
 using StringTools;
 
 class FreeplayState extends MusicBeatState
@@ -60,6 +70,9 @@ class FreeplayState extends MusicBeatState
 	var barName:FlxSprite;
 	var arrow:FlxSprite;
 	var flippedArrow:FlxSprite;
+	
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 
@@ -220,6 +233,8 @@ class FreeplayState extends MusicBeatState
 		changeDiff();
 
 		super.create();
+		
+		FlxG.camera.setFilters([shaderFilter]);
 
 		for (key => type in precacheList)
 		{

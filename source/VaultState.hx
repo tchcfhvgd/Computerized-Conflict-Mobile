@@ -28,6 +28,18 @@ import sys.FileSystem;
 import sys.io.File;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.ui.FlxInputText;
+import Shaders;
+
+import openfl.display.Shader;
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
+import Shaders;
+
+#if !flash
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
+
 
 class VaultState extends MusicBeatState
 {
@@ -45,6 +57,9 @@ class VaultState extends MusicBeatState
 	var scrollingThing:FlxBackdrop;
 	var modesText:FlxText;
 	var curDifficulty = 1;
+	var whiteScreen:FlxSprite;
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
 
 	public static var codesAndShit:Array<Array<String>> = [
 		['videos', 'Tune In'],
@@ -126,6 +141,15 @@ class VaultState extends MusicBeatState
 		modesText.alpha = 1;
 		add(modesText);
 
+		whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+		whiteScreen.scrollFactor.set();
+		whiteScreen.screenCenter();
+		whiteScreen.alpha = 0;
+		add(whiteScreen);
+		
+		FlxG.camera.shake(0.035, 7);
+		FlxTween.tween(whiteScreen, {alpha:1}, 3);
+					
 		inputText.callback = function(text, action)
 		{
 			if (action == 'enter')
@@ -188,6 +212,8 @@ class VaultState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		FlxG.mouse.unload();
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
+		
+		FlxG.game.setFilters([shaderFilter]);
 
 		super.create();
 	}

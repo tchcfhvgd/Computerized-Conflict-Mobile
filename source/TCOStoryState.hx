@@ -35,14 +35,15 @@ class TCOStoryState extends MusicBeatState
 	var scoreText:FlxText;
 	var weekName:FlxText;
 	var bgSprite:FlxSprite;
-	var border:FlxSprite;
-	var bgSpriteFire:FlxSprite;
-	var chosenOne:FlxSprite;
 	var fires:FlxSprite;
-	var sprDifficulty:FlxSprite;
-	var diff:String;
 	var scrollingThing:FlxBackdrop;
-	var vignette:FlxSprite;
+	var upperBar:FlxSprite;
+	var downBar:FlxSprite;
+	var circleTiles:FlxSprite;
+	var songsBG:FlxSprite;
+	var weekImages:FlxSprite;
+	var diff:String;
+	var sprDifficulty:FlxSprite;
 
 	public var camGame:FlxCamera;
 	public var camGameShaders:Array<ShaderEffect> = [];
@@ -86,48 +87,22 @@ class TCOStoryState extends MusicBeatState
 		trace(checkpointSystemON);
 		trace(FlxG.save.data.checkpoint);
 
-		border = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/border'));
-		border.updateHitbox();
-		border.screenCenter();
-		border.antialiasing = ClientPrefs.globalAntialiasing;
-		border.color = 0xFF111111;
-
-		outline = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/outline'));
-		outline.updateHitbox();
-		outline.screenCenter();
-		outline.antialiasing = ClientPrefs.globalAntialiasing;
-
-		vignette = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/vignette'));
-		vignette.updateHitbox();
-		vignette.screenCenter();
-		vignette.antialiasing = ClientPrefs.globalAntialiasing;
-
-		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
-		scrollingThing.scrollFactor.set(0, 0.07);
-		scrollingThing.color = 0xFF0E0E0E;
-
-		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
-
-		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/ui/week1BG'));
+		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/week1BG'));
 		bgSprite.updateHitbox();
 		bgSprite.screenCenter();
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
-
-		//fuck
-
-		chosenOne = new FlxSprite();
-		chosenOne.frames = Paths.getSparrowAtlas('storymenu/tcoStoryMode');
-		chosenOne.animation.addByPrefix('simple', 'ChosenSimple', 24, true);
-		chosenOne.animation.addByPrefix('hard', 'ChosenHard', 24, true);
-		chosenOne.animation.addByPrefix('insane', 'ChosenInsane', 24, true);
-		chosenOne.animation.play('simple');
-		chosenOne.setGraphicSize(Std.int(chosenOne.width * 0.8));
-		chosenOne.updateHitbox();
-		chosenOne.screenCenter();
-		chosenOne.y += 100;
-		chosenOne.x += 270;
-		chosenOne.antialiasing = ClientPrefs.globalAntialiasing;
-
+		
+		scrollingThing = new FlxBackdrop(Paths.image('storymenu/scroll'), XY, 0, 0);
+		scrollingThing.scrollFactor.set(0, 0.07);
+		
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		scrollingThing.alpha = 0.85;
+		
+		circleTiles = new FlxSprite().loadGraphic(Paths.image('storymenu/circlesTiles'));
+		circleTiles.updateHitbox();
+		circleTiles.screenCenter();
+		circleTiles.antialiasing = ClientPrefs.globalAntialiasing;
+		
 		fires = new FlxSprite();
 		fires.frames = Paths.getSparrowAtlas('storymenu/StoryMenuFire');
 		fires.animation.addByPrefix('tCoGoesInsane', 'StoryMenuFire', 24, true);
@@ -138,28 +113,33 @@ class TCOStoryState extends MusicBeatState
 		fires.y += 200;
 		fires.alpha = 0;
 		fires.antialiasing = ClientPrefs.globalAntialiasing;
-
-		add(border);
-		add(scrollingThing);
-		add(outline);
-		add(vignette);
+		
+		upperBar = new FlxSprite().loadGraphic(Paths.image('storymenu/upperBar'));
+		upperBar.updateHitbox();
+		upperBar.screenCenter();
+		upperBar.antialiasing = ClientPrefs.globalAntialiasing;
+		
+		downBar = new FlxSprite().loadGraphic(Paths.image('storymenu/downBar'));
+		downBar.updateHitbox();
+		downBar.screenCenter();
+		downBar.antialiasing = ClientPrefs.globalAntialiasing;
+		
+		songsBG = new FlxSprite().loadGraphic(Paths.image('storymenu/songBG'));
+		songsBG.updateHitbox();
+		songsBG.screenCenter();
+		songsBG.antialiasing = ClientPrefs.globalAntialiasing;
+		
 		add(bgSprite);
+		add(scrollingThing);
+		add(circleTiles);
 		add(fires);
-		add(chosenOne);
+		add(upperBar);
+		add(downBar);
+		add(songsBG);
 
-		sprDifficulty = new FlxSprite();
+		sprDifficulty = new FlxSprite(0, 200);
 		add(sprDifficulty);
-
-		//CoolUtil.difficulties = CoolUtil.storyDifficulties.copy();
-
-		/*if(lastDifficultyName == '')
-		{
-			for(i in 0...difficulties.length) lastDifficultyName = difficulties[i];
-		}
-		for(i in 0...difficulties.length) curDifficulty = Math.round(Math.max(0, difficulties[i].indexOf(lastDifficultyName)));*/
-
-		//curDifficulty2 = Math.round(Math.max(0, CoolUtil.storyDifficultiesCOPY.indexOf(lastDifficultyName)));
-
+		
 		//couldn't get the cameras to work
 		if (checkpointSystemON){
 			blackThing = new FlxSpriteExtra();
@@ -295,6 +275,12 @@ class TCOStoryState extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('intro', 'Intro' + diff, 24, false);
 		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
 		sprDifficulty.animation.play('intro');
+		
+		weekImages = new FlxSprite().loadGraphic(Paths.image('storymenu/chapterImages/w1-' + difficulties[curDifficulty]));
+		weekImages.updateHitbox();
+		weekImages.screenCenter();
+		weekImages.antialiasing = ClientPrefs.globalAntialiasing;
+		add(weekImages);
 
 		var offsetX:Int = 0;
 		var offsetY:Int = 0;
@@ -305,16 +291,11 @@ class TCOStoryState extends MusicBeatState
 		sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
 		sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
 
-		chosenOne.screenCenter();
-
 		switch(curDifficulty)
 		{
 			case 0:
 				sprDifficulty.animation.play('intro');
 				FlxG.cameras.flash(FlxColor.BLACK, 0.50);
-				chosenOne.animation.play('simple');
-				chosenOne.y += 100;
-				chosenOne.x += 270;
 				fires.alpha = 0;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
 				if (!onInsane) bgSprite.color = FlxColor.WHITE;
@@ -326,9 +307,6 @@ class TCOStoryState extends MusicBeatState
 			case 1:
 				sprDifficulty.animation.play('intro');
 				FlxG.cameras.flash(FlxColor.WHITE, 0.50);
-				chosenOne.animation.play('hard');
-				chosenOne.y += 100;
-				chosenOne.x += 290;
 				fires.alpha = 0;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
 				if (!onInsane) bgSprite.color = FlxColor.WHITE;
@@ -340,9 +318,6 @@ class TCOStoryState extends MusicBeatState
 			case 2:
 				sprDifficulty.animation.play('intro');
 		        FlxG.cameras.flash(FlxColor.RED, 0.50);
-				chosenOne.animation.play('insane');
-				chosenOne.y -= 50;
-				chosenOne.x += 270;
 				fires.alpha = 1;
 				onInsane = true;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, 0xFF2C2425);
