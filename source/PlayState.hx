@@ -1938,14 +1938,31 @@ class PlayState extends MusicBeatState
 					var backgroundAnim:BGSprite = new BGSprite('old/bg', -650, -500, 0.9, 0.9);
 					backgroundAnim.setGraphicSize(Std.int(backgroundAnim.width * 1.1));
 					add(backgroundAnim);
+					
+					var oldFiresLeft = new BGSprite('old/victim/Fires', -1700, 200, 0.9, 0.9, ['Fires'], true);
+					oldFiresLeft.setGraphicSize(Std.int(oldFiresLeft.width * 1.4));
+					if (SONG.song.toLowerCase() == 'outrage (old)') add(oldFiresLeft);
+					
+					var oldFiresRight = new BGSprite('old/victim/Fires', 1370, 200, 0.9, 0.9, ['Fires'], true);
+					oldFiresRight.setGraphicSize(Std.int(oldFiresRight.width * 1.4));
+					if (SONG.song.toLowerCase() == 'outrage (old)') add(oldFiresRight);
 
 					var CrowdOld = new BGSprite('old/CheerCrowd', 450, 130, 0.9, 0.9, ['CheerCrowd'], true);
 					CrowdOld.setGraphicSize(Std.int(CrowdOld.width * 2.8));
-					add(CrowdOld);
-
-					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -340, 0.9, 0.9);
+					if (SONG.song.toLowerCase() == 'adobe (old)') add(CrowdOld);
+					
+					var ScaredCrowdOld = new BGSprite('old/victim/ScaredCrowd', 450, 215, 0.9, 0.9, ['ScaredCrowd'], true);
+					ScaredCrowdOld.setGraphicSize(Std.int(ScaredCrowdOld.width * 2.8));
+					if (SONG.song.toLowerCase() == 'outrage (old)') add(ScaredCrowdOld);
+					
+					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -335, 0.9, 0.9);
 					pisoAnim.setGraphicSize(Std.int(pisoAnim.width * 1.1));
 					add(pisoAnim);
+					
+					bsod = new BGSprite('victim/error', 'chapter1', -650, -500, 1, 1);
+					bsod.setGraphicSize(Std.int(bsod.width * 1.1));
+					bsod.antialiasing = ClientPrefs.globalAntialiasing;
+					bsod.alpha = 0;
 				}
 			case 'red-zone-error':
 				{
@@ -1998,6 +2015,8 @@ class PlayState extends MusicBeatState
 						add(bsodStatic);
 						add(rsod);
 				}
+			case 'animStage-old':
+				add(bsod);
 		}
 
 		if (needsBlackBG)
@@ -2940,7 +2959,10 @@ class PlayState extends MusicBeatState
 				{
 					case 'flashBG':
 						camFollow.set(dad.getMidpoint().x + 400 + cameraX, dad.getMidpoint().y + 50 + cameraY);
-						if(dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200 + cameraX, dad.getMidpoint().y + 150 + cameraY);
+						if (dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200 + cameraX, dad.getMidpoint().y + 150 + cameraY);
+						
+					case 'animStage-old':
+						camFollow.set(420.95 + cameraX, 313 + cameraY);
 				}
 			}
 			else
@@ -2957,6 +2979,9 @@ class PlayState extends MusicBeatState
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 					case 'flashBG':
 						camFollow.set(boyfriend.getMidpoint().x - 300 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
+						
+					case 'animStage-old':
+						camFollow.set(852.9 + cameraXBF, 350 + cameraYBF);
 						
 				}
 			}
@@ -7384,6 +7409,17 @@ class PlayState extends MusicBeatState
 					case 1920:
 						camHUD.fade(FlxColor.BLACK, 3, false);
 						
+				}
+				
+			case 'outrage (old)':
+				switch(curStep)
+				{
+					case 767 | 1408:
+						FlxTween.tween(bsod, {alpha:1}, 1);
+					case 1025 | 1670:
+						FlxTween.tween(bsod, {alpha:0}, 1);
+					case 1737:
+						FlxTween.tween(camHUD, {alpha:0}, 1);
 				}
 		}
 
