@@ -7797,9 +7797,8 @@ class PlayState extends MusicBeatState
 					case 144 | 288:
 						redthing.alpha = 1;
 					case 160:
-						redthing.alpha = 0;
-					case 160:
 						FlxTween.tween(blackBG, {alpha:0.8}, 0.5);
+						redthing.alpha = 0;
 					case 191:
 						FlxTween.tween(blackBG, {alpha:0}, 0.3);
 					case 320:
