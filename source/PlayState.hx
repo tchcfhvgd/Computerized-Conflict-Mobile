@@ -1501,7 +1501,7 @@ class PlayState extends MusicBeatState
 
 			case 'contrivance': //Contrivance song
 				{
-					var bg:BGSprite = new BGSprite('contrivance_bg', -500, -150, 1, 1);
+					var bg:BGSprite = new BGSprite('contrivance_bg', -725, -200, 1, 1);
 					//bg.screenCenter();
 					bg.setGraphicSize(Std.int(bg.width * 0.75));
 					bg.updateHitbox();
