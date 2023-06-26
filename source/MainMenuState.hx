@@ -22,10 +22,13 @@ import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxBackdrop;
-import Shaders;
 import flixel.system.FlxAssets.FlxShader;
+import openfl.filters.BitmapFilter;
+import openfl.filters.ShaderFilter;
+import Shaders;
 import flixel.util.FlxAxes;
 import flixel.util.FlxTimer;
+import flixel.system.FlxSound;
 
 using StringTools;
 
@@ -51,12 +54,12 @@ class MainMenuState extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 	var scrollingThing:FlxBackdrop;
-	var text1:FlxBackdrop;
-	var text2:FlxBackdrop;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
 	var colorTween:FlxTween;
 	public var repeatAxes:FlxAxes = XY;
 	var bg:FlxSprite;
-	var blank:FlxSprite;
+	var vignette:FlxSprite;
 	public var camHUD:FlxCamera;
 	var typin:String;
 	var KONAMI:String = 'up up down down left right left right b a ';
@@ -64,10 +67,16 @@ class MainMenuState extends MusicBeatState
 
 	public static var showTyping:Bool = false;
 	var typinText:FlxText;
-
-	public var removeShaderHandler:FlxShader;
+	var blackBG:FlxSprite;
+	var menuText:FlxText;
+	var itemsText:FlxText;
+	var glitchBG:BGSprite;
+	var shaderFloat:Float = 0;
+	
+	public var camGameShaders:Array<ShaderEffect> = [];
 
 	var recentMouseOption:Int;
+	var chrom:ChromaticAberrationEffect;
 
 	override function create()
 	{
@@ -88,9 +97,9 @@ class MainMenuState extends MusicBeatState
 
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
-		FlxG.cameras.add(camHUD, false);
 
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
@@ -100,58 +109,56 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		bg = new FlxSprite(-80, 75).loadGraphic(Paths.image('mainmenu/notrbg'));
+		bg = new FlxSprite(-80, 75).loadGraphic(Paths.image('mainmenu/bg'));
 		bg.scrollFactor.set();
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), repeatAxes, 0, 0);
-		scrollingThing.scrollFactor.set(0, 0.07);
-		scrollingThing.alpha = 0.8;
-		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), repeatAxes, 0, 0);
+		scrollingThing.alpha = 0.9;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
 		add(scrollingThing);
 
-		var vignette:FlxSprite = new FlxSprite();
-		vignette.loadGraphic(Paths.image('mainmenu/rosevignette'));
+		var circVignette:FlxSprite = new FlxSprite();
+		circVignette.loadGraphic(Paths.image('mainmenu/circVig'));
+		circVignette.scrollFactor.set();
+		add(circVignette);
+
+		vignette = new FlxSprite();
+		vignette.loadGraphic(Paths.image('mainmenu/vignette'));
 		vignette.scrollFactor.set();
 		add(vignette);
 
-		blank = new FlxSprite();
-		blank.loadGraphic(Paths.image('mainmenu/blank'));
-		blank.scrollFactor.set();
-		blank.color = 0xFFFF8A00;
-		add(blank);
 
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
 
-		text1 = new FlxBackdrop(Paths.image('mainmenu/text1'), X, 0, 0);
-		text1.scale.set(0.55, 0.55);
-		text1.y -= 20;
-		text1.scrollFactor.set(0, 0);
-		add(text1);
-
-		text2 = new FlxBackdrop(Paths.image('mainmenu/text2'), X, 0, 0);
-		text2.scale.set(0.55, 0.55);
-		text2.y += 660;
-		text2.scrollFactor.set(0, 0);
-		add(text2);
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
+		
+		menuText = new FlxText(0, 0, FlxG.width, 'MAIN MENU', 29);
+		menuText.setFormat(Paths.font("phantommuff.ttf"), 39, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		menuText.x -= 630;
+		menuText.y -= 340;
+		add(menuText);
+		
+		itemsText = new FlxText(0, 0, FlxG.width, '', 18);
+		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		itemsText.y += 300;
+		itemsText.x -= 630;
+		add(itemsText);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
-
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set();
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
 
 		FlxG.mouse.visible = true;
 
@@ -177,7 +184,11 @@ class MainMenuState extends MusicBeatState
 			CoolUtil.songsUnlocked.flush();
 		}
 
-		if(!CoolUtil.songsUnlocked.data.mainWeek) optionShit.remove('vault');
+		if (!CoolUtil.songsUnlocked.data.mainWeek)
+		{
+			optionShit.remove('freeplay');
+			optionShit.remove('vault');
+		}
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -197,25 +208,29 @@ class MainMenuState extends MusicBeatState
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+			menuItem.setGraphicSize(Std.int(menuItem.width * 0.2));
 			var off = 0;
 			if(CoolUtil.songsUnlocked.data.mainWeek) off = -100;
 			switch(i){
 				case 0:
 					menuItem.x = 50;
 					menuItem.y = 50 + off;
+					
 				case 1:
 					menuItem.x = 450;
 					menuItem.y = 50 + off;
+					
 				case 2:
 					menuItem.x = 850;
 					menuItem.y = 100 + off;
+					
 				case 3:
 					menuItem.x = 245 + off;
 					menuItem.y = 400 + off;
+					
 				case 4:
 					menuItem.x = 645 + off;
-					menuItem.y = 400 + off;
+					menuItem.y = 600 + off;
 				case 5:
 					menuItem.x = 1045 + off;
 					menuItem.y = 400 + off;
@@ -229,6 +244,12 @@ class MainMenuState extends MusicBeatState
 		CoolUtil.songsUnlocked.flush();*/
 
 		FlxG.camera.follow(camFollowPos, null, 1);
+		
+		blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
+		blackBG.scrollFactor.set();
+		blackBG.alpha = 0;
+		blackBG.screenCenter();
+		add(blackBG);
 
 		if (showTyping){
 			typinText = new FlxText(0, FlxG.height / 16, 0, "", 12);
@@ -236,6 +257,18 @@ class MainMenuState extends MusicBeatState
 			typinText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			add(typinText);
 		}
+		
+		glitchBG = new BGSprite('vault/newGlitchBG', 450, 215, 0.9, 0.9, ['g'], true);
+		glitchBG.cameras = [camHUD];
+		glitchBG.screenCenter();
+		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;
+		glitchBG.alpha = 0;
+		add(glitchBG);
+		
+		chrom = new ChromaticAberrationEffect(0);
+		
+		if (ClientPrefs.shaders) addShaderToCamera('camgame', chrom);
+		//chrom.setChrome(shaderFloat);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -268,9 +301,11 @@ class MainMenuState extends MusicBeatState
 
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
+		
+		scrollingThing.alpha = 0.9;
 
-		text1.x -= 0.45 * 60 * elapsed;
-		text2.x -= 0.45 * 60 * elapsed;
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
 
 		menuItems.forEach(function(menuItem:FlxSprite){
 			var off = 0;
@@ -278,22 +313,22 @@ class MainMenuState extends MusicBeatState
 			switch(menuItem.ID){
 				case 0:
 					menuItem.x = 50;
-					menuItem.y = 50 + off;
-				case 1:
-					menuItem.x = 450;
-					menuItem.y = 50 + off;
-				case 2:
-					menuItem.x = 850;
 					menuItem.y = 100 + off;
+				case 1:
+					menuItem.x = 500;
+					menuItem.y = 250 + off;
+				case 2:
+					menuItem.x = 930;
+					menuItem.y = 130 + off;
 				case 3:
 					menuItem.x = 245 + off;
-					menuItem.y = 400 + off;
+					menuItem.y = 385 + off;
 				case 4:
 					menuItem.x = 645 + off;
-					menuItem.y = 400 + off;
+					menuItem.y = 385 + off;
 				case 5:
-					menuItem.x = 1045 + off;
-					menuItem.y = 400 + off;
+					menuItem.x = 930 + off;
+					menuItem.y = 385 + off;
 			}
 			menuItem.updateHitbox();
 		});
@@ -356,22 +391,46 @@ class MainMenuState extends MusicBeatState
 					FlxG.sound.play(Paths.sound('mouseClick'));
 					loadState();
 				}
-
-				if(ClientPrefs.shaders) spr.shader = new Shaders.GreyscaleShader();
+				
 				spr.alpha = 0.5;
 				spr.updateHitbox();
+				
 
 				if (spr.ID != curSelected){
-					spr.scale.x += (0.25-spr.scale.x)/(250*elapsed);
+					spr.scale.x += (0.23-spr.scale.x)/(250*elapsed);
 					spr.scale.y = spr.scale.x;
 				}else{
-					spr.shader = removeShaderHandler;
 					spr.alpha = 1;
 
-					spr.scale.x += (0.3-spr.scale.x)/(250*elapsed);
+					spr.scale.x += (0.26-spr.scale.x)/(250*elapsed);
 					spr.scale.y = spr.scale.x;
 
 					spr.centerOffsets();
+				}
+				
+				if (optionShit[curSelected] == 'vault')
+				{
+					FlxG.camera.shake(0.035, 0.15);
+					FlxG.camera.zoom = FlxMath.lerp(1.6, FlxG.camera.zoom, 0.7);
+					FlxTween.tween(bg, {alpha:0}, 0.4);
+					FlxTween.tween(vignette, {alpha:0}, 0.4);
+					
+					shaderFloat += elapsed * 0.0015;
+					chrom.setChrome(shaderFloat);
+				    if (shaderFloat > 0.0085) shaderFloat = 0.0085;
+					
+					FlxG.sound.music.fadeIn(4, 0, 1);
+				}
+				else
+				{
+					FlxG.camera.zoom = 1;
+					FlxTween.tween(bg, {alpha:1}, 0.4);
+					FlxTween.tween(vignette, {alpha:1}, 0.4);
+					shaderFloat -= elapsed * 0.0015;
+					if (shaderFloat < 0) shaderFloat = 0;
+					chrom.setChrome(shaderFloat);
+					
+					FlxG.sound.music.fadeOut();
 				}
 			});
 
@@ -428,6 +487,16 @@ class MainMenuState extends MusicBeatState
 			}
 			else
 			{
+				
+				if (optionShit[curSelected] == 'vault')
+				{
+					glitchBG.alpha = 1;
+					var shit:FlxSound = new FlxSound().loadEmbedded(Paths.sound('glitch'));
+					shit.play(true);
+					shit.onComplete = function() {
+						FlxG.switchState(new VaultState());
+					}
+				}
 
 				new FlxTimer().start(1.5, function(tmr:FlxTimer)
 				{
@@ -436,7 +505,8 @@ class MainMenuState extends MusicBeatState
 					switch (daChoice)
 					{
 						case 'storymode':
-							MusicBeatState.switchState(new TCOStoryState());
+							openSubState(new MessageSubstate());
+							//MusicBeatState.switchState(new TCOStoryState());
 						case 'freeplay':
 							MusicBeatState.switchState(new FreeplayMenu());
 						case 'awards':
@@ -447,9 +517,6 @@ class MainMenuState extends MusicBeatState
 							MusicBeatState.switchState(new TCOCreditsState());
 						case 'options':
 							LoadingState.loadAndSwitchState(new options.OptionsState());
-						case 'vault':
-							MusicBeatState.switchState(new VaultState());
-							FlxG.sound.playMusic(Paths.music('secret_menu'), 0);
 					}
 				});
 			}
@@ -479,51 +546,118 @@ class MainMenuState extends MusicBeatState
 		{
 			case 'storymode':
 
-				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFFF7E00, {
+				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.ORANGE, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
+				
+				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.ORANGE, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+				itemsText.text = 'Face off against Alan Becker stick figures with the power of music!';
 
 			case 'freeplay':
 
-				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF0AB5FF, {
+				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.CYAN, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
+				
+				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.CYAN, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+				itemsText.text = 'Play bonus songs and meet other stick figures, will you recognize them?';
 
 			case 'credits':
 
-				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF4EFF00, {
+				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, 0xFF3de66f, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
+				
+				colorTween = FlxTween.color(vignette, 1, vignette.color, 0xFF3de66f, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+				itemsText.text = 'Meet the people behind this mod!';
 
 			case 'art_gallery':
 
-				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFEAFF00, {
+				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.YELLOW, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
+				
+				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.YELLOW, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+				itemsText.text = 'Look at some art made by our followers!';
 
 			case 'options':
 
-				colorTween = FlxTween.color(blank, 1, blank.color, 0xFFFF0000, {
+				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.WHITE, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
+				
+				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.WHITE, {
+					onComplete: function(twn:FlxTween) {
+						colorTween = null;
+					}
+			    });
+				
+				itemsText.text = 'Configure your controls and more to your preference!';
 
 			case 'vault':
 
-				colorTween = FlxTween.color(blank, 1, blank.color, 0xFF5E4F4F, {
+				colorTween = FlxTween.color(scrollingThing, 0.5, scrollingThing.color, FlxColor.BLACK, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 				});
+				
+				itemsText.text = '...';
+		}
+	}
+	
+    public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
+
+		switch(cam.toLowerCase()) {
+			case 'camgame' | 'game':
+					camGameShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camGameShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					camGame.setFilters(newCamEffects);
+		}
+	}
+
+	public function removeShaderFromCamera(cam:String, effect:ShaderEffect){
+		switch(cam.toLowerCase()) {
+			case 'camgame' | 'game':
+				camGameShaders.remove(effect);
+				var newCamEffects:Array<BitmapFilter> = [];
+				for (i in camGameShaders){
+					newCamEffects.push(new ShaderFilter(i.shader));
+				}
+				camGame.setFilters(newCamEffects);
 		}
 	}
 }

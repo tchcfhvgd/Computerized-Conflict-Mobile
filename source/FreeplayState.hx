@@ -271,6 +271,13 @@ class FreeplayState extends MusicBeatState
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
 		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
+	
+	override function beatHit()
+	{
+		super.beatHit();
+		
+		FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+	}
 
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
@@ -386,6 +393,8 @@ class FreeplayState extends MusicBeatState
 				Paths.currentModDirectory = songs[curSelected].folder;
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				Conductor.changeBPM((PlayState.SONG.bpm));
+				Conductor.songPosition = FlxG.sound.music.time;
 
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
 				instPlaying = curSelected;

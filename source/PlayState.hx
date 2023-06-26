@@ -1692,13 +1692,13 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(unfaithFRONT, {y: unfaithFRONT.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
-					topBarsALT.cameras = [camHUD];
+					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 
 					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
-					bottomBarsALT.cameras = [camHUD];
+					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
@@ -1717,9 +1717,7 @@ class PlayState extends MusicBeatState
 					overlayUnfaith.setGraphicSize(Std.int(overlayUnfaith.width * 1.25));
 					overlayUnfaith.screenCenter();
 
-					//colorShad = new ColorSwap();
-
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new PincushionShader())]);
+					colorShad = new ColorSwap();
 				}
 
 			case 'aol': //ava 2
@@ -7756,7 +7754,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 160:
-						//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(rainbowShader.shader)]);
+						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(rainbowShader.shader)]);
 
 					case 224:
 						FlxG.camera.fade(FlxColor.BLACK, 1, false);

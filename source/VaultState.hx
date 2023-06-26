@@ -45,11 +45,13 @@ class VaultState extends MusicBeatState
 {
 	var tipPopUp:FlxSprite;
 	var convertPopUp:FlxSprite;
-	var glitchBG:FlxSprite;
+	var glitchBG:BGSprite;
+	var glitchBGHUD:BGSprite;
 	var daStatic:FlxSprite;
     var barTitle:FlxSprite;
 	var downBarText:FlxSprite;
 	var vignette:FlxSprite;
+	public var camHUD:FlxCamera;
 	var vignette2:FlxSprite;
 	var selectedSmth:Bool = false;
 	var inputText:FlxInputText;
@@ -60,7 +62,9 @@ class VaultState extends MusicBeatState
 	var whiteScreen:FlxSprite;
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
-
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
+	
 	public static var codesAndShit:Array<Array<String>> = [
 		['videos', 'Tune In'],
 		['hatred', 'Unfaithful'],
@@ -76,23 +80,40 @@ class VaultState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		WeekData.reloadWeekFiles(false);
+		
 
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Vault", null);
 		#end
+		
+		camHUD = new FlxCamera();
+		camHUD.bgColor.alpha = 0;
+		FlxG.cameras.add(camHUD, false);
+		
+		Conductor.changeBPM(115);
 
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+		
+		FlxG.sound.playMusic(Paths.music('secret_menu'));
 
-		glitchBG = new FlxSprite().loadGraphic(Paths.image('vault/glitchBG'));
+		glitchBG = new BGSprite('vault/newGlitchBG', 450, 215, 0.9, 0.9, ['g'], true);
+		glitchBG.screenCenter();
 		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(glitchBG);
+		
+		glitchBGHUD = new BGSprite('vault/newGlitchBG', 450, 215, 0.9, 0.9, ['g'], true);
+		glitchBGHUD.screenCenter();
+		glitchBGHUD.antialiasing = ClientPrefs.globalAntialiasing;
+		glitchBGHUD.cameras = [camHUD];
+		glitchBGHUD.alpha = 0;
+		add(glitchBGHUD);
 
-		//scrollingThing = new FlxBackdrop(Paths.image('FAMenu/scroll'), XY, 0, 0);
-		//scrollingThing.scrollFactor.set(0, 0.07);
-		//scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
-		//scrollingThing.alpha = 0.5;
-		//scrollingThing.antialiasing = ClientPrefs.globalAntialiasing;
+		scrollingThing = new FlxBackdrop(Paths.image('FAMenu/scroll'), XY, 0, 0);
+		scrollingThing.scrollFactor.set(0, 0.07);
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
+		scrollingThing.alpha = 0.5;
+		scrollingThing.antialiasing = ClientPrefs.globalAntialiasing;
 		//add(scrollingThing);
 
 		vignette2 = new FlxSprite().loadGraphic(Paths.image('vault/vig2'));
@@ -103,10 +124,16 @@ class VaultState extends MusicBeatState
 		daStatic.antialiasing = ClientPrefs.globalAntialiasing;
 		add(daStatic);
 
-		downBarText = new FlxSprite(0, 150).loadGraphic(Paths.image('vault/downBarText'));
-		downBarText.antialiasing = ClientPrefs.globalAntialiasing;
-		downBarText.alpha = 0.000001;
-		add(downBarText);
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
 
 		barTitle = new FlxSprite(0, -150).loadGraphic(Paths.image('vault/barTitle'));
 		barTitle.antialiasing = ClientPrefs.globalAntialiasing;
@@ -147,8 +174,8 @@ class VaultState extends MusicBeatState
 		whiteScreen.alpha = 0;
 		add(whiteScreen);
 		
-		FlxG.camera.shake(0.035, 7);
-		FlxTween.tween(whiteScreen, {alpha:1}, 3);
+		//FlxG.camera.shake(0.035, 7);
+		//FlxTween.tween(whiteScreen, {alpha:1}, 3);
 					
 		inputText.callback = function(text, action)
 		{
@@ -172,10 +199,14 @@ class VaultState extends MusicBeatState
 							PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-hard', PlayState.storyPlaylist[0].toLowerCase());
 
 							selectedSmth = true;
+							
+							FlxG.camera.shake(0.035, 7);
+		                    FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
 
 							LoadingState.loadAndSwitchState(new PlayState(), true);
 							FreeplayState.destroyFreeplayVocals();
-						}
+						}});
+					  }
 					}
 				}
 			}
@@ -189,9 +220,6 @@ class VaultState extends MusicBeatState
 
 		FlxTween.tween(barTitle, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(barTitle, {y: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
-
-		FlxTween.tween(downBarText, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(downBarText, {y: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 		FlxTween.tween(tipPopUp, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(tipPopUp, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut,
@@ -213,15 +241,28 @@ class VaultState extends MusicBeatState
 		FlxG.mouse.unload();
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 		
-		FlxG.game.setFilters([shaderFilter]);
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 
 		super.create();
+	}
+	
+	override function beatHit()
+	{
+		super.beatHit();
+
+		if (!selectedSmth) {
+			FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD}); //lol
+		}
 	}
 
 	override function update(elapsed:Float)
 	{
 		//scrollingThing.x -= 0.45 * 60 * elapsed;
 		//scrollingThing.y -= 0.16 * 60 * elapsed;
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
+		
+		Conductor.songPosition = FlxG.sound.music.time;
 
 		if (!selectedSmth && !coolDown)
 		{
@@ -229,12 +270,20 @@ class VaultState extends MusicBeatState
 
 			if (controls.BACK && !isWriting)
 			{
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				Paths.clearUnusedMemory();
-				selectedSmth = true;
+				glitchBGHUD.alpha = 1;
+				FlxG.sound.music.fadeOut();
+				
+				var shit:FlxSound = new FlxSound().loadEmbedded(Paths.sound('glitch'));
+				shit.play(true);
+				shit.onComplete = function() {
+					FlxG.switchState(new MainMenuState());
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					Paths.clearUnusedMemory();
+				}
+				
 				escapeTween();
+				
+				selectedSmth = true;
 			}
 		}
 
@@ -247,9 +296,6 @@ class VaultState extends MusicBeatState
 	{
 		FlxTween.tween(barTitle, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(barTitle, {y: -150}, 0.4, {ease:FlxEase.smoothStepInOut});
-
-		FlxTween.tween(downBarText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(downBarText, {y: 150}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 		FlxTween.tween(tipPopUp, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(tipPopUp, {x: 250}, 0.4, {ease:FlxEase.smoothStepInOut});
