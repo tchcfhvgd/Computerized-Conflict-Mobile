@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.text.FlxTypeText;
 import flixel.util.FlxSave;
 #if desktop
 import Discord.DiscordClient;
@@ -38,7 +39,7 @@ class MainMenuState extends MusicBeatState
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
+	private var camGF:FlxCamera;
 
 	var optionShit:Array<String> = [
 		'freeplay',
@@ -76,6 +77,16 @@ class MainMenuState extends MusicBeatState
 	public var camGameShaders:Array<ShaderEffect> = [];
 
 	var recentMouseOption:Int;
+	
+	public var newToTheMod:Bool = true;
+
+	var gfPopup:FlxSprite;
+	var blackThingIG:FlxSpriteExtra;
+	var textPopup:FlxText;
+	public static var POPUP_TEXT = 'Hey!, Would you like to sing with me on my new Tutorial song?, before starting a new game of course. \n\n Press enter to play the tutorial or escape to continue normally';
+	var gfMoment:Bool;
+	var targetAlphaCamPopup:Int = 0;
+	
 	var chrom:ChromaticAberrationEffect;
 
 	override function create()
@@ -92,16 +103,18 @@ class MainMenuState extends MusicBeatState
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
-		camAchievement = new FlxCamera();
-		camAchievement.bgColor.alpha = 0;
+		camGF = new FlxCamera();
+		camGF.bgColor.alpha = 0;
 
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
-		FlxG.cameras.add(camAchievement, false);
+		FlxG.cameras.add(camGF, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		
+		camGF.alpha = targetAlphaCamPopup;
 
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -169,15 +182,19 @@ class MainMenuState extends MusicBeatState
 			CoolUtil.songsUnlocked = new FlxSave();
 			CoolUtil.songsUnlocked.bind("Computarized-Conflict");
 
-			if (CoolUtil.songsUnlocked.data.songs == null) {
+			if (CoolUtil.songsUnlocked.data.songs == null)
+			{
 				CoolUtil.songsUnlocked.data.songs = new Map<String, Bool>();
 				for (i in 0...VaultState.codesAndShit.length){
 					CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
 				}
 			}
 
-			if (CoolUtil.songsUnlocked.data.mainWeek == null) {
+			if (CoolUtil.songsUnlocked.data.mainWeek == null)
+			{
 				CoolUtil.songsUnlocked.data.mainWeek = false;
+				
+				newToTheMod = true;
 			}
 			trace(CoolUtil.songsUnlocked.data.mainWeek);
 
@@ -235,6 +252,10 @@ class MainMenuState extends MusicBeatState
 					menuItem.x = 1045 + off;
 					menuItem.y = 400 + off;
 			}
+			
+			menuItem.scale.x = 0.25;
+			menuItem.scale.y = 0.25;
+			
 			menuItem.updateHitbox();
 		}
 
@@ -271,20 +292,44 @@ class MainMenuState extends MusicBeatState
 		//chrom.setChrome(shaderFloat);
 
 		// NG.core.calls.event.logEvent('swag').send();
+		
+		createGFPopup();
 
 		changeItem();
 
 		super.create();
 	}
 
-	#if ACHIEVEMENTS_ALLOWED
-	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('friday_night_play', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "friday_night_play"');
+	function createGFPopup()
+	{
+		if (!newToTheMod) return; //why would you need to play the tutorial if you already know how to play like duh
+
+		selectedSomethin = true;
+		gfMoment = true;
+		targetAlphaCamPopup = 1;
+
+		blackThingIG = new FlxSpriteExtra().makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackThingIG.cameras = [camGF];
+		blackThingIG.screenCenter();
+		blackThingIG.alpha = 0.3;
+		add(blackThingIG);
+
+		gfPopup = new FlxSprite().loadGraphic(Paths.image('gfDialog/gfDialog'));
+		gfPopup.cameras = [camGF];
+		gfPopup.screenCenter();
+		add(gfPopup);
+
+		textPopup = new FlxText(0, 0, gfPopup.width - 80, POPUP_TEXT, 22);
+		textPopup.setFormat(Paths.font("phantommuff.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		textPopup.borderSize = 1.25;
+		textPopup.cameras = [camGF];
+		textPopup.screenCenter();
+		textPopup.x += 5;
+		textPopup.y = gfPopup.y + textPopup.height + 10;
+		add(textPopup);
 	}
-	#end
+	
+	//no achievements, go away
 
 	var selectedSomethin:Bool = false;
 
@@ -464,6 +509,25 @@ class MainMenuState extends MusicBeatState
 				typinText.y = FlxG.height / 16;
 			}
 		}
+		
+		camGF.alpha = FlxMath.lerp(camGF.alpha, targetAlphaCamPopup, lerpVal);
+
+		if (gfMoment)
+		{
+			if (controls.BACK)
+			{
+				selectedSomethin = false;
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+				targetAlphaCamPopup = 0;
+
+				gfMoment = false;
+			}
+
+			if (controls.ACCEPT)
+			{
+				loadTutorial();
+			}
+		}
 
 		super.update(elapsed);
 	}
@@ -527,6 +591,22 @@ class MainMenuState extends MusicBeatState
 				spr.velocity.y -= 5550;
 			}*/
 		});
+	}
+	
+	function loadTutorial()
+	{
+		targetAlphaCamPopup = 0;
+
+		FlxG.sound.play(Paths.sound('confirmMenu'), 0.5);
+
+		PlayState.storyPlaylist = ['practice time'];
+		PlayState.isStoryMode = false;
+		PlayState.storyDifficulty = 1; //hard (I think?)
+
+		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-hard', PlayState.storyPlaylist[0].toLowerCase());
+		LoadingState.loadAndSwitchState(new PlayState(), true);
+
+		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 	}
 
 	function changeItem(huh:Int = 0)
