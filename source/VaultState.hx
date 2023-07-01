@@ -64,6 +64,8 @@ class VaultState extends MusicBeatState
 	var shaderFilter = new ShaderFilter(crtShader);
 	var spikes1:FlxBackdrop;
 	var spikes2:FlxBackdrop;
+	var secretCounter:Int = 0;
+	var itemsText:FlxText;
 	
 	public static var codesAndShit:Array<Array<String>> = [
 		['videos', 'Tune In'],
@@ -134,6 +136,12 @@ class VaultState extends MusicBeatState
 		spikes2.y += 630;
 		spikes2.scrollFactor.set(0, 0);
 		add(spikes2);
+		
+		itemsText = new FlxText(0, 0, FlxG.width, 'Unlocked Secrets: ' + secretCounter + '/5', 18);
+		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		itemsText.y += 500;
+		itemsText.x += 100;
+		add(itemsText);
 
 		barTitle = new FlxSprite(0, -150).loadGraphic(Paths.image('vault/barTitle'));
 		barTitle.antialiasing = ClientPrefs.globalAntialiasing;

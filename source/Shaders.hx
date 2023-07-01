@@ -1069,7 +1069,7 @@ class NightTimeShader extends FlxShader // https://www.shadertoy.com/view/3tfcD8
 class NightTimeEffect extends Effect
 {
 	public var shader:NightTimeShader = new NightTimeShader();
-
+	
 	public function new()
 	{
 		shader.iTime.value = [0];
