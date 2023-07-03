@@ -398,7 +398,7 @@ class PlayState extends MusicBeatState
 
 			//public var trojanShader:Shaders.Glitch02Effect = new Glitch02Effect(8, 6, 3);
 			public var testShader3D:Shaders.Test3DEffect = new Test3DEffect(); //fuck
-			public var fishEyeShader:Shaders.FishEyeShader = new FishEyeShader(); //fuck
+			//public var fishEyeShader:Shaders.FishEyeShader = new FishEyeShader(); //fuck
 
 		//conflict:
 			public var endingShader:Shaders.Glitch02Effect = new Glitch02Effect(4, 3, 3);

@@ -49,6 +49,9 @@ class TCOCreditsState extends MusicBeatState
 	var camDefault:FlxCamera;
 	var camTexts:FlxCamera;
 
+	var prompt:FlxSprite;
+	var prompttext:FlxText;
+
 	override function create()
 	{
 		persistentUpdate = true;
@@ -69,31 +72,31 @@ class TCOCreditsState extends MusicBeatState
 
 		credits = [
 			//Tco Dev Team
-			
+
 			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, ""),
 			new CreditsMetadata("MijaeLio", "mijae", "Main Coder", 0xFF5F5D5D),
-			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000),
-			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF8A8484),
+			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000, "Twinkle of Contagion is a Passive Item added in the Spitshine update.\nFlavor text: \"Take the Shot\"\nItem Pool: Treasure, Drug Dealer\nQuality: 2\nItem Tags: Syringe, Summonable, Offensive"),
+			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF8A8484, "Hello USERNAME, how was your day?".replace("USERNAME", #if mac Sys.getEnv("USER") #else Sys.getEnv("USERNAME") #end)),
 			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, ""),
 			new CreditsMetadata("joa", "joa", "Musician", 0xFF0000FF, ""),
-			new CreditsMetadata("SharkFaceGaming", "shark", "Musician", 0xFF4ECDFF, ""),
-			new CreditsMetadata("ExpKing", "Jace", "Musician", 0xFF0000FF, ""),
+			new CreditsMetadata("SharkFaceGaming", "shark", "Musician", 0xFF4ECDFF, "microwaveable pizza"),
+			new CreditsMetadata("ExpKing", "Jace", "Musician", 0xFF0000FF, "popeyes fried chicken"),
 			new CreditsMetadata("TheNatz", "no-icon", "Musician", 0xFFFF7B22, ""),
 			new CreditsMetadata("Prod.kxri", "prodkxri", "Musician", 0xFFFF0000, ""),
 			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, ""),
 			new CreditsMetadata("Magbros.ogg", "magbros", "Musician", 0xFFFF7B22, ""),
 			new CreditsMetadata("Splat", "splat", "Sprite Artist", 0xFF6D6767, ""),
-			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, ""),
-			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, ""),
-			new CreditsMetadata("Dittosactualoreo", "Ditto", "Sprite/Background Artist", 0xFFFF00AA, ""),
-			new CreditsMetadata("12kNoodles", "noodles", "Background Artist", 0xFFFF3CBE, ""),
-			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, ""),
+			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, "Never gonna give you up, never gonna let you down, never gonna run around and desert you. Never gonna make you cry, never gonna say goodbye, never gonna tell you a lie and give you EMOTIONAL DAMAGE"),
+			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, "hello everyone"),
+			new CreditsMetadata("Dittosactualoreo", "Ditto", "Sprite/Background Artist", 0xFFFF00AA, "the person below me kisses men"),
+			new CreditsMetadata("12kNoodles", "noodles", "Background Artist", 0xFFFF3CBE, "Hello Neighbor is a stealth horror game about sneaking into your neighbor's house to figure out what horrible secrets he's hiding in the basement. You play against an advanced AI that learns from your every move. Really enjoying climbing through that backyard window? Expect a bear trap there."),
+			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, "Stickman go beep boop"),
 			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, ""),
 			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, ""),
 			new CreditsMetadata("Hexal", "no-icon", "Cutscene Maker (Outrage and End Process)", 0xFF585454, ""),
-			new CreditsMetadata("Xyriax", "xyriax", "Insane difficulty charter (some charts are made by Jet tho)", 0xFF0000FF, ""),
-			new CreditsMetadata("Shammal", "shammal", "Extra Charter", 0xFF7AFF7A, ""),
-			new CreditsMetadata("LeLazyOne", "lelazyone", "trailer editor", 0xFFFFBA7A, ""),
+			new CreditsMetadata("Xyriax", "xyriax", "Insane difficulty charter (some charts are made by Jet tho)", 0xFF0000FF, "charters are overrated"),
+			new CreditsMetadata("Shammal", "shammal", "Extra Charter", 0xFF7AFF7A, "It’s hard being this eepy, but someone’s gotta do it."),
+			new CreditsMetadata("LeLazyOne", "lelazyone", "trailer editor", 0xFFFFBA7A, "i like girls"),
 
 			//Contributers (no icons)
 			//Also try making credit sections if you can lol
@@ -169,6 +172,24 @@ class TCOCreditsState extends MusicBeatState
 		downBar.antialiasing = ClientPrefs.globalAntialiasing;
 		downBar.cameras = [camTexts];
 		add(downBar);
+
+		prompt = new FlxSprite();
+		prompt.loadGraphic(Paths.image('creditsmenu/popup'));
+		prompt.scrollFactor.set();
+		prompt.x = FlxG.width - prompt.width - 100;
+		prompt.screenCenter(Y);
+		prompt.antialiasing = ClientPrefs.globalAntialiasing;
+		prompt.cameras = [camTexts];
+		add(prompt);
+
+		prompttext = new FlxText();
+		prompttext.scrollFactor.set();
+		prompttext.fieldWidth = prompt.frameWidth;
+		prompttext.x = prompt.x;
+		prompttext.y = prompt.y;
+		prompttext.antialiasing = ClientPrefs.globalAntialiasing;
+		prompttext.cameras = [camTexts];
+		add(prompttext);
 
 		for (i in 0...credits.length)
 		{
@@ -276,9 +297,9 @@ class TCOCreditsState extends MusicBeatState
 			}
 		}
 
-		if(controls.ACCEPT && credits[curSelected].link.length > 0) {
-			CoolUtil.browserLoad(credits[curSelected].link);
-		}
+		//if(controls.ACCEPT && credits[curSelected].link.length > 0) {
+		//	CoolUtil.browserLoad(credits[curSelected].link);
+		//}
 
 		if (controls.BACK)
 		{
@@ -307,6 +328,15 @@ class TCOCreditsState extends MusicBeatState
 			curSelected = credits.length - 1;
 		if (curSelected >= credits.length)
 			curSelected = 0;
+
+		prompttext.visible = prompt.visible = credits[curSelected].desc != "";
+		if(prompttext.visible) {
+			prompttext.text = credits[curSelected].desc;
+			prompttext.updateHitbox();
+			prompttext.x = prompt.x;
+			prompttext.y = prompt.y;
+		}
+
 
 		/*bg.loadGraphic(Paths.image('freeplayArt/freeplayImages/bgs/' + songs[curSelected].songName));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -350,17 +380,17 @@ class CreditsMetadata
 {
 	public var name:String = "";
 	public var icon:String = "";
-	public var desc:String = "";
+	public var auth:String = "";
 	public var color:FlxColor;
-	public var link:String = "";
+	public var desc:String = "";
 
-	public function new(name:String, icon:String, desc:String, color:FlxColor = 0xffffff, link:String = "")
+	public function new(name:String, icon:String, auth:String, color:FlxColor = 0xffffff, desc:String = "")
 	{
 		this.name = name;
 		if (icon == "") this.icon = "no";
 		else this.icon = icon;
-		this.desc = desc;
+		this.auth = auth;
 		this.color = color;
-		this.link = link;
+		this.desc = desc;
 	}
 }
