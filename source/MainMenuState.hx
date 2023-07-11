@@ -579,7 +579,7 @@ class MainMenuState extends MusicBeatState
 						case 'art_gallery':
 							MusicBeatState.switchState(new FanArtState());
 						case 'credits':
-							MusicBeatState.switchState(new CreditsState());
+							MusicBeatState.switchState(new TCOCreditsState());
 						case 'options':
 							LoadingState.loadAndSwitchState(new options.OptionsState());
 					}

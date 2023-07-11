@@ -234,7 +234,7 @@ class FreeplayState extends MusicBeatState
 
 		super.create();
 		
-		FlxG.camera.setFilters([shaderFilter]);
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 
 		for (key => type in precacheList)
 		{
