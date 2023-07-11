@@ -18,6 +18,11 @@
 						"Add Camera Zoom",
 						"0.06",
 						""
+					],
+					[
+						"zoomBeatType2",
+						"",
+						""
 					]
 				]
 			],
@@ -102,7 +107,7 @@
 					[
 						"Flash Camera WHITE",
 						"",
-						"0.5"
+						"0.8"
 					]
 				]
 			],
@@ -139,11 +144,6 @@
 			[
 				22400,
 				[
-					[
-						"Flash Camera WHITE",
-						"",
-						"0.5"
-					],
 					[
 						"defaultCamZoom",
 						"0.7",
@@ -197,7 +197,7 @@
 					[
 						"Flash Camera WHITE",
 						"",
-						"0.5"
+						"0.8"
 					]
 				]
 			],
@@ -208,16 +208,6 @@
 						"Tween Zoom",
 						"0.6",
 						"0.4"
-					]
-				]
-			],
-			[
-				31200,
-				[
-					[
-						"Flash Camera WHITE",
-						"",
-						"0.5"
 					]
 				]
 			],
@@ -267,7 +257,7 @@
 					[
 						"Flash Camera WHITE",
 						"",
-						"0.5"
+						"0.8"
 					]
 				]
 			],
@@ -278,16 +268,6 @@
 						"Tween Zoom",
 						"0.6",
 						"0.4"
-					]
-				]
-			],
-			[
-				37600,
-				[
-					[
-						"Flash Camera WHITE",
-						"",
-						"0.5"
 					]
 				]
 			],
@@ -337,7 +317,7 @@
 					[
 						"Flash Camera WHITE",
 						"",
-						"0.5"
+						"0.8"
 					]
 				]
 			],
@@ -348,16 +328,6 @@
 						"defaultCamZoom",
 						"0.75",
 						""
-					]
-				]
-			],
-			[
-				44000,
-				[
-					[
-						"Flash Camera WHITE",
-						"",
-						"0.5"
 					]
 				]
 			],
@@ -387,7 +357,7 @@
 					[
 						"Flash Camera WHITE",
 						"",
-						"0.5"
+						"0.8"
 					],
 					[
 						"defaultCamZoom",
@@ -598,6 +568,306 @@
 						"defaultCamZoom",
 						"0.7",
 						""
+					],
+					[
+						"Flash Camera RED",
+						"",
+						"0.8"
+					]
+				]
+			],
+			[
+				81600,
+				[
+					[
+						"defaultCamZoom",
+						"0.8",
+						""
+					]
+				]
+			],
+			[
+				83200,
+				[
+					[
+						"defaultCamZoom",
+						"0.65",
+						""
+					]
+				]
+			],
+			[
+				84800,
+				[
+					[
+						"defaultCamZoom",
+						"0.75",
+						""
+					]
+				]
+			],
+			[
+				86400,
+				[
+					[
+						"defaultCamZoom",
+						"0.85",
+						""
+					]
+				]
+			],
+			[
+				88000,
+				[
+					[
+						"defaultCamZoom",
+						"0.65",
+						""
+					]
+				]
+			],
+			[
+				89600,
+				[
+					[
+						"defaultCamZoom",
+						"0.75",
+						""
+					]
+				]
+			],
+			[
+				91200,
+				[
+					[
+						"defaultCamZoom",
+						"0.85",
+						""
+					]
+				]
+			],
+			[
+				92800,
+				[
+					[
+						"defaultCamZoom",
+						"0.6",
+						""
+					]
+				]
+			],
+			[
+				93600,
+				[
+					[
+						"Flash Camera WHITE",
+						"",
+						"0.8"
+					]
+				]
+			],
+			[
+				94400,
+				[
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
+					]
+				]
+			],
+			[
+				96000,
+				[
+					[
+						"defaultCamZoom",
+						"0.6",
+						""
+					]
+				]
+			],
+			[
+				97600,
+				[
+					[
+						"defaultCamZoom",
+						"0.75",
+						""
+					]
+				]
+			],
+			[
+				98400,
+				[
+					[
+						"defaultCamZoom",
+						"0.85",
+						""
+					]
+				]
+			],
+			[
+				99200,
+				[
+					[
+						"defaultCamZoom",
+						"0.65",
+						""
+					]
+				]
+			],
+			[
+				100000,
+				[
+					[
+						"Flash Camera WHITE",
+						"",
+						"0.8"
+					]
+				]
+			],
+			[
+				100800,
+				[
+					[
+						"defaultCamZoom",
+						"0.75",
+						""
+					]
+				]
+			],
+			[
+				101600,
+				[
+					[
+						"defaultCamZoom",
+						"0.85",
+						""
+					]
+				]
+			],
+			[
+				102400,
+				[
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
+					]
+				]
+			],
+			[
+				104000,
+				[
+					[
+						"defaultCamZoom",
+						"0.8",
+						""
+					]
+				]
+			],
+			[
+				104800,
+				[
+					[
+						"defaultCamZoom",
+						"0.9",
+						""
+					]
+				]
+			],
+			[
+				105600,
+				[
+					[
+						"defaultCamZoom",
+						"0.55",
+						""
+					]
+				]
+			],
+			[
+				107200,
+				[
+					[
+						"defaultCamZoom",
+						"0.65",
+						""
+					]
+				]
+			],
+			[
+				108800,
+				[
+					[
+						"defaultCamZoom",
+						"0.55",
+						""
+					]
+				]
+			],
+			[
+				110400,
+				[
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
+					]
+				]
+			],
+			[
+				112000,
+				[
+					[
+						"defaultCamZoom",
+						"0.85",
+						""
+					]
+				]
+			],
+			[
+				113600,
+				[
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
+					]
+				]
+			],
+			[
+				115200,
+				[
+					[
+						"defaultCamZoom",
+						"0.8",
+						""
+					]
+				]
+			],
+			[
+				116800,
+				[
+					[
+						"defaultCamZoom",
+						"0.9",
+						""
+					]
+				]
+			],
+			[
+				117600,
+				[
+					[
+						"defaultCamZoom",
+						"0.9",
+						""
+					],
+					[
+						"Tween Zoom",
+						"1.2",
+						"0.3"
 					]
 				]
 			],
@@ -633,6 +903,11 @@
 						"Add Camera Zoom",
 						"0.07",
 						""
+					],
+					[
+						"Flash Camera RED",
+						"",
+						"0.8"
 					]
 				]
 			],
@@ -2023,6 +2298,11 @@
 						"Add Camera Zoom",
 						"0.050",
 						""
+					],
+					[
+						"Tween Zoom",
+						"1.2",
+						"0.3"
 					]
 				]
 			],
@@ -2053,6 +2333,21 @@
 						"Add Camera Zoom",
 						"0.06",
 						""
+					],
+					[
+						"defaultCamZoom",
+						"0.75",
+						""
+					]
+				]
+			],
+			[
+				169600,
+				[
+					[
+						"Flash Camera RED",
+						"",
+						"0.8"
 					]
 				]
 			],
@@ -2061,6 +2356,11 @@
 				[
 					[
 						"zoomBeatType3 Cancel",
+						"",
+						""
+					],
+					[
+						"zoomBeatType2 Cancel",
 						"",
 						""
 					]
