@@ -107,6 +107,7 @@ class ChartingState extends MusicBeatState
 		['Screen Flip X', 'camera will flip on left direction.'],
 		['Screen Flip Y', 'camera will flip on up direction.'],
 		['Popup', 'Adds a popup in a random position. Does not work if a popup is already open.'],
+		['Jumpscare', "AAA I SHITTED IN MY PANTS."],
 		['zoomBeatType1', "testing"],
 		['zoomBeatType2', "testing"],
 		['zoomBeatType3', "testing"],

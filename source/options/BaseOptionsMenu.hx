@@ -23,6 +23,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import flixel.addons.display.FlxBackdrop;
 import Controls;
 
 using StringTools;
@@ -43,6 +44,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	public var title:String;
 	public var rpcTitle:String;
+	var scrollingThing:FlxBackdrop;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
+	var vignette:FlxSprite;
 
 	public function new()
 	{
@@ -60,6 +65,33 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+		
+		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), XY, 0, 0);
+		scrollingThing.alpha = 0.9;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
+		add(scrollingThing);
+
+		var circVignette:FlxSprite = new FlxSprite();
+		circVignette.loadGraphic(Paths.image('mainmenu/circVig'));
+		circVignette.scrollFactor.set();
+		add(circVignette);
+
+		vignette = new FlxSprite();
+		vignette.loadGraphic(Paths.image('mainmenu/vignette'));
+		vignette.scrollFactor.set();
+		add(vignette);
+
+
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
 
 		// avoids lagspikes while scrolling through menus!
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -135,6 +167,13 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
+		
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
+
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
+		
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);

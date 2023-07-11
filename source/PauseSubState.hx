@@ -42,6 +42,9 @@ class PauseSubState extends MusicBeatSubstate
 	//var botplayText:FlxText;
 	var arrowTween:FlxTween;
 	var selectTween:FlxTween;
+	var gfMoment:Bool = MainMenuState.gfMoment;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
 
 	public static var songName:String = '';
 
@@ -102,10 +105,18 @@ class PauseSubState extends MusicBeatSubstate
 		bar.scrollFactor.set();
 		bar.alpha = 0;
 		add(bar);
+		
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		spikes1.alpha = 0;
+		add(spikes1);
 
 		portrait = new FlxSprite(250, 0).loadGraphic(Paths.image('pauseMenu/chars/' + PlayState.instance.dad.curCharacter));
 		portrait.scrollFactor.set();
 		portrait.alpha = 0;
+		portrait.setGraphicSize(Std.int(portrait.width * 0.8));
 		if (portrait != null) add(portrait);
 
 		pauseText = new FlxSprite(0, -150).loadGraphic(Paths.image('pauseMenu/text'));
@@ -116,6 +127,12 @@ class PauseSubState extends MusicBeatSubstate
 		arrow = new FlxSprite(0, 0).loadGraphic(Paths.image('pauseMenu/arrow'));
 		arrow.scrollFactor.set();
 		add(arrow);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		spikes2.alpha = 0;
+		add(spikes2);
 
 		if (PlayState.instance.oldVideoResolution) bar.x -= 270;
 		if (PlayState.instance.oldVideoResolution) portrait.x -= 270;
@@ -166,19 +183,18 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
-		FlxTween.tween(scrollingThing, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(vignette, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(scrollingThing, {alpha:0.9}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(spikes1, {alpha:1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(spikes2, {alpha:1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(vignette, {alpha: 0.75}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bar, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(portrait, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(pauseText, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
-		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 		arrowTween = FlxTween.tween(arrow, {x: arrow.x + 10}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 		FlxTween.tween(pauseText, {y: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 		if (PlayState.instance.oldVideoResolution) FlxTween.tween(portrait, {x: -270}, 0.4, {ease:FlxEase.smoothStepInOut});
-		else FlxTween.tween(portrait, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
+		else FlxTween.tween(portrait, {x: 128}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 		grpMenuShit = new FlxTypedGroup<FlxText>();
 		add(grpMenuShit);
@@ -206,6 +222,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
+		
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
@@ -328,6 +347,9 @@ class PauseSubState extends MusicBeatSubstate
 					WeekData.loadTheFirstEnabledMod();
 					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new TCOStoryState());
+					} else if(gfMoment) {
+						MusicBeatState.switchState(new MainMenuState());
+						gfMoment = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayMenu());
 					}
@@ -426,8 +448,8 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		for (i in 0...menuItems.length) {
-			var item = new FlxText(90, (i * 100) + 280, menuItems[i], 64);
-			item.setFormat(Paths.font("Small Print.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			var item = new FlxText(90, (i * 100) + 280, menuItems[i], 54);
+			item.setFormat(Paths.font("Small Print.ttf"), 54, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 			item.scrollFactor.set();
 
 			if (menuItems.length > 4){
@@ -436,7 +458,7 @@ class PauseSubState extends MusicBeatSubstate
 				item.scale.x = 8/menuItems.length;
 			}
 
-			item.y = ((i * 100) * item.scale.y) + 280;
+			item.y = ((i * 100) * item.scale.y) + 230;
 
 			item.width = item.width*item.scale.y;
 			item.updateHitbox();
@@ -448,7 +470,7 @@ class PauseSubState extends MusicBeatSubstate
 			if(menuItems[i] == 'Skip Time')
 			{
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
-				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 				skipTimeText.scrollFactor.set();
 				skipTimeText.scale.x = item.scale.x;
 				skipTimeText.scale.y = item.scale.y;
@@ -491,5 +513,7 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(vignette, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bar, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(portrait, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(spikes1, {alpha:0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(spikes2, {alpha:0}, 0.4, {ease: FlxEase.quartInOut});
 	}
 }

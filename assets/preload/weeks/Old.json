@@ -12,9 +12,9 @@
 	],
 	"weekBackground": "stage",
 
-	"storyName": "",
+	"storyName": "Week Windows",
 	"weekBefore": "Tutorial Week",
-	"weekName": "Tutorial",
+	"weekName": "Week Windows",
 	"startUnlocked": true,
 
 	"hideStoryMode": true,

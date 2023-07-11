@@ -15,6 +15,7 @@ import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxTimer;
 import flixel.FlxCamera;
+import flixel.addons.display.FlxBackdrop;
 
 class FlashingState extends MusicBeatState
 {
@@ -32,6 +33,11 @@ class FlashingState extends MusicBeatState
 	var grpTexts:FlxTypedGroup<AttachedText>;
 	public var camGame:FlxCamera;
 	public var camHUD:FlxCamera;
+	var redPortrait:FlxSprite;
+	var scrollingThing:FlxBackdrop;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
+	var timer:FlxTimer;
 
 	override function create()
 	{
@@ -44,31 +50,52 @@ class FlashingState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
+		
+		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), XY, 0, 0);
+		scrollingThing.alpha = 0.9;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
+		add(scrollingThing);
+		
+		redPortrait = new FlxSprite(50, 50).loadGraphic(Paths.image('warning/redWarn'));
+		redPortrait.antialiasing = ClientPrefs.globalAntialiasing;
+		redPortrait.setGraphicSize(Std.int(redPortrait.width * 0.8));
+		if (redPortrait != null) add(redPortrait);
+		
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		if (spikes1 != null) add(spikes1);
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		add(bg);
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		if (spikes2 != null) add(spikes2);
+		
+		var flashText = new FlxText(250, 150, FlxG.width, "Shaders and flashing lights\nare enabled by default.", 42);
+		flashText.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		flashText.borderSize = 5;
+		add(flashText);
+		
+		var Text2 = new FlxText(250, 300, FlxG.width, "If you feel uncomfortable,\ndisable these options on the\nMain Menu.", 42);
+		Text2.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		Text2.borderSize = 5;
+		add(Text2);
+		
+		var Text3 = new FlxText(250, 500, FlxG.width, "Hope you enjoy this mod!", 42);
+		Text3.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		Text3.borderSize = 5;
+		add(Text3);
+		
+		var OverHereText = new FlxText(0, 15, FlxG.width, "Hey! Over here!", 45);
+		OverHereText.setFormat(Paths.font("phantommuff.ttf"), 45, 0xFFff324A, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		add(OverHereText);
 
-		warnText = new FlxText(0, 0, FlxG.width,
-			"Hey, watch out!\n
-			This Mod contains some flashing lights,\n
-			screen shake and shaders!",
-			32);
-		warnText.setFormat("VCR OSD Mono", 42, FlxColor.WHITE, CENTER);
-		warnText.screenCenter(Y);
-		warnText.cameras = [camGame];
-		add(warnText);
+		var startText = new FlxText(0, 655, FlxG.width, "Press ENTER to continue.", 45);
+		startText.setFormat(Paths.font("phantommuff.ttf"), 45, FlxColor.YELLOW, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		add(startText);
 
-		warnText2 = new FlxText(0, 0, FlxG.width,
-			"If you have a low end PC, it's not recommended to play this mod.\n
-			Since it could present various bugs that could ruin your experience.",
-			32);
-		warnText2.setFormat("VCR OSD Mono", 42, FlxColor.WHITE, CENTER);
-		warnText2.screenCenter(Y);
-		add(warnText2);
-		warnText2.cameras = [camHUD];
-		warnText2.alpha = 0;
-
-		grpOptions = new FlxTypedGroup<Alphabet>();
+		/*grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
 		grpTexts = new FlxTypedGroup<AttachedText>();
@@ -96,7 +123,7 @@ class FlashingState extends MusicBeatState
 			var optionText:Alphabet = new Alphabet(150, 260, optionsArray[i].name, false);
 			optionText.isMenuItem = true;
 			/*optionText.forceX = 300;
-			optionText.yMult = 90;*/
+			optionText.yMult = 90;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 			optionText.cameras = [camGame];
@@ -106,18 +133,26 @@ class FlashingState extends MusicBeatState
 			checkbox.ID = i;
 			checkboxGroup.add(checkbox);
 			checkbox.cameras = [camGame];
-		}
+		}*/
 
-		changeSelection();
-		reloadCheckboxes();
+		//changeSelection();
+		//reloadCheckboxes();
+		camHUD.fade(FlxColor.BLACK, 1.5, true);
 	}
 
 	var holdTime:Float = 0;
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
+		
+		scrollingThing.alpha = 0.9;
 
-		if (controls.UI_UP_P)
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
+
+		/*if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
 		}
@@ -132,11 +167,11 @@ class FlashingState extends MusicBeatState
 			curOption.setValue((curOption.getValue() == true) ? false : true);
 			curOption.change();
 			reloadCheckboxes();
-		}
+		}*/
 
 		if(!leftState) {
-			var space:Bool = FlxG.keys.justPressed.SPACE;
-			if (space) {
+			var enter:Bool = FlxG.keys.justPressed.ENTER;
+			if (enter) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
@@ -199,18 +234,10 @@ class FlashingState extends MusicBeatState
 	{
 		ClientPrefs.saveSettings();
 		FlxG.sound.play(Paths.sound('confirmMenu'));
-
-		FlxTween.tween(camGame, {alpha: 0}, 1, {
-			onComplete: function(twn:FlxTween) {
-		        FlxTween.tween(camHUD, {alpha: 1}, 1);
-				new FlxTimer().start(5, function (tmr:FlxTimer) {
-					FlxTween.tween(camHUD, {alpha: 0}, 1, {
-						onComplete: function(twn:FlxTween) {
-							MusicBeatState.switchState(new TitleState());
-						}
-					});
-				});
-			}
+		
+		camHUD.fade(FlxColor.BLACK, 1.2, false, function()
+		{
+			MusicBeatState.switchState(new TitleState());
 		});
 	}
 }

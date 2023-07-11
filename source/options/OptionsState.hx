@@ -23,6 +23,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import flixel.addons.display.FlxBackdrop;
 import Controls;
 
 using StringTools;
@@ -53,6 +54,10 @@ class OptionsState extends MusicBeatState
 
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
+	var scrollingThing:FlxBackdrop;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
+	var vignette:FlxSprite;
 
 	override function create() {
 		#if desktop
@@ -66,6 +71,32 @@ class OptionsState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+		
+		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), XY, 0, 0);
+		scrollingThing.alpha = 0.9;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
+		add(scrollingThing);
+
+		var circVignette:FlxSprite = new FlxSprite();
+		circVignette.loadGraphic(Paths.image('mainmenu/circVig'));
+		circVignette.scrollFactor.set();
+		add(circVignette);
+
+		vignette = new FlxSprite();
+		vignette.loadGraphic(Paths.image('mainmenu/vignette'));
+		vignette.scrollFactor.set();
+		add(vignette);
+		
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -96,6 +127,12 @@ class OptionsState extends MusicBeatState
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+		
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
+
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
 
 		if (controls.UI_UP_P) {
 			changeSelection(-1);

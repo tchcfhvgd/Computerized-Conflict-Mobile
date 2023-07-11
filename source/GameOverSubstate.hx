@@ -17,6 +17,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
+	var gfMoment:Bool = MainMenuState.gfMoment;
 
 	var stageSuffix:String = "";
 
@@ -76,12 +77,15 @@ class GameOverSubstate extends MusicBeatSubstate
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 100, boyfriend.getGraphicMidpoint().y + 500);
 			case 'stick-bf-death':
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 100, boyfriend.getGraphicMidpoint().y + 100);
+			case 'animator-bf-dead':
+				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 250, boyfriend.getGraphicMidpoint().y + 180);
 			default:
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+				Conductor.changeBPM(100);
 		}
 
 		FlxG.sound.play(Paths.sound(deathSoundName));
-		Conductor.changeBPM(100);
+		Conductor.changeBPM(104);
 		// FlxG.camera.followLerp = 1;
 		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
 		FlxG.camera.scroll.set();
@@ -92,14 +96,16 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 		add(camFollowPos);
+		
+		if (ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5);
+		
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, FlxG.camera.zoom - 1);
 	}
 
 	var isFollowingAlready:Bool = false;
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
 		if(updateCamera) {
@@ -121,7 +127,14 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			WeekData.loadTheFirstEnabledMod();
 			if (PlayState.isStoryMode)
+			{
 				MusicBeatState.switchState(new TCOStoryState());
+			}
+			else if (gfMoment)
+			{				
+			    MusicBeatState.switchState(new MainMenuState());
+				gfMoment = false;
+			}
 			else
 				MusicBeatState.switchState(new FreeplayMenu());
 
@@ -195,8 +208,10 @@ class GameOverSubstate extends MusicBeatSubstate
 			boyfriend.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music(endSoundName));
+			FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom - 0.35}, 2.7, {ease: FlxEase.quadIn});
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
+				//FlxTween.cancelTweensOf(PlayState..camera);
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
 					MusicBeatState.resetState();

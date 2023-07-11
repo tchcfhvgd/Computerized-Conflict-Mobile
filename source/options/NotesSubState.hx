@@ -23,6 +23,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import flixel.addons.display.FlxBackdrop;
 import Controls;
 
 using StringTools;
@@ -40,6 +41,10 @@ class NotesSubState extends MusicBeatSubstate
 
 	var blackBG:FlxSprite;
 	var hsbText:Alphabet;
+	var scrollingThing:FlxBackdrop;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
+	var vignette:FlxSprite;
 
 	var posX = 230;
 	public function new() {
@@ -50,6 +55,21 @@ class NotesSubState extends MusicBeatSubstate
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+		
+		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), XY, 0, 0);
+		scrollingThing.alpha = 0.9;
+		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
+		add(scrollingThing);
+
+		var circVignette:FlxSprite = new FlxSprite();
+		circVignette.loadGraphic(Paths.image('mainmenu/circVig'));
+		circVignette.scrollFactor.set();
+		add(circVignette);
+
+		vignette = new FlxSprite();
+		vignette.loadGraphic(Paths.image('mainmenu/vignette'));
+		vignette.scrollFactor.set();
+		add(vignette);
 
 		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
 		blackBG.alpha = 0.4;
@@ -83,16 +103,35 @@ class NotesSubState extends MusicBeatSubstate
 			shaderArray.push(newShader);
 		}
 
+
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
+
 		hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false);
 		hsbText.scaleX = 0.6;
 		hsbText.scaleY = 0.6;
 		add(hsbText);
+		
 
 		changeSelection();
 	}
 
 	var changingNote:Bool = false;
 	override function update(elapsed:Float) {
+		scrollingThing.x -= 0.45 * 60 * elapsed;
+		scrollingThing.y -= 0.16 * 60 * elapsed;
+
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
+
 		if(changingNote) {
 			if(holdTime < 0.5) {
 				if(controls.UI_LEFT_P) {

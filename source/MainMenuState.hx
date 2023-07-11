@@ -58,7 +58,6 @@ class MainMenuState extends MusicBeatState
 	var spikes1:FlxBackdrop;
 	var spikes2:FlxBackdrop;
 	var colorTween:FlxTween;
-	public var repeatAxes:FlxAxes = XY;
 	var bg:FlxSprite;
 	var vignette:FlxSprite;
 	public var camHUD:FlxCamera;
@@ -84,7 +83,7 @@ class MainMenuState extends MusicBeatState
 	var blackThingIG:FlxSpriteExtra;
 	var textPopup:FlxText;
 	public static var POPUP_TEXT = 'Hey!, Would you like to sing with me on my new Tutorial song?, before starting a new game of course. \n\n Press enter to play the tutorial or escape to continue normally';
-	var gfMoment:Bool;
+	public static var gfMoment:Bool;
 	var targetAlphaCamPopup:Int = 0;
 	
 	var chrom:ChromaticAberrationEffect;
@@ -129,7 +128,7 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), repeatAxes, 0, 0);
+		scrollingThing = new FlxBackdrop(Paths.image('mainmenu/scroll'), XY, 0, 0);
 		scrollingThing.alpha = 0.9;
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
 		add(scrollingThing);
@@ -292,8 +291,6 @@ class MainMenuState extends MusicBeatState
 		//chrom.setChrome(shaderFloat);
 
 		// NG.core.calls.event.logEvent('swag').send();
-		
-		createGFPopup();
 
 		changeItem();
 
@@ -317,6 +314,7 @@ class MainMenuState extends MusicBeatState
 		gfPopup = new FlxSprite().loadGraphic(Paths.image('gfDialog/gfDialog'));
 		gfPopup.cameras = [camGF];
 		gfPopup.screenCenter();
+		gfPopup.antialiasing = ClientPrefs.globalAntialiasing;
 		add(gfPopup);
 
 		textPopup = new FlxText(0, 0, gfPopup.width - 80, POPUP_TEXT, 22);
@@ -327,6 +325,8 @@ class MainMenuState extends MusicBeatState
 		textPopup.x += 5;
 		textPopup.y = gfPopup.y + textPopup.height + 10;
 		add(textPopup);
+		
+		FlxG.sound.play(Paths.sound('ping'), 1);
 	}
 	
 	//no achievements, go away
@@ -397,7 +397,7 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				var targetOption:Int = curSelected + 3;
 				if (curSelected > 2) targetOption = curSelected - 3;
-				if (curSelected == 1 || curSelected == 2 && !CoolUtil.songsUnlocked.data.mainWeek) targetOption = 4;
+				if (curSelected == 1 || curSelected == 2 && !CoolUtil.songsUnlocked.data.mainWeek || newToTheMod) targetOption = 4;
 
 				changeItem(targetOption-curSelected);
 			}
@@ -464,7 +464,7 @@ class MainMenuState extends MusicBeatState
 					chrom.setChrome(shaderFloat);
 				    if (shaderFloat > 0.0085) shaderFloat = 0.0085;
 					
-					FlxG.sound.music.fadeIn(4, 0, 1);
+					FlxG.sound.music.fadeIn(1, 0, 1);
 				}
 				else
 				{
@@ -521,6 +521,7 @@ class MainMenuState extends MusicBeatState
 				targetAlphaCamPopup = 0;
 
 				gfMoment = false;
+				MusicBeatState.switchState(new TCOStoryState());
 			}
 
 			if (controls.ACCEPT)
@@ -569,8 +570,8 @@ class MainMenuState extends MusicBeatState
 					switch (daChoice)
 					{
 						case 'storymode':
-							openSubState(new MessageSubstate());
-							//MusicBeatState.switchState(new TCOStoryState());
+							if (newToTheMod) createGFPopup();
+							else MusicBeatState.switchState(new TCOStoryState());
 						case 'freeplay':
 							MusicBeatState.switchState(new FreeplayMenu());
 						case 'awards':
@@ -578,7 +579,7 @@ class MainMenuState extends MusicBeatState
 						case 'art_gallery':
 							MusicBeatState.switchState(new FanArtState());
 						case 'credits':
-							MusicBeatState.switchState(new TCOCreditsState());
+							MusicBeatState.switchState(new CreditsState());
 						case 'options':
 							LoadingState.loadAndSwitchState(new options.OptionsState());
 					}

@@ -1,66 +1,66 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				261,
-				-270
+				229,
+				-263
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "ashleft",
-			"indices": []
+			"indices": [],
+			"name": "ashleft"
 		},
 		{
-			"offsets": [
-				194,
-				-166
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				182,
+				-190
+			],
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "ashdown"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				153,
-				-58
-			],
-			"anim": "singUP",
 			"fps": 24,
-			"name": "ashup",
+			"name": "ashdown",
 			"indices": []
-		},
-		{
-			"offsets": [
-				187,
-				-269
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"name": "ashright"
 		},
 		{
 			"offsets": [
 				154,
+				-115
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "ashup"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				176,
+				-262
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "ashright",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				154,
 				-246
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "idle",
-			"loop": false,
-			"name": "ashidle"
+			"fps": 24,
+			"name": "ashidle",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/extras/ash",
 	"position": [
 		0,
-		10
+		50
 	],
 	"healthicon": "ash",
 	"flip_x": false,
@@ -74,5 +74,5 @@
 		300
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 0.7
 }

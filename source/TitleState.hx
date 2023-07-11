@@ -60,6 +60,8 @@ class TitleState extends MusicBeatState
 
 	var blackScreen:FlxSprite;
 	var scrollingThing:FlxBackdrop;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
 	var chosenTDL:FlxSprite;
 	var socialItems:FlxTypedGroup<FlxSprite>;
 
@@ -149,11 +151,11 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		/*if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
+		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
-		} else {*/
+		} else {
 			if (initialized)
 				startIntro();
 			else
@@ -163,7 +165,7 @@ class TitleState extends MusicBeatState
 					startIntro();
 				});
 			}
-		//}
+		}
 		#end
 	}
 
@@ -228,13 +230,13 @@ class TitleState extends MusicBeatState
 		bluething.alpha = 0;
 		add(bluething);
 
-		logoBl = new FlxSprite(1250, -50);
+		logoBl = new FlxSprite(1250, 130);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.animation.play('bump');
-		logoBl.setGraphicSize(Std.int(logoBl.width * 0.8));
+		logoBl.setGraphicSize(Std.int(logoBl.width * 0.6));
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
@@ -243,24 +245,37 @@ class TitleState extends MusicBeatState
 		chosenTDL = new FlxSprite(-800);
 		chosenTDL.frames = Paths.getSparrowAtlas('title/ChosenTDL-title');
 		chosenTDL.animation.addByPrefix('idle', 'ChosenTDL title', 24, false);
+		chosenTDL.setGraphicSize(Std.int(chosenTDL.width * 0.8));
 		add(chosenTDL);
 
-		titleText = new FlxText(650, 500, 0, "Press Enter To Begin!", 54);
-		titleText.setFormat(Paths.font("phantommuff.ttf"), 54, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		titleText.borderSize = 2;
+		titleText = new FlxText(450, 550, 0, "Press Enter To Begin!", 40);
+		titleText.setFormat(Paths.font("phantommuff.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleText.borderSize = 4;
 		titleText.alpha = 0;
 		add(titleText);
+		
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
 
 		socialItems = new FlxTypedGroup<FlxSprite>();
 		add(socialItems);
 
 		for (i in 0...socialMedia.length)
 		{
-			var socialItem:FlxSprite = new FlxSprite(803, 621);
+			var socialItem:FlxSprite = new FlxSprite(500, 650);
 			socialItem.loadGraphic(Paths.image('title/' + socialMedia[i]));
 			socialItem.ID = i;
 			socialItem.x += i * 100;
 			socialItem.alpha = 0;
+			socialItem.setGraphicSize(Std.int(socialItem.width * 0.85));
 			socialItems.add(socialItem);
 			socialItem.antialiasing = ClientPrefs.globalAntialiasing;
 		}
@@ -424,6 +439,9 @@ class TitleState extends MusicBeatState
 		{
 			scrollingThing.x -= 0.45 * 60 * elapsed;
 			scrollingThing.y -= 0.16 * 60 * elapsed;
+			
+			spikes1.x -= 0.45 * 60 * elapsed;
+			spikes2.x -= 0.45 * 60 * elapsed;
 		}
 
 		super.update(elapsed);
@@ -517,9 +535,9 @@ class TitleState extends MusicBeatState
 					if(!skippedIntro) FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.45);
 					if (credGroup != null) remove(credGroup);
 
-					if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: 0 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+					if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: -50 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 				case 14:
-					if (logoBl != null) FlxTween.tween(logoBl, { x: 550 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+					if (logoBl != null) FlxTween.tween(logoBl, { x: 700 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 				case 16:
 					skipIntro();
 			}
@@ -586,8 +604,8 @@ class TitleState extends MusicBeatState
 			else //Default! Edit this one!!
 			{
 				if (credGroup != null) remove(credGroup);
-				chosenTDL.x = 0;
-				logoBl.x = 550;
+				chosenTDL.x = -50;
+				logoBl.x = 700;
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 				bluething.alpha = 1;
 				vignette.alpha = 1;
@@ -601,13 +619,10 @@ class TitleState extends MusicBeatState
 				FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 
 		        if (chosenTDL != null)
-		            FlxTween.tween(chosenTDL, { y: -10 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+		            FlxTween.tween(chosenTDL, { y: -7.3 }, Conductor.crochet * 0.002, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 
 		        if (logoBl != null)
-		            FlxTween.tween(logoBl, { y: -45 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
-
-		        if (titleText != null)
-		            FlxTween.tween(titleText, { y: 495 }, 0.4615, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+		            FlxTween.tween(logoBl, { y: 123.3 }, Conductor.crochet * 0.002, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';

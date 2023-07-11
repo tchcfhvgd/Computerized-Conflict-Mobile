@@ -47,6 +47,7 @@ class TCOStoryState extends MusicBeatState
 
 	public var camGame:FlxCamera;
 	public var camGameShaders:Array<ShaderEffect> = [];
+	public var camHUD:FlxCamera;
 
 	var selectedSmth:Bool = false;
 
@@ -140,20 +141,21 @@ class TCOStoryState extends MusicBeatState
 		sprDifficulty = new FlxSprite(0, 200);
 		add(sprDifficulty);
 		
-		//couldn't get the cameras to work
-		if (checkpointSystemON){
-			blackThing = new FlxSpriteExtra();
-			blackThing.makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
+		if (checkpointSystemON)
+		{
+			blackThing = new FlxSpriteExtra().makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
 			blackThing.alpha = 0.7;
 			blackThing.screenCenter();
+			blackThing.cameras = [camHUD];
 			add(blackThing);
-
-			var TEXT_IN_THE_THING = 'Looks like you left in the middle of a week, \n press enter if you want to continue from where you left off, \n or backspace if you want to play another week';
-			text = new FlxText(0, 0, FlxG.width,TEXT_IN_THE_THING);
-			text.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			text = new FlxText(0, 0, FlxG.width, 'Looks like you left the game before,\nbut your progress has been saved.');
+			text.setFormat(Paths.font("phantommuff.ttf"), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 			text.screenCenter();
-			text.borderSize = 1.25;
+			text.cameras = [camHUD];
 			add(text);
+			
+			//checkpointSelect();
 		}
 
 		trace(diff);
@@ -256,6 +258,11 @@ class TCOStoryState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
+	}
+	
+	function optionSelect(change:Int = 0):Void
+	{
+		//
 	}
 
 	function changeDifficulty(change:Int = 0):Void
@@ -376,7 +383,7 @@ class TCOStoryState extends MusicBeatState
 		PlayState.campaignMisses = campaignMisses;
 	    PlayState.storyWeek = 1;
 		PlayState.seenCutscene = false;
-		PlayState.weekNames = 'Chapter 1:';
+		PlayState.weekNames = 'Episode 1: Computer Breakdown';
 		LoadingState.loadAndSwitchState(new PlayState(), true);
 
 		FreeplayState.destroyFreeplayVocals();

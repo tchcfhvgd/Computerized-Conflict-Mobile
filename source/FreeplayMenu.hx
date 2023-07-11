@@ -34,13 +34,13 @@ class FreeplayMenu extends MusicBeatState
 	public static var curSelected:Int = 0;
 	var bg:FlxSprite;
 	var scrollingThing:FlxBackdrop;
-	var scrollingText1:FlxBackdrop;
-	var scrollingText2:FlxBackdrop;
 	var vignette:FlxSprite;
 	var freeplayMenuText:FlxSprite;
 	var littleBar:FlxSprite;
 	var infoBar:FlxSprite;
 	var folderGroup:FlxTypedGroup<FlxSprite>;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
 	var folders:Array<String> = [
 		'story',
 		'extra',
@@ -88,6 +88,17 @@ class FreeplayMenu extends MusicBeatState
 
 		folderGroup = new FlxTypedGroup<FlxSprite>();
 		add(folderGroup);
+		
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
+		add(spikes1);
+
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
+		add(spikes2);
 
 		for (i in 0...folders.length)
 		{
@@ -110,18 +121,6 @@ class FreeplayMenu extends MusicBeatState
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
-
-		scrollingText1 = new FlxBackdrop(Paths.image('mainmenu/text1'), X, 0, 0);
-		scrollingText1.scale.set(0.55, 0.55);
-		scrollingText1.y -= 20;
-		scrollingText1.scrollFactor.set(0, 0);
-		add(scrollingText1);
-
-		scrollingText2 = new FlxBackdrop(Paths.image('mainmenu/text2'), X, 0, 0);
-		scrollingText2.scale.set(0.55, 0.55);
-		scrollingText2.y += 660;
-		scrollingText2.scrollFactor.set(0, 0);
-		add(scrollingText2);
 
 		littleBar = new FlxSprite();
 		littleBar.loadGraphic(Paths.image('freeplayArt/selectMenu/bar'));
@@ -151,9 +150,9 @@ class FreeplayMenu extends MusicBeatState
 	{
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
-
-		scrollingText1.x -= 0.45 * 60 * elapsed;
-		scrollingText2.x -= 0.45 * 60 * elapsed;
+		
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
