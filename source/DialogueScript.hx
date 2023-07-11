@@ -64,6 +64,7 @@ class DialogueScript extends FlxSpriteGroup
 		this.dialogueList = dialogueList;
 
 		daText = new TypedAlphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, '');
+		daText.fontColor = 0xFFFFFFFF;
 		daText.scaleX = 0.7;
 		daText.scaleY = 0.7;
 		add(daText);

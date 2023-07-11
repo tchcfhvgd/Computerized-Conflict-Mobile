@@ -81,8 +81,11 @@ class TCOStoryState extends MusicBeatState
 		PlayState.isStoryMode = true;
 
 		camGame = new FlxCamera();
+		camHUD = new FlxCamera();
+		camHUD.bgColor.alpha = 0;
 		FlxG.cameras.reset(camGame);
 		FlxCamera.defaultCameras = [camGame];
+		FlxG.cameras.add(camHUD, false);
 
 		checkpointSystemON = FlxG.save.data.checkpoint != null;
 		trace(checkpointSystemON);
@@ -149,9 +152,8 @@ class TCOStoryState extends MusicBeatState
 			blackThing.cameras = [camHUD];
 			add(blackThing);
 			
-			text = new FlxText(0, 0, FlxG.width, 'Looks like you left the game before,\nbut your progress has been saved.');
+			text = new FlxText(0, 250, FlxG.width, 'Looks like you left the game before,\nbut your progress has been saved.\n\nWould you like to continue?');
 			text.setFormat(Paths.font("phantommuff.ttf"), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
-			text.screenCenter();
 			text.cameras = [camHUD];
 			add(text);
 			
