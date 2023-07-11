@@ -50,6 +50,13 @@ class MainMenuState extends MusicBeatState
 		'options'
 	];
 
+	var optionShit_NO_STORY:Array<String> = [
+		'art_gallery',
+		'storymode',
+		'credits',
+		'options'
+	];
+
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
@@ -77,7 +84,7 @@ class MainMenuState extends MusicBeatState
 
 	var recentMouseOption:Int;
 	
-	public var newToTheMod:Bool = true;
+	public var newToTheMod:Bool = false;
 
 	var gfPopup:FlxSprite;
 	var blackThingIG:FlxSpriteExtra;
@@ -188,7 +195,7 @@ class MainMenuState extends MusicBeatState
 					CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
 				}
 			}
-
+			
 			if (CoolUtil.songsUnlocked.data.mainWeek == null)
 			{
 				CoolUtil.songsUnlocked.data.mainWeek = false;
@@ -200,11 +207,7 @@ class MainMenuState extends MusicBeatState
 			CoolUtil.songsUnlocked.flush();
 		}
 
-		if (!CoolUtil.songsUnlocked.data.mainWeek)
-		{
-			optionShit.remove('freeplay');
-			optionShit.remove('vault');
-		}
+		if (!CoolUtil.songsUnlocked.data.mainWeek) optionShit = optionShit_NO_STORY;
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -234,7 +237,7 @@ class MainMenuState extends MusicBeatState
 					
 				case 1:
 					menuItem.x = 450;
-					menuItem.y = 50 + off;
+					menuItem.y = -100 + off;
 					
 				case 2:
 					menuItem.x = 850;
@@ -354,25 +357,29 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(menuItem:FlxSprite){
 			var off = 0;
+			var off_NO_STORY = 0;
+			var fuckOPTIONS = 0;
 			if(CoolUtil.songsUnlocked.data.mainWeek) off = -100;
+			else {off_NO_STORY = -50; fuckOPTIONS = 250;}
+
 			switch(menuItem.ID){
 				case 0:
-					menuItem.x = 50;
+					menuItem.x = 100 + off_NO_STORY;
 					menuItem.y = 100 + off;
 				case 1:
-					menuItem.x = 500;
-					menuItem.y = 250 + off;
+					menuItem.x = 500 + off_NO_STORY;
+					menuItem.y = 150 + off;
 				case 2:
-					menuItem.x = 930;
+					menuItem.x = 930 + off_NO_STORY;
 					menuItem.y = 130 + off;
 				case 3:
-					menuItem.x = 245 + off;
+					menuItem.x = 245 + off + off_NO_STORY + fuckOPTIONS;
 					menuItem.y = 385 + off;
 				case 4:
-					menuItem.x = 645 + off;
+					menuItem.x = 610 + off;
 					menuItem.y = 385 + off;
 				case 5:
-					menuItem.x = 930 + off;
+					menuItem.x = 950 + off;
 					menuItem.y = 385 + off;
 			}
 			menuItem.updateHitbox();
@@ -397,7 +404,17 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				var targetOption:Int = curSelected + 3;
 				if (curSelected > 2) targetOption = curSelected - 3;
-				if (curSelected == 1 || curSelected == 2 && !CoolUtil.songsUnlocked.data.mainWeek || newToTheMod) targetOption = 4;
+				if (!CoolUtil.songsUnlocked.data.mainWeek)
+				{
+					if(curSelected == 3) //options menu
+					{
+						targetOption = 1;
+					}
+					else
+					{
+						targetOption = 3;
+					}
+				}
 
 				changeItem(targetOption-curSelected);
 			}
@@ -455,8 +472,8 @@ class MainMenuState extends MusicBeatState
 				
 				if (optionShit[curSelected] == 'vault')
 				{
-					FlxG.camera.shake(0.035, 0.15);
-					FlxG.camera.zoom = FlxMath.lerp(1.6, FlxG.camera.zoom, 0.7);
+					FlxG.camera.shake(0.0035, 0.15);
+					FlxG.camera.zoom = FlxMath.lerp(1.2, FlxG.camera.zoom, 0.7);
 					FlxTween.tween(bg, {alpha:0}, 0.4);
 					FlxTween.tween(vignette, {alpha:0}, 0.4);
 					
@@ -516,7 +533,7 @@ class MainMenuState extends MusicBeatState
 		{
 			if (controls.BACK)
 			{
-				selectedSomethin = false;
+				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				targetAlphaCamPopup = 0;
 
@@ -706,7 +723,7 @@ class MainMenuState extends MusicBeatState
 				itemsText.text = 'Configure your controls and more to your preference!';
 
 			case 'vault':
-
+				
 				colorTween = FlxTween.color(scrollingThing, 0.5, scrollingThing.color, FlxColor.BLACK, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
