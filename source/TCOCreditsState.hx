@@ -73,29 +73,29 @@ class TCOCreditsState extends MusicBeatState
 		credits = [
 			//Tco Dev Team
 
-			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, ""),
-			new CreditsMetadata("MijaeLio", "mijae", "Main Coder", 0xFF5F5D5D),
+			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, "what's 6 × 3? 21."),
+			new CreditsMetadata("MijaeLio", "mijae", "Main Coder", 0xFF5F5D5D, "Saludos a mi vieja"),
 			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000, "Twinkle of Contagion is a Passive Item added in the Spitshine update.\nFlavor text: \"Take the Shot\"\nItem Pool: Treasure, Drug Dealer\nQuality: 2\nItem Tags: Syringe, Summonable, Offensive"),
-			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF8A8484, "Hello USERNAME, how was your day?".replace("USERNAME", #if mac Sys.getEnv("USER") #else Sys.getEnv("USERNAME") #end)),
-			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, ""),
-			new CreditsMetadata("joa", "joa", "Musician", 0xFF0000FF, ""),
+			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF533a38, "Hello USERNAME, how was your day?".replace("USERNAME", Sys.getEnv(#if mac "USER" #else "USERNAME" #end))),
+			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, "this is my finest hour"),
+			new CreditsMetadata("joa", "joa", "Musician", 0xFF0000FF, "If Eevee is exposed to a Water Stone and evolves into Vaporeon, it will be an excellent swimmer, capable of becoming invisible in water, and will have great aquatic abilities. He will become calm, mature, his wisdom will grow with great prominence, since he knows as much about things on land as those of the sea. It has a peaceful and open character. It also has a good sense of leadership and is a very self-assured Pokémon. He loves to attract attention: in fact, he does anything to feel cared for and to be the center of attention, even on others, making his pride known. However, despite being a calm Pokémon, if it gets too proud it can become proud, something that can be compared to Jolteon, another evolution of Eevee. Vaporeon's body is mostly blue. It has pointed yellow ears that help propel it when it dives, with which it can hear underwater. It has a fin on its head similar to that of a shark, and a white ruff on its neck. It has scaly spikes on its spine that extend the length of its back. Its physical constitution is adapted to marine subsistence, mainly thanks to its tail topped by a caudal fin that helps it swim. It is not easy to see it when it swims because it is confused with water due to the bluish tone of its skin covered with scales. In addition to having the unique ability to become invisible in the water, leaving predators behind. Vaporeon can live in fresh water, especially in calm lagoons, and due to its biology it is sometimes found in not very rough seas and oceans, although it has been seen in cities. This Pokémon is capable of staying underwater for more than two hours without needing to breathe. In fact, the Pokédex mentions that it even has gills. Although he is better adapted to swimming, he is an excellent runner and has enormous agility on dry land. In Pokémon Contests, Vaporeon's fancy Water-type moves would put on a wonderful show."),
 			new CreditsMetadata("SharkFaceGaming", "shark", "Musician", 0xFF4ECDFF, "microwaveable pizza"),
 			new CreditsMetadata("ExpKing", "Jace", "Musician", 0xFF0000FF, "popeyes fried chicken"),
-			new CreditsMetadata("TheNatz", "no-icon", "Musician", 0xFFFF7B22, ""),
-			new CreditsMetadata("Prod.kxri", "prodkxri", "Musician", 0xFFFF0000, ""),
-			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, ""),
-			new CreditsMetadata("Magbros.ogg", "magbros", "Musician", 0xFFFF7B22, ""),
-			new CreditsMetadata("Splat", "splat", "Sprite Artist", 0xFF6D6767, ""),
+			new CreditsMetadata("TheNatz", "no-icon", "Musician", 0xFFFF7B22, "dont search toy in discord gif search worst mistake of my life"),
+			new CreditsMetadata("Prod.kxri", "prodkxri", "Musician", 0xFFFF0000, "Bald kxrai will exist In August"),
+			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, "Keep doing it, even if nobody cares"),
+			new CreditsMetadata("Magbros.ogg", "magbros", "Musician", 0xFFFF7B22, "a thing you can trust"),
+			new CreditsMetadata("Splat", "splat", "Sprite Artist", 0xFF6D6767, "eating is a privilege"),
 			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, "Never gonna give you up, never gonna let you down, never gonna run around and desert you. Never gonna make you cry, never gonna say goodbye, never gonna tell you a lie and give you EMOTIONAL DAMAGE"),
 			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, "hello everyone"),
 			new CreditsMetadata("Dittosactualoreo", "Ditto", "Sprite/Background Artist", 0xFFFF00AA, "the person below me kisses men"),
 			new CreditsMetadata("12kNoodles", "noodles", "Background Artist", 0xFFFF3CBE, "Hello Neighbor is a stealth horror game about sneaking into your neighbor's house to figure out what horrible secrets he's hiding in the basement. You play against an advanced AI that learns from your every move. Really enjoying climbing through that backyard window? Expect a bear trap there."),
 			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, "Stickman go beep boop"),
-			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, ""),
-			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, ""),
-			new CreditsMetadata("Hexal", "no-icon", "Cutscene Maker (Outrage and End Process)", 0xFF585454, ""),
+			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, "I love men"),
+			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, "what am i even supposed to quote here"),
+			new CreditsMetadata("Hexal", "no-icon", "Cutscene Maker (Outrage and End Process)", 0xFF585454, "im animator :poop emoji:"),
 			new CreditsMetadata("Xyriax", "xyriax", "Insane difficulty charter (some charts are made by Jet tho)", 0xFF0000FF, "charters are overrated"),
-			new CreditsMetadata("Shammal", "shammal", "Extra Charter", 0xFF7AFF7A, "It’s hard being this eepy, but someone’s gotta do it."),
+			new CreditsMetadata("Shammal", "shammal", "Extra Charter", 0xFF7AFF7A, "It's hard being this eepy, but someone's gotta do it."),
 			new CreditsMetadata("LeLazyOne", "lelazyone", "trailer editor", 0xFFFFBA7A, "i like girls"),
 
 			//Contributers (no icons)
@@ -184,7 +184,10 @@ class TCOCreditsState extends MusicBeatState
 
 		prompttext = new FlxText();
 		prompttext.scrollFactor.set();
-		prompttext.fieldWidth = prompt.frameWidth;
+		prompttext.fieldWidth = prompt.frameWidth - 120;
+		prompttext.font = Paths.font("ARIAL.TTF");
+		prompttext.size = 20;
+		prompttext.color = 0xFF000000;
 		prompttext.x = prompt.x;
 		prompttext.y = prompt.y;
 		prompttext.antialiasing = ClientPrefs.globalAntialiasing;
@@ -333,8 +336,8 @@ class TCOCreditsState extends MusicBeatState
 		if(prompttext.visible) {
 			prompttext.text = credits[curSelected].desc;
 			prompttext.updateHitbox();
-			prompttext.x = prompt.x;
-			prompttext.y = prompt.y;
+			prompttext.x = prompt.x + 110;
+			prompttext.y = prompt.y + 90;
 		}
 
 

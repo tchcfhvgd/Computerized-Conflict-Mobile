@@ -79,11 +79,11 @@ class MainMenuState extends MusicBeatState
 	var itemsText:FlxText;
 	var glitchBG:BGSprite;
 	var shaderFloat:Float = 0;
-	
+
 	public var camGameShaders:Array<ShaderEffect> = [];
 
 	var recentMouseOption:Int;
-	
+
 	public var newToTheMod:Bool = false;
 
 	var gfPopup:FlxSprite;
@@ -92,7 +92,7 @@ class MainMenuState extends MusicBeatState
 	public static var POPUP_TEXT = 'Hey!, Would you like to sing with me on my new Tutorial song?, before starting a new game of course. \n\n Press enter to play the tutorial or escape to continue normally';
 	public static var gfMoment:Bool;
 	var targetAlphaCamPopup:Int = 0;
-	
+
 	var chrom:ChromaticAberrationEffect;
 
 	override function create()
@@ -119,7 +119,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camGF, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		
+
 		camGF.alpha = targetAlphaCamPopup;
 
 
@@ -161,13 +161,13 @@ class MainMenuState extends MusicBeatState
 		spikes2.y += 630;
 		spikes2.scrollFactor.set(0, 0);
 		add(spikes2);
-		
+
 		menuText = new FlxText(0, 0, FlxG.width, 'MAIN MENU', 29);
 		menuText.setFormat(Paths.font("phantommuff.ttf"), 39, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		menuText.x -= 630;
 		menuText.y -= 340;
 		add(menuText);
-		
+
 		itemsText = new FlxText(0, 0, FlxG.width, '', 18);
 		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		itemsText.y += 300;
@@ -195,11 +195,11 @@ class MainMenuState extends MusicBeatState
 					CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
 				}
 			}
-			
+
 			if (CoolUtil.songsUnlocked.data.mainWeek == null)
 			{
 				CoolUtil.songsUnlocked.data.mainWeek = false;
-				
+
 				newToTheMod = true;
 			}
 			trace(CoolUtil.songsUnlocked.data.mainWeek);
@@ -234,19 +234,19 @@ class MainMenuState extends MusicBeatState
 				case 0:
 					menuItem.x = 50;
 					menuItem.y = 50 + off;
-					
+
 				case 1:
 					menuItem.x = 450;
 					menuItem.y = -100 + off;
-					
+
 				case 2:
 					menuItem.x = 850;
 					menuItem.y = 100 + off;
-					
+
 				case 3:
 					menuItem.x = 245 + off;
 					menuItem.y = 400 + off;
-					
+
 				case 4:
 					menuItem.x = 645 + off;
 					menuItem.y = 600 + off;
@@ -254,10 +254,10 @@ class MainMenuState extends MusicBeatState
 					menuItem.x = 1045 + off;
 					menuItem.y = 400 + off;
 			}
-			
+
 			menuItem.scale.x = 0.25;
 			menuItem.scale.y = 0.25;
-			
+
 			menuItem.updateHitbox();
 		}
 
@@ -267,7 +267,7 @@ class MainMenuState extends MusicBeatState
 		CoolUtil.songsUnlocked.flush();*/
 
 		FlxG.camera.follow(camFollowPos, null, 1);
-		
+
 		blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
 		blackBG.scrollFactor.set();
 		blackBG.alpha = 0;
@@ -280,16 +280,16 @@ class MainMenuState extends MusicBeatState
 			typinText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			add(typinText);
 		}
-		
+
 		glitchBG = new BGSprite('vault/newGlitchBG', 450, 215, 0.9, 0.9, ['g'], true);
 		glitchBG.cameras = [camHUD];
 		glitchBG.screenCenter();
 		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;
 		glitchBG.alpha = 0;
 		add(glitchBG);
-		
+
 		chrom = new ChromaticAberrationEffect(0);
-		
+
 		if (ClientPrefs.shaders) addShaderToCamera('camgame', chrom);
 		//chrom.setChrome(shaderFloat);
 
@@ -328,10 +328,10 @@ class MainMenuState extends MusicBeatState
 		textPopup.x += 5;
 		textPopup.y = gfPopup.y + textPopup.height + 10;
 		add(textPopup);
-		
+
 		FlxG.sound.play(Paths.sound('ping'), 1);
 	}
-	
+
 	//no achievements, go away
 
 	var selectedSomethin:Bool = false;
@@ -349,7 +349,7 @@ class MainMenuState extends MusicBeatState
 
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
-		
+
 		scrollingThing.alpha = 0.9;
 
 		spikes1.x -= 0.45 * 60 * elapsed;
@@ -453,10 +453,10 @@ class MainMenuState extends MusicBeatState
 					FlxG.sound.play(Paths.sound('mouseClick'));
 					loadState();
 				}
-				
+
 				spr.alpha = 0.5;
 				spr.updateHitbox();
-				
+
 
 				if (spr.ID != curSelected){
 					spr.scale.x += (0.23-spr.scale.x)/(250*elapsed);
@@ -469,18 +469,18 @@ class MainMenuState extends MusicBeatState
 
 					spr.centerOffsets();
 				}
-				
+
 				if (optionShit[curSelected] == 'vault')
 				{
 					FlxG.camera.shake(0.0035, 0.15);
 					FlxG.camera.zoom = FlxMath.lerp(1.2, FlxG.camera.zoom, 0.7);
 					FlxTween.tween(bg, {alpha:0}, 0.4);
 					FlxTween.tween(vignette, {alpha:0}, 0.4);
-					
+
 					shaderFloat += elapsed * 0.0015;
 					chrom.setChrome(shaderFloat);
 				    if (shaderFloat > 0.0085) shaderFloat = 0.0085;
-					
+
 					FlxG.sound.music.fadeIn(1, 0, 1);
 				}
 				else
@@ -491,7 +491,7 @@ class MainMenuState extends MusicBeatState
 					shaderFloat -= elapsed * 0.0015;
 					if (shaderFloat < 0) shaderFloat = 0;
 					chrom.setChrome(shaderFloat);
-					
+
 					FlxG.sound.music.fadeOut();
 				}
 			});
@@ -526,7 +526,7 @@ class MainMenuState extends MusicBeatState
 				typinText.y = FlxG.height / 16;
 			}
 		}
-		
+
 		camGF.alpha = FlxMath.lerp(camGF.alpha, targetAlphaCamPopup, lerpVal);
 
 		if (gfMoment)
@@ -569,7 +569,7 @@ class MainMenuState extends MusicBeatState
 			}
 			else
 			{
-				
+
 				if (optionShit[curSelected] == 'vault')
 				{
 					glitchBG.alpha = 1;
@@ -610,7 +610,7 @@ class MainMenuState extends MusicBeatState
 			}*/
 		});
 	}
-	
+
 	function loadTutorial()
 	{
 		targetAlphaCamPopup = 0;
@@ -649,13 +649,13 @@ class MainMenuState extends MusicBeatState
 						colorTween = null;
 					}
 			    });
-				
+
 				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.ORANGE, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 				itemsText.text = 'Face off against Alan Becker stick figures with the power of music!';
 
 			case 'freeplay':
@@ -665,13 +665,13 @@ class MainMenuState extends MusicBeatState
 						colorTween = null;
 					}
 			    });
-				
+
 				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.CYAN, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 				itemsText.text = 'Play bonus songs and meet other stick figures, will you recognize them?';
 
 			case 'credits':
@@ -681,13 +681,13 @@ class MainMenuState extends MusicBeatState
 						colorTween = null;
 					}
 			    });
-				
+
 				colorTween = FlxTween.color(vignette, 1, vignette.color, 0xFF3de66f, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 				itemsText.text = 'Meet the people behind this mod!';
 
 			case 'art_gallery':
@@ -697,13 +697,13 @@ class MainMenuState extends MusicBeatState
 						colorTween = null;
 					}
 			    });
-				
+
 				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.YELLOW, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 				itemsText.text = 'Look at some art made by our followers!';
 
 			case 'options':
@@ -713,27 +713,27 @@ class MainMenuState extends MusicBeatState
 						colorTween = null;
 					}
 			    });
-				
+
 				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.WHITE, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 			    });
-				
+
 				itemsText.text = 'Configure your controls and more to your preference!';
 
 			case 'vault':
-				
+
 				colorTween = FlxTween.color(scrollingThing, 0.5, scrollingThing.color, FlxColor.BLACK, {
 					onComplete: function(twn:FlxTween) {
 						colorTween = null;
 					}
 				});
-				
+
 				itemsText.text = '...';
 		}
 	}
-	
+
     public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
 
 		switch(cam.toLowerCase()) {

@@ -160,7 +160,7 @@ class TitleState extends MusicBeatState
 				startIntro();
 			else
 			{
-				new FlxTimer().start(1, function(tmr:FlxTimer)
+				new FlxTimer().start(0.1, function(tmr:FlxTimer)
 				{
 					startIntro();
 				});

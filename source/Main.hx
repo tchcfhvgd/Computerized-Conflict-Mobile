@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -75,6 +76,7 @@ class Main extends Sprite
 	private function setupGame():Void
 	{
 		ClientPrefs.loadDefaultKeys();
+		FlxTransitionableState.skipNextTransOut = true;
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") 1, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		#if !mobile
