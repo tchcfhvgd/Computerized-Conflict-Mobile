@@ -451,6 +451,7 @@ class PauseSubState extends MusicBeatSubstate
 			var item = new FlxText(90, (i * 100) + 280, menuItems[i], 54);
 			item.setFormat(Paths.font("Small Print.ttf"), 54, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 			item.scrollFactor.set();
+			if(scrollingThing.color == 0xFFFFFFFF) item.color = 0xFF000000;
 
 			if (menuItems.length > 4){
 				//item.scale.x = 4/menuItems.length;
