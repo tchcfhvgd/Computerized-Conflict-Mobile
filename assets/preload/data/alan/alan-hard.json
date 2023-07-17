@@ -1,6 +1,6 @@
 {
 	"song": {
-		"composer": "DTunes, Puppet master",
+		"composer": "DTunes, Puppet Master",
 		"sectionLengths": [],
 		"player1": "animator-bf",
 		"events": [],
@@ -6478,8 +6478,8 @@
 			}
 		],
 		"player3": null,
-		"song": "alan",
-		"stage": "whiteSpace",
+		"song": "Alan",
+		"stage": "alan-pc-song",
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": true,
