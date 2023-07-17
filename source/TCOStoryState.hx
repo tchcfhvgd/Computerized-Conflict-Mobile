@@ -43,6 +43,7 @@ class TCOStoryState extends MusicBeatState
 	var songsBG:FlxSprite;
 	var weekImages:FlxSprite;
 	var diff:String;
+	var txtTracklist:FlxText;
 	var sprDifficulty:FlxSprite;
 
 	public var camGame:FlxCamera;
@@ -133,6 +134,13 @@ class TCOStoryState extends MusicBeatState
 		songsBG.screenCenter();
 		songsBG.antialiasing = ClientPrefs.globalAntialiasing;
 		
+		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
+		scoreText.setFormat("VCR OSD Mono", 32);
+		
+		txtTracklist = new FlxText(FlxG.width * 0.05, songsBG.y + 60, 0, "", 32);
+		txtTracklist.alignment = CENTER;
+		txtTracklist.color = 0xFFe55777;
+		
 		add(bgSprite);
 		add(scrollingThing);
 		add(circleTiles);
@@ -140,6 +148,8 @@ class TCOStoryState extends MusicBeatState
 		add(upperBar);
 		add(downBar);
 		add(songsBG);
+		add(scoreText);
+		add(txtTracklist);
 
 		sprDifficulty = new FlxSprite(0, 200);
 		add(sprDifficulty);
@@ -172,6 +182,11 @@ class TCOStoryState extends MusicBeatState
 
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
+		
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, FlxMath.bound(elapsed * 30, 0, 1)));
+		if(Math.abs(intendedScore - lerpScore) < 10) lerpScore = intendedScore;
+		
+		scoreText.text = "WEEK SCORE:" + lerpScore;
 
 		if (!selectedSmth)
 		{
@@ -334,9 +349,46 @@ class TCOStoryState extends MusicBeatState
 				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 0);
 				if (onInsane) FlxG.sound.play(Paths.sound('fire'), 1, false);
 		}
+		
 		lastDifficultyName = diff;
+		#if !switch
+		//intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName, curDifficulty);
+		#end
+		
 		trace(diff);
 	}
+	
+	var lerpScore:Int = 0;
+	var intendedScore:Int = 0;
+	
+	/*function updateText()
+	{
+		var weekArray:Array<String> = loadedWeeks[curWeek].weekCharacters;
+		for (i in 0...grpWeekCharacters.length) {
+			grpWeekCharacters.members[i].changeCharacter(weekArray[i]);
+		}
+
+		var leWeek:WeekData = loadedWeeks[curWeek];
+		var stringThing:Array<String> = [];
+		for (i in 0...leWeek.songs.length) {
+			stringThing.push(leWeek.songs[i][0]);
+		}
+
+		txtTracklist.text = '';
+		for (i in 0...stringThing.length)
+		{
+			txtTracklist.text += stringThing[i] + '\n';
+		}
+
+		txtTracklist.text = txtTracklist.text.toUpperCase();
+
+		txtTracklist.screenCenter(X);
+		txtTracklist.x -= FlxG.width * 0.35;
+
+		#if !switch
+		intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName, curDifficulty);
+		#end
+	}*/
 
     public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
 

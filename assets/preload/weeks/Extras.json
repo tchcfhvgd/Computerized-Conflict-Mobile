@@ -10,6 +10,8 @@
 		["messenger", "aol", [255, 204, 0]],
 		["amity", "the-chosen-one-adobe", [20, 20, 20]]
         ],
+		["alan", "alan", [20, 20, 20]]
+        ],
 
 	"weekCharacters": [
 		"",

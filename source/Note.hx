@@ -239,8 +239,9 @@ class Note extends FlxSprite
 			texture = '';
 			colorSwap = new ColorSwap();
 			shader = colorSwap.shader;
-
+			
 			x += swagWidth * (noteData);
+			if (PlayState.uiType == 'psychDef') swagWidth = 160 * 0.7;
 			if(!isSustainNote && noteData > -1 && noteData < 4) { //Doing this 'if' check to fix the warnings on Senpai songs
 				var animToPlay:String = '';
 				animToPlay = colArray[noteData % 4];
@@ -386,7 +387,8 @@ class Note extends FlxSprite
 			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece');
 		}
 
-		setGraphicSize(Std.int(width * 0.6));
+		if (PlayState.uiType == 'psychDef') setGraphicSize(Std.int(width * 0.7));
+		else setGraphicSize(Std.int(width * 0.6));
 		updateHitbox();
 	}
 
