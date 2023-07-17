@@ -74,7 +74,7 @@ class TCOCreditsState extends MusicBeatState
 			//Tco Dev Team
 
 			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, "what's 6 × 3? 21."),
-			new CreditsMetadata("MijaeLio", "mijae", "Main Coder", 0xFF5F5D5D, "Saludos a mi vieja"),
+			new CreditsMetadata("MijaeLio", "mijae", "Main Coder & Co-Director", 0xFF5F5D5D, "Saludos a mi vieja"),
 			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000, "Twinkle of Contagion is a Passive Item added in the Spitshine update.\nFlavor text: \"Take the Shot\"\nItem Pool: Treasure, Drug Dealer\nQuality: 2\nItem Tags: Syringe, Summonable, Offensive"),
 			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF533a38, "Hello USERNAME, how was your day?".replace("USERNAME", Sys.getEnv(#if mac "USER" #else "USERNAME" #end))),
 			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, "this is my finest hour"),
@@ -109,7 +109,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("ROCKY", "", "\"Dashpulse\" vocals composer", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Deltom", "", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\"", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Dtunes", "", "A composer of \"Alan\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Dtunes", "", "A composer of \"Alan (Remake)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("atpx8", "", "Helped with the End Process pop-ups mechanic", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Tentilog", "", "3D Black STICK Sprite", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Koi", "", "Rombie BG Artist", 0xFFFFFFFF, ""),
