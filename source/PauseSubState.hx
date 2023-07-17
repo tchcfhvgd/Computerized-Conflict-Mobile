@@ -92,6 +92,7 @@ class PauseSubState extends MusicBeatSubstate
 		scrollingThing.alpha = 0;
 		scrollingThing.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1],
 		PlayState.instance.dad.healthColorArray[2]);
+		trace(scrollingThing.color);
 
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
 		add(scrollingThing);
@@ -416,7 +417,8 @@ class PauseSubState extends MusicBeatSubstate
 			bullShit++;
 
 			item.alpha = 0.6;
-			item.color = 0xFFFFFFFF;
+			if(scrollingThing.color == -1) item.color = 0xFF000000; //if the bg is white, make the things black
+			else item.color = 0xFFFFFFFF; //else, make it white
 			FlxTween.tween(item, {x: 90}, 0.3, {ease:FlxEase.smoothStepInOut});
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
@@ -451,6 +453,7 @@ class PauseSubState extends MusicBeatSubstate
 			var item = new FlxText(90, (i * 100) + 280, menuItems[i], 54);
 			item.setFormat(Paths.font("Small Print.ttf"), 54, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 			item.scrollFactor.set();
+			if(scrollingThing.color == -1) item.color = 0xFF000000; //if the bg is white, make the things black
 
 			if (menuItems.length > 4){
 				//item.scale.x = 4/menuItems.length;
