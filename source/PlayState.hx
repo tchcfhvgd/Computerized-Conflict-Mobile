@@ -1058,7 +1058,6 @@ class PlayState extends MusicBeatState
 					add(whiteScreen);
 
 					needsBlackBG = true;
-					uiType = 'psychDef';
 				}
 
 			case 'whiteSpace': //Placeholder
@@ -2113,8 +2112,6 @@ class PlayState extends MusicBeatState
 					bsod.setGraphicSize(Std.int(bsod.width * 1.1));
 					bsod.antialiasing = ClientPrefs.globalAntialiasing;
 					bsod.alpha = 0;
-					
-					uiType = 'psychDef';
 				}
 			case 'red-zone-error':
 				{
@@ -2179,6 +2176,9 @@ class PlayState extends MusicBeatState
 			blackBG.screenCenter();
 			add(blackBG);
 		}
+
+		if(SONG.song.toLowerCase().endsWith('(old)')) uiType = 'psychDef';
+		else uiType = 'default';
 
 		add(dadGroup);
 		add(boyfriendGroup);
@@ -4835,12 +4835,13 @@ class PlayState extends MusicBeatState
 
 		for (i in 0...4)
 		{
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			if (uiType == 'psychDef')
 			{
 				STRUM_X = 42;
 				STRUM_X_MIDDLESCROLL = -278;
 			}
+
+			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			babyArrow.downScroll = ClientPrefs.downScroll;
 
 			if (!isStoryMode && !skipArrowStartTween)
@@ -6260,25 +6261,23 @@ class PlayState extends MusicBeatState
 		deathCounter = 0;
 		seenCutscene = false;
 
-		#if ACHIEVEMENTS_ALLOWED
-		if(achievementObj != null) {
-			return;
-		} else {
-			var achieve:String = checkForAchievement(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss',
-				'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad',
-				'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
-
-			if(achieve != null) {
-				startAchievement(achieve);
-				return;
-			}
-		}
-		#end
-
-		if(isStoryMode && storyPlaylist.length <= 1 && SONG.song.toLowerCase() == 'end process') {
+		if(isStoryMode && storyPlaylist.length <= 1 && SONG.song.toLowerCase() == 'end process')
+		{
 			CoolUtil.songsUnlocked.data.mainWeek = true;
 
 			CoolUtil.songsUnlocked.flush();
+		}
+
+		if(FreeplayState.alanSongs.contains(SONG.song.toLowerCase()))
+		{
+			CoolUtil.songsUnlocked.data.alanSongs.set(SONG.song.toLowerCase(), true);
+
+			CoolUtil.songsUnlocked.flush();
+
+			for (i in 0...FreeplayState.alanSongs.length)
+			{
+				trace(FreeplayState.alanSongs[i] + ' ' + CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i]));
+			}
 		}
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);

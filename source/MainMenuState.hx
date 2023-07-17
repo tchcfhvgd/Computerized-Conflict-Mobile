@@ -196,6 +196,14 @@ class MainMenuState extends MusicBeatState
 				}
 			}
 
+			if (CoolUtil.songsUnlocked.data.alanSongs == null)
+			{
+				CoolUtil.songsUnlocked.data.alanSongs = new Map<String, Bool>();
+				for (i in 0...FreeplayState.alanSongs.length){
+					CoolUtil.songsUnlocked.data.alanSongs.set(FreeplayState.alanSongs[i], false);
+				}
+			}
+
 			if (CoolUtil.songsUnlocked.data.mainWeek == null)
 			{
 				CoolUtil.songsUnlocked.data.mainWeek = false;

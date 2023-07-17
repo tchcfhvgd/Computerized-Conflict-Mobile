@@ -74,6 +74,10 @@ class FreeplayState extends MusicBeatState
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
 
+	public static var alanSongs:Array<String> = 
+	['trojan', 'conflict', 'dashpulse', 'time travel', 'cubify', 'kickstarter', 'contrivance', 'messenger', 'amity', 
+	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm', 'aurora'];
+
 	var precacheList:Map<String, String> = new Map<String, String>();
 
 	public function new (?newWeeks:Null<Array<String>>) //code is from w.i. btw
@@ -98,6 +102,8 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Freeplay Song Selection", null);
 		#end
 
+		checkIfAlanIsLocked();
+		
 		for (i in 0...weeks.length) {
 			if(weekIsLocked(weeks[i])) continue;
 
@@ -263,13 +269,30 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (!skipAdd)
-			songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+		if(songName.toLowerCase() == 'alan') skipAdd = !CoolUtil.songsUnlocked.data.alanUnlocked;
+
+		if (skipAdd) return;
+			
+		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
 	}
 
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
 		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
+	}
+
+	function checkIfAlanIsLocked()
+	{
+		for (i in 0...alanSongs.length-1)
+		{
+			if(CoolUtil.songsUnlocked.data.alanSongs.get(alanSongs[i]) == false)
+			{
+				CoolUtil.songsUnlocked.data.alanUnlocked = false;
+				return;
+			}
+		}
+
+		CoolUtil.songsUnlocked.data.alanUnlocked = true;
 	}
 	
 	override function beatHit()

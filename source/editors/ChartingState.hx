@@ -488,6 +488,8 @@ class ChartingState extends MusicBeatState
 					System.exit(0);
 				}
 
+				if(songName == 'alan' && !CoolUtil.songsUnlocked.data.alanUnlocked) loadSong = false;
+
 				if (loadSong) loadJson(_song.song.toLowerCase());
 			}, null,ignoreWarnings));
 		});
