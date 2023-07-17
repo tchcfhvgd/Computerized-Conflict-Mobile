@@ -9,7 +9,7 @@
 		["contrivance", "mcsam", [146, 113, 253]],
 		["messenger", "aol", [255, 204, 0]],
 		["amity", "the-chosen-one-adobe", [20, 20, 20]],
-		["alan", "alan", [20, 20, 20]]
+		["alan", "alan", [255, 255, 255]]
         ],
 
 	"weekCharacters": [
