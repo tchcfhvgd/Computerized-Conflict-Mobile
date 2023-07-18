@@ -69,6 +69,10 @@ class TCOStoryState extends MusicBeatState
 	var blackThing:FlxSpriteExtra;
 	var text:FlxText;
 
+	var weeks:Array<WeekInfo> = [];
+
+	var chapterThingyText:FlxText;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -78,6 +82,10 @@ class TCOStoryState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Story Mode", null);
 		#end
+
+		weeks = [
+			new WeekInfo('week 1', ['adobe', 'outrage', 'end process'], 'Chapter 1: Computer Breakdown'),
+		];
 
 		PlayState.isStoryMode = true;
 
@@ -136,10 +144,23 @@ class TCOStoryState extends MusicBeatState
 		
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		scoreText.setFormat("VCR OSD Mono", 32);
+
+		chapterThingyText = new FlxText(10, 10, 0, weeks[0].desc, 36);
+		chapterThingyText.setFormat("VCR OSD Mono", 32);
 		
 		txtTracklist = new FlxText(FlxG.width * 0.05, songsBG.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
 		txtTracklist.color = 0xFFe55777;
+
+		txtTracklist.text = 'Tracks:';
+		for (i in 0...weeks[0].songs.length)
+		{
+			txtTracklist.text = txtTracklist.text + '\n' + weeks[0].songs[i];
+			txtTracklist.updateHitbox();
+		}
+		//TO DO: FIX THIS
+		txtTracklist.y = songsBG.y + (songsBG.height - txtTracklist.height);
+		txtTracklist.x = songsBG.x + (songsBG.width - txtTracklist.width);
 		
 		add(bgSprite);
 		add(scrollingThing);
@@ -149,6 +170,7 @@ class TCOStoryState extends MusicBeatState
 		add(downBar);
 		add(songsBG);
 		add(scoreText);
+		add(chapterThingyText);
 		add(txtTracklist);
 
 		sprDifficulty = new FlxSprite(0, 200);
@@ -187,6 +209,10 @@ class TCOStoryState extends MusicBeatState
 		if(Math.abs(intendedScore - lerpScore) < 10) lerpScore = intendedScore;
 		
 		scoreText.text = "WEEK SCORE:" + lerpScore;
+		scoreText.screenCenter(X);
+		scoreText.y = FlxG.height - scoreText.height - 15;
+
+		chapterThingyText.x = FlxG.width - chapterThingyText.width - 60;
 
 		if (!selectedSmth)
 		{
@@ -240,7 +266,7 @@ class TCOStoryState extends MusicBeatState
 					FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
 					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 					{
-						playSongs(['adobe', 'outrage', 'end process'], 0, 0, curDifficulty);
+						playSongs(weeks[0].songs, 0, 0, curDifficulty);
 					});
 				}else{
 					checkpointSystemON = false;
@@ -442,5 +468,19 @@ class TCOStoryState extends MusicBeatState
 
 		FreeplayState.destroyFreeplayVocals();
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+	}
+}
+
+class WeekInfo
+{
+	public var name:String = "";
+	public var songs:Array<String> = [];
+	public var desc:String = "";
+
+	public function new(name:String, songs:Array<String>, desc:String)
+	{
+		this.name = name;
+		this.songs = songs;
+		this.desc = desc;
 	}
 }
