@@ -4576,7 +4576,7 @@ class PlayState extends MusicBeatState
 		switch(SONG.song.toLowerCase())
 		{
 			case 'time travel':
-				songLength = 110000;
+				songLength = 106000;
 				camGame.alpha = 1;
 				theHOGOVERLAYOMG.alpha = 1;
 				if (!timeTraveled)
@@ -5122,11 +5122,11 @@ class PlayState extends MusicBeatState
 			health = -1;
 		}
 
-		if(dad.curCharacter == 'cursor'){
-			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/25);
-
-			dad.x = DAD_X + dad.positionArray[0] + 800*Math.sin(test);
-			dad.y = DAD_Y + dad.positionArray[1] + 600*Math.sin(test/2);
+		var timeOrSomething:Float = (Conductor.songPosition/3000)*(SONG.bpm/25);
+		if(dad.curCharacter == 'cursor')
+		{
+			dad.x = DAD_X + dad.positionArray[0] + 800*Math.sin(timeOrSomething);
+			dad.y = DAD_Y + dad.positionArray[1] + 600*Math.sin(timeOrSomething/2);
 		}
 
 		if (oldVideoResolution)
@@ -7493,6 +7493,10 @@ class PlayState extends MusicBeatState
 					case 1:
 						dialogOnSong('You want to learn how to time travel, I can sense it.', 3.3, 0xFFFFB300);
 						
+					case 36:
+						boyfriend.playAnim('hey', true);
+						boyfriend.specialAnim = true;
+
 					case 64:
 						dialogOnSong("Well, I've been time traveling for years, but you look too inexperienced.", 3, 0xFFFFB300);
 						
@@ -8106,6 +8110,10 @@ class PlayState extends MusicBeatState
 						veryEpicVignette.alpha = 1;
 						
 					case 200:
+						camGame.angle = 0;
+
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+
 						ytBGVideo.alpha = 1;
 
 						videoTI = new MP4Handler();
@@ -8117,6 +8125,8 @@ class PlayState extends MusicBeatState
 						veryEpicVignette.alpha = 0;
 						
 					case 264:
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+
 						ytBGVideo.alpha = 0;
 						if (ClientPrefs.shaders) removeShaderFromCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						veryEpicVignette.alpha = 1;
