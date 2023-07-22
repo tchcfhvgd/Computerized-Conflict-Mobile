@@ -8128,6 +8128,7 @@ class PlayState extends MusicBeatState
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 
 						ytBGVideo.alpha = 0;
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0035));
 						if (ClientPrefs.shaders) removeShaderFromCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						veryEpicVignette.alpha = 1;
 				}
