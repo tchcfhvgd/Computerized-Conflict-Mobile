@@ -137,6 +137,11 @@ class VaultState extends MusicBeatState
 		spikes2.scrollFactor.set(0, 0);
 		add(spikes2);
 		
+		for (i in 0...codesAndShit.length)
+		{
+			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
+		}
+
 		itemsText = new FlxText(0, 0, FlxG.width, 'Unlocked Secrets: ' + secretCounter + '/5', 18);
 		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		itemsText.y += 500;
@@ -189,7 +194,7 @@ class VaultState extends MusicBeatState
 		{
 			if (action == 'enter')
 			{
-				if (controls.ACCEPT && !selectedSmth)
+				if (!selectedSmth)
 				{
 					for (i in 0...codesAndShit.length){
 						if (text.toLowerCase() == codesAndShit[i][0]){
