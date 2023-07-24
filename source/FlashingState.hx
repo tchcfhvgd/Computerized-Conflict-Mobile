@@ -37,7 +37,7 @@ class FlashingState extends MusicBeatState
 	var scrollingThing:FlxBackdrop;
 	var spikes1:FlxBackdrop;
 	var spikes2:FlxBackdrop;
-	var timer:FlxTimer;
+	var canExit:Bool = false;
 
 	override function create()
 	{
@@ -56,7 +56,7 @@ class FlashingState extends MusicBeatState
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.7));
 		add(scrollingThing);
 		
-		redPortrait = new FlxSprite(50, 50).loadGraphic(Paths.image('warning/redWarn'));
+		redPortrait = new FlxSprite(60, 70).loadGraphic(Paths.image('warning/redWarn'));
 		redPortrait.antialiasing = ClientPrefs.globalAntialiasing;
 		redPortrait.setGraphicSize(Std.int(redPortrait.width * 0.8));
 		if (redPortrait != null) add(redPortrait);
@@ -137,7 +137,10 @@ class FlashingState extends MusicBeatState
 
 		//changeSelection();
 		//reloadCheckboxes();
-		camHUD.fade(FlxColor.BLACK, 1.5, true);
+		camHUD.fade(FlxColor.BLACK, 1.5, true, function()
+		{
+			canExit = true;
+		});
 	}
 
 	var holdTime:Float = 0;
@@ -171,8 +174,9 @@ class FlashingState extends MusicBeatState
 
 		if(!leftState) {
 			var enter:Bool = FlxG.keys.justPressed.ENTER;
-			if (enter) {
+			if (enter && canExit) {
 				leftState = true;
+				canExit = false;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
 				goinToTitleState();

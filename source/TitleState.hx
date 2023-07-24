@@ -206,7 +206,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		Conductor.changeBPM(130);
+		Conductor.changeBPM(126);
 		persistentUpdate = true;
 
 		bg = new FlxSprite();
@@ -538,7 +538,7 @@ class TitleState extends MusicBeatState
 					if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: -50 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 				case 14:
 					if (logoBl != null) FlxTween.tween(logoBl, { x: 700 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-				case 16:
+				case 33:
 					skipIntro();
 			}
 		}

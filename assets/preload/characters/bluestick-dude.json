@@ -1,66 +1,66 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				-170
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Blue idle"
+			"fps": 16,
+			"name": "idle",
+			"indices": []
 		},
 		{
 			"offsets": [
-				129,
-				-206
+				-86,
+				-266
 			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singLEFT",
 			"indices": [],
-			"name": "blue left"
+			"fps": 40,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "right"
 		},
 		{
 			"offsets": [
-				-6,
-				-316
+				-12,
+				96
 			],
+			"indices": [],
+			"fps": 40,
+			"anim": "singUP",
 			"loop": false,
-			"fps": 24,
+			"name": "up"
+		},
+		{
+			"offsets": [
+				48,
+				-242
+			],
+			"indices": [],
+			"fps": 40,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "blue down"
+			"loop": false,
+			"name": "down"
 		},
 		{
 			"offsets": [
-				137,
+				279,
 				-198
 			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singUP",
 			"indices": [],
-			"name": "blue up"
-		},
-		{
-			"offsets": [
-				-6,
-				-238
-			],
+			"fps": 40,
+			"anim": "singLEFT",
 			"loop": false,
-			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"name": "blue right"
+			"name": "left"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/extras/bluestick_dude",
 	"position": [
 		0,
-		10
+		25
 	],
 	"healthicon": "bbpanzu-ava2-stick",
 	"flip_x": false,
@@ -73,6 +73,6 @@
 		150,
 		250
 	],
-	"sing_duration": 6.1,
-	"scale": 1
+	"sing_duration": 4.20000000000001,
+	"scale": 1.1
 }

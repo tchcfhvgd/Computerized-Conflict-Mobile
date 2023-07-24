@@ -97,6 +97,7 @@ class CutsceneState extends MusicBeatState
 
 	function goToState()
 	{
-		LoadingState.loadAndSwitchState(new PlayState());
+		if(videoName == 'codes') MusicBeatState.switchState(new MessagesState(true));
+		else LoadingState.loadAndSwitchState(new PlayState());
 	}
 }

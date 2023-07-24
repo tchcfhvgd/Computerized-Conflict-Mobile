@@ -241,7 +241,10 @@ class Note extends FlxSprite
 			shader = colorSwap.shader;
 			
 			x += swagWidth * (noteData);
-			if (PlayState.uiType == 'psychDef') swagWidth = 160 * 0.7;
+			if (PlayState.SONG.song.toLowerCase().endsWith('(old)')) swagWidth = 160 * 0.7;
+			//else if (PlayState.instance.oldVideoResolution) swagWidth = 160 * 0.5;
+			else swagWidth = 160 * 0.6;
+			
 			if(!isSustainNote && noteData > -1 && noteData < 4) { //Doing this 'if' check to fix the warnings on Senpai songs
 				var animToPlay:String = '';
 				animToPlay = colArray[noteData % 4];
@@ -387,7 +390,8 @@ class Note extends FlxSprite
 			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece');
 		}
 
-		if (PlayState.uiType == 'psychDef') setGraphicSize(Std.int(width * 0.7));
+		if (PlayState.SONG.song.toLowerCase().endsWith('(old)')) setGraphicSize(Std.int(width * 0.7));
+		//else if (PlayState.instance.oldVideoResolution) setGraphicSize(Std.int(width * 0.5));
 		else setGraphicSize(Std.int(width * 0.6));
 		updateHitbox();
 	}

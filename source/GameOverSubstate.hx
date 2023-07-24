@@ -63,6 +63,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.setOnLuas('inGameOver', true);
 
 		Conductor.songPosition = 0;
+		
+		var screen:FlxSpriteExtra = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), 0xFF00010D);
+		screen.scrollFactor.set();
+		screen.screenCenter();
+		add(screen);
 
 		boyfriend = new Boyfriend(x, y, characterName);
 		boyfriend.x += boyfriend.positionArray[0];

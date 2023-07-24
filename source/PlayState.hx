@@ -827,7 +827,7 @@ class PlayState extends MusicBeatState
 
 			case 'adobe': //Week 1
 				{
-					defaultCamZoom = 0.7;
+					defaultCamZoom = 0.65;
 
 					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
@@ -857,11 +857,11 @@ class PlayState extends MusicBeatState
 							add(Crowd);
 
 							spotlightdad = new FlxSprite();
-							spotlightdad.loadGraphic(Paths.image("LSEspotlight"));
+							spotlightdad.loadGraphic(Paths.image("spotlight"));
 							spotlightdad.alpha = 0;
 
 							spotlightbf = new FlxSprite();
-							spotlightbf.loadGraphic(Paths.image("LSEspotlight"));
+							spotlightbf.loadGraphic(Paths.image("spotlight"));
 							spotlightbf.alpha = 0;
 
 							LightsColors = [0xFFE5BE01, 0xFF00AAE4, 0xFF76BD17, 0xFFFF0000, 0xFFFF8000];
@@ -918,9 +918,6 @@ class PlayState extends MusicBeatState
 							redthing.cameras = [camOther];
 							redthing.alpha = 0;
 							add(redthing);
-
-							needsBlackBG = true;
-
 
 						case 'end process':
 
@@ -1045,6 +1042,8 @@ class PlayState extends MusicBeatState
 					add(bottomBarsALT);
 
 					if (songName == 'phantasm') defaultCamZoom = 1.8;
+
+					needsBlackBG = true;
 
 					oldSongs = false;
 
@@ -1275,7 +1274,7 @@ class PlayState extends MusicBeatState
 			case 'bbpanzu-stage': //bbpanzu stickfigure
 				{
 					otakuBG = new BGSprite('dashpulse_bg', 0 , 0, 1, 1);
-					otakuBG.setGraphicSize(Std.int(otakuBG.width * 2.2));
+					otakuBG.setGraphicSize(Std.int(otakuBG.width * 0.3));
 					otakuBG.screenCenter();
 					otakuBG.x -= 150;
 					otakuBG.antialiasing = false;
@@ -1503,10 +1502,10 @@ class PlayState extends MusicBeatState
 
 			case 'alan-pc-song': //Alt for alan song.
 				{
-					alanBG = new BGSprite('trojan/alan_desktop', -850, -1800, 1, 1);
+					alanBG = new BGSprite('trojan/alan_desktop', -1550, -1800, 1, 1);
 					alanBG.setGraphicSize(Std.int(alanBG.width * 1.5));
 
-					daFloor = new BGSprite('trojan/floor', -780, -1800, 1, 1);
+					daFloor = new BGSprite('trojan/floor', -1480, -1800, 1, 1);
 					daFloor.screenCenter();
 					daFloor.y += 28;
 					daFloor.x += 2300;
@@ -2679,8 +2678,12 @@ class PlayState extends MusicBeatState
 		{
 			timeBarBG.x -= 80;
 			timeBar.x -= 80;
+			timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 0.6));
+			timeBar.setGraphicSize(Std.int(timeBar.width * 0.6));
 			healthBar.x -= 110;
 			healthBarBG.x -= 110;
+			healthBar.setGraphicSize(Std.int(healthBar.width * 0.6));
+			healthBarBG.setGraphicSize(Std.int(healthBarBG.width * 0.6));
 			iconP1.x -= 110;
 			iconP2.x -= 110;
 			scoreTxt.x += 80;
@@ -3797,7 +3800,16 @@ class PlayState extends MusicBeatState
 			} else {
 				scriptDialogue.finishThing = function() {
 					scriptDialogue = null;
-					startCountdown();
+
+					if(SONG.song.toLowerCase() == 'adobe')
+					{
+						FlxG.sound.play(Paths.sound('Lights_Shut_off'));
+						camHUD.fade(FlxColor.BLACK, 0, false, function()
+						{
+							startCountdown();
+						});
+					}
+					else startCountdown();
 				}
 			}
 			scriptDialogue.nextDialogueThing = startNextDialogue;
@@ -4187,10 +4199,10 @@ class PlayState extends MusicBeatState
 					//https://gamebanana.com/mods/358645
 
 					spotlightdad.x = dad.x - 400;
-					spotlightdad.y = dad.y + dad.height - 1150;
+					spotlightdad.y = dad.y + dad.height - 1550;
 
 					spotlightbf.x = boyfriend.x - 355;
-					spotlightbf.y = boyfriend.y + boyfriend.height - 1350;
+					spotlightbf.y = boyfriend.y + boyfriend.height - 1650;
 
 				case 'time travel':
 
@@ -5061,7 +5073,7 @@ class PlayState extends MusicBeatState
 		{
 			switch(curStage)
 			{
-				case 'adobe' | 'bbpanzu-stage' | 'alan-pc-virabot' | 'alan-pc-conflict':
+				case 'adobe' | 'bbpanzu-stage' | 'alan-pc-virabot' | 'alan-pc-conflict' | 'alan pc-song' | 'World 1':
 					cameraMovement(40);
 				default:
 					cameraMovement(25);
@@ -6308,7 +6320,7 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					//FlxG.sound.playMusic(Paths.music('freakyMenu'));
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -6316,7 +6328,11 @@ class PlayState extends MusicBeatState
 					}
 					FlxG.save.data.checkpoint = null;
 					FlxG.save.flush();
-					MusicBeatState.switchState(new TCOStoryState());
+
+					LoadingState.loadAndSwitchState(new CutsceneState('codes', true, function() {
+							MusicBeatState.switchState(new MessagesState(true));
+
+					}));
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
@@ -6350,11 +6366,9 @@ class PlayState extends MusicBeatState
 
 					//showHUDTween(0, 1);
 					//showCamOtherTween(1, 0);
-					camOther.fade(FlxColor.BLACK, 1, false);
 					inCutscene = true;
-					FlxG.camera.fade(FlxColor.BLACK, 1, false, function() {
+					camOther.fade(FlxColor.BLACK, 1, false, function() {
 						cancelMusicFadeTween();
-
 						LoadingState.loadAndSwitchState(new CutsceneState(SONG.song, true, function() {
 							LoadingState.loadAndSwitchState(new CutsceneState(PlayState.storyPlaylist[0], false, function() {
 								LoadingState.loadAndSwitchState(new PlayState());
@@ -7419,8 +7433,22 @@ class PlayState extends MusicBeatState
 			case 'adobe':
 				switch(curStep)
 				{
+					case 1:
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						camHUD.fade(FlxColor.BLACK, 2, true);
+						Crowd.alpha = 0;
+						gf.alpha = 0;
+						blackBG.alpha = 1;
+						spotlightdad.alpha = 0.25;
+						spotlightbf.alpha = 0.25;
 					case 256:
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 						flash(0xFFFFFFFF, 1);
+						blackBG.alpha = 0;
+						Crowd.alpha = 1;
+						gf.alpha = 1;
+						spotlightdad.alpha = 0;
+						spotlightbf.alpha = 0;
 					case 576:
 						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5);
 					case 768:
@@ -7431,7 +7459,9 @@ class PlayState extends MusicBeatState
 						spotlightdad.alpha = 0.8;
 						spotlightbf.alpha = 0.8;
 						bestPart2 = true;
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 1024:
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 						flash(0xFFFFFFFF, 1);
 						colorTween([gf, dad, boyfriend, Crowd, Background1, Floor], 0.7, 0xFF191919, FlxColor.WHITE);
 						blackBars(0);
@@ -8128,8 +8158,23 @@ class PlayState extends MusicBeatState
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 
 						ytBGVideo.alpha = 0;
-						if (ClientPrefs.shaders) removeShaderFromCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						veryEpicVignette.alpha = 1;
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new BloomShader())]);
+
+					case 456:
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+
+					case 520:
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+
+					case 585:
+						
+					case 648:
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+					case 656:
+						camHUD.fade(FlxColor.BLACK, 3, false);
 				}
 				
 			case 'aurora':

@@ -136,6 +136,11 @@ class VaultState extends MusicBeatState
 		spikes2.y += 630;
 		spikes2.scrollFactor.set(0, 0);
 		add(spikes2);
+
+		for (i in 0...codesAndShit.length)
+		{
+			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
+		}
 		
 		itemsText = new FlxText(0, 0, FlxG.width, 'Unlocked Secrets: ' + secretCounter + '/5', 18);
 		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
@@ -189,7 +194,7 @@ class VaultState extends MusicBeatState
 		{
 			if (action == 'enter')
 			{
-				if (controls.ACCEPT && !selectedSmth)
+				if (!selectedSmth)
 				{
 					for (i in 0...codesAndShit.length){
 						if (text.toLowerCase() == codesAndShit[i][0]){
@@ -197,6 +202,7 @@ class VaultState extends MusicBeatState
 
 							CoolUtil.songsUnlocked.data.songs.set(codesAndShit[i][1], true);
 							CoolUtil.songsUnlocked.flush();
+							secretCounter += 1;
 
 
 							PlayState.storyPlaylist = [codesAndShit[i][1]];
@@ -210,7 +216,6 @@ class VaultState extends MusicBeatState
 							
 							FlxG.camera.shake(0.035, 7);
 		                    FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
-
 							LoadingState.loadAndSwitchState(new PlayState(), true);
 							FreeplayState.destroyFreeplayVocals();
 						}});

@@ -179,11 +179,13 @@ class FreeplayState extends MusicBeatState
 
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
+			icon.y -= 50;
 			icon.sprTracker = songText;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
 			icon.x -= 380;
+			//icon.y -= 50;
 			add(icon);
 
 			// songText.x += 40;
@@ -546,6 +548,7 @@ class FreeplayState extends MusicBeatState
 
 		featuredChar.loadGraphic(Paths.image('freeplayArt/freeplayImages/art/' + songs[curSelected].songName));
 		featuredChar.antialiasing = ClientPrefs.globalAntialiasing;
+		featuredChar.setGraphicSize(Std.int(featuredChar.width * 0.8));
 		featuredChar.screenCenter();
 		featuredChar.x -= 150;
 		featuredChar.alpha = 0;
@@ -580,7 +583,7 @@ class FreeplayState extends MusicBeatState
 		{
 			iconArray[i].alpha = 0;
 
-			zoomTween = FlxTween.tween(iconArray[i], {"scale.x": 0.85, "scale.y": 0.85}, 0.2, {
+			zoomTween = FlxTween.tween(iconArray[i], {"scale.x": 0.55, "scale.y": 0.55}, 0.2, {
 				ease: FlxEase.quadOut,
 				onComplete: function(twn:FlxTween) {
 					zoomTween = null;
@@ -589,7 +592,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		iconArray[curSelected].alpha = 1;
-		zoomTween = FlxTween.tween(iconArray[curSelected], {"scale.x": 0.85, "scale.y": 1}, 0.85, {
+		zoomTween = FlxTween.tween(iconArray[curSelected], {"scale.x": 0.75, "scale.y": 0.75}, 0.2, {
 				ease: FlxEase.quadOut,
 				onComplete: function(twn:FlxTween) {
 					zoomTween = null;

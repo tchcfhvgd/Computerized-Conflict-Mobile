@@ -52,6 +52,10 @@ class TCOCreditsState extends MusicBeatState
 	var prompt:FlxSprite;
 	var prompttext:FlxText;
 
+	var descText:FlxText;
+	var moveTween:FlxTween;
+	var descBox:AttachedSprite;
+
 	override function create()
 	{
 		persistentUpdate = true;
@@ -229,6 +233,25 @@ class TCOCreditsState extends MusicBeatState
 			grpIcons.add(icon);
 		}
 
+
+		descBox = new AttachedSprite();
+		descBox.makeGraphic(1, 1, 0xFF79c5ff);
+		descBox.xAdd = -10;
+		descBox.yAdd = -10;
+		descBox.alphaMult = 0.6;
+		descBox.alpha = 0.6;
+		descBox.cameras = [camTexts];
+		add(descBox);
+
+		descText = new FlxText(50, FlxG.height + -75 - 25, 0, "", 32);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		descText.scrollFactor.set();
+		//descText.borderSize = 2.4;
+		descBox.sprTracker = descText;
+		descText.cameras = [camTexts];
+		descText.color = 0xFFffffff;
+		add(descText);
+
 		/*arrow = new FlxSprite(1150, 593);
 		arrow.frames = Paths.getSparrowAtlas('FAMenu/arrows');
 		arrow.animation.addByPrefix('idle', 'arrow0', 24, false);
@@ -341,6 +364,17 @@ class TCOCreditsState extends MusicBeatState
 			prompttext.x = prompt.x + 110;
 			prompttext.y = prompt.y + 90;
 		}
+
+		descText.text = credits[curSelected].auth;
+		descText.updateHitbox();
+		descText.screenCenter();
+		descText.y = FlxG.height - descText.height + -75 - 60;
+
+		if(moveTween != null) moveTween.cancel();
+		moveTween = FlxTween.tween(descText, {y : descText.y + 75}, 0.25, {ease: FlxEase.sineOut});
+
+		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
+		descBox.updateHitbox();
 
 
 		/*bg.loadGraphic(Paths.image('freeplayArt/freeplayImages/bgs/' + songs[curSelected].songName));
