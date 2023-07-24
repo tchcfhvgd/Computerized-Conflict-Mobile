@@ -89,7 +89,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("Prod.kxri", "prodkxri", "Musician", 0xFFFF0000, "Bald kxrai will exist In August"),
 			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, "Keep doing it, even if nobody cares"),
 			new CreditsMetadata("Magbros.ogg", "magbros", "Musician", 0xFFFF7B22, "a thing you can trust"),
-			new CreditsMetadata("Puppet Master", "no-icon", "Musician", 0xFFD363FF, "I don't know what to say, I just got here"),
+			new CreditsMetadata("Puppet Master", "puppet master", "Musician", 0xFFD363FF, "1100010 1100001 1101100 1101100 1110011"),
 			new CreditsMetadata("Dangdoodle", "no-icon", "Musician", 0xFFFF6D63, "Fuck it, we ball."),
 			new CreditsMetadata("Splat", "splat", "Sprite Artist", 0xFF6D6767, "eating is a privilege"),
 			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, "Never gonna give you up, never gonna let you down, never gonna run around and desert you. Never gonna make you cry, never gonna say goodbye, never gonna tell you a lie and give you EMOTIONAL DAMAGE"),

@@ -142,6 +142,11 @@ class VaultState extends MusicBeatState
 			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
 		}
 		
+		for (i in 0...codesAndShit.length)
+		{
+			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
+		}
+
 		itemsText = new FlxText(0, 0, FlxG.width, 'Unlocked Secrets: ' + secretCounter + '/5', 18);
 		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		itemsText.y += 500;
