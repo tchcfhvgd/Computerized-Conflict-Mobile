@@ -1,9 +1,6 @@
 TIBURONES:
 
--Make codes cutscene unskippable
 -Art Gallery doesn't show other fan arts when doing up and down arrows
--Make a cutscene appear when you beat the last song to unlock Alan (use the placeholder video), it should return to main menu after
-
 
 MIJAE:
 
@@ -12,4 +9,5 @@ MIJAE:
 -Finish Title State
 -Vault sfx
 -Menus zoom transitions
+-Fixing the icons not getting bigger in freeplay when you go too fast
 -Finish the other songs events grrrjkjdfkjdksfo

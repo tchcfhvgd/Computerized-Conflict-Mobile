@@ -3696,7 +3696,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String)
+	public function startVideo(name:String, ?canSkip:Bool = true)
 	{
 		#if VIDEOS_ALLOWED
 		inCutscene = true;
@@ -3715,6 +3715,7 @@ class PlayState extends MusicBeatState
 
 		var video:MP4Handler = new MP4Handler();
 		video.playVideo(filepath);
+		if (!canSkip) FlxG.stage.removeEventListener('enterFrame', @:privateAccess video.update);
 		video.finishCallback = function()
 		{
 			startAndEnd();
@@ -6273,6 +6274,7 @@ class PlayState extends MusicBeatState
 			CoolUtil.songsUnlocked.flush();
 		}
 
+		var playAlanVideo:Bool = true;
 		if(FreeplayState.alanSongs.contains(SONG.song.toLowerCase()))
 		{
 			CoolUtil.songsUnlocked.data.alanSongs.set(SONG.song.toLowerCase(), true);
@@ -6282,6 +6284,13 @@ class PlayState extends MusicBeatState
 			for (i in 0...FreeplayState.alanSongs.length)
 			{
 				trace(FreeplayState.alanSongs[i] + ' ' + CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i]));
+			}
+
+			for (i in 0...FreeplayState.alanSongs.length)
+			{
+				if (!CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i])) playAlanVideo = false;
+
+				//CoolUtil.songsUnlocked.data.cutsceneSeen = true;
 			}
 		}
 
@@ -6324,8 +6333,8 @@ class PlayState extends MusicBeatState
 
 					LoadingState.loadAndSwitchState(new CutsceneState('codes', true, function() {
 							MusicBeatState.switchState(new MessagesState(true));
-
-					}));
+					}, false
+					));
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
@@ -6394,7 +6403,19 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					MusicBeatState.switchState(new FreeplayMenu());
+					if (!CoolUtil.songsUnlocked.data.cutsceneSeen && playAlanVideo) {
+						CoolUtil.songsUnlocked.data.cutsceneSeen = true;
+
+						LoadingState.loadAndSwitchState(new CutsceneState('alan-unlock', true, function() {
+							MusicBeatState.switchState(new FreeplayMenu());
+					}, false
+					));
+					}
+					else
+					{
+						MusicBeatState.switchState(new FreeplayMenu());
+					}
+
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					changedDifficulty = false;
 				}

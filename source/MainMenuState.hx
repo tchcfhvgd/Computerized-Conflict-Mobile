@@ -199,9 +199,11 @@ class MainMenuState extends MusicBeatState
 			if (CoolUtil.songsUnlocked.data.alanSongs == null)
 			{
 				CoolUtil.songsUnlocked.data.alanSongs = new Map<String, Bool>();
-				for (i in 0...FreeplayState.alanSongs.length){
+				for (i in 0...FreeplayState.alanSongs.length)
+				{
 					CoolUtil.songsUnlocked.data.alanSongs.set(FreeplayState.alanSongs[i], false);
 				}
+				CoolUtil.songsUnlocked.data.cutsceneSeen = false;
 			}
 
 			if (CoolUtil.songsUnlocked.data.mainWeek == null)
@@ -551,8 +553,6 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				gfMoment = false;
-
 				loadTutorial();
 			}
 		}

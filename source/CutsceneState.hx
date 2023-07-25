@@ -45,8 +45,9 @@ class CutsceneState extends MusicBeatState
 	public var videoName:String;
 	public var endingCutscene:Bool = false;
 	public var isIntro:Bool = false;
+	public var skipeable:Bool = true;
 
-	public function new(videoName:String, isEnd:Bool, ?finishCallback:Void->Void)
+	public function new(videoName:String, isEnd:Bool, ?finishCallback:Void->Void, ?canSkip:Bool = true)
 	{
 		super();
 
@@ -54,13 +55,14 @@ class CutsceneState extends MusicBeatState
 			this.finishCallback = finishCallback;
 
 		this.videoName = videoName;
+		this.skipeable = canSkip;
 	}
 
 	override public function create()
 	{
 		Paths.clearStoredMemory();
 
-		startVideo(videoName + '-cutscene');
+		startVideo(videoName + '-cutscene', skipeable);
 	}
 
 	override function update(elapsed:Float)
@@ -68,7 +70,7 @@ class CutsceneState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	public function startVideo(name:String)
+	public function startVideo(name:String, ?canSkip:Bool = true)
 	{
 		#if VIDEOS_ALLOWED
 
@@ -85,6 +87,7 @@ class CutsceneState extends MusicBeatState
 
 		var video:MP4Handler = new MP4Handler();
 		video.playVideo(filepath);
+		if (!canSkip) FlxG.stage.removeEventListener('enterFrame', @:privateAccess video.update);
 		video.finishCallback = function()
 		{
 			goToState();
@@ -97,7 +100,14 @@ class CutsceneState extends MusicBeatState
 
 	function goToState()
 	{
-		if(videoName == 'codes') MusicBeatState.switchState(new MessagesState(true));
-		else LoadingState.loadAndSwitchState(new PlayState());
+		switch(videoName)
+		{
+			case 'codes':
+				MusicBeatState.switchState(new MessagesState(true));
+			case 'alan-unlock':
+				MusicBeatState.switchState(new FreeplayMenu());
+			default:
+				LoadingState.loadAndSwitchState(new PlayState());
+		}
 	}
 }
