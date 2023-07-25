@@ -1192,9 +1192,9 @@ class PlayState extends MusicBeatState
 					add(bg);
 
 					overlayCubify =  new BGSprite('cubify/overlay', 'extras', 0 , 0, 1, 1);
-					overlayCubify.scale.x = 3072;
+					overlayCubify.scale.x = 4072;
 					overlayCubify.screenCenter(Y);
-					overlayCubify.x = 2000 + (FlxG.width - 3072) / 2;
+					overlayCubify.x = 1600 + (FlxG.width - 3072) / 2;
 
 					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
