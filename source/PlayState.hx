@@ -1722,12 +1722,6 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) brickfloor.shader = new Shader3D();
 					add(brickfloor);
 
-					theHOGOVERLAYOMG = new BGSprite('time-travel/overlay', -800, -300, 1.1, 0.9);
-					theHOGOVERLAYOMG.scale.x = 1.25;
-					theHOGOVERLAYOMG.scale.y = 1.25;
-					theHOGOVERLAYOMG.blend = LIGHTEN;
-					theHOGOVERLAYOMG.alpha = 0;
-					
 					camBars.x += 0.5;
 
 					if (ClientPrefs.shaders) if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
@@ -2199,8 +2193,7 @@ class PlayState extends MusicBeatState
 			case 'unfaith-BG':
 				add(unfaithFRONT);
 				add(overlayUnfaith);
-			case 'carykh':
-				add(theHOGOVERLAYOMG);
+
 			case 'kickstarter':
 				add(overlayKick);
 
@@ -4591,7 +4584,6 @@ class PlayState extends MusicBeatState
 			case 'time travel':
 				songLength = 106000;
 				camGame.alpha = 1;
-				theHOGOVERLAYOMG.alpha = 1;
 				if (!timeTraveled)
 				{
 					blackBars(1);
