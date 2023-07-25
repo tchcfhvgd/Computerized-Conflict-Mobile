@@ -1337,7 +1337,7 @@ class PlayState extends MusicBeatState
 					daFloor.y += 28;
 					daFloor.x += 2300;
 
-					tscseeing = new BGSprite('trojan/secbop', 0, 0, 1, 1, ['secbop'], );
+					tscseeing = new BGSprite('trojan/secbop', 0, 0, 1, 1, ['secbop']);
 					tscseeing.setGraphicSize(Std.int(tscseeing.width * 1.3));
 					tscseeing.screenCenter();
 					tscseeing.updateHitbox();
