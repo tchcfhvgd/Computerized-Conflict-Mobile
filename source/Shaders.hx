@@ -105,48 +105,44 @@ class JpegShader extends FlxShader
 {
 @:glFragmentSource('
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
-uniform float iTime;
-#define iChannel0 bitmap
-#define texture flixel_texture2D
-#define fragColor gl_FragColor
-#define pi 2.*asin(1.)
-
-vec3 toRGB(vec3 ybr)
-{
-    return (ybr-vec3(0,.5,.5))*mat3(1.,0.,1.402,1.,-.344136,-0.714136,1.,1.772,0.);
+vec2 mz=openfl_TextureCoordv*openfl_TextureSize;
+vec2 ir=openfl_TextureSize;
+#define m 2.*asin(1.)
+#define a(x) (x!=0.?1.:1./sqrt(2.))
+uniform float ycmpr;
+vec3 xc(vec3 b){
+	return b*mat3(0.299,0.587,0.114,-0.168736,-0.331264,0.5,0.5,-0.418688,-0.081312)+vec3(0,.5,.5);
 }
-
-vec3 inp(vec2 coord){
-    return texelFetch(iChannel0, ivec2(coord),0).xyz;
+vec3 ma(vec2 q){
+	return floor(256.*(xc(flixel_texture2D(bitmap,q/ir.xy).xyz)-.5));
 }
-
-vec3 IDCT8x8( vec2 coord, vec2 xy ) {
-    vec3 res = vec3(0);
-    #define a(x) (x!=0.?1.:1./sqrt(2.))
-    for(float u = 0.; u < 8.; u++){
-        for(float v = 0.; v < 8.; v++){
-            res += inp(coord + vec2(u,v)) *
-                a(u) * a(v) * 
-                cos((2.*xy.x+1.)*u*pi/16.) * 
-                cos((2.*xy.y+1.)*v*pi/16.); 
-        }
-    }
-    return res * .25;
+vec3 fd(vec2 q,vec2 z){
+	vec3 r = vec3(0);
+	for(float x=0.;x<8.;x++)for(float y=0.;y<8.;y++)r+=ma(q+vec2(x,y))*cos((2.*x+1.)*z.x*m/16.)*cos((2.*y+1.)*z.y*m/16.);
+	return r*.25*a(z.x)*a(z.y);
 }
-
-void main()
-{
-    fragColor.w = 0.;
-    vec2 uv = floor(fragCoord-8.*floor(fragCoord/8.));
-    fragColor.xyz = toRGB(IDCT8x8(8.*floor(fragCoord / 8.), uv) / 256. +.5);
+vec3 re(vec2 w){
+	vec2 b=floor(w-8.*floor(w/8.));
+	float q=(1.+ycmpr*20.)*float(int[](16,11,10,16,24,40,51,61,12,12,14,19,26,58,60,55,14,13,16,24,40,57,69,56,14,17,22,29,51,87,80,62,18,22,37,56,68,109,103,77,24,35,55,64,81,104,113,92,49,64,78,87,103,121,120,101,72,92,95,98,112,100,103,99)[int(b.x+b.y*8.)]);
+	return vec3((floor(.5+fd(8.*floor(w/8.),b)/q))*q);
+}
+vec3 nv(vec3 ybr){
+	return(ybr-vec3(0,.5,.5))*mat3(1.,0.,1.402,1.,-.344136,-0.714136,1.,1.772,0.);
+}
+vec3 pq(vec2 o,vec2 z){
+	vec3 r=vec3(0);
+	for(float u=0.;u<2.;u++)for(float v=0.;v<2.;v++)r+=re(o+vec2(u,v))*a(u)*a(v)*cos((2.*z.x+1.)*u*m/16.)*cos((2.*z.y+1.)*v*m/16.);return r*.25;
+}
+void main(){
+	vec2 uv=floor(mz-8.*floor(mz/8.));
+	gl_FragColor.rgb=nv(pq(8.*floor(mz/8.),uv)/256.+.5);
+	gl_FragColor.a=flixel_texture2D(bitmap,openfl_TextureCoordv.xy).a;
 }')
 
 public function new()
 {
 	super();
+	this.ycmpr.value = [0.5];
 }
 
 }

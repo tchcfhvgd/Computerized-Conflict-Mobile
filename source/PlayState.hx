@@ -1337,11 +1337,11 @@ class PlayState extends MusicBeatState
 					daFloor.y += 28;
 					daFloor.x += 2300;
 
-					tscseeing = new BGSprite('trojan/turi', 0, 0, 1, 1, ['turi']);
-					tscseeing.setGraphicSize(Std.int(tscseeing.width * 0.9));
+					tscseeing = new BGSprite('trojan/secbop', 0, 0, 1, 1, ['secbop']);
+					tscseeing.setGraphicSize(Std.int(tscseeing.width * 1.3));
 					tscseeing.screenCenter();
 					tscseeing.updateHitbox();
-					tscseeing.x += 2500;
+					tscseeing.x += 2480;
 					tscseeing.y += 180;
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 
@@ -5095,7 +5095,7 @@ class PlayState extends MusicBeatState
 			/*case 'alan-pc-virabot':
 				trojanShader.shader.uTime.value[0] += elapsed;*/
 			case 'bbpanzu-stage':
-				NTSCshader.shader.iTime.value[0] += elapsed;
+				//JpegShader.ycmpr.value = [0.5];
 			case 'garden':
 				nightTimeShader.shader.iTime.value[0] += elapsed;
 		}
