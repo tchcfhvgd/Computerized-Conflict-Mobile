@@ -101,9 +101,9 @@
 	"healthicon": "gfCC",
 	"flip_x": false,
 	"healthbar_colors": [
-		165,
-		-4,
-		77
+		199,
+		19,
+		102
 	],
 	"camera_position": [
 		0,

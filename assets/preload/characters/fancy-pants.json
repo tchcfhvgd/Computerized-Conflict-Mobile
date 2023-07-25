@@ -88,11 +88,11 @@
 	"flip_x": true,
 	"healthbar_colors": [
 		255,
-		153,
-		51
+		203,
+		59
 	],
 	"camera_position": [
-		-150,
+		-80,
 		280
 	],
 	"sing_duration": 5.1,
