@@ -139,9 +139,10 @@ class TCOStoryState extends MusicBeatState
 		
 		songsBG = new FlxSprite().loadGraphic(Paths.image('storymenu/songBG'));
 		songsBG.updateHitbox();
-		songsBG.screenCenter();
+		songsBG.x = 0;
+		songsBG.y = FlxG.height - songsBG.height - 90;
 		songsBG.antialiasing = ClientPrefs.globalAntialiasing;
-		
+
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		scoreText.setFormat("VCR OSD Mono", 32);
 
@@ -160,8 +161,8 @@ class TCOStoryState extends MusicBeatState
 			txtTracklist.updateHitbox();
 		}
 		//TO DO: FIX THIS
-		txtTracklist.y = songsBG.y + (songsBG.height - txtTracklist.height);
-		txtTracklist.x = songsBG.x + (songsBG.width - txtTracklist.width);
+		txtTracklist.y = songsBG.y + (songsBG.height - txtTracklist.height) / 2;
+		txtTracklist.x = songsBG.x + (songsBG.width - txtTracklist.width) / 2;
 		
 		add(bgSprite);
 		add(scrollingThing);

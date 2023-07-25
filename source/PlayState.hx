@@ -1192,8 +1192,9 @@ class PlayState extends MusicBeatState
 					add(bg);
 
 					overlayCubify =  new BGSprite('cubify/overlay', 'extras', 0 , 0, 1, 1);
-					overlayCubify.setGraphicSize(Std.int(overlayCubify.width * 1.2));
-					overlayCubify.screenCenter();
+					overlayCubify.scale.x = 3072;
+					overlayCubify.screenCenter(Y);
+					overlayCubify.x = 2000 + (FlxG.width - 3072) / 2;
 
 					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					whiteScreen.scrollFactor.set();
@@ -1580,14 +1581,14 @@ class PlayState extends MusicBeatState
 					glowDad = new BGSprite('Glow', 0, 0, 1, 1);
 					glowDad.cameras = [camHUD];
 					glowDad.antialiasing = ClientPrefs.globalAntialiasing;
-					glowDad.updateHitbox();
+					glowDad.scale.y = 1440;
 					glowDad.alpha = 0;
 					glowDad.color = FlxColor.RED;
 					
 					glow = new BGSprite('Glow', 0, 0, 1, 1);
 					glow.cameras = [camHUD];
 					glow.antialiasing = ClientPrefs.globalAntialiasing;
-					glow.updateHitbox();
+					glow.scale.y = 1440;
 					glow.flipX = true;
 					glow.color = FlxColor.CYAN;
 					glow.alpha = 0;
@@ -1711,8 +1712,8 @@ class PlayState extends MusicBeatState
 					bg.x -= 150;
 					add(bg);
 
-					brickfloor = new FlxSprite( -450, 280).loadGraphic(Paths.image('time-travel/timetravel_floor'));
-					brickfloor.setGraphicSize(Std.int(brickfloor.width * 1.5));
+					brickfloor = new FlxSprite(-505, 750).loadGraphic(Paths.image('time-travel/timetravel_floor'));
+					brickfloor.setGraphicSize(Std.int(brickfloor.width * 1.8));
 					//brickfloor.screenCenter();
 					brickfloor.updateHitbox();
 					//brickfloor.x -= 800;
