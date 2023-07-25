@@ -12,4 +12,5 @@ MIJAE:
 -Finish Title State
 -Vault sfx
 -Menus zoom transitions
+-Fixing the icons not getting bigger in freeplay when you go too fast
 -Finish the other songs events grrrjkjdfkjdksfo
