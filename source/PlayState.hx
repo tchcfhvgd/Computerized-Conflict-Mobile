@@ -8363,7 +8363,7 @@ class PlayState extends MusicBeatState
 
 			case 'alan-pc-virabot':
 				if (!ClientPrefs.lowQuality) {
-					if (curBeat % 2 == 0) setDance([tscseeing], true);
+					if (curBeat % 1 == 0) setDance([tscseeing], true);
 					
 					//FlxTween.tween(caShader, {chromeOffset: 0}, 0.45, {ease: FlxEase.sineOut});
 				}
