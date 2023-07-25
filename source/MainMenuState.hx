@@ -84,7 +84,7 @@ class MainMenuState extends MusicBeatState
 
 	var recentMouseOption:Int;
 
-	public var newToTheMod:Bool = false;
+	var newToTheMod:Bool = false;
 
 	var gfPopup:FlxSprite;
 	var blackThingIG:FlxSpriteExtra;
@@ -551,6 +551,8 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				gfMoment = false;
+
 				loadTutorial();
 			}
 		}
