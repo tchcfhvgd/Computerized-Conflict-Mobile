@@ -1069,21 +1069,17 @@ class PlayState extends MusicBeatState
 
 			case 'kickstarter': //kickstart
 				{
-					bgKickstarter = new BGSprite('win7/Windows7_Bg', -30, 0, 0.9, 0.9);
-					bgKickstarter.setGraphicSize(Std.int(bgKickstarter.width * 1.5));
-					bgKickstarter.screenCenter();
+					bgKickstarter = new BGSprite('win7/Windows7_Bg', 350, -900, 0.9, 0.9);
+					bgKickstarter.setGraphicSize(Std.int(bgKickstarter.width * 4.75));
 					add(bgKickstarter);
 
-					var solitarie:BGSprite = new BGSprite('win7/solitaire_floor', -30, 0, 1, 1);
+					var solitarie:BGSprite = new BGSprite('win7/solitaire_floor', -30, -100, 1, 1);
 					solitarie.setGraphicSize(Std.int(solitarie.width * 2));
-					solitarie.screenCenter();
-					solitarie.y += 500;
 					solitarie.antialiasing = false;
 					add(solitarie);
 
-					overlayKick = new BGSprite('win7/overlay', 0, 0, 1, 1);
-					overlayKick.setGraphicSize(Std.int(overlayKick.width * 1.5));
-					overlayKick.screenCenter();
+					overlayKick = new BGSprite('win7/overlay', 0, -1736.5, 1, 1);
+					overlayKick.scale.x = 15516;
 
 					topBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
@@ -2375,7 +2371,7 @@ class PlayState extends MusicBeatState
 		timeTxt.borderSize = 2;
 		timeTxt.visible = showTime;
 
-		if (ClientPrefs.laneunderlay)
+		if (ClientPrefs.laneunderlay && uiType != 'psychDef')
 		{
 			laneunderlayOpponent = new FlxSpriteExtra().makeSolid(90 * 4 + 50, FlxG.height * 2);
 			laneunderlayOpponent.alpha = ClientPrefs.laneTransparency;

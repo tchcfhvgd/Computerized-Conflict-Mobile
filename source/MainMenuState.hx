@@ -521,7 +521,7 @@ class MainMenuState extends MusicBeatState
 				codeClearTimer = 1;
 			}
 
-			if (typin.toLowerCase() == KONAMI){
+			if (typin.toLowerCase() == KONAMI && CoolUtil.songsUnlocked.data.mainWeek){
 				CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 				selectedSomethin = true;
 				typin = 'LOADING REDZONE ERROR';
