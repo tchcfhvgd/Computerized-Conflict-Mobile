@@ -1683,7 +1683,8 @@ class PlayState extends MusicBeatState
 					add(radialLine);
 					radialLine.alpha = 0;*/
 
-					if(CoolUtil.difficultyString() == 'INSANE'){
+					if(CoolUtil.difficultyString() == 'INSANE')
+					{
 						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
 						strikesTxt.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 						strikesTxt.borderSize = 2;
@@ -1834,7 +1835,7 @@ class PlayState extends MusicBeatState
 			case 'aol': //ava 2
 				{
 					camZooming = true;
-					aolBG = new BGSprite('aol/messenger_bg', 0, 0, 1.2, 1);
+					aolBG = new BGSprite('aol/messenger_bg', 0, 0, 0.6, 1);
 					aolBG.screenCenter();
 					aolBG.updateHitbox();
 					add(aolBG);
