@@ -1082,21 +1082,17 @@ class PlayState extends MusicBeatState
 
 			case 'kickstarter': //kickstart
 				{
-					bgKickstarter = new BGSprite('win7/Windows7_Bg', -30, 0, 0.9, 0.9);
-					bgKickstarter.setGraphicSize(Std.int(bgKickstarter.width * 1.5));
-					bgKickstarter.screenCenter();
+					bgKickstarter = new BGSprite('win7/Windows7_Bg', 350, -900, 0.9, 0.9);
+					bgKickstarter.setGraphicSize(Std.int(bgKickstarter.width * 4.75));
 					add(bgKickstarter);
 
-					var solitarie:BGSprite = new BGSprite('win7/solitaire_floor', -30, 0, 1, 1);
+					var solitarie:BGSprite = new BGSprite('win7/solitaire_floor', -30, -100, 1, 1);
 					solitarie.setGraphicSize(Std.int(solitarie.width * 2));
-					solitarie.screenCenter();
-					solitarie.y += 500;
 					solitarie.antialiasing = false;
 					add(solitarie);
 
-					overlayKick = new BGSprite('win7/overlay', 0, 0, 1, 1);
-					overlayKick.setGraphicSize(Std.int(overlayKick.width * 1.5));
-					overlayKick.screenCenter();
+					overlayKick = new BGSprite('win7/overlay', 0, -1736.5, 1, 1);
+					overlayKick.scale.x = 15516;
 
 					topBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
@@ -1287,10 +1283,7 @@ class PlayState extends MusicBeatState
 
 			case 'bbpanzu-stage': //bbpanzu stickfigure
 				{
-					otakuBG = new BGSprite('dashpulse_bg', 0 , 0, 1, 1);
-					otakuBG.setGraphicSize(Std.int(otakuBG.width * 0.3));
-					otakuBG.screenCenter();
-					otakuBG.x -= 150;
+					otakuBG = new BGSprite('dashpulse_bg', -874, -255, 1, 1);
 					otakuBG.antialiasing = false;
 					add(otakuBG);
 
@@ -1703,7 +1696,8 @@ class PlayState extends MusicBeatState
 					add(radialLine);
 					radialLine.alpha = 0;*/
 
-					if(CoolUtil.difficultyString() == 'INSANE'){
+					if(CoolUtil.difficultyString() == 'INSANE')
+					{
 						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
 						strikesTxt.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 						strikesTxt.borderSize = 2;
@@ -1854,7 +1848,7 @@ class PlayState extends MusicBeatState
 			case 'aol': //ava 2
 				{
 					camZooming = true;
-					aolBG = new BGSprite('aol/messenger_bg', 0, 0, 1.2, 1);
+					aolBG = new BGSprite('aol/messenger_bg', 0, 0, 0.6, 1);
 					aolBG.screenCenter();
 					aolBG.updateHitbox();
 					add(aolBG);
@@ -2394,7 +2388,7 @@ class PlayState extends MusicBeatState
 		timeTxt.borderSize = 2;
 		timeTxt.visible = showTime;
 
-		if (ClientPrefs.laneunderlay)
+		if (ClientPrefs.laneunderlay && uiType != 'psychDef')
 		{
 			laneunderlayOpponent = new FlxSpriteExtra().makeSolid(90 * 4 + 50, FlxG.height * 2);
 			laneunderlayOpponent.alpha = ClientPrefs.laneTransparency;
