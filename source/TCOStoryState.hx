@@ -45,6 +45,8 @@ class TCOStoryState extends MusicBeatState
 	var diff:String;
 	var txtTracklist:FlxText;
 	var sprDifficulty:FlxSprite;
+	var spikes1:FlxBackdrop;
+	var spikes2:FlxBackdrop;
 
 	public var camGame:FlxCamera;
 	public var camGameShaders:Array<ShaderEffect> = [];
@@ -57,6 +59,8 @@ class TCOStoryState extends MusicBeatState
 	//var curDifficulty2:Int = 0;
 	var onInsane:Bool =  false;
 	var outline:FlxSprite;
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
 
 	var difficulties:Array<String> = [
 	    'Simple',
@@ -72,6 +76,8 @@ class TCOStoryState extends MusicBeatState
 	var weeks:Array<WeekInfo> = [];
 
 	var chapterThingyText:FlxText;
+
+	var finishedZoom:Bool = false;
 
 	override function create()
 	{
@@ -100,6 +106,9 @@ class TCOStoryState extends MusicBeatState
 		trace(checkpointSystemON);
 		trace(FlxG.save.data.checkpoint);
 
+		FlxG.camera.zoom = 1.5;
+		camHUD.zoom = 1.5;
+
 		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/week1BG'));
 		bgSprite.updateHitbox();
 		bgSprite.screenCenter();
@@ -126,16 +135,20 @@ class TCOStoryState extends MusicBeatState
 		fires.y += 200;
 		fires.alpha = 0;
 		fires.antialiasing = ClientPrefs.globalAntialiasing;
+
+		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes1.y -= 60;
+		spikes1.scrollFactor.set(0, 0);
+		spikes1.flipY = true;
 		
 		upperBar = new FlxSprite().loadGraphic(Paths.image('storymenu/upperBar'));
 		upperBar.updateHitbox();
 		upperBar.screenCenter();
 		upperBar.antialiasing = ClientPrefs.globalAntialiasing;
 		
-		downBar = new FlxSprite().loadGraphic(Paths.image('storymenu/downBar'));
-		downBar.updateHitbox();
-		downBar.screenCenter();
-		downBar.antialiasing = ClientPrefs.globalAntialiasing;
+		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
+		spikes2.y += 630;
+		spikes2.scrollFactor.set(0, 0);
 		
 		songsBG = new FlxSprite().loadGraphic(Paths.image('storymenu/songBG'));
 		songsBG.updateHitbox();
@@ -162,20 +175,30 @@ class TCOStoryState extends MusicBeatState
 		}
 		//TO DO: FIX THIS
 		txtTracklist.y = songsBG.y + (songsBG.height - txtTracklist.height) / 2;
-		txtTracklist.x = songsBG.x + (songsBG.width - txtTracklist.width) / 2;
+		txtTracklist.x -= 20;
 		
 		add(bgSprite);
 		add(scrollingThing);
 		add(circleTiles);
 		add(fires);
+		add(spikes1);
 		add(upperBar);
-		add(downBar);
+		add(spikes2);
 		add(songsBG);
 		add(scoreText);
 		add(chapterThingyText);
 		add(txtTracklist);
 
-		sprDifficulty = new FlxSprite(0, 200);
+		var difficultyText = new Alphabet(50, 100, 'Difficulty:', false);
+		difficultyText.fontColor = 0xFFFFFFFF;
+		difficultyText.outline = 10;
+		difficultyText.outlineColor = 0xFF000000;
+		add(difficultyText);
+
+		difficultyText.outlineCameras = [camGame];
+		difficultyText.cameras = [camHUD];
+
+		sprDifficulty = new FlxSprite(80, 400);
 		add(sprDifficulty);
 		
 		if (checkpointSystemON)
@@ -199,6 +222,16 @@ class TCOStoryState extends MusicBeatState
 		changeDifficulty();
 
 		super.create();
+
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
+		if (ClientPrefs.shaders) camHUD.setFilters([shaderFilter]);
+
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		FlxTween.tween(camHUD, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		camHUD.fade(FlxColor.BLACK, 0.8, true, function()
+		{
+			finishedZoom = true;
+		});
 	}
 
 	override function update(elapsed:Float)
@@ -206,6 +239,9 @@ class TCOStoryState extends MusicBeatState
 
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
+
+		spikes1.x -= 0.45 * 60 * elapsed;
+		spikes2.x -= 0.45 * 60 * elapsed;
 		
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, FlxMath.bound(elapsed * 30, 0, 1)));
 		if(Math.abs(intendedScore - lerpScore) < 10) lerpScore = intendedScore;
@@ -216,13 +252,20 @@ class TCOStoryState extends MusicBeatState
 
 		chapterThingyText.x = FlxG.width - chapterThingyText.width - 60;
 
-		if (!selectedSmth)
+		if (!selectedSmth && finishedZoom)
 		{
 			if (controls.BACK)
 			{
 				if (!checkpointSystemON){
 					FlxG.sound.play(Paths.sound('cancelMenu'));
-					MusicBeatState.switchState(new MainMenuState());
+
+					FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+					FlxTween.tween(camHUD, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+					camHUD.fade(FlxColor.BLACK, 0.8, false, function()
+					{
+						MusicBeatState.switchState(new MainMenuState());
+					});
+
 				}else{
 					checkpointSystemON = false;
 					FlxG.save.data.checkpoint = null;
@@ -250,13 +293,13 @@ class TCOStoryState extends MusicBeatState
 
 			if (controls.UI_RIGHT_P)
 			{
-				sprDifficulty.animation.play('bye');
+				sprDifficulty.animation.play('intro');
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeDifficulty(1);
 			}
 			else if (controls.UI_LEFT_P)
 			{
-				sprDifficulty.animation.play('bye');
+				sprDifficulty.animation.play('intro');
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeDifficulty(-1);
 			}
@@ -265,7 +308,7 @@ class TCOStoryState extends MusicBeatState
 				if (!checkpointSystemON){
 					selectedSmth = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-					FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+					FlxTween.tween(FlxG.camera, {zoom: 3}, 1, {ease: FlxEase.expoIn});
 					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 					{
 						playSongs(weeks[0].songs, 0, 0, curDifficulty);
@@ -337,8 +380,8 @@ class TCOStoryState extends MusicBeatState
 		var offsetX:Int = 0;
 		var offsetY:Int = 0;
 
-		if(diff == 'Hard') {offsetX = 105; offsetY = -125;}
-		if(diff == 'Insane') {offsetY = -160; offsetX = -75;}
+		//if(diff == 'Hard') {offsetX = 105; offsetY = -125;}
+		//if(diff == 'Insane') {offsetY = -160; offsetX = -75;}
 
 		sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
 		sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
@@ -353,8 +396,6 @@ class TCOStoryState extends MusicBeatState
 				if (!onInsane) bgSprite.color = FlxColor.WHITE;
 				onInsane = false;
 				bgSprite.alpha = 1;
-				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
-				clearShaderFromCamera('camgame');
 				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 1:
 				sprDifficulty.animation.play('intro');
@@ -364,8 +405,6 @@ class TCOStoryState extends MusicBeatState
 				if (!onInsane) bgSprite.color = FlxColor.WHITE;
 				onInsane = false;
 				bgSprite.alpha = 1;
-				if (ClientPrefs.shaders) removeShaderFromCamera('camgame', new ChromaticAberrationEffect(0.0045));
-				clearShaderFromCamera('camgame');
 				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 2:
 				sprDifficulty.animation.play('intro');
@@ -373,7 +412,6 @@ class TCOStoryState extends MusicBeatState
 				fires.alpha = 1;
 				onInsane = true;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, 0xFF2C2425);
-				if (ClientPrefs.shaders) addShaderToCamera('camgame', new ChromaticAberrationEffect(0.0045));
 				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 0);
 				if (onInsane) FlxG.sound.play(Paths.sound('fire'), 1, false);
 		}

@@ -1,22 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="simple.png">
+<TextureAtlas imagePath="Simple.png">
 	<!-- Created with Adobe Animate version 21.0.0.35450 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="ByeSimple0000" x="5" y="5" width="303" height="154"/>
-	<SubTexture name="ByeSimple0001" x="5" y="5" width="303" height="154"/>
-	<SubTexture name="ByeSimple0002" x="348" y="5" width="303" height="154"/>
-	<SubTexture name="ByeSimple0003" x="691" y="5" width="303" height="154"/>
-	<SubTexture name="ByeSimple0004" x="691" y="5" width="303" height="154"/>
-	<SubTexture name="Simple0000" x="5" y="199" width="330" height="102"/>
-	<SubTexture name="Simple0001" x="5" y="199" width="330" height="102"/>
-	<SubTexture name="Simple0002" x="5" y="199" width="330" height="102"/>
-	<SubTexture name="Simple0003" x="5" y="199" width="330" height="102"/>
-	<SubTexture name="IntroSimple0000" x="375" y="199" width="345" height="198"/>
-	<SubTexture name="IntroSimple0001" x="5" y="437" width="345" height="198"/>
-	<SubTexture name="IntroSimple0002" x="5" y="437" width="345" height="198"/>
-	<SubTexture name="IntroSimple0003" x="390" y="437" width="345" height="198"/>
-	<SubTexture name="IntroSimple0004" x="390" y="437" width="345" height="198"/>
-	<SubTexture name="IntroSimple0005" x="5" y="675" width="345" height="198"/>
-	<SubTexture name="IntroSimple0006" x="390" y="675" width="345" height="198"/>
-	<SubTexture name="IntroSimple0007" x="390" y="675" width="345" height="198"/>
+	<SubTexture name="IntroSimple0000" x="4" y="4" width="451" height="154"/>
+	<SubTexture name="IntroSimple0001" x="505" y="4" width="451" height="154"/>
+	<SubTexture name="IntroSimple0002" x="505" y="4" width="451" height="154"/>
+	<SubTexture name="IntroSimple0003" x="4" y="208" width="451" height="154"/>
+	<SubTexture name="IntroSimple0004" x="4" y="208" width="451" height="154"/>
+	<SubTexture name="IntroSimple0005" x="505" y="208" width="451" height="154"/>
+	<SubTexture name="Simple0000" x="4" y="412" width="431" height="79"/>
 </TextureAtlas>

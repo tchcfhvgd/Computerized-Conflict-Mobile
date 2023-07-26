@@ -1,88 +1,88 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				40,
 				-80
 			],
+			"loop": true,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "TDL Idle",
-			"indices": []
+			"indices": [],
+			"name": "TDL Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				531,
-				-98
+				454,
+				-160
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "TDL Left",
-			"indices": []
+			"indices": [],
+			"name": "TDL Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				447,
-				-258
+				493,
+				-278
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "TDL Down",
-			"indices": []
+			"indices": [],
+			"name": "TDL Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				332,
-				101
+				300,
+				93
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "TDL Up",
-			"indices": []
+			"indices": [],
+			"name": "TDL Up"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				416,
-				-106
+				429,
+				-124
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "TDL Right",
-			"indices": []
+			"indices": [],
+			"name": "TDL Right"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				354,
-				133
+				374,
+				145
 			],
-			"anim": "attack",
+			"loop": false,
 			"fps": 24,
-			"name": "TDL Slice",
-			"indices": []
+			"anim": "attack",
+			"indices": [],
+			"name": "TDL Slice"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/the-dark-lord",
 	"position": [
-		120,
-		40
+		130,
+		30
 	],
 	"healthicon": "the-dark-lord",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,
-		51,
-		102
+		0,
+		0
 	],
 	"camera_position": [
-		-600,
-		150
+		-700,
+		-70
 	],
 	"sing_duration": 6.1,
 	"scale": 1.1

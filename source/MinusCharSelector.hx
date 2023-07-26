@@ -26,6 +26,10 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import haxe.Json;
 import flixel.addons.display.FlxBackdrop;
+import openfl.display.Shader;
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
+import Shaders;
 
 using StringTools;
 
@@ -46,15 +50,20 @@ class MinusCharSelector extends MusicBeatState
 	var LittleBottomBars:FlxSprite;
 	var namesText:Alphabet;
 	var CharMenuText:FlxText;
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
 	var charNames:Array<String> = [
 	'Beta\nBoyfriend',
 	'Blue\nBoyfriend',
 	'Mean\nBoyfriend'];
 	var iconP1:HealthIcon;
+	var finishedZoom:Bool = false;
 
 	override public function create()
 	{
 		Paths.clearStoredMemory();
+
+		FlxG.camera.zoom = 5;
 
 		bg = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
@@ -134,8 +143,15 @@ class MinusCharSelector extends MusicBeatState
 		changeBF();
 
 		for (i in 0...bfSkins.length) preloadChar(bfSkins[i]);
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 
 		super.create();
+
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		FlxG.camera.fade(FlxColor.BLACK, 0.8, true, function()
+		{
+			finishedZoom = true;
+		});
 	}
 
 	override function update(elapsed:Float)
@@ -143,7 +159,7 @@ class MinusCharSelector extends MusicBeatState
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
 
-		if (!selectedSmth)
+		if (!selectedSmth && finishedZoom)
 		{
 
 			if(boyfriend != null && boyfriend.animation.curAnim.finished) {
@@ -153,7 +169,11 @@ class MinusCharSelector extends MusicBeatState
 			if (controls.BACK)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new FreeplayMenu());
+				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+				{
+                    MusicBeatState.switchState(new FreeplayMenu());
+				});
 			}
 			else if (controls.ACCEPT)
 			{

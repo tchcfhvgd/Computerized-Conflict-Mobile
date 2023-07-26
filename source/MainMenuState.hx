@@ -94,6 +94,9 @@ class MainMenuState extends MusicBeatState
 	var targetAlphaCamPopup:Int = 0;
 
 	var chrom:ChromaticAberrationEffect;
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
+	var finishedZoom = false;
 
 	override function create()
 	{
@@ -127,6 +130,8 @@ class MainMenuState extends MusicBeatState
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
+
+		FlxG.camera.zoom = 5;
 
 		bg = new FlxSprite(-80, 75).loadGraphic(Paths.image('mainmenu/bg'));
 		bg.scrollFactor.set();
@@ -307,7 +312,15 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
+
 		super.create();
+		
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		FlxG.camera.fade(FlxColor.BLACK, 0.8, true, function()
+		{
+			finishedZoom = true;
+		});
 	}
 
 	function createGFPopup()
@@ -395,7 +408,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		});
 
-		if (!selectedSomethin)
+		if (!selectedSomethin && finishedZoom)
 		{
 			if (controls.UI_LEFT_P)
 			{
@@ -432,8 +445,12 @@ class MainMenuState extends MusicBeatState
 			if (controls.BACK)
 			{
 				selectedSomethin = true;
+				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+				{
+					MusicBeatState.switchState(new TitleState());
+				});
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
 			}
 
 			if (controls.ACCEPT)
@@ -502,7 +519,7 @@ class MainMenuState extends MusicBeatState
 					if (shaderFloat < 0) shaderFloat = 0;
 					chrom.setChrome(shaderFloat);
 
-					FlxG.sound.music.fadeOut();
+					FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 				}
 			});
 

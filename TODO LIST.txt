@@ -4,10 +4,8 @@ TIBURONES:
 
 MIJAE:
 
--Finish story menu + art
--Polish and finish Freeplay Selection
--Finish Title State
--Vault sfx
--Menus zoom transitions
--Fixing the icons not getting bigger in freeplay when you go too fast
--Finish the other songs events grrrjkjdfkjdksfo
+-Finish story menu + art (27 july)
+-Polish and finish Freeplay Selection (28-30 july)
+-Finish Title State (august 1?)
+-Fixing the icons not getting bigger in freeplay when you go too fast (idk)
+-Finish the other songs events grrrjkjdfkjdksfo (rest of the week)

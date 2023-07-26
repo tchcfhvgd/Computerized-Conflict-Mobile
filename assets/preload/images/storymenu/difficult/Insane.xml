@@ -1,28 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="insane.png">
+<TextureAtlas imagePath="Insane.png">
 	<!-- Created with Adobe Animate version 21.0.0.35450 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Insane0000" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0001" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0002" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0003" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0004" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0005" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0006" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0007" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0008" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0009" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0010" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0011" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0012" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0013" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="Insane0014" x="5" y="5" width="267" height="82"/>
-	<SubTexture name="IntroInsane0000" x="312" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0001" x="744" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0002" x="744" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0003" x="1176" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0004" x="1176" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0005" x="1176" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0006" x="1608" y="5" width="392" height="375"/>
-	<SubTexture name="IntroInsane0007" x="5" y="420" width="392" height="375"/>
+	<SubTexture name="Insane0000" x="688" y="429" width="432" height="82"/>
+	<SubTexture name="IntroInsane0000" x="4" y="4" width="634" height="375"/>
+	<SubTexture name="IntroInsane0001" x="688" y="4" width="634" height="375"/>
+	<SubTexture name="IntroInsane0002" x="688" y="4" width="634" height="375"/>
+	<SubTexture name="IntroInsane0003" x="1372" y="4" width="634" height="375"/>
+	<SubTexture name="IntroInsane0004" x="1372" y="4" width="634" height="375"/>
+	<SubTexture name="IntroInsane0005" x="1372" y="4" width="634" height="375"/>
+	<SubTexture name="IntroInsane0006" x="4" y="429" width="634" height="375"/>
 </TextureAtlas>

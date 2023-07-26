@@ -57,7 +57,7 @@ class FreeplayMenu extends MusicBeatState
 	var selectedSmth:Bool = false;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
-
+	var finishedZoom = false;
 
 	override function create()
 	{
@@ -67,6 +67,8 @@ class FreeplayMenu extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Freeplay Menu", null);
 		#end
+
+		FlxG.camera.zoom = 1.5;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('freeplayArt/selectMenu/bgAngled'));
 		bg.scrollFactor.set();
@@ -144,6 +146,12 @@ class FreeplayMenu extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		super.create();
+
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		FlxG.camera.fade(FlxColor.BLACK, 0.8, true, function()
+		{
+			finishedZoom = true;
+		});
 	}
 
 	override function update(elapsed:Float)
@@ -187,7 +195,7 @@ class FreeplayMenu extends MusicBeatState
 
 		//folderGroup.forEach(function(folderItem:FlxSprite) folderItem.x = 150);
 
-		if (!selectedSmth)
+		if (!selectedSmth && finishedZoom)
 		{
 			if (controls.UI_UP_P)
 			{
@@ -211,7 +219,11 @@ class FreeplayMenu extends MusicBeatState
 			{
 				selectedSmth = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
+				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+				{
+					MusicBeatState.switchState(new MainMenuState());
+				});
 			}
 
 			if (controls.ACCEPT)
@@ -230,12 +242,13 @@ class FreeplayMenu extends MusicBeatState
 								spr.kill();
 							}
 						});
-					}
 
-					new FlxTimer().start(1.5, function(tmr:FlxTimer)
-					{
-						MusicBeatState.switchState(new FreeplayState(weeks[curSelected]));
-					});
+						FlxTween.tween(FlxG.camera, {zoom: 3}, 1.5, {ease: FlxEase.expoIn});
+						FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+						{
+							MusicBeatState.switchState(new FreeplayState(weeks[curSelected]));
+						});
+					}
 				});
 			}
 		}

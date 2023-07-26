@@ -66,6 +66,15 @@ class VaultState extends MusicBeatState
 	var spikes2:FlxBackdrop;
 	var secretCounter:Int = 0;
 	var itemsText:FlxText;
+	var wrongTextArray:Array<String> = [
+		'Please, insert a valid symbol.',
+		'You are supposed to put something else there, come on.',
+		'Try again.',
+		'You should totally translate the morse codes you have seen.',
+		'Computerized Conflict: Coming to PS5, Xbox Series X and Nintendo Switch soon.',
+		'verycool_errortext_5.txt'
+	];
+	var wrong:FlxText;
 	
 	public static var codesAndShit:Array<Array<String>> = [
 		['videos', 'Tune In'],
@@ -137,20 +146,24 @@ class VaultState extends MusicBeatState
 		spikes2.scrollFactor.set(0, 0);
 		add(spikes2);
 
-		for (i in 0...codesAndShit.length)
-		{
-			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
-		}
+		var bksp:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bksp'));
+		bksp.setGraphicSize(Std.int(bksp.width * 0.5));
+		bksp.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bksp);
 		
 		for (i in 0...codesAndShit.length)
 		{
 			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
 		}
 
-		itemsText = new FlxText(0, 0, FlxG.width, 'Unlocked Secrets: ' + secretCounter + '/5', 18);
+		var wrongInt = FlxG.random.int(0, wrongTextArray.length-1);
+		wrong = new FlxText(20, 550, FlxG.width, '', 18);
+		wrong.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.RED, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		wrong.alpha = 0;
+		add(wrong);
+
+		itemsText = new FlxText(35, 655, FlxG.width, 'Unlocked Secrets: ' + secretCounter + '/5', 18);
 		itemsText.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
-		itemsText.y += 500;
-		itemsText.x += 100;
 		add(itemsText);
 
 		barTitle = new FlxSprite(0, -150).loadGraphic(Paths.image('vault/barTitle'));
@@ -219,11 +232,26 @@ class VaultState extends MusicBeatState
 
 							selectedSmth = true;
 							
+							FlxG.sound.music.stop();
 							FlxG.camera.shake(0.035, 7);
 		                    FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
-							LoadingState.loadAndSwitchState(new PlayState(), true);
-							FreeplayState.destroyFreeplayVocals();
+								FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+								{
+									LoadingState.loadAndSwitchState(new PlayState(), true);
+									FreeplayState.destroyFreeplayVocals();
+								});
 						}});
+					  }
+					  else if (text.toLowerCase() != codesAndShit[i][0])
+					  {
+						FlxG.camera.shake(0.015, 0.5);
+					    FlxG.sound.play(Paths.sound('fault'), 0.3);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.4);
+						wrong.alpha = 1;
+						wrong.text = wrongTextArray[wrongInt];
+						new FlxTimer().start(2, function(tmr:FlxTimer) {
+							FlxTween.tween(wrong, {alpha:0}, 1);
+					    });
 					  }
 					}
 				}

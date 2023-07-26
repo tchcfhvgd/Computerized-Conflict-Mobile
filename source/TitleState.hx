@@ -421,7 +421,12 @@ class TitleState extends MusicBeatState
 
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new MainMenuState());
+					FlxTween.tween(FlxG.camera, {zoom: 3}, 1.5, {ease: FlxEase.expoIn});
+					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+					{
+					    MusicBeatState.switchState(new MainMenuState());
+					});
+
 					FlxG.mouse.visible = false;
 
 					closedState = true;
@@ -495,7 +500,7 @@ class TitleState extends MusicBeatState
 		if(chosenTDL != null)
 			chosenTDL.animation.play('idle', true);
 
-		FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		if (!closedState) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 
 		if(!closedState) {
 			sickBeats++;
@@ -532,11 +537,15 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
-					if(!skippedIntro) FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.45);
-					if (credGroup != null) remove(credGroup);
-
-					if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: -50 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+					createCoolText(['i shat'], 15);
 				case 14:
+					addMoreText('in my pants', 15);
+					//if(!skippedIntro) FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.45);
+					//f (credGroup != null) remove(credGroup);
+
+					//if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: -50 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				case 25:
+					if (credGroup != null) remove(credGroup);
 					if (logoBl != null) FlxTween.tween(logoBl, { x: 700 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 				case 33:
 					skipIntro();

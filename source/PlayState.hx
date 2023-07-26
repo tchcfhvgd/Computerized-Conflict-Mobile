@@ -347,6 +347,8 @@ class PlayState extends MusicBeatState
 			var virabot3:BGSprite;
 			var virabot4:BGSprite;
 
+			var constantShake:Bool = false;
+
 			var endProcessChrom:Float = 0.0045;
 
 			//corrupted bgs:
@@ -476,6 +478,10 @@ class PlayState extends MusicBeatState
 			public static var distortShader:Shaders.DistortedTVEffect = new DistortedTVEffect();
 			public var distortShaderHUD:Shaders.DistortedTVEffectHUD = new DistortedTVEffectHUD(); //fuck
 			var zoomTweenStart:FlxTween;
+
+		//fancy funk:
+		    var fancyBG:BGSprite;
+		    var fancyFloor:BGSprite;
 
 		//enmity:
 			var tcoPlataform:BGSprite;
@@ -1005,6 +1011,13 @@ class PlayState extends MusicBeatState
 							rsod.setGraphicSize(Std.int(rsod.width * 1.1));
 							rsod.antialiasing = ClientPrefs.globalAntialiasing;
 							rsod.alpha = 0;
+
+							redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
+							redthing.antialiasing = ClientPrefs.globalAntialiasing;
+							redthing.cameras = [camBars];
+							redthing.alpha = 0;
+							add(redthing);
+
 							if (ClientPrefs.shaders) rsod.shader = new CRTShader();
 
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
@@ -1894,24 +1907,29 @@ class PlayState extends MusicBeatState
 
 			case 'World 1':
 				{
-					var bg:BGSprite = new BGSprite('world1/fancy_bg', 0, 0, 1.125, 1.2);
-					bg.setGraphicSize(Std.int(bg.width * 1.25));
-					bg.screenCenter();
-					bg.antialiasing = ClientPrefs.globalAntialiasing;
-					bg.updateHitbox();
-					add(bg);
+					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 1.125, 1.3);
+					fancyBG.setGraphicSize(Std.int(fancyBG.width * 1.25));
+					fancyBG.screenCenter();
+					fancyBG.antialiasing = ClientPrefs.globalAntialiasing;
+					fancyBG.updateHitbox();
+					add(fancyBG);
 
-					var floor:BGSprite = new BGSprite('world1/fancy_floor', 0, 0, 1, 1);
-					floor.setGraphicSize(Std.int(floor.width * 1.25));
-					floor.screenCenter();
-					floor.antialiasing = ClientPrefs.globalAntialiasing;
-					floor.updateHitbox();
-					add(floor);
+					fancyFloor = new BGSprite('world1/fancy_floor', 0, 0, 1, 1);
+					fancyFloor.setGraphicSize(Std.int(fancyFloor.width * 1.25));
+					fancyFloor.screenCenter();
+					fancyFloor.antialiasing = ClientPrefs.globalAntialiasing;
+					fancyFloor.updateHitbox();
+					add(fancyFloor);
 					
 					shine = new BGSprite('world1/shine', 0, 0, 1, 1);
 					shine.screenCenter();
 					shine.antialiasing = ClientPrefs.globalAntialiasing;
+					shine.alpha = 0;
 					shine.updateHitbox();
+
+					spotlightdad = new FlxSprite();
+					spotlightdad.loadGraphic(Paths.image("spotlight"));
+					spotlightdad.alpha = 1;
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
@@ -2022,7 +2040,7 @@ class PlayState extends MusicBeatState
 					jumpScare.screenCenter();
 					jumpScare.cameras = [camBars];
 					jumpScare.alpha = 0;
-					if(ClientPrefs.shaders) jumpScare.shader = new CRTShader();
+					//if(ClientPrefs.shaders) jumpScare.shader = new CRTShader();
 					add(jumpScare);
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
@@ -2211,6 +2229,7 @@ class PlayState extends MusicBeatState
 				add(shine);
 				add(glow);
 				add(glowDad);
+				if(SONG.song.toLowerCase() == 'fancy funk') add(spotlightdad);
 		}
 
 		#if LUA_ALLOWED
@@ -4190,14 +4209,18 @@ class PlayState extends MusicBeatState
 			//shit
 			switch(SONG.song.toLowerCase())
 			{
-				case 'adobe': //code was took from the lse mod bcs im veryy lazyy pls play LSE mod and support  the devs:
-					//https://gamebanana.com/mods/358645
+				case 'adobe':
 
 					spotlightdad.x = dad.x - 400;
 					spotlightdad.y = dad.y + dad.height - 1550;
 
 					spotlightbf.x = boyfriend.x - 355;
 					spotlightbf.y = boyfriend.y + boyfriend.height - 1650;
+
+				case 'fancy funk':
+
+				    spotlightdad.x = dad.x - 300;
+				    spotlightdad.y = dad.y + dad.height - 1455;
 
 				case 'time travel':
 
@@ -4841,14 +4864,15 @@ class PlayState extends MusicBeatState
 
 		for (i in 0...4)
 		{
+
+			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
+			babyArrow.downScroll = ClientPrefs.downScroll;
+
 			if (uiType == 'psychDef')
 			{
 				STRUM_X = 42;
 				STRUM_X_MIDDLESCROLL = -278;
 			}
-
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
-			babyArrow.downScroll = ClientPrefs.downScroll;
 
 			if (!isStoryMode && !skipArrowStartTween)
 			{
@@ -5126,6 +5150,11 @@ class PlayState extends MusicBeatState
 		if (strikes >= 3) {
 			vocals.volume = 0;
 			health = -1;
+		}
+
+		if(constantShake)
+		{
+			FlxG.camera.shake(0.0045, 0.15);
 		}
 
 		var timeOrSomething:Float = (Conductor.songPosition/3000)*(SONG.bpm/25);
@@ -7514,21 +7543,26 @@ class PlayState extends MusicBeatState
 					case 192:
 						FlxG.camera.fade(FlxColor.BLACK, 1, true);
 					case 833:
+						FlxTween.tween(redthing, {alpha: 0}, 0.4);
 						showUpCorruptBackground(true);
 						dad.color = 0xFF7A006A;
-						boyfriend.color = 0xFF7B6CAD;
+						boyfriendGroup.color = 0xFF7B6CAD;
 					case 1025:
 						endProcessBSODS(true, 1);
 						FlxTween.color(dad, 1, 0xFF7A006A, FlxColor.WHITE);
-						FlxTween.color(boyfriend, 1, 0xFF7B6CAD, FlxColor.WHITE);
+						FlxTween.color(boyfriendGroup, 1, 0xFF7B6CAD, FlxColor.WHITE);
 					case 1050:
 						showUpCorruptBackground(false);
 					case 1086:
 						endProcessBSODS(false, 1);
+						FlxTween.tween(redthing, {alpha: 1}, 0.8);
+					case 1328:
+						constantShake = true;
 					case 1344:
 						endProcessBSODS(true, 2);
 					case 1470:
 						endProcessBSODS(false, 2);
+						constantShake = false;
 				}
 
 			case 'time travel':
@@ -7765,8 +7799,14 @@ class PlayState extends MusicBeatState
 			case 'fancy funk':
 				switch(curStep)
 				{
+					case 1:
+						objectColor([fancyBG, fancyFloor, boyfriend, gf, dad], 0xFF2C2425);
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 448:
 						iconP2.alpha = 1;
+						shine.alpha = 1;
+						objectColor([fancyBG, fancyFloor, boyfriend, gf, dad], FlxColor.WHITE);
+						spotlightdad.alpha = 0;
 						
 					case 704:
 						FlxTween.tween(camHUD, {alpha: 0}, 1);
@@ -7961,11 +8001,12 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 80:
+						FlxTween.tween(redthing, {alpha: 1}, 0.6);
 						FlxTween.tween(newgroundsBurn, {y:newgroundsBurn.y +1000}, 2, {type:LOOPING});
 						FlxTween.tween(twitterBurn, {y:twitterBurn.y +1000}, 2, {type:LOOPING});
 						FlxTween.tween(googleBurn, {y:googleBurn.y +1000}, 2, {type:LOOPING});
 					case 140:
-						FlxG.sound.play(Paths.sound('intro3'), 0.6);
+						//FlxG.sound.play(Paths.sound('intro3'), 0.6);
 					case 141:
 					//	ready();
 					case 142:
@@ -7976,6 +8017,8 @@ class PlayState extends MusicBeatState
 						generateStaticArrows(0);
 						generateStaticArrows(1);
 						skipArrowStartTween = true;*/
+					case 416:
+						FlxTween.tween(redthing, {alpha: 0}, 2);
 					case 448:
 						camFollow.x = 750;
 						camFollow.y = 350;
@@ -8669,7 +8712,7 @@ class PlayState extends MusicBeatState
 				boyfriend.specialAnim = true;
 				dad.specialAnim = true;
 
-				FlxG.sound.play(Paths.sound('throwMic'));
+				FlxG.sound.play(Paths.sound('throwMic'), 0.8);
 
 				FlxTween.tween(dad, {x: dad.x - 150}, 0.75, {ease: FlxEase.sineInOut});
 

@@ -65,6 +65,8 @@ class FanArtState extends MusicBeatState
 			coolArtistArray.push(thing[i]);
 		}
 
+		FlxG.camera.zoom = 2;
+
 		scrollingThing = new FlxBackdrop(Paths.image('FAMenu/scroll'), XY, 0, 0);
 		scrollingThing.scrollFactor.set(0, 0.07);
 		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.8));
@@ -147,11 +149,6 @@ class FanArtState extends MusicBeatState
 		FlxTween.tween(textSquare, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(textSquare, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
-		new FlxTimer().start(0.4, function(lol:FlxTimer)
-		{
-			coolDown = false;
-		});
-
 		for(artist in coolArtistArray) {
 			// TODO: Fix TaigaTart and femalefoxpain breaking, should be 1 but results in 2
 			var total = FileSystem.readDirectory('assets/images/fan-arts/ingame-fanart/' + coolArtistArray[actualNum] + '/').length;
@@ -162,6 +159,12 @@ class FanArtState extends MusicBeatState
 
 
 		super.create();
+
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		FlxG.camera.fade(FlxColor.BLACK, 0.9, true, function()
+		{
+			coolDown = false;
+		});
 	}
 
 	override function update(elapsed:Float)
@@ -183,7 +186,13 @@ class FanArtState extends MusicBeatState
 			if (controls.BACK)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
+
+				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+				{
+					MusicBeatState.switchState(new MainMenuState());
+				});
+
 				Paths.clearUnusedMemory();
 				goodBye();
 				selectedSmth = true;

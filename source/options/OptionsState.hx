@@ -34,6 +34,7 @@ class OptionsState extends MusicBeatState
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
+	var finishedZoom = false;
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
@@ -63,6 +64,8 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
+
+		FlxG.camera.zoom = 3;
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -118,6 +121,12 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		super.create();
+
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
+		FlxG.camera.fade(FlxColor.BLACK, 0.8, true, function()
+		{
+			finishedZoom = true;
+		});
 	}
 
 	override function closeSubState() {
@@ -134,20 +143,28 @@ class OptionsState extends MusicBeatState
 		spikes1.x -= 0.45 * 60 * elapsed;
 		spikes2.x -= 0.45 * 60 * elapsed;
 
-		if (controls.UI_UP_P) {
-			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P) {
-			changeSelection(1);
-		}
-
-		if (controls.BACK) {
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
-		}
-
-		if (controls.ACCEPT) {
-			openSelectedSubstate(options[curSelected]);
+		if(finishedZoom)
+		{
+			if (controls.UI_UP_P) {
+				changeSelection(-1);
+			}
+			if (controls.UI_DOWN_P) {
+				changeSelection(1);
+			}
+	
+			if (controls.BACK) {
+				finishedZoom = false;
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
+				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+				{
+					MusicBeatState.switchState(new MainMenuState());
+				});
+			}
+	
+			if (controls.ACCEPT) {
+				openSelectedSubstate(options[curSelected]);
+			}
 		}
 	}
 
