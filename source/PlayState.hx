@@ -1270,10 +1270,7 @@ class PlayState extends MusicBeatState
 
 			case 'bbpanzu-stage': //bbpanzu stickfigure
 				{
-					otakuBG = new BGSprite('dashpulse_bg', 0 , 0, 1, 1);
-					otakuBG.setGraphicSize(Std.int(otakuBG.width * 0.3));
-					otakuBG.screenCenter();
-					otakuBG.x -= 150;
+					otakuBG = new BGSprite('dashpulse_bg', -874, -255, 1, 1);
 					otakuBG.antialiasing = false;
 					add(otakuBG);
 
