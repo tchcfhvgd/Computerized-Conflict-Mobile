@@ -150,217 +150,350 @@ public function new()
 class NTSCShader extends FlxShader
 {
 	@:glFragmentSource('
-//SHADERTOY PORT FIX
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
-uniform float iTime;
-#define iChannel0 bitmap
-#define texture flixel_texture2D
-#define fragColor gl_FragColor
-#define mainImage main
 
-// This is a port of the NTSC encode/decode shader pair in MAME and MESS, modified to use only
-// one pass rather than an encode pass and a decode pass. It accurately emulates the sort of
-// signal decimation one would see when viewing a composite signal, though it could benefit from a
-// pre-pass to re-size the input content to more accurately reflect the actual size that would
-// be incoming from a composite signal source.
-//
-// To encode the composite signal, I convert the RGB value to YIQ, then subsequently evaluate
-// the standard NTSC composite equation. Four composite samples per RGB pixel are generated from
-// the incoming linearly-interpolated texels.
-//
-// The decode pass implements a Fixed Impulse Response (FIR) filter designed by MAME/MESS contributor
-// "austere" in matlab (if memory serves correctly) to mimic the behavior of a standard television set
-// as closely as possible. The filter window is 83 composite samples wide, and there is an additional
-// notch filter pass on the luminance (Y) values in order to strip the color signal from the luminance
-// signal prior to processing.
-//
-// - UltraMoogleMan [8/2/2013]
+#pragma format R8G8B8A8_SRGB
 
-// Useful Constants
-const vec4 Zero = vec4(0.0);
-const vec4 Half = vec4(0.5);
-const vec4 One = vec4(1.0);
-const vec4 Two = vec4(2.0);
-const float Pi = 3.1415926535;
-const float Pi2 = 6.283185307;
+#define NTSC_CRT_GAMMA 2.5
+#define NTSC_MONITOR_GAMMA 2.0
 
-// NTSC Constants
-const vec4 A = vec4(0.5);
-const vec4 B = vec4(0.5);
-const float P = 1.0;
-const float CCFrequency = 3.59754545;
-const float YFrequency = 3.0;
-const float IFrequency = 1.2;
-const float QFrequency = 0.6;
-const float NotchHalfWidth = 2.0;
-const float ScanTime = 52.6;
-const float MaxC = 2.1183;
-const vec4 MinC = vec4(-1.1183);
-const vec4 CRange = vec4(3.2366);
+#define TWO_PHASE
+#define COMPOSITE
+//#define THREE_PHASE
+// #define SVIDEO
 
-vec4 CompositeSample(vec2 UV) {
-	vec2 InverseRes = 1.0 / iResolution.xy;
-	vec2 InverseP = vec2(P, 0.0) * InverseRes;
+// begin params
+#define PI 3.14159265
 
-	// UVs for four linearly-interpolated samples spaced 0.25 texels apart
-	vec2 C0 = UV;
-	vec2 C1 = UV + InverseP * 0.25;
-	vec2 C2 = UV + InverseP * 0.50;
-	vec2 C3 = UV + InverseP * 0.75;
-	vec4 Cx = vec4(C0.x, C1.x, C2.x, C3.x);
-	vec4 Cy = vec4(C0.y, C1.y, C2.y, C3.y);
+#if defined(TWO_PHASE)
+	#define CHROMA_MOD_FREQ (4.0 * PI / 15.0)
+#elif defined(THREE_PHASE)
+	#define CHROMA_MOD_FREQ (PI / 3.0)
+#endif
 
-	vec3 Texel0 = texture(iChannel0, C0).rgb;
-	vec3 Texel1 = texture(iChannel0, C1).rgb;
-	vec3 Texel2 = texture(iChannel0, C2).rgb;
-	vec3 Texel3 = texture(iChannel0, C3).rgb;
+#if defined(COMPOSITE)
+	#define SATURATION 1.0
+	#define BRIGHTNESS 1.0
+	#define ARTIFACTING 1.0
+	#define FRINGING 1.0
+#elif defined(SVIDEO)
+	#define SATURATION 1.0
+	#define BRIGHTNESS 1.0
+	#define ARTIFACTING 0.0
+	#define FRINGING 0.0
+#endif
+// end params
 
-	// Calculated the expected time of the sample.
-	vec4 T = A * Cy * vec4(iResolution.x) * Two + B + Cx;
+uniform int uFrame;
+uniform float uInterlace;
 
-	const vec3 YTransform = vec3(0.299, 0.587, 0.114);
-	const vec3 ITransform = vec3(0.595716, -0.274453, -0.321263);
-	const vec3 QTransform = vec3(0.211456, -0.522591, 0.311135);
+// fragment compatibility #defines
 
-	float Y0 = dot(Texel0, YTransform);
-	float Y1 = dot(Texel1, YTransform);
-	float Y2 = dot(Texel2, YTransform);
-	float Y3 = dot(Texel3, YTransform);
-	vec4 Y = vec4(Y0, Y1, Y2, Y3);
+#if defined(COMPOSITE) || defined(SVIDEO)
+mat3 mix_mat = mat3(
+	BRIGHTNESS, FRINGING, FRINGING,
+	ARTIFACTING, 2.0 * SATURATION, 0.0,
+	ARTIFACTING, 0.0, 2.0 * SATURATION
+);
+#endif
 
-	float I0 = dot(Texel0, ITransform);
-	float I1 = dot(Texel1, ITransform);
-	float I2 = dot(Texel2, ITransform);
-	float I3 = dot(Texel3, ITransform);
-	vec4 I = vec4(I0, I1, I2, I3);
+// begin ntsc-rgbyuv
+const mat3 yiq2rgb_mat = mat3(
+	1.0, 0.956, 0.6210,
+	1.0, -0.2720, -0.6474,
+	1.0, -1.1060, 1.7046);
 
-	float Q0 = dot(Texel0, QTransform);
-	float Q1 = dot(Texel1, QTransform);
-	float Q2 = dot(Texel2, QTransform);
-	float Q3 = dot(Texel3, QTransform);
-	vec4 Q = vec4(Q0, Q1, Q2, Q3);
-
-	vec4 W = vec4(Pi2 * CCFrequency * ScanTime);
-	vec4 Encoded = Y + I * cos(T * W) + Q * sin(T * W);
-	return (Encoded - MinC) / CRange;
+vec3 yiq2rgb(vec3 yiq)
+{
+	return yiq * yiq2rgb_mat;
 }
 
-vec4 NTSCCodec(vec2 UV)
+const mat3 yiq_mat = mat3(
+	0.2989, 0.5870, 0.1140,
+	0.5959, -0.2744, -0.3216,
+	0.2115, -0.5229, 0.3114
+);
+
+vec3 rgb2yiq(vec3 col)
 {
-	vec2 InverseRes = 1.0 / iResolution.xy;
-	vec4 YAccum = Zero;
-	vec4 IAccum = Zero;
-	vec4 QAccum = Zero;
-	float QuadXSize = iResolution.x * 4.0;
-	float TimePerSample = ScanTime / QuadXSize;
+	return col * yiq_mat;
+}
+// end ntsc-rgbyuv
 
-	// Frequency cutoffs for the individual portions of the signal that we extract.
-	// Y1 and Y2 are the positive and negative frequency limits of the notch filter on Y.
-	//
-	float Fc_y1 = (CCFrequency - NotchHalfWidth) * TimePerSample;
-	float Fc_y2 = (CCFrequency + NotchHalfWidth) * TimePerSample;
-	float Fc_y3 = YFrequency * TimePerSample;
-	float Fc_i = IFrequency * TimePerSample;
-	float Fc_q = QFrequency * TimePerSample;
-	float Pi2Length = Pi2 / 82.0;
-	vec4 NotchOffset = vec4(0.0, 1.0, 2.0, 3.0);
-	vec4 W = vec4(Pi2 * CCFrequency * ScanTime);
-	for(float n = -41.0; n < 42.0; n += 4.0)
+#define TAPS 32
+const float luma_filter[TAPS + 1] = float[TAPS + 1](
+	-0.000174844,
+	-0.000205844,
+	-0.000149453,
+	-0.000051693,
+	0.000000000,
+	-0.000066171,
+	-0.000245058,
+	-0.000432928,
+	-0.000472644,
+	-0.000252236,
+	0.000198929,
+	0.000687058,
+	0.000944112,
+	0.000803467,
+	0.000363199,
+	0.000013422,
+	0.000253402,
+	0.001339461,
+	0.002932972,
+	0.003983485,
+	0.003026683,
+	-0.001102056,
+	-0.008373026,
+	-0.016897700,
+	-0.022914480,
+	-0.021642347,
+	-0.008863273,
+	0.017271957,
+	0.054921920,
+	0.098342579,
+	0.139044281,
+	0.168055832,
+	0.178571429);
+
+const float chroma_filter[TAPS + 1] = float[TAPS + 1](
+	0.001384762,
+	0.001678312,
+	0.002021715,
+	0.002420562,
+	0.002880460,
+	0.003406879,
+	0.004004985,
+	0.004679445,
+	0.005434218,
+	0.006272332,
+	0.007195654,
+	0.008204665,
+	0.009298238,
+	0.010473450,
+	0.011725413,
+	0.013047155,
+	0.014429548,
+	0.015861306,
+	0.017329037,
+	0.018817382,
+	0.020309220,
+	0.021785952,
+	0.023227857,
+	0.024614500,
+	0.025925203,
+	0.027139546,
+	0.028237893,
+	0.029201910,
+	0.030015081,
+	0.030663170,
+	0.031134640,
+	0.031420995,
+	0.031517031);
+
+// #define fetch_offset(offset, one_x) \\
+// 	pass1(uv - vec2(0.5 / openfl_TextureSize.x, 0.0) + vec2((offset) * (one_x), 0.0)).xyzw
+
+#define fetch_offset(offset, one_x) \\
+	pass1(uv + vec2((offset - 0.5) * one_x, 0.0)).xyzw
+
+vec4 pass1(vec2 uv)
+{
+	vec2 fragCoord = uv * openfl_TextureSize;
+
+	vec4 cola = texture2D(bitmap, uv).rgba;
+	vec3 yiq = rgb2yiq(cola.rgb);
+
+	#if defined(TWO_PHASE)
+		float chroma_phase = PI * (mod(fragCoord.y, 2.0) + float(uFrame));
+	#elif defined(THREE_PHASE)
+		float chroma_phase = 0.6667 * PI * (mod(fragCoord.y, 3.0) + float(uFrame));
+	#endif
+
+	float mod_phase = chroma_phase + fragCoord.x * CHROMA_MOD_FREQ;
+
+	float i_mod = cos(mod_phase);
+	float q_mod = sin(mod_phase);
+
+	if(uInterlace == 1.0) {
+		yiq.yz *= vec2(i_mod, q_mod); // Modulate.
+		yiq *= mix_mat; // Cross-talk.
+		yiq.yz *= vec2(i_mod, q_mod); // Demodulate.
+	}
+	return vec4(yiq, cola.a);
+}
+
+void main()
+{
+	vec2 uv = openfl_TextureCoordv;
+	vec2 fragCoord = uv * openfl_TextureSize;
+
+	float one_x = 1.0 / openfl_TextureSize.x;
+	vec4 signal = vec4(0.0);
+
+	for (int i = 0; i < TAPS; i++)
 	{
-		vec4 n4 = n + NotchOffset;
-		vec4 CoordX = UV.x + InverseRes.x * n4 * 0.25;
-		vec4 CoordY = vec4(UV.y);
-		vec2 TexCoord = vec2(CoordX.r, CoordY.r);
-		vec4 C = CompositeSample(TexCoord) * CRange + MinC;
-		vec4 WT = W * (CoordX  + A * CoordY * Two * iResolution.x + B);
+		float offset = float(i);
 
-		vec4 SincYIn1 = Pi2 * Fc_y1 * n4;
-		vec4 SincYIn2 = Pi2 * Fc_y2 * n4;
-		vec4 SincYIn3 = Pi2 * Fc_y3 * n4;
-		bvec4 notEqual = notEqual(SincYIn1, Zero);
-		vec4 SincY1 = sin(SincYIn1) / SincYIn1;
-		vec4 SincY2 = sin(SincYIn2) / SincYIn2;
-		vec4 SincY3 = sin(SincYIn3) / SincYIn3;
-		if(SincYIn1.x == 0.0) SincY1.x = 1.0;
-		if(SincYIn1.y == 0.0) SincY1.y = 1.0;
-		if(SincYIn1.z == 0.0) SincY1.z = 1.0;
-		if(SincYIn1.w == 0.0) SincY1.w = 1.0;
-		if(SincYIn2.x == 0.0) SincY2.x = 1.0;
-		if(SincYIn2.y == 0.0) SincY2.y = 1.0;
-		if(SincYIn2.z == 0.0) SincY2.z = 1.0;
-		if(SincYIn2.w == 0.0) SincY2.w = 1.0;
-		if(SincYIn3.x == 0.0) SincY3.x = 1.0;
-		if(SincYIn3.y == 0.0) SincY3.y = 1.0;
-		if(SincYIn3.z == 0.0) SincY3.z = 1.0;
-		if(SincYIn3.w == 0.0) SincY3.w = 1.0;
-		//vec4 IdealY = (2.0 * Fc_y1 * SincY1 - 2.0 * Fc_y2 * SincY2) + 2.0 * Fc_y3 * SincY3;
-		vec4 IdealY = (2.0 * Fc_y1 * SincY1 - 2.0 * Fc_y2 * SincY2) + 2.0 * Fc_y3 * SincY3;
-		vec4 FilterY = (0.54 + 0.46 * cos(Pi2Length * n4)) * IdealY;
+		vec4 sums = fetch_offset(offset - float(TAPS), one_x) +
+			fetch_offset(float(TAPS) - offset, one_x);
 
-		vec4 SincIIn = Pi2 * Fc_i * n4;
-		vec4 SincI = sin(SincIIn) / SincIIn;
-		if (SincIIn.x == 0.0) SincI.x = 1.0;
-		if (SincIIn.y == 0.0) SincI.y = 1.0;
-		if (SincIIn.z == 0.0) SincI.z = 1.0;
-		if (SincIIn.w == 0.0) SincI.w = 1.0;
-		vec4 IdealI = 2.0 * Fc_i * SincI;
-		vec4 FilterI = (0.54 + 0.46 * cos(Pi2Length * n4)) * IdealI;
+		signal += sums * vec4(luma_filter[i], chroma_filter[i], chroma_filter[i], 1.0);
+	}
+	signal += pass1(uv - vec2(0.5 / openfl_TextureSize.x, 0.0)).xyzw *
+		vec4(luma_filter[TAPS], chroma_filter[TAPS], chroma_filter[TAPS], 1.0);
 
-		vec4 SincQIn = Pi2 * Fc_q * n4;
-		vec4 SincQ = sin(SincQIn) / SincQIn;
-		if (SincQIn.x == 0.0) SincQ.x = 1.0;
-		if (SincQIn.y == 0.0) SincQ.y = 1.0;
-		if (SincQIn.z == 0.0) SincQ.z = 1.0;
-		if (SincQIn.w == 0.0) SincQ.w = 1.0;
-		vec4 IdealQ = 2.0 * Fc_q * SincQ;
-		vec4 FilterQ = (0.54 + 0.46 * cos(Pi2Length * n4)) * IdealQ;
+	vec3 rgb = yiq2rgb(signal.xyz);
+	float alpha = signal.a/(TAPS+1);
+	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), alpha);
+	gl_FragColor = color;
+}
+')
 
-		YAccum = YAccum + C * FilterY;
-		IAccum = IAccum + C * cos(WT) * FilterI;
-		QAccum = QAccum + C * sin(WT) * FilterQ;
+	var topPrefix:String = "";
+
+	public function new() {
+		topPrefix = "#version 120\n\n";
+		__glSourceDirty = true;
+
+		super();
+
+		this.uFrame.value = [0];
+		this.uInterlace.value = [1];
 	}
 
-	float Y = YAccum.r + YAccum.g + YAccum.b + YAccum.a;
-	float I = (IAccum.r + IAccum.g + IAccum.b + IAccum.a) * 2.0;
-	float Q = (QAccum.r + QAccum.g + QAccum.b + QAccum.a) * 2.0;
+	public var interlace(get, set):Bool;
 
-	vec3 YIQ = vec3(Y, I, Q);
+	function get_interlace() {
+		return this.uInterlace.value[0] == 1.0;
+	}
+	function set_interlace(val:Bool) {
+		this.uInterlace.value[0] = val ? 1.0 : 0.0;
+		return val;
+	}
 
-	vec3 OutRGB = vec3(dot(YIQ, vec3(1.0, 0.956, 0.621)), dot(YIQ, vec3(1.0, -0.272, -0.647)), dot(YIQ, vec3(1.0, -1.106, 1.703)));
+	override function __updateGL() {
+		//this.uFrame.value[0]++;
+		this.uFrame.value[0] = (this.uFrame.value[0] + 1) % 2;
 
-	return vec4(OutRGB, 1.0);
-}
+		super.__updateGL();
+	}
 
-void mainImage() {
-	vec2 InverseRes = 1.0 / iResolution.xy;
-	vec2 UV = fragCoord.xy * InverseRes;
+	@:noCompletion private override function __initGL():Void
+	{
+		if (__glSourceDirty || __paramBool == null)
+		{
+			__glSourceDirty = false;
+			program = null;
 
-	vec4 OutPixel = NTSCCodec(UV);
-	fragColor = OutPixel;
-}')
+			__inputBitmapData = new Array();
+			__paramBool = new Array();
+			__paramFloat = new Array();
+			__paramInt = new Array();
 
-public function new()
-{
-	super();
-}
+			__processGLData(glVertexSource, "attribute");
+			__processGLData(glVertexSource, "uniform");
+			__processGLData(glFragmentSource, "uniform");
+		}
+
+		@:privateAccess if (__context != null && program == null)
+		{
+			var gl = __context.gl;
+
+			#if (js && html5)
+			var prefix = (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
+			#else
+			var prefix = "#ifdef GL_ES\n"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
+					+ "precision highp float;\n"
+					+ "#else\n"
+					+ "precision mediump float;\n"
+					+ "#endif\n" : "precision lowp float;\n")
+				+ "#endif\n\n";
+			#end
+
+			var vertex = topPrefix + prefix + glVertexSource;
+			var fragment = topPrefix + prefix + glFragmentSource;
+
+			var id = vertex + fragment;
+
+			if (__context.__programs.exists(id))
+			{
+				program = __context.__programs.get(id);
+			}
+			else
+			{
+				program = __context.createProgram(GLSL);
+
+				// TODO
+				// program.uploadSources (vertex, fragment);
+				program.__glProgram = __createGLProgram(vertex, fragment);
+
+				__context.__programs.set(id, program);
+			}
+
+			if (program != null)
+			{
+				glProgram = program.__glProgram;
+
+				for (input in __inputBitmapData)
+				{
+					if (input.__isUniform)
+					{
+						input.index = gl.getUniformLocation(glProgram, input.name);
+					}
+					else
+					{
+						input.index = gl.getAttribLocation(glProgram, input.name);
+					}
+				}
+
+				for (parameter in __paramBool)
+				{
+					if (parameter.__isUniform)
+					{
+						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+					}
+					else
+					{
+						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+					}
+				}
+
+				for (parameter in __paramFloat)
+				{
+					if (parameter.__isUniform)
+					{
+						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+					}
+					else
+					{
+						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+					}
+				}
+
+				for (parameter in __paramInt)
+				{
+					if (parameter.__isUniform)
+					{
+						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+					}
+					else
+					{
+						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+					}
+				}
+			}
+		}
+	}
 
 }
 
 class NTSCEffect extends Effect //fuck
 {
-	public var shader:NTSCShader = new NTSCShader();
-
-	public function new()
-	{
-		shader.iTime.value = [0];
-		//PlayState.instance.shaderUpdates.push(update);
-	}
-
-	public function update(elapsed){
-		shader.iTime.value[0] += elapsed;
+	public var shader:NTSCShader;
+	public function new (){
+		shader = new NTSCShader();
 	}
 }
 
