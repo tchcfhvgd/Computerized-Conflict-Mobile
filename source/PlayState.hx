@@ -1234,7 +1234,7 @@ class PlayState extends MusicBeatState
 				{
 
 					bgGarden =  new BGSprite('amity-bg', 0 , 0, 1, 1);
-					bgGarden.setGraphicSize(Std.int(bgGarden.width * 2.5));
+					bgGarden.scale.set(5, 5);
 					bgGarden.screenCenter();
 					bgGarden.antialiasing = ClientPrefs.globalAntialiasing;
 					add(bgGarden);
@@ -1761,8 +1761,8 @@ class PlayState extends MusicBeatState
 			case 'unfaith-BG': //ash
 				{
 					unfaithBG = new FlxSprite(0, 0).loadGraphic(Paths.image('unfaithful/unfaithful_bg'));
-					unfaithBG.scale.x = 16;
-					unfaithBG.scale.y = 16;
+					unfaithBG.scale.x = 8;
+					unfaithBG.scale.y = 8;
 					unfaithBG.screenCenter();
 					if (ClientPrefs.shaders) unfaithBG.shader = wavShader.shader;
 					add(unfaithBG);
@@ -1945,12 +1945,17 @@ class PlayState extends MusicBeatState
 
 			case 'flashBG': //showdown collab
 				{
-					var bg:BGSprite = new BGSprite('collab/showdown/flashBg', 0, 0, 1, 1);
-					bg.setGraphicSize(Std.int(bg.width * 1.8));
-					bg.screenCenter();
-					bg.y -= 100;
-					bg.antialiasing = ClientPrefs.globalAntialiasing;
-					add(bg);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen.scrollFactor.set();
+					whiteScreen.screenCenter();
+					add(whiteScreen);
+
+					var flashTop:BGSprite = new BGSprite('collab/showdown/flashBg', 0, 0, 1, 1);
+					flashTop.scale.set(2.5, 2.5);
+					flashTop.screenCenter();
+					flashTop.y -= 1000;
+					flashTop.antialiasing = ClientPrefs.globalAntialiasing;
+					add(flashTop);
 
 					tcoPlataform = new BGSprite('collab/showdown/platform_tco', 0, 0, 1, 1);
 					tcoPlataform.screenCenter();
@@ -1968,8 +1973,8 @@ class PlayState extends MusicBeatState
 
 					bfGfPlataform = new BGSprite('collab/showdown/platform_bfgf', 0, 0, 1, 1);
 					bfGfPlataform.screenCenter();
-					bfGfPlataform.x += 500;
-					bfGfPlataform.y -= 80;
+					bfGfPlataform.x += 530;
+					bfGfPlataform.y -= 30;
 					bfGfPlataform.antialiasing = ClientPrefs.globalAntialiasing;
 					add(bfGfPlataform);
 
@@ -2224,9 +2229,15 @@ class PlayState extends MusicBeatState
 				
 			case 'World 1' | 'Sam Room':
 				add(shine);
-				add(glow);
-				add(glowDad);
-				if(SONG.song.toLowerCase() == 'fancy funk') add(spotlightdad);
+				if(SONG.song.toLowerCase() == 'fancy funk') 
+				{
+					add(spotlightdad);
+				}
+				else
+				{
+					add(glow);
+					add(glowDad);
+				}
 		}
 
 		#if LUA_ALLOWED
