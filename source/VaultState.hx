@@ -87,6 +87,9 @@ class VaultState extends MusicBeatState
 	var isWriting:Bool = false;
 	var letterWritten:String;
 
+	var wrongTween:FlxTween;
+	var wrongTimer:FlxTimer;
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -156,7 +159,6 @@ class VaultState extends MusicBeatState
 			if (CoolUtil.songsUnlocked.data.songs.get(codesAndShit[i][1])) secretCounter++;
 		}
 
-		var wrongInt = FlxG.random.int(0, wrongTextArray.length-1);
 		wrong = new FlxText(20, 550, FlxG.width, '', 18);
 		wrong.setFormat(Paths.font("phantommuff.ttf"), 34, FlxColor.RED, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		wrong.alpha = 0;
@@ -212,49 +214,7 @@ class VaultState extends MusicBeatState
 		{
 			if (action == 'enter')
 			{
-				if (!selectedSmth)
-				{
-					for (i in 0...codesAndShit.length){
-						if (text.toLowerCase() == codesAndShit[i][0]){
-							trace('the code ' + codesAndShit[i][0] + ' is correct and it unlocks the song ' + codesAndShit[i][1] + '!');
-
-							CoolUtil.songsUnlocked.data.songs.set(codesAndShit[i][1], true);
-							CoolUtil.songsUnlocked.flush();
-							secretCounter += 1;
-
-
-							PlayState.storyPlaylist = [codesAndShit[i][1]];
-							PlayState.isStoryMode = false;
-
-							PlayState.storyDifficulty = curDifficulty;
-
-							PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-hard', PlayState.storyPlaylist[0].toLowerCase());
-
-							selectedSmth = true;
-							
-							FlxG.sound.music.stop();
-							FlxG.camera.shake(0.035, 7);
-		                    FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
-								FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
-								{
-									LoadingState.loadAndSwitchState(new PlayState(), true);
-									FreeplayState.destroyFreeplayVocals();
-								});
-						}});
-					  }
-					  else if (text.toLowerCase() != codesAndShit[i][0])
-					  {
-						FlxG.camera.shake(0.015, 0.5);
-					    FlxG.sound.play(Paths.sound('fault'), 0.3);
-						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.4);
-						wrong.alpha = 1;
-						wrong.text = wrongTextArray[wrongInt];
-						new FlxTimer().start(2, function(tmr:FlxTimer) {
-							FlxTween.tween(wrong, {alpha:0}, 1);
-					    });
-					  }
-					}
-				}
+				enteredCode(text);
 			}
 			isWriting = true;
 		}
@@ -348,5 +308,63 @@ class VaultState extends MusicBeatState
 
 		FlxTween.tween(convertPopUp, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(convertPopUp, {x: -250}, 0.4, {ease:FlxEase.smoothStepInOut});
+	}
+
+	function enteredCode(text:String)
+	{
+		if (selectedSmth) return;
+
+		for (i in 0...codesAndShit.length){
+			if (text.toLowerCase() == codesAndShit[i][0]){
+				trace('the code ' + codesAndShit[i][0] + ' is correct and it unlocks the song ' + codesAndShit[i][1] + '!');
+
+				CoolUtil.songsUnlocked.data.songs.set(codesAndShit[i][1], true);
+				CoolUtil.songsUnlocked.flush();
+				secretCounter += 1;
+
+
+				PlayState.storyPlaylist = [codesAndShit[i][1]];
+				PlayState.isStoryMode = false;
+
+				PlayState.storyDifficulty = curDifficulty;
+
+				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-hard', PlayState.storyPlaylist[0].toLowerCase());
+
+				selectedSmth = true;
+						
+				FlxG.sound.music.stop();
+				FlxG.camera.shake(0.035, 7);
+				FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
+					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+					{
+						LoadingState.loadAndSwitchState(new PlayState(), true);
+						FreeplayState.destroyFreeplayVocals();
+					});
+				}});
+				return;
+		  	}
+		}
+
+		if (wrongTimer != null) wrongTimer.cancel();
+		if (wrongTween != null) wrongTween.cancel();
+
+		var wrongInt = FlxG.random.int(0, wrongTextArray.length-1);
+		FlxG.camera.shake(0.015, 0.5);
+		FlxG.sound.play(Paths.sound('fault'), 0.3);
+		if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.4);
+
+		wrong.alpha = 1;
+		wrong.text = wrongTextArray[wrongInt];
+
+		wrongTimer = new FlxTimer().start(2, function(tmr:FlxTimer) {
+			wrongTimer = null;
+
+			wrongTween = FlxTween.tween(wrong, {alpha:0}, 1, 
+			{
+				onComplete: function(twn:FlxTween) {
+					wrongTween = null;
+				}
+			});
+		});
 	}
 }

@@ -1125,8 +1125,8 @@ class PlayState extends MusicBeatState
 
 					leftSide = true;
 
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 				}
 
 			case 'rombieBG': //the joe rombie is real
@@ -1278,7 +1278,7 @@ class PlayState extends MusicBeatState
 					needsBlackBG = true;
 
 
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
 				}
 
 			case 'bbpanzu-stage': //bbpanzu stickfigure
@@ -1312,7 +1312,7 @@ class PlayState extends MusicBeatState
 					oldVideoResolution = true;
 					noCurLight = true;
 					cameraSpeed = 1.2;
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new JpegShader())]);
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new JpegShader())]);
 				}
 
 			case 'alan-pc-virabot': //Virabot song
@@ -1731,7 +1731,7 @@ class PlayState extends MusicBeatState
 
 					camBars.x += 0.5;
 
-					if (ClientPrefs.shaders) if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 					//if (ClientPrefs.shaders) addShaderToCamera('camhud', new ChromaticAberrationEffect(0.0015));
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
@@ -1761,9 +1761,9 @@ class PlayState extends MusicBeatState
 			case 'unfaith-BG': //ash
 				{
 					unfaithBG = new FlxSprite(0, 0).loadGraphic(Paths.image('unfaithful/unfaithful_bg'));
-					unfaithBG.setGraphicSize(Std.int(unfaithBG.width * 1.25));
+					unfaithBG.scale.x = 16;
+					unfaithBG.scale.y = 16;
 					unfaithBG.screenCenter();
-					unfaithBG.updateHitbox();
 					if (ClientPrefs.shaders) unfaithBG.shader = wavShader.shader;
 					add(unfaithBG);
 
@@ -1807,7 +1807,8 @@ class PlayState extends MusicBeatState
 					unfaithFRONT = new BGSprite('unfaithful/unfaithful_front', 0, 0, 1.3, 1.3);
 					unfaithFRONT.setGraphicSize(Std.int(unfaithFRONT.width * 1.2));
 					unfaithFRONT.screenCenter();
-					unfaithFRONT.x -= 270;
+					unfaithFRONT.x -= 230;
+					unfaithFRONT.y += 375;
 					unfaithFRONT.updateHitbox();
 
 					FlxTween.tween(unfaithFRONT, {y: unfaithFRONT.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
@@ -1835,9 +1836,11 @@ class PlayState extends MusicBeatState
 					add(vignetteTrojan);
 
 					overlayUnfaith = new BGSprite('unfaithful/overlay', 0, 0, 1, 1);
-					overlayUnfaith.setGraphicSize(Std.int(overlayUnfaith.width * 1.25));
+					overlayUnfaith.scale.x = 12000;
+					overlayUnfaith.scale.y = 1.25;
 					overlayUnfaith.screenCenter();
-					overlayUnfaith.alpha = 0;
+					overlayUnfaith.x -= overlayUnfaith.scale.x/5;
+					overlayUnfaith.alpha = 1;
 
 					colorShad = new ColorSwap();
 					needsBlackBG = true;
@@ -7419,7 +7422,7 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
 					case 320:
 						FlxTween.tween(blackBG, {alpha:0.8}, 0.3);
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 						
 					case 384:
 						FlxTween.tween(blackBG, {alpha:0}, 0.5);
@@ -7666,7 +7669,7 @@ class PlayState extends MusicBeatState
 							glowDad.alpha = 0;
 						case 944:
 							if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
-							if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+							if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 							whiteScreen.alpha = 1;
 							objectColor([dad, boyfriend], FlxColor.BLACK);
 							camHUD.fade(FlxColor.BLACK, 1.5, true);
@@ -8035,7 +8038,7 @@ class PlayState extends MusicBeatState
 						});*/
 
 						radialLine.alpha = 1;
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 
 					case 96:
 						vignetteTrojan.alpha = 0;
@@ -8157,7 +8160,8 @@ class PlayState extends MusicBeatState
 						dadGroup.cameras = [camChar];
 						boyfriendGroup.cameras = [camChar];
 						clearShaderFromCamera(['camgame']);
-						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader)]); 
+						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 						setAlpha([blackBG], 1);
 
 						boyfriend.y -= 170;
@@ -8217,8 +8221,8 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 
 					case 520:
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 
 					case 585:
 						

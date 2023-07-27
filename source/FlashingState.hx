@@ -72,27 +72,27 @@ class FlashingState extends MusicBeatState
 		spikes2.scrollFactor.set(0, 0);
 		if (spikes2 != null) add(spikes2);
 		
-		var flashText = new FlxText(250, 150, FlxG.width, "Shaders and flashing lights\nare enabled by default.", 42);
-		flashText.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var flashText = new FlxText(250, 125, FlxG.width, "Shaders and flashing lights\nare enabled by default.\n(There are also advanced shaders which\nmight me too lagy)", 42);
+		flashText.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		flashText.borderSize = 5;
 		add(flashText);
 		
-		var Text2 = new FlxText(250, 300, FlxG.width, "If you feel uncomfortable,\ndisable these options on the\nMain Menu.", 42);
-		Text2.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var Text2 = new FlxText(250, 300, FlxG.width, "If you feel uncomfortable,\ndisable these options on the\nMain Menu.\n (All are enabled by default\nexcept the advanced shaders\nwhich might crash the game)", 42);
+		Text2.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		Text2.borderSize = 5;
 		add(Text2);
 		
-		var Text3 = new FlxText(250, 500, FlxG.width, "Hope you enjoy this mod!", 42);
-		Text3.setFormat(Paths.font("phantommuff.ttf"), 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var Text3 = new FlxText(250, 550, FlxG.width, "Hope you enjoy this mod!", 42);
+		Text3.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		Text3.borderSize = 5;
 		add(Text3);
 		
 		var OverHereText = new FlxText(0, 15, FlxG.width, "Hey! Over here!", 45);
-		OverHereText.setFormat(Paths.font("phantommuff.ttf"), 45, 0xFFff324A, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		OverHereText.setFormat(Paths.font("phantommuff.ttf"), 35, 0xFFff324A, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(OverHereText);
 
 		var startText = new FlxText(0, 655, FlxG.width, "Press ENTER to continue.", 45);
-		startText.setFormat(Paths.font("phantommuff.ttf"), 45, FlxColor.YELLOW, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		startText.setFormat(Paths.font("phantommuff.ttf"), 35, FlxColor.YELLOW, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(startText);
 
 		/*grpOptions = new FlxTypedGroup<Alphabet>();
