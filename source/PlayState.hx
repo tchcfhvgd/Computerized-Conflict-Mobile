@@ -1184,7 +1184,7 @@ class PlayState extends MusicBeatState
 					bottomBars.y += 850;
 					add(bottomBars);
 
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(distortShader.shader)]);
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(distortShader.shader)]);
 					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(distortShaderHUD.shader)]);
 
 					oldVideoResolution = true;
@@ -1905,10 +1905,10 @@ class PlayState extends MusicBeatState
 			case 'World 1':
 				{
 					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 1.125, 1.3);
-					fancyBG.setGraphicSize(Std.int(fancyBG.width * 1.25));
+					fancyBG.scale.x = 10;
+					fancyBG.scale.y = 10;
 					fancyBG.screenCenter();
 					fancyBG.antialiasing = ClientPrefs.globalAntialiasing;
-					fancyBG.updateHitbox();
 					add(fancyBG);
 
 					fancyFloor = new BGSprite('world1/fancy_floor', 0, 0, 1, 1);
