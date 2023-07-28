@@ -1761,9 +1761,11 @@ class PlayState extends MusicBeatState
 			case 'unfaith-BG': //ash
 				{
 					unfaithBG = new FlxSprite(0, 0).loadGraphic(Paths.image('unfaithful/unfaithful_bg'));
-					unfaithBG.scale.x = 8;
-					unfaithBG.scale.y = 8;
+					unfaithBG.scale.x = 4.25;
+					unfaithBG.scale.y = 4.25;
 					unfaithBG.screenCenter();
+					unfaithBG.x += 150;
+					unfaithBG.scrollFactor.set(0.35, 0.35);
 					if (ClientPrefs.shaders) unfaithBG.shader = wavShader.shader;
 					add(unfaithBG);
 
@@ -1771,7 +1773,7 @@ class PlayState extends MusicBeatState
 					unfaithBACK.setGraphicSize(Std.int(unfaithBACK.width * 0.85));
 					unfaithBACK.screenCenter();
 					unfaithBACK.updateHitbox();
-					unfaithBACK.x += 350;
+					unfaithBACK.x += 380;
 					add(unfaithBACK);
 
 					FlxTween.tween(unfaithBACK, {y: unfaithBACK.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
@@ -1791,7 +1793,8 @@ class PlayState extends MusicBeatState
 					particleEmitter.alpha.set(0, 0);
 					particleEmitter.lifespan.set(1.9, 4.9);
 
-					particleEmitter.color.set(FlxColor.BLUE, FlxColor.RED);
+					particleEmitter.loadParticles(Paths.image('particle'), 500, 16, true);
+					particleEmitter.color.set(FlxColor.YELLOW, FlxColor.YELLOW);
 
 					particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
 					add(particleEmitter);
@@ -1807,8 +1810,8 @@ class PlayState extends MusicBeatState
 					unfaithFRONT = new BGSprite('unfaithful/unfaithful_front', 0, 0, 1.3, 1.3);
 					unfaithFRONT.setGraphicSize(Std.int(unfaithFRONT.width * 1.2));
 					unfaithFRONT.screenCenter();
-					unfaithFRONT.x -= 230;
-					unfaithFRONT.y += 375;
+					unfaithFRONT.x -= 215;
+					unfaithFRONT.y += 450;
 					unfaithFRONT.updateHitbox();
 
 					FlxTween.tween(unfaithFRONT, {y: unfaithFRONT.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
@@ -1904,10 +1907,11 @@ class PlayState extends MusicBeatState
 
 			case 'World 1':
 				{
-					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 1.125, 1.3);
-					fancyBG.scale.x = 10;
-					fancyBG.scale.y = 10;
+					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 0.35, 0.35);
+					fancyBG.scale.x = 3.90;
+					fancyBG.scale.y = 3.90;
 					fancyBG.screenCenter();
+					fancyBG.x += 150;
 					fancyBG.antialiasing = ClientPrefs.globalAntialiasing;
 					add(fancyBG);
 
@@ -3200,6 +3204,8 @@ class PlayState extends MusicBeatState
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 					case 'flashBG':
 						camFollow.set(boyfriend.getMidpoint().x - 300 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
+					case 'unfaith-BG':
+						camFollow.set(boyfriend.getMidpoint().x - 150 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
 					case 'aurora':
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 					case 'yt':
@@ -8297,14 +8303,16 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader)]);
 						particleEmitter.alpha.set(1, 1);
 						blackBGgf.alpha = 0;
+						bestPart2 = true;
 
 					case 224:
 						camHUD.fade(FlxColor.BLACK, 1, false);
+						particleEmitter.alpha.set(0, 0);
+						bestPart2 = false;
 
 					case 240:
 						camHUD.fade(FlxColor.BLACK, 1, true);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0015));
-						particleEmitter.alpha.set(0, 0);
 						
 					case 288:
 						FlxTween.tween(blackBG, {alpha:0.93}, 0.8);

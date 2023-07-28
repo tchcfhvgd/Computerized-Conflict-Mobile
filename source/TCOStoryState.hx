@@ -198,7 +198,7 @@ class TCOStoryState extends MusicBeatState
 		difficultyText.outlineCameras = [camGame];
 		difficultyText.cameras = [camHUD];
 
-		sprDifficulty = new FlxSprite(80, 400);
+		sprDifficulty = new FlxSprite(150, 500);
 		add(sprDifficulty);
 		
 		if (checkpointSystemON)
@@ -375,6 +375,7 @@ class TCOStoryState extends MusicBeatState
 		weekImages.updateHitbox();
 		weekImages.screenCenter();
 		weekImages.antialiasing = ClientPrefs.globalAntialiasing;
+		weekImages.setGraphicSize(Std.int(weekImages.width * 0.9));
 		add(weekImages);
 
 		var offsetX:Int = 0;
@@ -383,8 +384,8 @@ class TCOStoryState extends MusicBeatState
 		//if(diff == 'Hard') {offsetX = 105; offsetY = -125;}
 		//if(diff == 'Insane') {offsetY = -160; offsetX = -75;}
 
-		sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
-		sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
+		//sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
+		//sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
 
 		switch(curDifficulty)
 		{
