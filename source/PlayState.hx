@@ -908,10 +908,13 @@ class PlayState extends MusicBeatState
 							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.25));
 							stickpageFloor.alpha = 0;
 
-							ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -265, 105, 0.95, 0.95, ['BG Guys Scared'], true);
-							ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.1));
-							ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
-							if(songName == 'outrage') add(ScaredCrowd);
+							if(songName == 'outrage') 
+							{
+								ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -265, 105, 0.95, 0.95, ['BG Guys Scared'], true);
+								ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.1));
+								ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
+								add(ScaredCrowd);
+							}
 
 							bsod = new BGSprite('victim/error', 'chapter1', -650, -500, 1, 1);
 							bsod.setGraphicSize(Std.int(bsod.width * 1.1));
@@ -1184,6 +1187,11 @@ class PlayState extends MusicBeatState
 					bottomBars.y += 850;
 					add(bottomBars);
 
+					if (SONG.song.toLowerCase() == 'rombie')
+					{
+						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+					}
+
 					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(distortShader.shader)]);
 					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(distortShaderHUD.shader)]);
 
@@ -1320,7 +1328,7 @@ class PlayState extends MusicBeatState
 					LightsColors = [0xFFE5BE01, 0xFF00AAE4, 0xFF76BD17, 0xFFFF0000, 0xFFFF8000];
 
 					alanBG = new BGSprite('trojan/alan_desktop', -80, -1800, 1, 1);
-					alanBG.setGraphicSize(Std.int(alanBG.width * 1.5));
+					alanBG.setGraphicSize(Std.int(alanBG.width * 5));
 					//if (ClientPrefs.shaders) alanBG.shader = new FishEyeShader();
 
 					adobeWindow = new BGSprite('trojan/XD', -80, -1800, 1, 1);
@@ -1340,7 +1348,7 @@ class PlayState extends MusicBeatState
 
 					daFloor = new BGSprite('trojan/floor', -80, -1800, 1, 1);
 					daFloor.screenCenter();
-					daFloor.y += 28;
+					daFloor.y += 710;
 					daFloor.x += 2300;
 
 					tscseeing = new BGSprite('trojan/secbop', 0, 0, 1, 1, ['secbop']);
@@ -1444,11 +1452,11 @@ class PlayState extends MusicBeatState
 			case 'alan-pc-conflict': //Alt for conflict song.
 				{
 					alanBG = new BGSprite('trojan/alan_desktop', -80, -1800, 1, 1);
-					alanBG.setGraphicSize(Std.int(alanBG.width * 1.5));
+					alanBG.setGraphicSize(Std.int(alanBG.width * 5));
 
 					daFloor = new BGSprite('trojan/floor', -80, -1800, 1, 1);
 					daFloor.screenCenter();
-					daFloor.y += 28;
+					daFloor.y += 710;
 					daFloor.x += 2300;
 
 					fires1 = new BGSprite('victim/BGFire', 'chapter1', 1230, -240, 0.9, 0.9, ['Symbol 1 instance 1'], true);
@@ -1510,11 +1518,11 @@ class PlayState extends MusicBeatState
 			case 'alan-pc-song': //Alt for alan song.
 				{
 					alanBG = new BGSprite('trojan/alan_desktop', -1550, -1800, 1, 1);
-					alanBG.setGraphicSize(Std.int(alanBG.width * 1.5));
+					alanBG.setGraphicSize(Std.int(alanBG.width * 5));
 
 					daFloor = new BGSprite('trojan/floor', -1480, -1800, 1, 1);
 					daFloor.screenCenter();
-					daFloor.y += 28;
+					daFloor.y += 710;
 					daFloor.x += 2300;
 
 					adobeWindow = new BGSprite('trojan/XD', -80, -1800, 1, 1);
@@ -1524,7 +1532,7 @@ class PlayState extends MusicBeatState
 					adobeWindow.x += 1500;
 					
 					ytBGVideo = new BGSprite('trojan/alan_desktop', BF_X - 800, BF_Y - 80, 1, 1);
-					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1));
+					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.15));
 					ytBGVideo.shader = new CRTShader();
 					ytBGVideo.alpha = 0;
 					
@@ -1653,8 +1661,8 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) ytBG.shader = new CRTShader();
 					add(ytBG);
 
-					ytBGVideo = new BGSprite('yt_bg', 500, 0, 1, 1);
-					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.5));
+					ytBGVideo = new BGSprite('yt_bg', 450, 0, 1, 1);
+					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.525));
 					ytBGVideo.alpha = 0;
 					add(ytBGVideo);
 
@@ -2107,21 +2115,30 @@ class PlayState extends MusicBeatState
 					backgroundAnim.setGraphicSize(Std.int(backgroundAnim.width * 1.1));
 					add(backgroundAnim);
 					
-					var oldFiresLeft = new BGSprite('old/victim/Fires', -1700, 200, 0.9, 0.9, ['Fires'], true);
-					oldFiresLeft.setGraphicSize(Std.int(oldFiresLeft.width * 1.4));
-					if (SONG.song.toLowerCase() == 'outrage (old)') add(oldFiresLeft);
-					
-					var oldFiresRight = new BGSprite('old/victim/Fires', 1370, 200, 0.9, 0.9, ['Fires'], true);
-					oldFiresRight.setGraphicSize(Std.int(oldFiresRight.width * 1.4));
-					if (SONG.song.toLowerCase() == 'outrage (old)') add(oldFiresRight);
+					if (SONG.song.toLowerCase() == 'outrage (old)')
+					{
+						var oldFiresLeft = new BGSprite('old/victim/Fires', -1700, 200, 0.9, 0.9, ['Fires'], true);
+						oldFiresLeft.setGraphicSize(Std.int(oldFiresLeft.width * 1.4));
+						add(oldFiresLeft);
 
-					var CrowdOld = new BGSprite('old/CheerCrowd', 450, 130, 0.9, 0.9, ['CheerCrowd'], true);
-					CrowdOld.setGraphicSize(Std.int(CrowdOld.width * 2.8));
-					if (SONG.song.toLowerCase() == 'adobe (old)') add(CrowdOld);
+						var oldFiresRight = new BGSprite('old/victim/Fires', 1370, 200, 0.9, 0.9, ['Fires'], true);
+						oldFiresRight.setGraphicSize(Std.int(oldFiresRight.width * 1.4));
+						add(oldFiresRight);
+					}
+
+					if (SONG.song.toLowerCase() == 'adobe (old)')
+					{
+						var CrowdOld = new BGSprite('old/CheerCrowd', 450, 130, 0.9, 0.9, ['CheerCrowd'], true);
+						CrowdOld.setGraphicSize(Std.int(CrowdOld.width * 2.8));
+						add(CrowdOld);
+					}
 					
-					var ScaredCrowdOld = new BGSprite('old/victim/ScaredCrowd', 450, 215, 0.9, 0.9, ['ScaredCrowd'], true);
-					ScaredCrowdOld.setGraphicSize(Std.int(ScaredCrowdOld.width * 2.8));
-					if (SONG.song.toLowerCase() == 'outrage (old)') add(ScaredCrowdOld);
+					if (SONG.song.toLowerCase() == 'outrage (old)')
+					{
+						var ScaredCrowdOld = new BGSprite('old/victim/ScaredCrowd', 450, 215, 0.9, 0.9, ['ScaredCrowd'], true);
+						ScaredCrowdOld.setGraphicSize(Std.int(ScaredCrowdOld.width * 2.8));
+						add(ScaredCrowdOld);
+					}
 					
 					var pisoAnim:BGSprite = new BGSprite('old/floor', -750, -335, 0.9, 0.9);
 					pisoAnim.setGraphicSize(Std.int(pisoAnim.width * 1.1));
@@ -2898,7 +2915,6 @@ class PlayState extends MusicBeatState
 				healthBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 
 				triggerEventNote('Camera Follow Pos', Std.string(boyfriend.getMidpoint().x + 100), Std.string(boyfriend.getMidpoint().y - 100));
-				FlxG.camera.fade(FlxColor.BLACK, 0, false);
 			case 'redzone error':
 				healthBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 
@@ -8336,8 +8352,8 @@ class PlayState extends MusicBeatState
 			case 'rombie':
 				switch(curBeat)
 				{
-					case 1:
-						FlxG.camera.fade(FlxColor.BLACK, 1.5 * playbackRate, true);
+					case 2:
+						FlxG.camera.fade(FlxColor.BLACK, 1.5, true);
 					case 8:
 						dad.visible = true;
 						iconP2.visible = true;

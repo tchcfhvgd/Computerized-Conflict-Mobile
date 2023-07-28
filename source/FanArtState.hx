@@ -149,10 +149,13 @@ class FanArtState extends MusicBeatState
 		FlxTween.tween(textSquare, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(textSquare, {x: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
+		var i:Int = 0;
 		for(artist in coolArtistArray) {
-			// TODO: Fix TaigaTart and femalefoxpain breaking, should be 1 but results in 2
-			var total = FileSystem.readDirectory('assets/images/fan-arts/ingame-fanart/' + coolArtistArray[actualNum] + '/').length;
+			// TODO: Fixing this like what
+			var total = FileSystem.readDirectory('assets/images/fan-arts/ingame-fanart/' + coolArtistArray[i] + '/').length;
 			totalMap[artist] = total;
+			trace(total);
+			i++;
 		}
 
 		changeImage();
