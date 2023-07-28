@@ -1908,10 +1908,10 @@ class PlayState extends MusicBeatState
 			case 'World 1':
 				{
 					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 0.35, 0.35);
-					fancyBG.scale.x = 3.90;
-					fancyBG.scale.y = 3.90;
+					fancyBG.scale.x = 5;
+					fancyBG.scale.y = 5;
 					fancyBG.screenCenter();
-					fancyBG.x += 150;
+					fancyBG.x += 200;
 					fancyBG.antialiasing = ClientPrefs.globalAntialiasing;
 					add(fancyBG);
 
@@ -1923,6 +1923,7 @@ class PlayState extends MusicBeatState
 					add(fancyFloor);
 					
 					shine = new BGSprite('world1/shine', 0, 0, 1, 1);
+					shine.setGraphicSize(Std.int(shine.width * 1.2));
 					shine.screenCenter();
 					shine.antialiasing = ClientPrefs.globalAntialiasing;
 					shine.alpha = 0;
@@ -7821,6 +7822,7 @@ class PlayState extends MusicBeatState
 						shine.alpha = 1;
 						objectColor([fancyBG, fancyFloor, boyfriend, gf, dad], FlxColor.WHITE);
 						spotlightdad.alpha = 0;
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
 						
 					case 704:
 						FlxTween.tween(camHUD, {alpha: 0}, 1);
@@ -7919,6 +7921,12 @@ class PlayState extends MusicBeatState
 				vignetteSTI.alpha = 1;
 				FlxTween.tween(vignetteSTI, {alpha:0}, 0.2);
 			}
+		}
+
+		if(SONG.song.toLowerCase() == 'fancy funk')
+		{
+			if (SONG.notes[curSection].mustHitSection) FlxTween.tween(spotlightdad, {x: spotlightdad.x + 300}, 0.3, {ease: FlxEase.sineInOut});
+			else FlxTween.tween(spotlightdad, {x: dad.x - 300}, 0.3, {ease: FlxEase.sineInOut});
 		}
 		
 		if(glowTween != null) {
