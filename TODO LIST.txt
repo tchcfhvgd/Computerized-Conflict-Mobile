@@ -1,5 +1,6 @@
 TIBURONES:
 
+-Popups mechanic explanation
 -Art Gallery doesn't show other fan arts when doing up and down arrows
 
 MIJAE:
