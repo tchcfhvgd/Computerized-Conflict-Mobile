@@ -1448,7 +1448,7 @@ class PlayState extends MusicBeatState
 
 					daFloor = new BGSprite('trojan/floor', -80, -1800, 1, 1);
 					daFloor.screenCenter();
-					daFloor.y += 28;
+					daFloor.y += 1378/2;
 					daFloor.x += 2300;
 
 					fires1 = new BGSprite('victim/BGFire', 'chapter1', 1230, -240, 0.9, 0.9, ['Symbol 1 instance 1'], true);
