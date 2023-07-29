@@ -414,6 +414,9 @@ class FreeplayState extends MusicBeatState
 					if(zoomTween != null) {
 						zoomTween.cancel();
 					}
+					if(tweenX != null) {
+						tweenX.cancel();
+					}
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					selectedSmth = true;
 					FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
@@ -474,6 +477,10 @@ class FreeplayState extends MusicBeatState
 		
 					if(zoomTween != null) {
 						zoomTween.cancel();
+					}
+
+					if(tweenX != null) {
+						tweenX.cancel();
 					}
 		
 					selectedSmth = true;
