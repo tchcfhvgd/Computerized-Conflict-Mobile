@@ -472,6 +472,8 @@ class PlayState extends MusicBeatState
 			var videoTI:MP4Handler;
 			var skipMoveCam:Bool = false;
 
+			var bgVideoPrecacher:MP4Handler;
+
 		//rombie:
 			var rombieBecomesUncanny:BGSprite;
 			var rombBG:BGSprite;
@@ -1546,7 +1548,10 @@ class PlayState extends MusicBeatState
 					ytBGVideo.shader = new CRTShader();
 					ytBGVideo.alpha = 0;
 					
-					precacheList.set('alan-video', 'video');
+					bgVideoPrecacher = new MP4Handler();
+					bgVideoPrecacher.playVideo(Paths.video('alan-video'), false);
+					bgVideoPrecacher.visible = false;
+					bgVideoPrecacher.volume = 0;
 
 					needsBlackBG = true;
 
@@ -1676,7 +1681,12 @@ class PlayState extends MusicBeatState
 					ytBGVideo.alpha = 0;
 					add(ytBGVideo);
 
-					precacheList.set('tunein_vidbg', 'video');
+					bgVideoPrecacher = new MP4Handler();
+					bgVideoPrecacher.playVideo(Paths.video('tunein_vidbg'), false);
+					bgVideoPrecacher.visible = false;
+					bgVideoPrecacher.volume = 0;
+
+					//precacheList.set('tunein_vidbg', 'video');
 
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -8300,7 +8310,7 @@ class PlayState extends MusicBeatState
 						ytBGVideo.alpha = 1;
 
 						videoTI = new MP4Handler();
-						videoTI.playVideo(Paths.video('tunein_vidbg'), true);
+						videoTI.playVideo(Paths.video('tunein_vidbg'), false);
 						videoTI.visible = false;
 						videoTI.volume = 0;
 						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);

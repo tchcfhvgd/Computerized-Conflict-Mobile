@@ -77,7 +77,7 @@ class FlashingState extends MusicBeatState
 		flashText.borderSize = 5;
 		add(flashText);
 		
-		var Text2 = new FlxText(250, 300, FlxG.width, "If you feel uncomfortable,\ndisable these options on the\nMain Menu.\n (All are enabled by default\nexcept the advanced shaders\nwhich might crash the game)", 42);
+		var Text2 = new FlxText(250, 300, FlxG.width, "If you feel uncomfortable,\ndisable these options on the\nMain Menu.\n (All are enabled by default)", 42);
 		Text2.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		Text2.borderSize = 5;
 		add(Text2);
