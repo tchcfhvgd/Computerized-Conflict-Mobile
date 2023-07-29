@@ -71,10 +71,8 @@ class MessagesState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		var esc = FlxG.keys.justPressed.ESCAPE;
-		var backspace = FlxG.keys.justPressed.BACKSPACE;
-
-		if(esc || backspace && canExit)
+		
+		if(controls.BACK && canExit)
 		{
 			canExit = false;
 			FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom - 0.35}, 2.7, {ease: FlxEase.quadIn});

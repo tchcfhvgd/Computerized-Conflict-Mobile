@@ -75,6 +75,8 @@ class FreeplayState extends MusicBeatState
 	
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
+	public static var fishEyeshader = new FishEyeShader();
+	var shaderFilter2 = new ShaderFilter(fishEyeshader);
 
 	public static var alanSongs:Array<String> = 
 	['trojan', 'conflict', 'dashpulse', 'time travel', 'cubify', 'kickstarter', 'contrivance', 'messenger', 'amity', 
@@ -252,7 +254,8 @@ class FreeplayState extends MusicBeatState
 			finishedZoom = true;
 		});
 		
-		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter, shaderFilter2]);
+		fishEyeshader.MAX_POWER.value = [0.05];
 
 		for (key => type in precacheList)
 		{

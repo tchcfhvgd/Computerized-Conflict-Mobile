@@ -117,6 +117,7 @@ class PauseSubState extends MusicBeatSubstate
 		portrait = new FlxSprite(250, 0).loadGraphic(Paths.image('pauseMenu/chars/' + PlayState.instance.dad.curCharacter));
 		portrait.scrollFactor.set();
 		portrait.alpha = 0;
+		portrait.antialiasing = ClientPrefs.globalAntialiasing;
 		portrait.setGraphicSize(Std.int(portrait.width * 0.8));
 		if (portrait != null) add(portrait);
 
@@ -194,7 +195,7 @@ class PauseSubState extends MusicBeatSubstate
 		arrowTween = FlxTween.tween(arrow, {x: arrow.x + 10}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 		FlxTween.tween(pauseText, {y: 0}, 0.4, {ease:FlxEase.smoothStepInOut});
 
-		if (PlayState.instance.oldVideoResolution) FlxTween.tween(portrait, {x: -270}, 0.4, {ease:FlxEase.smoothStepInOut});
+		if (PlayState.instance.oldVideoResolution) FlxTween.tween(portrait, {x: -140}, 0.4, {ease:FlxEase.smoothStepInOut});
 		else FlxTween.tween(portrait, {x: 128}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 		grpMenuShit = new FlxTypedGroup<FlxText>();

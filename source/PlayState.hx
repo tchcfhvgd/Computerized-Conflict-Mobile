@@ -960,19 +960,20 @@ class PlayState extends MusicBeatState
 							virabot3.flipX = true;
 							add(virabot3);
 
-							googleBurn = new FlxSprite(0, -100);
+							googleBurn = new FlxSprite(0, -1100);
 							googleBurn.frames = Paths.getSparrowAtlas('EProcess/GoogleBurning', 'chapter1');
 							googleBurn.animation.addByPrefix('idle', 'Symbol 2 instance 10', 16, true);
 							googleBurn.animation.play('idle');
 							googleBurn.scale.set(0.7, 0.7);
 							googleBurn.screenCenter();
+							googleBurn.y -= 900;
 							googleBurn.x += 250;
 							googleBurn.angle = -4;
 							add(googleBurn);
 							//FlxTween.tween(googleBurn, {y: googleBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 							FlxTween.angle(googleBurn, googleBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
 
-							twitterBurn = new FlxSprite(1300, -320); //thank to god the most toxic social media is on fire
+							twitterBurn = new FlxSprite(1300, -820); //thank to god the most toxic social media is on fire
 							twitterBurn.frames = Paths.getSparrowAtlas('EProcess/TwitterBurning', 'chapter1');
 							twitterBurn.animation.addByPrefix('idle', 'Symbol 4 instance 10', 16, true);
 							twitterBurn.animation.play('idle');
@@ -982,7 +983,7 @@ class PlayState extends MusicBeatState
 							//FlxTween.tween(twitterBurn, {y: twitterBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
 							FlxTween.angle(twitterBurn, twitterBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
 
-							newgroundsBurn = new FlxSprite(-1000, 220);
+							newgroundsBurn = new FlxSprite(-1000, -1020);
 							newgroundsBurn.frames = Paths.getSparrowAtlas('EProcess/NewgroundsBurning', 'chapter1');
 							newgroundsBurn.animation.addByPrefix('idle', 'Symbol 3 instance 10', 16, true);
 							newgroundsBurn.animation.play('idle');
@@ -1174,6 +1175,15 @@ class PlayState extends MusicBeatState
 					whiteScreen.screenCenter();
 					whiteScreen.alpha = 0;
 					add(whiteScreen);
+
+					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
+					redthing.antialiasing = ClientPrefs.globalAntialiasing;
+					redthing.cameras = [camBars];
+					redthing.setGraphicSize(Std.int(redthing.width * 0.85));
+					redthing.screenCenter();
+					redthing.x -= 150;
+					redthing.alpha = 0;
+					add(redthing);
 
 					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
@@ -1916,10 +1926,10 @@ class PlayState extends MusicBeatState
 			case 'World 1':
 				{
 					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 0.35, 0.35);
-					fancyBG.scale.x = 5;
-					fancyBG.scale.y = 5;
+					fancyBG.scale.x = 5.2;
+					fancyBG.scale.y = 5.2;
 					fancyBG.screenCenter();
-					fancyBG.x += 200;
+					fancyBG.x += 175;
 					fancyBG.antialiasing = ClientPrefs.globalAntialiasing;
 					add(fancyBG);
 
@@ -1934,7 +1944,6 @@ class PlayState extends MusicBeatState
 					shine.setGraphicSize(Std.int(shine.width * 1.2));
 					shine.screenCenter();
 					shine.antialiasing = ClientPrefs.globalAntialiasing;
-					shine.alpha = 0;
 					shine.updateHitbox();
 
 					spotlightdad = new FlxSprite();
@@ -2052,10 +2061,10 @@ class PlayState extends MusicBeatState
 					auroraLight.updateHitbox();
 					
 					jumpScare = new BGSprite('aurora/auroraJumpScare', 0, 0, 1, 1);
+					if(ClientPrefs.shaders) jumpScare.shader = new CRTShader();
 					jumpScare.screenCenter();
 					jumpScare.cameras = [camBars];
 					jumpScare.alpha = 0;
-					//if(ClientPrefs.shaders) jumpScare.shader = new CRTShader();
 					add(jumpScare);
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
@@ -2081,7 +2090,7 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 					
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0018));
-					if (ClientPrefs.shaders) addShaderToCamera(['camBars'], new ChromaticAberrationEffect(chromFloat));
+					//if (ClientPrefs.shaders) addShaderToCamera(['camBars'], new ChromaticAberrationEffect(chromFloat));
 					chromFloat = 0;
 				}
 
@@ -2251,11 +2260,7 @@ class PlayState extends MusicBeatState
 				
 			case 'World 1' | 'Sam Room':
 				add(shine);
-				if(SONG.song.toLowerCase() == 'fancy funk') 
-				{
-					add(spotlightdad);
-				}
-				else
+				if(SONG.song.toLowerCase() == 'contrivance') 
 				{
 					add(glow);
 					add(glowDad);
@@ -2424,6 +2429,8 @@ class PlayState extends MusicBeatState
 		timeTxt.borderSize = 2;
 		timeTxt.visible = showTime;
 
+		if(SONG.song.toLowerCase().endsWith('(old)')) timeTxt.font = "vcr.ttf";
+
 		if (ClientPrefs.laneunderlay && uiType != 'psychDef')
 		{
 			laneunderlayOpponent = new FlxSpriteExtra().makeSolid(90 * 4 + 50, FlxG.height * 2);
@@ -2464,7 +2471,6 @@ class PlayState extends MusicBeatState
 
 				timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 					'songPercent', 0, 1);
-				timeBarBG.sprTracker = timeBar;
 			default:
 				timeBarBG = new AttachedSprite('healthBars/oldHealthBar');
 				timeBarBG.x = timeTxt.x;
@@ -2483,7 +2489,8 @@ class PlayState extends MusicBeatState
 				timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, barDirection, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 					'songPercent', 0, 1);
 		}
-		
+
+		timeBarBG.sprTracker = timeBar;
 		timeBarBG.scrollFactor.set();
 		timeBarBG.alpha = 0;
 		timeBarBG.color = FlxColor.BLACK;
@@ -2721,12 +2728,8 @@ class PlayState extends MusicBeatState
 		{
 			timeBarBG.x -= 80;
 			timeBar.x -= 80;
-			timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 0.6));
-			timeBar.setGraphicSize(Std.int(timeBar.width * 0.6));
 			healthBar.x -= 110;
 			healthBarBG.x -= 110;
-			healthBar.setGraphicSize(Std.int(healthBar.width * 0.6));
-			healthBarBG.setGraphicSize(Std.int(healthBarBG.width * 0.6));
 			iconP1.x -= 110;
 			iconP2.x -= 110;
 			scoreTxt.x += 80;
@@ -4248,11 +4251,6 @@ class PlayState extends MusicBeatState
 					spotlightbf.x = boyfriend.x - 355;
 					spotlightbf.y = boyfriend.y + boyfriend.height - 1650;
 
-				case 'fancy funk':
-
-				    spotlightdad.x = dad.x - 300;
-				    spotlightdad.y = dad.y + dad.height - 1455;
-
 				case 'time travel':
 
 					opponentStrums.forEach(function(spr:StrumNote) {
@@ -4899,9 +4897,9 @@ class PlayState extends MusicBeatState
 			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			babyArrow.downScroll = ClientPrefs.downScroll;
 
-			if (uiType == 'psychDef')
+			if(SONG.song.toLowerCase().endsWith('(old)'))
 			{
-				STRUM_X = 42;
+				STRUM_X = 122;
 				STRUM_X_MIDDLESCROLL = -278;
 			}
 
@@ -6595,8 +6593,8 @@ class PlayState extends MusicBeatState
 		rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
 		rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
 		rating.visible = (!ClientPrefs.hideHud && showRating);
-		rating.x += ClientPrefs.comboOffset[0];
-		rating.y -= ClientPrefs.comboOffset[1];
+		//rating.x += ClientPrefs.comboOffset[0];
+		//rating.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
 		comboSpr.cameras = [camGame];
@@ -6605,8 +6603,8 @@ class PlayState extends MusicBeatState
 		comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
 		comboSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
 		comboSpr.visible = (!ClientPrefs.hideHud);
-		comboSpr.x += ClientPrefs.comboOffset[0];
-		comboSpr.y -= ClientPrefs.comboOffset[1];
+		//comboSpr.x += ClientPrefs.comboOffset[0];
+		//comboSpr.y -= ClientPrefs.comboOffset[1];
 		comboSpr.y += 60;
 		comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
 
@@ -6670,8 +6668,8 @@ class PlayState extends MusicBeatState
 			numScore.x = coolTextX + (43 * daLoop) - 90;
 			numScore.y += 80;
 
-			numScore.x += ClientPrefs.comboOffset[2];
-			numScore.y -= ClientPrefs.comboOffset[3];
+			//numScore.x += ClientPrefs.comboOffset[2];
+			//numScore.y -= ClientPrefs.comboOffset[3];
 
 			if (!ClientPrefs.comboStacking)
 				lastScore.push(numScore);
@@ -7739,14 +7737,14 @@ class PlayState extends MusicBeatState
 				{
 					case 640 | 784:
 						colorTween([aolBG, aolBack, aolFloor], 0.8, FlxColor.WHITE, 0xFF2C2425);
-					case 656:
+					case 656 | 792:
 						aolBG.color = FlxColor.WHITE;
 						aolFloor.color = FlxColor.WHITE;
 						aolBack.color = FlxColor.WHITE;
-					case 792 | 920 | 1112:
+					/*case 792 | 920 | 1112:
 						moveCamera(true);
 					case 858 | 984:
-						moveCamera(false);
+						moveCamera(false);*/
 
 					case 1184:
 						aolBG.color = 0xFF2C2425;
@@ -7830,14 +7828,8 @@ class PlayState extends MusicBeatState
 			case 'fancy funk':
 				switch(curStep)
 				{
-					case 1:
-						objectColor([fancyBG, fancyFloor, boyfriend, gf, dad], 0xFF2C2425);
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 448:
-						iconP2.alpha = 1;
-						shine.alpha = 1;
 						objectColor([fancyBG, fancyFloor, boyfriend, gf, dad], FlxColor.WHITE);
-						spotlightdad.alpha = 0;
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
 						
 					case 704:
@@ -8040,9 +8032,9 @@ class PlayState extends MusicBeatState
 				{
 					case 80:
 						FlxTween.tween(redthing, {alpha: 1}, 0.6);
-						FlxTween.tween(newgroundsBurn, {y:newgroundsBurn.y +1000}, 2, {type:LOOPING});
-						FlxTween.tween(twitterBurn, {y:twitterBurn.y +1000}, 2, {type:LOOPING});
-						FlxTween.tween(googleBurn, {y:googleBurn.y +1000}, 2, {type:LOOPING});
+						FlxTween.tween(newgroundsBurn, {y:newgroundsBurn.y +2300}, 2, {ease: FlxEase.linear, type:LOOPING});
+						FlxTween.tween(twitterBurn, {y:twitterBurn.y +1800}, 1.6, {ease: FlxEase.linear, type:LOOPING});
+						FlxTween.tween(googleBurn, {y:googleBurn.y +2900}, 2.5, {ease: FlxEase.linear, type:LOOPING});
 					case 140:
 						//FlxG.sound.play(Paths.sound('intro3'), 0.6);
 					case 141:
@@ -8347,6 +8339,7 @@ class PlayState extends MusicBeatState
 						particleEmitter.alpha.set(0, 0);
 						FlxTween.tween(blackBG, {alpha:0}, 0.5);
 						FlxTween.tween(overlayUnfaith, {alpha:0}, 0.5);
+						camHUD.fade(FlxColor.BLACK, 0.8, false);
 				}
 				
 			case 'rombie':
@@ -8364,11 +8357,14 @@ class PlayState extends MusicBeatState
 					case 168:
 						colorTween([rombBG, boyfriend, dad], 0.45, FlxColor.WHITE, 0xFF1F3054);
 					case 296:
-						colorTween([boyfriend, dad], 0.85, 0xFF1F3054, FlxColor.WHITE);
+						FlxTween.tween(redthing, {alpha:1}, 1);
+						constantShake = true;
 					case 360:
+						FlxTween.tween(redthing, {alpha:0}, 0.3);
 						objectColor([boyfriend, dad], FlxColor.BLACK);
 						objectColor([iconP1, iconP2], 0xFF080808);
 						setAlpha([whiteScreen], 1);
+						constantShake = false;
 						healthBar.createFilledBar(FlxColor.WHITE, FlxColor.WHITE);
 					case 392:
 						objectColor([boyfriend, dad], 0xFF1F3054);

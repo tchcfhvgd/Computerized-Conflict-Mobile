@@ -99,7 +99,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, "Stickman go beep boop"),
 			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, "I love men"),
 			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, "what am i even supposed to quote here"),
-			new CreditsMetadata("Hexal", "no-icon", "Cutscene Maker (Outrage and End Process)", 0xFF585454, "im animator :poop emoji:"),
+			new CreditsMetadata("Hexal", "hexal", "Cutscene Maker (Outrage and End Process)", 0xFF585454, "im animator :poop emoji:"),
 			new CreditsMetadata("Xyriax", "xyriax", "Insane difficulty charter (some charts are made by Jet tho)", 0xFF0000FF, "charters are overrated"),
 			new CreditsMetadata("Shammal", "shammal", "Extra Charter", 0xFF7AFF7A, "TRANS RIGHTS GRAAAH"),
 			new CreditsMetadata("LeLazyOne", "lelazyone", "trailer editor", 0xFFFFBA7A, "i like girls"),
