@@ -906,8 +906,8 @@ class PlayState extends MusicBeatState
 							fires2.visible = false;
 							add(fires2);
 
-							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -650, -500, 0.9, 0.9);
-							stickpage.setGraphicSize(Std.int(stickpage.width * 1.1));
+							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -50, -90, 0.9, 0.9);
+							stickpage.setGraphicSize(Std.int(stickpage.width * 2.4));
 							stickpage.alpha = 0;
 
 							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, 600, 1, 1);
@@ -1011,8 +1011,8 @@ class PlayState extends MusicBeatState
 							corruptFloor.alpha = 0;
 							if (ClientPrefs.shaders) corruptFloor.shader = new CRTShader();
 
-							bsodStatic = new BGSprite('EProcess/error_3rdsong', 'chapter1', -650, -500, 1, 1);
-							bsodStatic.setGraphicSize(Std.int(bsodStatic.width * 1.1));
+							bsodStatic = new BGSprite('EProcess/error_3rdsong', 'chapter1', -50, -90, 1, 1);
+							bsodStatic.setGraphicSize(Std.int(bsodStatic.width * 2.4));
 							bsodStatic.antialiasing = ClientPrefs.globalAntialiasing;
 							bsodStatic.alpha = 0;
 							if (ClientPrefs.shaders) bsodStatic.shader = new CRTShader();
