@@ -1,7 +1,7 @@
 Trojan
 Dashpulse
-Messenger
-Tune In
+//Messenger
+//Tune In
 
 Aurora - (I think this one is just getting for hotfix again | SKIP)
 
