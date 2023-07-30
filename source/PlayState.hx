@@ -518,6 +518,7 @@ class PlayState extends MusicBeatState
 	var noCurLight:Bool = false;
 
 	var blackBG:FlxSprite; //the bg for the needblackbg bool
+	var bbgColor:FlxColor = 0xFF000000;
 	var blackBGgf:FlxSprite;
 
 	var ondaCutscene:Bool = false; //handler so  player can't use the arrows
@@ -880,6 +881,8 @@ class PlayState extends MusicBeatState
 							vignetteSTI.screenCenter();
 							vignetteSTI.alpha = 0;
 							add(vignetteSTI);
+
+							//bbgColor = 0xFF929292;
 
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0005));
 
@@ -2236,7 +2239,7 @@ class PlayState extends MusicBeatState
 
 		if (needsBlackBG)
 		{
-			blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
+			blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), bbgColor);
 			blackBG.scrollFactor.set();
 			blackBG.alpha = 0;
 			blackBG.screenCenter();
@@ -7527,19 +7530,28 @@ class PlayState extends MusicBeatState
 				switch(curStep)
 				{
 					case 1:
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						camHUD.fade(FlxColor.BLACK, 2, true);
-						Crowd.alpha = 0;
-						gf.alpha = 0;
-						blackBG.alpha = 1;
-						spotlightdad.alpha = 0.25;
-						spotlightbf.alpha = 0.25;
+						Crowd.color = 0xFF3A3A3A;
+						gf.color = 0xFF3A3A3A;
+						Background1.color = 0xFF3A3A3A;
+						whiteScreen.color = 0xFF3A3A3A;
+
+						spotlightdad.alpha = 0.7;
+						spotlightbf.alpha = 0.7;
 					case 256:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
+
+						if (ClientPrefs.shaders) boyfriend.shader = new BloomShader();
+						if (ClientPrefs.shaders) dad.shader = new BloomShader();
+						if (ClientPrefs.shaders) gf.shader = new BloomShader();
+						if (ClientPrefs.shaders) Crowd.shader = new BloomShader();
+						
+						Crowd.color = 0xFFFFFFFF;
+						gf.color = 0xFFFFFFFF;
+						Background1.color = 0xFFFFFFFF;
+						whiteScreen.color = 0xFFFFFFFF;
+
 						flash(0xFFFFFFFF, 1);
-						blackBG.alpha = 0;
-						Crowd.alpha = 1;
-						gf.alpha = 1;
 						spotlightdad.alpha = 0;
 						spotlightbf.alpha = 0;
 					case 576:
@@ -7552,7 +7564,6 @@ class PlayState extends MusicBeatState
 						spotlightdad.alpha = 0.8;
 						spotlightbf.alpha = 0.8;
 						bestPart2 = true;
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 1024:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 						flash(0xFFFFFFFF, 1);
