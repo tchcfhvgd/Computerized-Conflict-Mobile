@@ -486,6 +486,9 @@ class PlayState extends MusicBeatState
 		    var fancyBG:BGSprite;
 		    var fancyFloor:BGSprite;
 
+		//catto:
+		    var cattoBG:BGSprite;
+
 		//enmity:
 			var tcoPlataform:BGSprite;
 			var tcoPlataform2:BGSprite;
@@ -1026,6 +1029,7 @@ class PlayState extends MusicBeatState
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
 							redthing.cameras = [camBars];
 							redthing.alpha = 0;
+							add(redthing);
 
 							if (SONG.song.toLowerCase() == 'end process' && isStoryMode)
 							{
@@ -2119,12 +2123,38 @@ class PlayState extends MusicBeatState
 
 			case 'catto':
 				{
-					var bg:BGSprite = new BGSprite('Wong_Mau', 0, 0, 1, 1);
-					bg.setGraphicSize(Std.int(bg.width * 3.5));
-					bg.y += 250;
-					bg.screenCenter();
-					if(ClientPrefs.shaders) bg.shader = wavShader.shader;
+					var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+					bg.setGraphicSize(Std.int(bg.width * 1.25));
 					add(bg);
+			
+					var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 1, 1);
+					stageFront.setGraphicSize(Std.int(stageFront.width * 1.25));
+					stageFront.updateHitbox();
+					add(stageFront);
+					if(!ClientPrefs.lowQuality) {
+						var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
+						stageLight.setGraphicSize(Std.int(stageLight.width * 1.25));
+						stageLight.updateHitbox();
+						add(stageLight);
+						var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
+						stageLight.setGraphicSize(Std.int(stageLight.width * 1.25));
+						stageLight.updateHitbox();
+						stageLight.flipX = true;
+						add(stageLight);
+			
+						var stageCurtains:BGSprite = new BGSprite('stagecurtains', -700, -300, 1.3, 1.3);
+						stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.35));
+						stageCurtains.updateHitbox();
+						add(stageCurtains);
+					}
+					
+					cattoBG = new BGSprite('Wong_Mau', 0, 0, 1, 1);
+					cattoBG.setGraphicSize(Std.int(cattoBG.width * 3.5));
+					cattoBG.y += 250;
+					cattoBG.screenCenter();
+					if(ClientPrefs.shaders) cattoBG.shader = wavShader.shader;
+					cattoBG.alpha = 0;
+					add(cattoBG);
 
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
@@ -2139,6 +2169,7 @@ class PlayState extends MusicBeatState
 					add(bottomBarsALT);
 
 					camHUD.alpha = 0;
+					FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				}
 
 			case 'animStage-old': //Old Stage
@@ -8439,21 +8470,21 @@ class PlayState extends MusicBeatState
 			case 'catto':
 				switch(curBeat)
 				{
+					case 1:
+						dad.alpha = 0;
+					case 55:
+						FlxG.camera.fade(FlxColor.BLACK, 3, true);
+					case 88:
+						FlxTween.tween(dad, {alpha:1}, 1.5);
 					case 96:
 						FlxTween.tween(camHUD, {alpha:1}, 1);
-						FlxTween.tween(topBarsALT, {y: topBarsALT.y - 450}, 0.4, {ease:FlxEase.smoothStepInOut});
-						FlxTween.tween(bottomBarsALT, {y: bottomBarsALT.y + 450}, 0.4, {ease:FlxEase.smoothStepInOut});
+					case 128:
+						cattoBG.alpha = 1;
 					case 156:
 						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:0}, 1));
-						FlxTween.tween(topBarsALT, {y: topBarsALT.y + 450}, 0.4, {ease:FlxEase.smoothStepInOut});
-						FlxTween.tween(bottomBarsALT, {y: bottomBarsALT.y - 450}, 0.4, {ease:FlxEase.smoothStepInOut});
 
 					case 160:
 						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:1}, 1));
-
-					case 260:
-						topBarsALT.alpha = 0;
-						bottomBarsALT.alpha = 0;
 				}
 			case 'kickstarter':
 				switch(curBeat)
