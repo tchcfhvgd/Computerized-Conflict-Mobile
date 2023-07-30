@@ -77,7 +77,7 @@ class VaultState extends MusicBeatState
 	];
 	var wrong:FlxText;
 	
-	public static var codesAndShit:Array<Array<String>> = 
+	public static var codesAndShit:Array<Array<String>> = //1: Code, 2: Song
 	[
 		['videos', 'Tune In'],
 		['hatred', 'Unfaithful'],
@@ -86,10 +86,14 @@ class VaultState extends MusicBeatState
 		['skrunkly', 'catto']
 	];
 
-	public static var randomImages:Array<Array<String>> = 
+	public static var randomImages:Array<Array<String>> = //1: Code, 2: Image name
 	[
 		['ohmygod', 'dreamybull'],
 		['alanb', 'alanb'],
+		['fiend folio', 'twinkle of contagion'],
+		['da alien', 'war crimes'],
+		['jerry', 'jerry'],
+		[':)', 'happy'],
 	];
 
 	var isWriting:Bool = false;
