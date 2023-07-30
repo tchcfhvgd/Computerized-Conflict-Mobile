@@ -1,6 +1,6 @@
 TIBURONES:
 
--Popups mechanic explanation
+-Fixing the story menu
 
 MIJAE:
 

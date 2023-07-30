@@ -105,6 +105,8 @@ class MainMenuState extends MusicBeatState
 		#end
 		WeekData.loadTheFirstEnabledMod();
 
+		Paths.clearStoredMemory();
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -321,6 +323,8 @@ class MainMenuState extends MusicBeatState
 		{
 			finishedZoom = true;
 		});
+
+		Paths.clearUnusedMemory();
 	}
 
 	function createGFPopup()

@@ -364,6 +364,7 @@ class PlayState extends MusicBeatState
 				var popUp:FlxSprite;
 				var closePopup:FlxSprite;
 				public var popUpTimer:FlxTimer;
+				var popupsExplanation:FlxText;
 
 	//end
 
@@ -1022,7 +1023,17 @@ class PlayState extends MusicBeatState
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
 							redthing.cameras = [camBars];
 							redthing.alpha = 0;
-							add(redthing);
+
+							if (SONG.song.toLowerCase() == 'end process' && isStoryMode)
+							{
+								popupsExplanation = new FlxText(0, 0, FlxG.width, "Close the poups when they appear,\nand press the slice notes", 20);
+								popupsExplanation.setFormat(Paths.font("phantommuff.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+								popupsExplanation.borderSize = 2;
+								popupsExplanation.cameras = [camHUD];
+								popupsExplanation.screenCenter();
+								popupsExplanation.alpha = 0;
+								add(popupsExplanation);
+							}
 
 							if (ClientPrefs.shaders) rsod.shader = new CRTShader();
 
@@ -7579,7 +7590,10 @@ class PlayState extends MusicBeatState
 			case 'end process':
 				switch(curStep)
 				{
+					case 1:
+						if(popupsExplanation != null) FlxTween.tween(popupsExplanation, {alpha: 1}, 2);
 					case 192:
+						if(popupsExplanation != null) FlxTween.tween(popupsExplanation, {alpha: 0}, 1);
 						FlxG.camera.fade(FlxColor.BLACK, 1, true);
 					case 833:
 						FlxTween.tween(redthing, {alpha: 0}, 0.4);

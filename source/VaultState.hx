@@ -66,7 +66,8 @@ class VaultState extends MusicBeatState
 	var spikes2:FlxBackdrop;
 	var secretCounter:Int = 0;
 	var itemsText:FlxText;
-	var wrongTextArray:Array<String> = [
+	var wrongTextArray:Array<String> = 
+	[
 		'Please, insert a valid symbol.',
 		'You are supposed to put something else there, come on.',
 		'Try again.',
@@ -76,7 +77,8 @@ class VaultState extends MusicBeatState
 	];
 	var wrong:FlxText;
 	
-	public static var codesAndShit:Array<Array<String>> = [
+	public static var codesAndShit:Array<Array<String>> = 
+	[
 		['videos', 'Tune In'],
 		['hatred', 'Unfaithful'],
 		['joe', 'Rombie'],
@@ -84,11 +86,23 @@ class VaultState extends MusicBeatState
 		['skrunkly', 'catto']
 	];
 
+	public static var randomImages:Array<Array<String>> = 
+	[
+		['ohmygod', 'dreamybull'],
+		['alanb', 'alanb'],
+	];
+
 	var isWriting:Bool = false;
 	var letterWritten:String;
 
 	var wrongTween:FlxTween;
 	var wrongTimer:FlxTimer;
+	
+	//random easter eggs
+	var goofyImage:FlxSprite;
+	var goofyTween:FlxTween;
+
+	//normal code yeahhhh
 
 	override public function create()
 	{
@@ -243,6 +257,11 @@ class VaultState extends MusicBeatState
 			coolDown = false;
 		});
 
+		goofyImage = new FlxSprite(0,0);
+		goofyImage.screenCenter();
+		goofyImage.alpha = 0;
+		add(goofyImage);
+
 		FlxG.mouse.visible = true;
 		FlxG.mouse.unload();
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
@@ -308,6 +327,8 @@ class VaultState extends MusicBeatState
 
 		FlxTween.tween(convertPopUp, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.1});
 		FlxTween.tween(convertPopUp, {x: -250}, 0.4, {ease:FlxEase.smoothStepInOut});
+		
+		Paths.clearUnusedMemory();
 	}
 
 	function enteredCode(text:String)
@@ -341,6 +362,25 @@ class VaultState extends MusicBeatState
 						FreeplayState.destroyFreeplayVocals();
 					});
 				}});
+				return;
+		  	}
+		}
+
+		for (i in 0...randomImages.length){
+			if (text.toLowerCase() == randomImages[i][0]){
+				if (goofyTween != null) goofyTween.cancel();
+
+				goofyImage.loadGraphic(Paths.image('vault/secrets/${randomImages[i][1]}'));
+				goofyImage.screenCenter();
+				goofyImage.alpha = 1;
+				FlxG.sound.play(Paths.sound('vine-boom'), 1);
+				goofyTween = FlxTween.tween(goofyImage, {alpha: 0}, 2, {
+					startDelay: 1,
+					onComplete: function(twn:FlxTween) {
+						goofyTween = null;
+					}
+				});
+
 				return;
 		  	}
 		}
