@@ -77,14 +77,14 @@ class TCOCreditsState extends MusicBeatState
 		credits = [
 			//Tco Dev Team
 
-			new CreditsMetadata("Jet", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, "what's 6 × 3? 21."),
+			new CreditsMetadata("JetTRG", "jet", "Director, Concept Artist & Main Charter", 0xbd3185, "what's 6 × 3? 21."),
 			new CreditsMetadata("MijaeLio", "mijae", "Main Coder & Co-Director", 0xFF5F5D5D, "Saludos a mi vieja"),
 			new CreditsMetadata("Tiburones202", "Tiburones202", "Coder", 0xFFFF0000, "Twinkle of Contagion is a Passive Item added in the Spitshine update.\nFlavor text: \"Take the Shot\"\nItem Pool: Treasure, Drug Dealer\nQuality: 2\nItem Tags: Syringe, Summonable, Offensive"),
 			new CreditsMetadata("Ne_Eo", "Ne_Eo", "Coder", 0xFF533a38, "Hello USERNAME, how was your day?".replace("USERNAME", Sys.getEnv(#if mac "USER" #else "USERNAME" #end))),
 			new CreditsMetadata("amaarzadjali", "amaar", "Musician", 0xFFA75027, "this is my finest hour"),
 			new CreditsMetadata("joa", "joa", "Musician", 0xFF0000FF, "If Eevee is exposed to a Water Stone and evolves into Vaporeon, it will be an excellent swimmer, capable of becoming invisible in water, and will have great aquatic abilities. He will become calm, mature, his wisdom will grow with great prominence, since he knows as much about things on land as those of the sea. It has a peaceful and open character. It also has a good sense of leadership and is a very self-assured Pokémon. He loves to attract attention: in fact, he does anything to feel cared for and to be the center of attention, even on others, making his pride known. However, despite being a calm Pokémon, if it gets too proud it can become proud, something that can be compared to Jolteon, another evolution of Eevee. Vaporeon's body is mostly blue. It has pointed yellow ears that help propel it when it dives, with which it can hear underwater. It has a fin on its head similar to that of a shark, and a white ruff on its neck. It has scaly spikes on its spine that extend the length of its back. Its physical constitution is adapted to marine subsistence, mainly thanks to its tail topped by a caudal fin that helps it swim. It is not easy to see it when it swims because it is confused with water due to the bluish tone of its skin covered with scales. In addition to having the unique ability to become invisible in the water, leaving predators behind. Vaporeon can live in fresh water, especially in calm lagoons, and due to its biology it is sometimes found in not very rough seas and oceans, although it has been seen in cities. This Pokémon is capable of staying underwater for more than two hours without needing to breathe. In fact, the Pokédex mentions that it even has gills. Although he is better adapted to swimming, he is an excellent runner and has enormous agility on dry land. In Pokémon Contests, Vaporeon's fancy Water-type moves would put on a wonderful show."),
 			new CreditsMetadata("SharkFaceGaming", "shark", "Musician", 0xFF4ECDFF, "microwaveable pizza"),
-			new CreditsMetadata("JaceLol", "Jace", "Musician", 0xFF0000FF, "popeyes fried chicken"),
+			new CreditsMetadata("JaceLOL", "Jace", "Musician", 0xFF0000FF, "popeyes fried chicken"),
 			new CreditsMetadata("TheNatz", "natz", "Musician", 0xFFFF7B22, "dont search toy in discord gif search worst mistake of my life"),
 			new CreditsMetadata("Prod.kxri", "prodkxri", "Musician", 0xFFFF0000, "Bald kxrai will exist In August"),
 			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, "Keep doing it, even if nobody cares"),
@@ -113,7 +113,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("ROCKY", "", "\"Dashpulse\" vocals composer", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Deltom", "", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\"", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Dtunes", "", "A composer of \"Alan (Remake)\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("DTunes", "", "A composer of \"Alan (Remake)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("atpx8", "", "Helped with the End Process pop-ups mechanic", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Tentilog", "", "3D Black STICK Sprite", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Koi", "", "Rombie BG Artist", 0xFFFFFFFF, ""),
