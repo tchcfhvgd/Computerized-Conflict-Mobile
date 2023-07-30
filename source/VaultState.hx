@@ -94,6 +94,7 @@ class VaultState extends MusicBeatState
 		['da alien', 'war crimes'],
 		['jerry', 'jerry'],
 		[':)', 'happy'],
+		['ok', 'shark-plane'],
 	];
 
 	var isWriting:Bool = false;

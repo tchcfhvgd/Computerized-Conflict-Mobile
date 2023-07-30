@@ -196,9 +196,9 @@ class TCOStoryState extends MusicBeatState
 		add(difficultyText);
 
 		difficultyText.outlineCameras = [camGame];
-		difficultyText.cameras = [camHUD];
+		//difficultyText.cameras = [camHUD];
 
-		sprDifficulty = new FlxSprite(150, 500);
+		sprDifficulty = new FlxSprite(150, 200);
 		add(sprDifficulty);
 		
 		if (checkpointSystemON)
@@ -293,13 +293,11 @@ class TCOStoryState extends MusicBeatState
 
 			if (controls.UI_RIGHT_P)
 			{
-				sprDifficulty.animation.play('intro');
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeDifficulty(1);
 			}
 			else if (controls.UI_LEFT_P)
 			{
-				sprDifficulty.animation.play('intro');
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeDifficulty(-1);
 			}
@@ -364,12 +362,10 @@ class TCOStoryState extends MusicBeatState
 
 		var diff:String = difficulties[curDifficulty];
 
-		sprDifficulty.frames = Paths.getSparrowAtlas('storymenu/difficult/' + diff);
-		sprDifficulty.animation.addByPrefix('diff', diff, 24, false);
-		sprDifficulty.animation.addByPrefix('bye', 'Bye' + diff, 24, false);
-		sprDifficulty.animation.addByPrefix('intro', 'Intro' + diff, 24, false);
+		sprDifficulty.loadGraphic(Paths.image('storymenu/difficult/${diff}'));
 		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
-		sprDifficulty.animation.play('intro');
+		sprDifficulty.x = 40;
+		sprDifficulty.y = 230;
 		
 		weekImages = new FlxSprite().loadGraphic(Paths.image('storymenu/chapterImages/w1-' + difficulties[curDifficulty]));
 		weekImages.updateHitbox();
@@ -378,19 +374,9 @@ class TCOStoryState extends MusicBeatState
 		weekImages.setGraphicSize(Std.int(weekImages.width * 0.9));
 		add(weekImages);
 
-		var offsetX:Int = 0;
-		var offsetY:Int = 0;
-
-		//if(diff == 'Hard') {offsetX = 105; offsetY = -125;}
-		//if(diff == 'Insane') {offsetY = -160; offsetX = -75;}
-
-		//sprDifficulty.x = FlxG.width / 3 - sprDifficulty.width + offsetX;
-		//sprDifficulty.y = FlxG.height / 3 - sprDifficulty.height + offsetY;
-
 		switch(curDifficulty)
 		{
 			case 0:
-				sprDifficulty.animation.play('intro');
 				FlxG.cameras.flash(FlxColor.BLACK, 0.50);
 				fires.alpha = 0;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
@@ -399,7 +385,6 @@ class TCOStoryState extends MusicBeatState
 				bgSprite.alpha = 1;
 				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 1:
-				sprDifficulty.animation.play('intro');
 				FlxG.cameras.flash(FlxColor.WHITE, 0.50);
 				fires.alpha = 0;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
@@ -408,7 +393,6 @@ class TCOStoryState extends MusicBeatState
 				bgSprite.alpha = 1;
 				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 2:
-				sprDifficulty.animation.play('intro');
 		        FlxG.cameras.flash(FlxColor.RED, 0.50);
 				fires.alpha = 1;
 				onInsane = true;

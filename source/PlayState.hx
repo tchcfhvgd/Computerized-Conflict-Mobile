@@ -910,7 +910,7 @@ class PlayState extends MusicBeatState
 							stickpage.setGraphicSize(Std.int(stickpage.width * 1.1));
 							stickpage.alpha = 0;
 
-							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, -625, 1, 1);
+							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, 600, 1, 1);
 							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.25));
 							stickpageFloor.alpha = 0;
 
@@ -1017,8 +1017,8 @@ class PlayState extends MusicBeatState
 							bsodStatic.alpha = 0;
 							if (ClientPrefs.shaders) bsodStatic.shader = new CRTShader();
 
-							rsod = new BGSprite('EProcess/rsod', 'chapter1', -650, -500, 1, 1);
-							rsod.setGraphicSize(Std.int(rsod.width * 1.1));
+							rsod = new BGSprite('EProcess/rsod', 'chapter1', -50, -90, 1, 1);
+							rsod.setGraphicSize(Std.int(rsod.width * 2.4));
 							rsod.antialiasing = ClientPrefs.globalAntialiasing;
 							rsod.alpha = 0;
 
@@ -1046,7 +1046,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(endProcessChrom));
 					}
 
-					Floor = new BGSprite('floor', 'chapter1', -750, -360, 1, 1);
+					Floor = new BGSprite('floor', 'chapter1', -750, 712, 1, 1);
 					Floor.setGraphicSize(Std.int(Floor.width * 1.2));
 					add(Floor);
 
@@ -2183,8 +2183,8 @@ class PlayState extends MusicBeatState
 				}
 			case 'red-zone-error':
 				{
-					rsod = new BGSprite('EProcess/rsod', 'chapter1', -650, -500, 1, 1);
-					rsod.setGraphicSize(Std.int(rsod.width * 1.1));
+					rsod = new BGSprite('EProcess/rsod', 'chapter1', -100, -90, 1, 1);
+					rsod.setGraphicSize(Std.int(rsod.width * 2));
 					rsod.antialiasing = ClientPrefs.globalAntialiasing;
 					if (ClientPrefs.shaders) rsod.shader = new CRTShader();
 

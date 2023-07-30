@@ -202,7 +202,7 @@ class TCOCreditsState extends MusicBeatState
 
 		for (i in 0...credits.length)
 		{
-			var creditText = new Alphabet(200 + 40, 300, credits[i].name, false);
+			var creditText = new Alphabet(300, 300, credits[i].name, false);
 			creditText.fontColor = credits[i].color;
 			creditText.isCreditItem = true;
 			creditText.distancePerItem.x = 0;
@@ -383,19 +383,19 @@ class TCOCreditsState extends MusicBeatState
 
 		for (i in 0...grpIcons.members.length)
 		{
-			tween(grpIcons.members[i], {"scale.x": 0.3, "scale.y": 0.3, xAdd: -320}, 0.2, {
+			tween(grpIcons.members[i], {"scale.x": 0.35, "scale.y": 0.35, xAdd: -300}, 0.2, {
 				ease: FlxEase.quadOut
 			});
 		}
 
-		tween(grpIcons.members[curSelected], {"scale.x": 1, "scale.y": 1, xAdd: -340}, 0.2, {
+		tween(grpIcons.members[curSelected], {"scale.x": 0.6, "scale.y": 0.6, xAdd: -320}, 0.2, {
 			ease: FlxEase.quadOut
 		});
 
 		for (i=>item in grpCredits.members)
 		{
 			var shit = i - curSelected;
-			var scale = shit == 0 ? 1.5 : 0.75;
+			var scale = shit == 0 ? 0.75 : 0.375;
 			var outline:Float = shit == 0 ? outlineWidth : 0;
 			var outlineAlpha:Float = shit == 0 ? 1.0 : 0.0;
 
