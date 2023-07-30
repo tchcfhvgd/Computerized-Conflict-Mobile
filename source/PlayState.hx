@@ -1702,12 +1702,6 @@ class PlayState extends MusicBeatState
 
 					//precacheList.set('tunein_vidbg', 'video');
 
-					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
-					redthing.antialiasing = ClientPrefs.globalAntialiasing;
-					redthing.cameras = [camOther];
-					redthing.color = 0xFFD13C21;
-					//add(redthing);
-
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
 
 					songHasOtherPlayer = true;
@@ -1720,23 +1714,26 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.characterName = 'yt-gameover';
 					GameOverSubstate.deathSoundName = 'tsc_green_loss_sfx';
 
+					vignetteTrojan = new FlxSprite(0, 0).loadGraphic(Paths.image('normalVignette', 'extras'));
+					vignetteTrojan.antialiasing = ClientPrefs.globalAntialiasing;
+					vignetteTrojan.cameras = [camBars];
+					vignetteTrojan.alpha = 0;
+					vignetteTrojan.color = FlxColor.RED;
+					add(vignetteTrojan);
+
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
-					topBarsALT.cameras = [camHUD];
+					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
 					topBarsALT.y -= 450;
 					add(topBarsALT);
 
 					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
-					bottomBarsALT.cameras = [camHUD];
+					bottomBarsALT.cameras = [camBars];
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
 
-					/*radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
-					radialLine.cameras = [camHUD];
-					radialLine.screenCenter();
-					add(radialLine);
-					radialLine.alpha = 0;*/
+					camHUD.fade(FlxColor.BLACK, 0, false);
 
 					if(CoolUtil.difficultyString() == 'INSANE')
 					{
@@ -1945,6 +1942,8 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
+					FlxG.camera.fade(FlxColor.BLACK, 0, false);
+					camHUD.alpha = 0;
 				}
 
 			case 'World 1':
@@ -4675,6 +4674,7 @@ class PlayState extends MusicBeatState
 			case 'tune in':
 				iconP3.visible = false;
 				iconP4.visible = false;
+				camHUD.fade(FlxColor.BLACK, 0, true);
 
 			case 'rombie':
 				zoomTweenStart = FlxTween.tween(FlxG.camera, {zoom: 1}, 3 * playbackRate, {
@@ -7770,6 +7770,18 @@ class PlayState extends MusicBeatState
 			case 'messenger':
 				switch(curStep)
 				{
+					case 32:
+						FlxG.camera.fade(FlxColor.BLACK, 5, true);
+					case 112:
+						for (i in 0...playerStrums.length) {
+							FlxTween.tween(playerStrums.members[i], {alpha: 1}, 1);
+						}
+					case 192:
+						for (i in 0...opponentStrums.length) {
+							FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 1);
+						}
+					case 256:
+						camHUD.alpha = 1;
 					case 640 | 784:
 						colorTween([aolBG, aolBack, aolFloor], 0.8, FlxColor.WHITE, 0xFF2C2425);
 					case 656 | 792:
@@ -8315,15 +8327,27 @@ class PlayState extends MusicBeatState
 			case 'tune in':
 				switch(curBeat)
 				{
+					case 32:
+						vignetteTrojan.alpha = 1;
 					case 40:
 						iconP3.visible = true;
 						iconP4.visible = true;
 						bf2.alpha = 1;
 						bf3.alpha = 1;
+						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
+
+					case 48 | 68 | 116 | 144 | 240:
+						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.LIME);
+
+					case 56 | 72 | 120 | 136 | 152 | 248:
+						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.RED);
+					case 64 | 84 | 96 | 124 | 148 | 156 | 232 | 252:
+						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.CYAN);
+					case 80 | 112 | 128 | 244:
+						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
 
 					case 160:
-						//radialLine.alpha = 1;
-						redthing.alpha = 0;
+						vignetteTrojan.alpha = 0;
 
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 
@@ -8341,6 +8365,7 @@ class PlayState extends MusicBeatState
 						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 
 					case 224:
+						vignetteTrojan.alpha = 1;
 						ytBGVideo.alpha = 0;
 
 						triggerEventNote('Camera Follow Pos', '', '');
