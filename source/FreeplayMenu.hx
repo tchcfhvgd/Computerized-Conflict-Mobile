@@ -23,6 +23,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxTimer;
+import openfl.Lib;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -67,6 +68,8 @@ class FreeplayMenu extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Freeplay Menu", null);
 		#end
+
+		Lib.application.window.title = "Computerized Conflict - Freeplay Menu - Theme by: DangDoodle";
 
 		FlxG.camera.zoom = 1.5;
 

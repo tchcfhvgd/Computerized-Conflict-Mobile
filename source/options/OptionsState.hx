@@ -24,6 +24,7 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flixel.addons.display.FlxBackdrop;
+import openfl.Lib;
 import Controls;
 
 using StringTools;
@@ -64,6 +65,8 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
+
+		Lib.application.window.title = "Computerized Conflict - Options Menu - Theme by: DangDoodle";
 
 		FlxG.camera.zoom = 3;
 

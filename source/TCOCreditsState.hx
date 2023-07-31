@@ -23,6 +23,7 @@ import FreeplayMenu;
 import flixel.FlxObject;
 import flixel.tweens.FlxEase;
 import flixel.addons.display.FlxBackdrop;
+import openfl.Lib;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -64,6 +65,8 @@ class TCOCreditsState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Credits Menu", null);
 		#end
+
+		Lib.application.window.title = "Computerized Conflict - Credits Menu - Theme by: DangDoodle";
 
 		camDefault = new FlxCamera();
 		camTexts = new FlxCamera();

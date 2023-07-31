@@ -26,6 +26,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import sys.FileSystem;
 import sys.io.File;
+import openfl.Lib;
 import flixel.addons.display.FlxBackdrop;
 
 class FanArtState extends MusicBeatState
@@ -59,6 +60,8 @@ class FanArtState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Art Gallery", null);
 		#end
+
+		Lib.application.window.title = "Computerized Conflict - Art Gallery Menu - Theme by: DangDoodle";
 
 		var thing:Array<String> = FileSystem.readDirectory('assets/images/fan-arts/ingame-fanart');
 		for (i in 0...thing.length){

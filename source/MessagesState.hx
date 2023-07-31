@@ -46,7 +46,7 @@ class MessagesState extends MusicBeatState
 		}*/
 
 		text.setFormat(Paths.font("vcr.ttf"), 62, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		text.applyMarkup("You have unlocked $Freeplay$ and\n\n$The Vault$", [new FlxTextFormatMarkerPair(new FlxTextFormat(FlxColor.RED), "$")]);
+		text.applyMarkup("You've unlocked $Freeplay$ and\n\n$The Vault$", [new FlxTextFormatMarkerPair(new FlxTextFormat(FlxColor.RED), "$")]);
 		text.screenCenter();
 		text.borderSize = 5;
 		add(text);

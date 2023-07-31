@@ -11,6 +11,7 @@ import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import openfl.Lib;
 import flixel.FlxSubState;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -119,6 +120,8 @@ class VaultState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Vault", null);
 		#end
+
+		Lib.application.window.title = "Computerized Conflict - Vault - Theme by: JaceLOL";
 		
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
@@ -351,6 +354,7 @@ class VaultState extends MusicBeatState
 
 				PlayState.storyPlaylist = [codesAndShit[i][1]];
 				PlayState.isStoryMode = false;
+				PlayState.vaultSong = true;
 
 				PlayState.storyDifficulty = curDifficulty;
 

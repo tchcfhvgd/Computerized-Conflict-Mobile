@@ -22,6 +22,7 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import openfl.Lib;
 import flixel.addons.display.FlxBackdrop;
 import flixel.system.FlxAssets.FlxShader;
 import openfl.filters.BitmapFilter;
@@ -132,6 +133,8 @@ class MainMenuState extends MusicBeatState
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
+
+	    Lib.application.window.title = "Computerized Conflict - Main Menu - Theme by: DangDoodle";
 
 		FlxG.camera.zoom = 5;
 
@@ -650,6 +653,7 @@ class MainMenuState extends MusicBeatState
 
 		PlayState.storyPlaylist = ['practice time'];
 		PlayState.isStoryMode = false;
+		PlayState.vaultSong = false;
 		PlayState.storyDifficulty = 1; //hard (I think?)
 
 		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-hard', PlayState.storyPlaylist[0].toLowerCase());

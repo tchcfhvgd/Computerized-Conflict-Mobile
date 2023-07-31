@@ -21,6 +21,7 @@ import openfl.filters.BitmapFilter;
 import openfl.filters.ShaderFilter;
 import Shaders;
 import flixel.math.FlxMath;
+import openfl.Lib;
 import flixel.math.FlxPoint;
 import flixel.FlxCamera;
 import WeekData;
@@ -94,6 +95,8 @@ class TCOStoryState extends MusicBeatState
 		];
 
 		PlayState.isStoryMode = true;
+
+		Lib.application.window.title = "Computerized Conflict - Story Menu - Theme by: DangDoodle";
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -481,6 +484,7 @@ class TCOStoryState extends MusicBeatState
     {
 		PlayState.storyPlaylist = songlist;
 		PlayState.isStoryMode = true;
+		PlayState.vaultSong = false;
 		PlayState.storyDifficulty = difficultyStory;
 
 		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-' + difficulties[difficultyStory], PlayState.storyPlaylist[0].toLowerCase());
