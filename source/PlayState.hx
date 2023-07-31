@@ -488,6 +488,13 @@ class PlayState extends MusicBeatState
 
 		//catto:
 		    var cattoBG:BGSprite;
+			
+			//Intro Catto:
+			var bgStage:BGSprite;
+			var stageFront:BGSprite;
+			var stageLight1:BGSprite;
+			var stageLight2:BGSprite;
+			var stageCurtains:BGSprite;
 
 		//enmity:
 			var tcoPlataform:BGSprite;
@@ -2123,33 +2130,37 @@ class PlayState extends MusicBeatState
 
 			case 'catto':
 				{
-					var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
-					bg.setGraphicSize(Std.int(bg.width * 1.25));
-					add(bg);
+					bgStage = new BGSprite('stageback', -1000, -200, 0.9, 0.9);
+					bgStage.setGraphicSize(Std.int(bgStage.width * 1.25));
+					add(bgStage);
 			
-					var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 1, 1);
+					stageFront = new BGSprite('stagefront', -1050, 600, 1, 1);
 					stageFront.setGraphicSize(Std.int(stageFront.width * 1.25));
 					stageFront.updateHitbox();
 					add(stageFront);
-					if(!ClientPrefs.lowQuality) {
-						var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
-						stageLight.setGraphicSize(Std.int(stageLight.width * 1.25));
-						stageLight.updateHitbox();
-						add(stageLight);
-						var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
-						stageLight.setGraphicSize(Std.int(stageLight.width * 1.25));
-						stageLight.updateHitbox();
-						stageLight.flipX = true;
-						add(stageLight);
+					
+					if(!ClientPrefs.lowQuality) 
+					{
+						stageLight1 = new BGSprite('stage_light', -525, -100, 0.9, 0.9);
+						stageLight1.setGraphicSize(Std.int(stageLight1.width * 1.25));
+						stageLight1.updateHitbox();
+						add(stageLight1);
+
+						stageLight2 = new BGSprite('stage_light', 725, -100, 0.9, 0.9);
+						stageLight2.setGraphicSize(Std.int(stageLight2.width * 1.25));
+						stageLight2.updateHitbox();
+						stageLight2.flipX = true;
+						add(stageLight2);
 			
-						var stageCurtains:BGSprite = new BGSprite('stagecurtains', -700, -300, 1.3, 1.3);
+						stageCurtains = new BGSprite('stagecurtains', -1200, -300, 1.3, 1.3);
 						stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.35));
 						stageCurtains.updateHitbox();
 						add(stageCurtains);
 					}
 					
 					cattoBG = new BGSprite('Wong_Mau', 0, 0, 1, 1);
-					cattoBG.setGraphicSize(Std.int(cattoBG.width * 3.5));
+					cattoBG.scale.x = 7;
+					cattoBG.scale.y = 7;
 					cattoBG.y += 250;
 					cattoBG.screenCenter();
 					if(ClientPrefs.shaders) cattoBG.shader = wavShader.shader;
@@ -8479,6 +8490,24 @@ class PlayState extends MusicBeatState
 					case 96:
 						FlxTween.tween(camHUD, {alpha:1}, 1);
 					case 128:
+						remove(bgStage);
+						bgStage.destroy();
+			
+						remove(stageFront);
+						stageFront.destroy();
+						
+						if(!ClientPrefs.lowQuality) 
+						{
+							remove(stageLight1);
+							stageLight1.destroy();
+
+							remove(stageLight2);
+							stageLight2.destroy();
+				
+							remove(stageCurtains);
+							stageCurtains.destroy();
+						}
+						//.destroy();
 						cattoBG.alpha = 1;
 					case 156:
 						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:0}, 1));
