@@ -90,7 +90,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("Eclyptic", "eclyptic", "Musician", 0xFF0000FF, "Keep doing it, even if nobody cares"),
 			new CreditsMetadata("Magbros.ogg", "magbros", "Musician", 0xFFFF7B22, "a thing you can trust"),
 			new CreditsMetadata("Puppet Master", "puppet master", "Musician", 0xFFD363FF, "1100010 1100001 1101100 1101100 1110011"),
-			new CreditsMetadata("Dangdoodle", "dangDoodle", "Musician", 0xFFFF6D63, "Fuck it, we ball."),
+			new CreditsMetadata("DangDoodle", "dangDoodle", "Musician", 0xFFFF6D63, "Fuck it, we ball."),
 			new CreditsMetadata("Splat", "splat", "Sprite Artist", 0xFF6D6767, "eating is a privilege"),
 			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, "Never gonna give you up, never gonna let you down, never gonna run around and desert you. Never gonna make you cry, never gonna say goodbye, never gonna tell you a lie and give you EMOTIONAL DAMAGE"),
 			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, "hello everyone"),
@@ -107,9 +107,9 @@ class TCOCreditsState extends MusicBeatState
 			//Contributers (no icons)
 			//Also try making credit sections if you can lol
 
-			new CreditsMetadata("Scorpzie", "", "Original vocals for \"Old Adobe\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Scorpzie", "", "Original vocals for \"Adobe (Old)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("XG_Chris", "", "Old Artist", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Cheese Farmer", "", "Old Sprite Artist", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Cheese Farmer", "", "Former Sprite Artist", 0xFFFFFFFF, ""),
 			new CreditsMetadata("ROCKY", "", "\"Dashpulse\" vocals composer", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Deltom", "", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\"", 0xFFFFFFFF, ""),
@@ -118,15 +118,6 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("Tentilog", "", "3D Black STICK Sprite", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Koi", "", "Rombie BG Artist", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Blonic", "", "Logo Artist", 0xFFFFFFFF, ""),
-
-			//Special Thanks (no icons)
-
-			new CreditsMetadata("Alan Becker", "", "Creator of \"Aniamtion Vs Aniamtion\"", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Biddle3", "", "Original composer of \"Phantasm\"", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Armydillo", "", "Original composer of \"Aurora\"", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Azel", "", "Creator of FNF: The Showdown mod (collab)", 0xFFFFFFFF, ""),
-			new CreditsMetadata("TzenNime", "", "Cool BF Sprite", 0xFFFFFFFF, ""),
-
 
 			//new CreditsMetadata("", "jet", "", 0xFF, ""),
 		];

@@ -379,8 +379,8 @@ class VaultState extends MusicBeatState
 				goofyImage.screenCenter();
 				goofyImage.alpha = 1;
 				FlxG.sound.play(Paths.sound('vine-boom'), 1);
-				goofyTween = FlxTween.tween(goofyImage, {alpha: 0}, 2, {
-					startDelay: 1,
+				goofyTween = FlxTween.tween(goofyImage, {alpha: 0}, 0.5, {
+					startDelay: 0.5,
 					onComplete: function(twn:FlxTween) {
 						goofyTween = null;
 					}

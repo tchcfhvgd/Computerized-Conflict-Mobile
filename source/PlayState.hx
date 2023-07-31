@@ -1050,7 +1050,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(endProcessChrom));
 					}
 
-					Floor = new BGSprite('floor', 'chapter1', -750, 712, 1, 1);
+					Floor = new BGSprite('floor', 'chapter1', -750, 713, 1, 1);
 					Floor.setGraphicSize(Std.int(Floor.width * 1.2));
 					add(Floor);
 
@@ -1696,6 +1696,7 @@ class PlayState extends MusicBeatState
 
 					ytBGVideo = new BGSprite('yt_bg', 450, 0, 1, 1);
 					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.525));
+					ytBGVideo.shader = new CRTShader();
 					ytBGVideo.alpha = 0;
 					add(ytBGVideo);
 
@@ -1741,7 +1742,7 @@ class PlayState extends MusicBeatState
 
 					if(CoolUtil.difficultyString() == 'INSANE')
 					{
-						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0", 20);
+						strikesTxt = new FlxText(0, 0, FlxG.width, "Strikes: 0 / 2", 18);
 						strikesTxt.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 						strikesTxt.borderSize = 2;
 						strikesTxt.visible = !ClientPrefs.hideHud;
@@ -2132,18 +2133,18 @@ class PlayState extends MusicBeatState
 					stageFront.updateHitbox();
 					add(stageFront);
 					if(!ClientPrefs.lowQuality) {
-						var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
+						var stageLight:BGSprite = new BGSprite('stage_light', -100, -100, 0.9, 0.9);
 						stageLight.setGraphicSize(Std.int(stageLight.width * 1.25));
 						stageLight.updateHitbox();
 						add(stageLight);
-						var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
+						var stageLight:BGSprite = new BGSprite('stage_light', 1445, -100, 0.9, 0.9);
 						stageLight.setGraphicSize(Std.int(stageLight.width * 1.25));
 						stageLight.updateHitbox();
 						stageLight.flipX = true;
 						add(stageLight);
 			
-						var stageCurtains:BGSprite = new BGSprite('stagecurtains', -700, -300, 1.3, 1.3);
-						stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.35));
+						var stageCurtains:BGSprite = new BGSprite('stagecurtains', -800, -300, 1.3, 1.3);
+						stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.4));
 						stageCurtains.updateHitbox();
 						add(stageCurtains);
 					}
@@ -2416,14 +2417,14 @@ class PlayState extends MusicBeatState
 
 		if (songHasOtherPlayer)
 		{
-			bf2 = new Boyfriend(270, 20, bf2Name);
+			bf2 = new Boyfriend(270, 30, bf2Name);
 			startCharacterPos(bf2);
 			if (bf2 != null) boyfriendGroup.add(bf2);
 		}
 
 		if (songHasOtherPlayer2)
 		{
-			bf3 = new Boyfriend(670, 20, bf3Name);
+			bf3 = new Boyfriend(670, 30, bf3Name);
 			startCharacterPos(bf3);
 			if (bf3 != null) boyfriendGroup.add(bf3);
 		}
@@ -8358,8 +8359,11 @@ class PlayState extends MusicBeatState
 			case 'tune in':
 				switch(curBeat)
 				{
+					case 30 | 144:
+						FlxTween.tween(ytBG, {alpha:0.25}, 0.3);
 					case 32:
 						vignetteTrojan.alpha = 1;
+						ytBG.alpha = 1;
 					case 40:
 						iconP3.visible = true;
 						iconP4.visible = true;
@@ -8370,15 +8374,19 @@ class PlayState extends MusicBeatState
 					case 48 | 68 | 116 | 144 | 240:
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.LIME);
 
-					case 56 | 72 | 120 | 136 | 152 | 248:
+					case 56 | 72 | 88 | 103 | 120 | 136 | 152 | 248:
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.RED);
 					case 64 | 84 | 96 | 124 | 148 | 156 | 232 | 252:
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.CYAN);
 					case 80 | 112 | 128 | 244:
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
 
+					case 158:
+					    camBars.fade(FlxColor.BLACK, 0.3, false);
 					case 160:
+						camBars.fade(FlxColor.BLACK, 0, true);
 						vignetteTrojan.alpha = 0;
+						ytBG.alpha = 1;
 
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 
@@ -8398,8 +8406,11 @@ class PlayState extends MusicBeatState
 					case 224:
 						vignetteTrojan.alpha = 1;
 						ytBGVideo.alpha = 0;
+						vignetteTrojan.color = FlxColor.RED;
 
 						triggerEventNote('Camera Follow Pos', '', '');
+					case 256:
+						camHUD.fade(FlxColor.BLACK, 2, false);
 				}
 			case 'unfaithful':
 				switch(curBeat)
