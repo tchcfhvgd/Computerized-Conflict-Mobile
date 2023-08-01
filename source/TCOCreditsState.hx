@@ -112,7 +112,7 @@ class TCOCreditsState extends MusicBeatState
 
 			new CreditsMetadata("Scorpzie", "", "Original vocals for \"Adobe (Old)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("XG_Chris", "", "Old Artist", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Cheese Farmer", "", "Former Sprite Artist", 0xFFFFFFFF, ""),
+			new CreditsMetadata("03Cube", "", "Former Sprite Artist", 0xFFFFFFFF, ""),
 			new CreditsMetadata("ROCKY", "", "\"Dashpulse\" vocals composer", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Deltom", "", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\"", 0xFFFFFFFF, ""),
