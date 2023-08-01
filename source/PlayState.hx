@@ -1573,7 +1573,7 @@ class PlayState extends MusicBeatState
 					adobeWindow.y -= 900;
 					adobeWindow.x += 1500;
 					
-					ytBGVideo = new BGSprite('trojan/alan_desktop', BF_X - 800, BF_Y - 80, 1, 1);
+					ytBGVideo = new BGSprite('trojan/alan_desktop', BF_X - 950, BF_Y - 80, 1, 1);
 					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.15));
 					ytBGVideo.shader = new CRTShader();
 					ytBGVideo.alpha = 0;
@@ -1590,6 +1590,20 @@ class PlayState extends MusicBeatState
 					add(daFloor);
 					add(adobeWindow);
 					add(ytBGVideo);
+
+					particleEmitter = new FlxEmitter(-400, 1000);
+					particleEmitter.launchMode = FlxEmitterMode.SQUARE;
+					particleEmitter.velocity.set(-50, -200, 50, -600, -90, 0, 90, -600);
+					particleEmitter.scale.set(2, 2, 2, 2, 0, 0, 0, 0);
+					particleEmitter.drag.set(0, 0, 0, 0, 5, 5, 10, 10);
+					particleEmitter.width = 2787.45;
+					particleEmitter.lifespan.set(1.9, 4.9);
+
+					particleEmitter.loadParticles(Paths.image('particle'), 500, 16, true);
+					particleEmitter.color.set(FlxColor.YELLOW, FlxColor.YELLOW);
+
+					particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
+					add(particleEmitter);
 					
 					veryEpicVignette = new BGSprite('alanvignette', 0, 0, 1, 1);
 					veryEpicVignette.screenCenter();
@@ -2136,28 +2150,28 @@ class PlayState extends MusicBeatState
 
 			case 'catto':
 				{
-					bgStage = new BGSprite('stageback', -100, -200, 0.9, 0.9);
-					bgStage.setGraphicSize(Std.int(bgStage.width * 1.4));
+					bgStage = new BGSprite('stageback', -1000, -200, 0.9, 0.9);
+					bgStage.setGraphicSize(Std.int(bgStage.width * 1.25));
 					add(bgStage);
 			
-					stageFront = new BGSprite('stagefront', -850, 600, 1, 1);
+					stageFront = new BGSprite('stagefront', -1050, 600, 1, 1);
 					stageFront.setGraphicSize(Std.int(stageFront.width * 1.25));
 					stageFront.updateHitbox();
 					add(stageFront);
 					if(!ClientPrefs.lowQuality) 
 					{
-						stageLight1 = new BGSprite('stage_light', -325, -100, 0.9, 0.9);
+						stageLight1 = new BGSprite('stage_light', -525, -100, 0.9, 0.9);
 						stageLight1.setGraphicSize(Std.int(stageLight1.width * 1.25));
 						stageLight1.updateHitbox();
 						add(stageLight1);
 	
-						stageLight2 = new BGSprite('stage_light', 1425, -100, 0.9, 0.9);
+						stageLight2 = new BGSprite('stage_light', 725, -100, 0.9, 0.9);
 						stageLight2.setGraphicSize(Std.int(stageLight2.width * 1.25));
 						stageLight2.updateHitbox();
 						stageLight2.flipX = true;
 						add(stageLight2);
 			
-						stageCurtains = new BGSprite('stagecurtains', -970, -300, 1.3, 1.3);
+						stageCurtains = new BGSprite('stagecurtains', -1200, -300, 1.3, 1.3);
 						stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.4));
 						stageCurtains.updateHitbox();
 						add(stageCurtains);
@@ -8337,6 +8351,8 @@ class PlayState extends MusicBeatState
 						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						veryEpicVignette.alpha = 0;
+						colorTween([boyfriend], 0.5, FlxColor.WHITE, FlxColor.BLACK);
+						dad.alpha = 0;
 						
 					case 264:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -8345,6 +8361,8 @@ class PlayState extends MusicBeatState
 						veryEpicVignette.alpha = 1;
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new BloomShader())]);
+						boyfriend.color = FlxColor.WHITE;
+						dad.alpha = 1;
 
 					case 456:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
@@ -8358,7 +8376,7 @@ class PlayState extends MusicBeatState
 					case 648:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 					case 656:
-						camHUD.fade(FlxColor.BLACK, 3, false);
+						camHUD.fade(FlxColor.BLACK, 2, false);
 				}
 				
 			case 'aurora':
@@ -8384,7 +8402,6 @@ class PlayState extends MusicBeatState
 					case 40:
 						iconP3.visible = true;
 						iconP4.visible = true;
-
 						bf2.alpha = 1;
 						bf3.alpha = 1;
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
@@ -8404,11 +8421,6 @@ class PlayState extends MusicBeatState
 					case 160:
 						camBars.fade(FlxColor.BLACK, 0, true);
 						vignetteTrojan.alpha = 0;
-
-						boyfriend.x += 110;
-						boyfriend.y += 720;
-						bf2.x -= 450;
-
 						ytBG.alpha = 1;
 
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -8427,10 +8439,6 @@ class PlayState extends MusicBeatState
 						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 
 					case 224:
-						boyfriend.x -= 110;
-						boyfriend.y -= 720;
-						bf2.x += 450;
-
 						vignetteTrojan.alpha = 1;
 						ytBGVideo.alpha = 0;
 						vignetteTrojan.color = FlxColor.RED;

@@ -1043,6 +1043,11 @@
 						"Change Character",
 						"bf",
 						"animator-bf"
+					],
+					[
+						"defaultCamZoom",
+						"0.55",
+						""
 					]
 				]
 			],
@@ -1157,6 +1162,16 @@
 				]
 			],
 			[
+				86250,
+				[
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
+					]
+				]
+			],
+			[
 				86400,
 				[
 					[
@@ -1183,6 +1198,11 @@
 						"Add Camera Zoom",
 						"0.15",
 						""
+					],
+					[
+						"defaultCamZoom",
+						"0.8",
+						""
 					]
 				]
 			],
@@ -1203,6 +1223,11 @@
 						"Add Camera Zoom",
 						"0.15",
 						""
+					],
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
 					]
 				]
 			],
@@ -1222,6 +1247,11 @@
 					[
 						"Add Camera Zoom",
 						"0.15",
+						""
+					],
+					[
+						"defaultCamZoom",
+						"0.6",
 						""
 					]
 				]
@@ -1253,6 +1283,41 @@
 						"Change Character",
 						"bf",
 						"tzen_coolerbf"
+					],
+					[
+						"defaultCamZoom",
+						"0.75",
+						""
+					]
+				]
+			],
+			[
+				92400,
+				[
+					[
+						"defaultCamZoom",
+						"0.85",
+						""
+					]
+				]
+			],
+			[
+				94800,
+				[
+					[
+						"defaultCamZoom",
+						"0.7",
+						""
+					]
+				]
+			],
+			[
+				95850,
+				[
+					[
+						"Tween Zoom",
+						"0.55",
+						"0.5"
 					]
 				]
 			],
@@ -1292,6 +1357,11 @@
 					[
 						"Add Camera Zoom",
 						"",
+						""
+					],
+					[
+						"defaultCamZoom",
+						"0.9",
 						""
 					]
 				]
