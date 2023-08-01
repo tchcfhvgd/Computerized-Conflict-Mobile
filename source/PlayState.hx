@@ -1328,6 +1328,7 @@ class PlayState extends MusicBeatState
 
 
 					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(new BBPANZUBloomShader())]);
+					else if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 				}
 
 			case 'bbpanzu-stage': //bbpanzu stickfigure
@@ -7782,7 +7783,9 @@ class PlayState extends MusicBeatState
 							glowDad.alpha = 0;
 						case 944:
 							if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+
 							if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+							else if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 							whiteScreen.alpha = 1;
 							objectColor([dad, boyfriend], FlxColor.BLACK);
 							camHUD.fade(FlxColor.BLACK, 1.5, true);
