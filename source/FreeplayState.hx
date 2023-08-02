@@ -620,12 +620,8 @@ class FreeplayState extends MusicBeatState
 		{
 			iconArray[i].alpha = 0;
 
-			zoomTween = FlxTween.tween(iconArray[i], {"scale.x": 0.55, "scale.y": 0.55}, 0.2, {
-				ease: FlxEase.quadOut,
-				onComplete: function(twn:FlxTween) {
-					zoomTween = null;
-				}
-			});
+			iconArray[i].scale.x = 0.55;
+			iconArray[i].scale.y = 0.55;
 		}
 
 		iconArray[curSelected].alpha = 1;
