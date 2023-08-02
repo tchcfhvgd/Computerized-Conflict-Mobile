@@ -2150,28 +2150,28 @@ class PlayState extends MusicBeatState
 
 			case 'catto':
 				{
-					bgStage = new BGSprite('stageback', -1000, -200, 0.9, 0.9);
-					bgStage.setGraphicSize(Std.int(bgStage.width * 1.25));
+					bgStage = new BGSprite('stageback', -100, -200, 0.9, 0.9);
+					bgStage.setGraphicSize(Std.int(bgStage.width * 1.4));
 					add(bgStage);
 			
-					stageFront = new BGSprite('stagefront', -1050, 600, 1, 1);
+					stageFront = new BGSprite('stagefront', -850, 600, 1, 1);
 					stageFront.setGraphicSize(Std.int(stageFront.width * 1.25));
 					stageFront.updateHitbox();
 					add(stageFront);
 					if(!ClientPrefs.lowQuality) 
 					{
-						stageLight1 = new BGSprite('stage_light', -525, -100, 0.9, 0.9);
+						stageLight1 = new BGSprite('stage_light', -325, -100, 0.9, 0.9);
 						stageLight1.setGraphicSize(Std.int(stageLight1.width * 1.25));
 						stageLight1.updateHitbox();
 						add(stageLight1);
 	
-						stageLight2 = new BGSprite('stage_light', 725, -100, 0.9, 0.9);
+						stageLight2 = new BGSprite('stage_light', 1425, -100, 0.9, 0.9);
 						stageLight2.setGraphicSize(Std.int(stageLight2.width * 1.25));
 						stageLight2.updateHitbox();
 						stageLight2.flipX = true;
 						add(stageLight2);
 			
-						stageCurtains = new BGSprite('stagecurtains', -1200, -300, 1.3, 1.3);
+						stageCurtains = new BGSprite('stagecurtains', -970, -300, 1.3, 1.3);
 						stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.4));
 						stageCurtains.updateHitbox();
 						add(stageCurtains);
@@ -8402,6 +8402,7 @@ class PlayState extends MusicBeatState
 					case 40:
 						iconP3.visible = true;
 						iconP4.visible = true;
+						
 						bf2.alpha = 1;
 						bf3.alpha = 1;
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
@@ -8421,6 +8422,11 @@ class PlayState extends MusicBeatState
 					case 160:
 						camBars.fade(FlxColor.BLACK, 0, true);
 						vignetteTrojan.alpha = 0;
+
+						boyfriend.x += 110;
+						boyfriend.y += 720;
+						bf2.x -= 450;
+
 						ytBG.alpha = 1;
 
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -8439,6 +8445,10 @@ class PlayState extends MusicBeatState
 						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 
 					case 224:
+						boyfriend.x -= 110;
+						boyfriend.y -= 720;
+						bf2.x += 450;
+
 						vignetteTrojan.alpha = 1;
 						ytBGVideo.alpha = 0;
 						vignetteTrojan.color = FlxColor.RED;
