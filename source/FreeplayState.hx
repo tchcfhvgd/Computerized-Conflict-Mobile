@@ -80,7 +80,7 @@ class FreeplayState extends MusicBeatState
 
 	public static var alanSongs:Array<String> = 
 	['trojan', 'conflict', 'dashpulse', 'time travel', 'cubify', 'kickstarter', 'contrivance', 'messenger', 'amity', 
-	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm', 'aurora'];
+	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm'];
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 
