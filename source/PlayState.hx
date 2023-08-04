@@ -8263,6 +8263,8 @@ class PlayState extends MusicBeatState
 			case 'dashpulse':
 				switch(curBeat)
 				{
+					case 32:
+						FlxTween.tween(camHUD, {alpha:1}, 1, {ease: FlxEase.sineInOut});
 					case 28 | 84:
 						FlxTween.tween(FlxG.camera, {zoom:1.3}, 1.5, {ease: FlxEase.sineInOut});
 					case 99:
@@ -8274,8 +8276,15 @@ class PlayState extends MusicBeatState
 
 					case 320:
 						colorTween([gf, otakuBG], 1, 0xFF191919, FlxColor.WHITE);
-						defaultCamZoom = 0.7;
+						defaultCamZoom = 0.65;
 						bestPart2 = false;
+
+					case 354:
+						FlxTween.tween(camHUD, {alpha:0}, 1, {ease: FlxEase.sineInOut});
+
+					case 364:
+						camGame.alpha = 0;
+
 				}
 
 			case 'amity':
@@ -8402,7 +8411,7 @@ class PlayState extends MusicBeatState
 					case 40:
 						iconP3.visible = true;
 						iconP4.visible = true;
-						
+
 						bf2.alpha = 1;
 						bf3.alpha = 1;
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
