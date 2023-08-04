@@ -1825,7 +1825,12 @@ class PlayState extends MusicBeatState
 					skipArrowStartTween = true;
 					ondaCutscene = true;
 
-					if(SONG.song.toLowerCase() == 'time travel') camGame.alpha = 0;
+					addCharacterToList('carykhTALK', 1);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+					whiteScreen.scrollFactor.set();
+					whiteScreen.screenCenter();
+					add(whiteScreen);
+					whiteScreen.cameras = [camHUD];
 
 					var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
 					for (i in 0...soundCaryArray.length){
@@ -2997,8 +3002,8 @@ class PlayState extends MusicBeatState
 		switch(SONG.song.toLowerCase())
 		{
 			case 'time travel':
-				addCharacterToList('carykhTALK', 1);
-
+				triggerEventNote('Change Character', 'dad', 'carykhTALK');
+				triggerEventNote('Change Character', 'dad', 'carykh');
 			case 'amity':
 				addCharacterToList('angry-minus-tco', 1);
 			case 'rombie':
@@ -4725,7 +4730,7 @@ class PlayState extends MusicBeatState
 		{
 			case 'time travel':
 				songLength = 106000;
-				camGame.alpha = 1;
+				FlxTween.tween(whiteScreen, {alpha: 0}, 1, {ease: FlxEase.circOut});
 				if (!timeTraveled)
 				{
 					blackBars(1);
