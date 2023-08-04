@@ -1979,7 +1979,6 @@ class PlayState extends MusicBeatState
 
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 					FlxG.camera.fade(FlxColor.BLACK, 0, false);
-					camHUD.alpha = 0;
 				}
 
 			case 'World 1':
@@ -2087,70 +2086,6 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 
 					if (bf2 != null) dadGroup.add(bf2);
-				}
-
-			case 'aurora': //Cover 2
-				{
-					var sky:BGSprite = new BGSprite('aurora/sky', 0, 0, 1, 1);
-					sky.setGraphicSize(Std.int(sky.width * 1.4));
-					sky.screenCenter();
-					sky.updateHitbox();
-					add(sky);
-					
-					var backtrees:BGSprite = new BGSprite('aurora/backtrees', 0, 0, 1, 1);
-					backtrees.setGraphicSize(Std.int(backtrees.width * 1.4));
-					backtrees.screenCenter();
-					backtrees.updateHitbox();
-					add(backtrees);
-
-					var ground:BGSprite = new BGSprite('aurora/ground', 0, 0, 1, 1);
-					ground.setGraphicSize(Std.int(ground.width * 1.4));
-					ground.screenCenter();
-					ground.updateHitbox();
-					add(ground);
-					
-					auroraTree = new BGSprite('aurora/fronttree', 0, 0, 1.2, 1.2);
-					auroraTree.setGraphicSize(Std.int(auroraTree.width * 1.4));
-					auroraTree.screenCenter();
-					auroraTree.updateHitbox();
-
-					auroraLight = new BGSprite('aurora/filter', 0, 0, 1, 1);
-					auroraLight.setGraphicSize(Std.int(auroraLight.width * 1.4));
-					auroraLight.screenCenter();
-					auroraLight.updateHitbox();
-					
-					jumpScare = new BGSprite('aurora/auroraJumpScare', 0, 0, 1, 1);
-					if(ClientPrefs.shaders) jumpScare.shader = new CRTShader();
-					jumpScare.screenCenter();
-					jumpScare.cameras = [camBars];
-					jumpScare.alpha = 0;
-					add(jumpScare);
-					
-					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
-					topBarsALT.cameras = [camBars];
-					topBarsALT.screenCenter();
-					topBarsALT.y -= 450;
-					add(topBarsALT);
-
-					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
-					bottomBarsALT.cameras = [camBars];
-					bottomBarsALT.screenCenter();
-					bottomBarsALT.y += 450;
-					add(bottomBarsALT);
-
-					if (SONG.song.toLowerCase() == 'aurora')
-					{
-						camHUD.alpha = 0;
-						FlxG.camera.fade(FlxColor.BLACK, 0, false);
-						defaultCamZoom = 1.2;
-					}
-
-					GameOverSubstate.characterName = 'the-chosen-one-death';
-					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
-					
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0018));
-					//if (ClientPrefs.shaders) addShaderToCamera(['camBars'], new ChromaticAberrationEffect(chromFloat));
-					chromFloat = 0;
 				}
 
 			case 'catto':
@@ -4340,7 +4275,7 @@ class PlayState extends MusicBeatState
 					spotlightbf.x = boyfriend.x - 355;
 					spotlightbf.y = boyfriend.y + boyfriend.height - 1650;
 
-				case 'time travel':
+				case 'time travel' | 'messenger':
 
 					opponentStrums.forEach(function(spr:StrumNote) {
 						spr.alpha = 0;
@@ -4703,7 +4638,7 @@ class PlayState extends MusicBeatState
 		songLength = FlxG.sound.music.length;
 		actualSongLength = songLength;
 
-		if (SONG.song.toLowerCase() != 'time travel')
+		if (SONG.song.toLowerCase() != 'time travel' && SONG.song.toLowerCase() != 'messenger')
 		{
 
 			FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
@@ -7849,7 +7784,7 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 1);
 						}
 					case 256:
-						camHUD.alpha = 1;
+						showHUDTween(1, 1);
 					case 640 | 784:
 						colorTween([aolBG, aolBack, aolFloor], 0.8, FlxColor.WHITE, 0xFF2C2425);
 					case 656 | 792:
