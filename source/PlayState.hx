@@ -8324,13 +8324,19 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 
 					case 520:
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+						
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+
+						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([]);
+						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) camHUD.setFilters([]);
 
 					case 585:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						veryEpicVignette.color = FlxColor.ORANGE;
 						veryEpicVignette.alpha = 1;
+						colorTween([alanBG, adobeWindow], 0.5, FlxColor.WHITE, 0xFF3A3A3A);
 
 					case 648:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
