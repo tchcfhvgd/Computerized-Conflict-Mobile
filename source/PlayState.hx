@@ -1978,6 +1978,7 @@ class PlayState extends MusicBeatState
 					veryEpicVignette.setGraphicSize(Std.int(veryEpicVignette.width * 2));
 
 					oldVideoResolution = true;
+					skipArrowStartTween = true;
 
 					GameOverSubstate.characterName = 'tco-aol-dead';
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
@@ -2967,6 +2968,7 @@ class PlayState extends MusicBeatState
 			ratingPercent = ratingPercentTT;
 			health = timeTravelHP;
 			showHUDTween(1, 1);
+			camZooming = true;
 			funnyArray = [];
 		}
 
