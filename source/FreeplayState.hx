@@ -80,7 +80,7 @@ class FreeplayState extends MusicBeatState
 
 	public static var alanSongs:Array<String> = 
 	['trojan', 'conflict', 'dashpulse', 'time travel', 'cubify', 'kickstarter', 'contrivance', 'messenger', 'amity', 
-	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm', 'aurora'];
+	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm'];
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 
@@ -620,12 +620,8 @@ class FreeplayState extends MusicBeatState
 		{
 			iconArray[i].alpha = 0;
 
-			zoomTween = FlxTween.tween(iconArray[i], {"scale.x": 0.55, "scale.y": 0.55}, 0.2, {
-				ease: FlxEase.quadOut,
-				onComplete: function(twn:FlxTween) {
-					zoomTween = null;
-				}
-			});
+			iconArray[i].scale.x = 0.55;
+			iconArray[i].scale.y = 0.55;
 		}
 
 		iconArray[curSelected].alpha = 1;

@@ -587,7 +587,7 @@ class MainMenuState extends MusicBeatState
 	function loadState()
 	{
 		selectedSomethin = true;
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.5);
+		FlxG.sound.play(Paths.sound('confirmMenu'));
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
@@ -649,7 +649,7 @@ class MainMenuState extends MusicBeatState
 	{
 		targetAlphaCamPopup = 0;
 
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.5);
+		FlxG.sound.play(Paths.sound('confirmMenu'));
 
 		PlayState.storyPlaylist = ['practice time'];
 		PlayState.isStoryMode = false;

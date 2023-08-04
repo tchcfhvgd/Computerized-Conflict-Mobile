@@ -1624,10 +1624,15 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
 
+					//does this precache shaders? idk but it seems to do something
+					if (ClientPrefs.shaders) bgVideoPrecacher.shader = new BloomShader();
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) bgVideoPrecacher.shader = nightTimeShader.shader;
+
+					//default shader for alan
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0035));
+					
 					camGame.fade(FlxColor.BLACK, 0, false);
 					camHUD.alpha = 0;
-
 				}
 
 			case 'Sam Room': //Contrivance song
@@ -7612,13 +7617,13 @@ class PlayState extends MusicBeatState
 						Background1.color = 0xFFFFFFFF;
 						whiteScreen.color = 0xFFFFFFFF;
 
-						flash(0xFFFFFFFF, 1);
+						FlxG.camera.flash(FlxColor.WHITE, 1);
 						spotlightdad.alpha = 0;
 						spotlightbf.alpha = 0;
 					case 576:
 						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5);
 					case 768:
-						flash(0xFFFFFFFF, 1);
+						FlxG.camera.flash(FlxColor.WHITE, 1);
 						FlxG.camera.shake(0.0175, 0.15);
 						blackBars(1);
 						colorTween([gf, dad, Crowd, Background1, Floor], 0.7, FlxColor.WHITE, 0xFF191919);
@@ -7627,7 +7632,7 @@ class PlayState extends MusicBeatState
 						bestPart2 = true;
 					case 1024:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
-						flash(0xFFFFFFFF, 1);
+						FlxG.camera.flash(FlxColor.WHITE, 1);
 						colorTween([gf, dad, boyfriend, Crowd, Background1, Floor], 0.7, 0xFF191919, FlxColor.WHITE);
 						blackBars(0);
 						spotlightdad.alpha = 0;
@@ -7654,7 +7659,7 @@ class PlayState extends MusicBeatState
 						tcoBSOD(true);
 						bsod.alpha = 1; //fixing the bug
 						setAlpha([blackBG], 0);
-						flash(0xFFFFFFFF, 1);
+						FlxG.camera.flash(FlxColor.WHITE, 1);
 					case 1025 | 1670:
 						tcoBSOD(false);
 				}
@@ -8120,7 +8125,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 32:
-						flash(FlxColor.RED, 0.5);
+						FlxG.camera.flash(FlxColor.RED, 0.5);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
 						FlxG.camera.shake(0.01, 0.20);
 						objectColor([boyfriend, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
@@ -8132,7 +8137,7 @@ class PlayState extends MusicBeatState
 						tcoStickPage(true);
 
 					case 424:
-						flash(FlxColor.WHITE, 0.5);
+						FlxG.camera.flash(FlxColor.WHITE, 0.5);
 						FlxG.camera.shake(0.01, 0.20);
 						colorTween([boyfriend, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0.8, 0xFF2C2425, FlxColor.WHITE);
 						lossingHealth = false;
@@ -8381,9 +8386,14 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 
 					case 585:
-						
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+						veryEpicVignette.color = FlxColor.ORANGE;
+						veryEpicVignette.alpha = 1;
+
 					case 648:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+						alphaTween([veryEpicVignette], 0, 1);
+
 					case 656:
 						camHUD.fade(FlxColor.BLACK, 2, false);
 				}
