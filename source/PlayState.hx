@@ -424,6 +424,7 @@ class PlayState extends MusicBeatState
 			public var nightTimeShader:Shaders.NightTimeEffect = new NightTimeEffect();
 
 			public static var timeTraveled:Bool;
+			public static var canTimeTravel:Bool = true;
 			public static var funnyArray:Array<Int>;
 			public static var ratingPercentTT:Float;
 			var textLyrics:FlxTypeText; //the dialog text
@@ -7231,15 +7232,18 @@ class PlayState extends MusicBeatState
 								boyfriend.specialAnim = true;
 							}
 						case 'stopwatch':
-							var funnyBackInTime:Int = Std.int(Math.max(12500, Conductor.songPosition - 10000));
+							if (canTimeTravel)
+							{
+								var funnyBackInTime:Int = Std.int(Math.max(12500, Conductor.songPosition - 10000));
 
-							startOnTime = funnyBackInTime;
-							timeTravelHP = health;
-							timeTraveled = true;
-							funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
-							ratingPercentTT = ratingPercent;
-							PauseSubState.restartSong(true);
-							camZooming = true;
+								startOnTime = funnyBackInTime;
+								timeTravelHP = health;
+								timeTraveled = true;
+								funnyArray = [sicks, goods, bads, shits, songMisses, songScore-3000, songHits];
+								ratingPercentTT = ratingPercent;
+								PauseSubState.restartSong(true);
+								camZooming = true;
+							}
 					}
 				}
 
