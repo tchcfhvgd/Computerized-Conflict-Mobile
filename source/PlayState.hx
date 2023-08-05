@@ -58,7 +58,6 @@ import animateatlas.AtlasFrameMaker;
 import Achievements;
 import StageData;
 import FunkinLua;
-import DialogueBoxPsych;
 import DialogueScript;
 import Conductor.Rating;
 import flixel.addons.display.FlxBackdrop;
@@ -239,7 +238,6 @@ class PlayState extends MusicBeatState
 	public var cameraSpeed:Float = 1;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
-	var dialogueJson:DialogueFile = null;
 	var ScriptdialogueJson:ScriptDialogueFile = null;
 
 	var blammedLightsBlack:FlxSprite;
@@ -2424,27 +2422,10 @@ class PlayState extends MusicBeatState
 
 		}
 
-		var file:String = Paths.json(songName + '/dialogue'); //Checks for json/Psych Engine dialogue
-		if (OpenFlAssets.exists(file)) {
-			dialogueJson = DialogueBoxPsych.parseDialogue(file);
-		}
-
 		var file:String = Paths.json(songName + '/dialogueScript'); //Checks for json/script dialogue
 		if (OpenFlAssets.exists(file)) {
 			ScriptdialogueJson = DialogueScript.parseDialogue(file);
 		}
-
-		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
-		if (OpenFlAssets.exists(file)) {
-			dialogue = CoolUtil.coolTextFile(file);
-		}
-		var doof:DialogueBox = new DialogueBox(false, dialogue);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
-		doof.scrollFactor.set();
-		doof.finishThing = startCountdown;
-		doof.nextDialogueThing = startNextDialogue;
-		doof.skipDialogueThing = skipDialogue;
 
 		Conductor.songPosition = -5000 / Conductor.songPosition;
 
@@ -2739,7 +2720,6 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		if (judgementCounter != null) judgementCounter.cameras = [camHUD];
-		doof.cameras = [camHUD];
 
 		/*if (leftSide)
 		{
@@ -3822,44 +3802,7 @@ class PlayState extends MusicBeatState
 	}
 
 	var dialogueCount:Int = 0;
-	public var psychDialogue:DialogueBoxPsych;
 	public var scriptDialogue:DialogueScript;
-	//You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
-	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
-	{
-		// TO DO: Make this more flexible, maybe?
-		if(psychDialogue != null) return;
-
-		if(dialogueFile.dialogue.length > 0) {
-			inCutscene = true;
-			precacheList.set('dialogue', 'sound');
-			precacheList.set('dialogueClose', 'sound');
-			psychDialogue = new DialogueBoxPsych(dialogueFile, song);
-			psychDialogue.scrollFactor.set();
-			if(endingSong) {
-				psychDialogue.finishThing = function() {
-					psychDialogue = null;
-					endSong();
-				}
-			} else {
-				psychDialogue.finishThing = function() {
-					psychDialogue = null;
-					startCountdown();
-				}
-			}
-			psychDialogue.nextDialogueThing = startNextDialogue;
-			psychDialogue.skipDialogueThing = skipDialogue;
-			psychDialogue.cameras = [camHUD];
-			add(psychDialogue);
-		} else {
-			FlxG.log.warn('Your dialogue file is badly formatted!');
-			if(endingSong) {
-				endSong();
-			} else {
-				startCountdown();
-			}
-		}
-	}
 
 	public function startDialogueScript(dialogueFile:ScriptDialogueFile, ?song:String = null):Void
 	{
@@ -5026,7 +4969,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE && startedCountdown && canPause && !vaultSong)
+		if (controls.PAUSE && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', [], false);
 			if(ret != FunkinLua.Function_Stop) {
@@ -7880,7 +7823,7 @@ class PlayState extends MusicBeatState
 					case 351:
 						FlxG.sound.play(Paths.sound('introGo'), 0.4);
 					case 352:
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.flashing) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader)]);
 						isPlayersSpinning = true;
 						
 
@@ -8142,7 +8085,7 @@ class PlayState extends MusicBeatState
 					case 156:
 						FlxTween.tween(blackBGgf, {alpha:0.84}, 0.4);
 					case 160:
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.flashing) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader)]);
 						particleEmitter.alpha.set(1, 1);
 						blackBGgf.alpha = 0;
 						bestPart2 = true;
