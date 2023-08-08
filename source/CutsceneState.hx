@@ -47,6 +47,8 @@ class CutsceneState extends MusicBeatState
 	public var isIntro:Bool = false;
 	public var skipeable:Bool = true;
 
+	var video:MP4Handler;
+
 	public function new(videoName:String, isEnd:Bool, ?finishCallback:Void->Void, ?canSkip:Bool = true)
 	{
 		super();
@@ -67,6 +69,14 @@ class CutsceneState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (!skipeable) 
+		{
+			if (FlxG.sound.muted || FlxG.sound.volume <= 0)
+				video.volume = 0;
+			else
+				video.volume = FlxG.sound.volume + 0.4;
+		}
+
 		super.update(elapsed);
 	}
 
@@ -85,9 +95,13 @@ class CutsceneState extends MusicBeatState
 			goToState();
 		}
 
-		var video:MP4Handler = new MP4Handler();
+		video = new MP4Handler();
 		video.playVideo(filepath);
-		if (!canSkip) FlxG.stage.removeEventListener('enterFrame', @:privateAccess video.update);
+		if (!canSkip) 
+		{
+			FlxG.stage.removeEventListener('enterFrame', @:privateAccess video.update);
+		}
+
 		video.finishCallback = function()
 		{
 			goToState();
@@ -104,7 +118,7 @@ class CutsceneState extends MusicBeatState
 		{
 			case 'codes':
 				MusicBeatState.switchState(new MessagesState(true));
-			case 'alan-unlock':
+			case 'alan-unlock' | 'tco_credits':
 				MusicBeatState.switchState(new FreeplayMenu());
 			default:
 				LoadingState.loadAndSwitchState(new PlayState());

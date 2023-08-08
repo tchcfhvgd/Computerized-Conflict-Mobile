@@ -6159,20 +6159,32 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					if (!CoolUtil.songsUnlocked.data.cutsceneSeen && playAlanVideo) {
+					var goToFreeplay:Bool = true;
+					if (!CoolUtil.songsUnlocked.data.cutsceneSeen && playAlanVideo) 
+					{
 						CoolUtil.songsUnlocked.data.cutsceneSeen = true;
+
+						goToFreeplay = false;
 
 						LoadingState.loadAndSwitchState(new CutsceneState('alan-unlock', true, function() {
 							MusicBeatState.switchState(new FreeplayMenu());
-					}, false
-					));
-					}
-					else
-					{
-						MusicBeatState.switchState(new FreeplayMenu());
+						}, false));
 					}
 
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					if (SONG.song.toLowerCase() == 'alan' && CoolUtil.songsUnlocked.data.seenCredits == null)
+					{
+						CoolUtil.songsUnlocked.data.seenCredits = true;
+
+						goToFreeplay = false;
+
+						LoadingState.loadAndSwitchState(new CutsceneState('tco_credits', true, function() {
+							MusicBeatState.switchState(new FreeplayMenu());
+						}, false));
+					}
+
+					if (goToFreeplay) MusicBeatState.switchState(new FreeplayMenu());
+
+					if (goToFreeplay) FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					changedDifficulty = false;
 				}
 			}
