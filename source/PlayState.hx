@@ -1590,18 +1590,20 @@ class PlayState extends MusicBeatState
 					add(adobeWindow);
 					add(ytBGVideo);
 
-					particleEmitter = new FlxEmitter(-400, 1000);
+					particleEmitter = new FlxEmitter(-400, 1500);
 					particleEmitter.launchMode = FlxEmitterMode.SQUARE;
 					particleEmitter.velocity.set(-50, -200, 50, -600, -90, 0, 90, -600);
 					particleEmitter.scale.set(2, 2, 2, 2, 0, 0, 0, 0);
 					particleEmitter.drag.set(0, 0, 0, 0, 5, 5, 10, 10);
 					particleEmitter.width = 2787.45;
 					particleEmitter.lifespan.set(1.9, 4.9);
+					particleEmitter.alpha.set(0, 0);
 
 					particleEmitter.loadParticles(Paths.image('particle'), 500, 16, true);
 					particleEmitter.color.set(FlxColor.YELLOW, FlxColor.YELLOW);
 
 					particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
+					particleEmitter.cameras = [camBars];
 					add(particleEmitter);
 					
 					veryEpicVignette = new BGSprite('alanvignette', 0, 0, 1, 1);
@@ -1976,13 +1978,20 @@ class PlayState extends MusicBeatState
 					veryEpicVignette.color = FlxColor.YELLOW;
 					veryEpicVignette.setGraphicSize(Std.int(veryEpicVignette.width * 2));
 
+					var scanline = new BGSprite('aol/scanline', 0, 0, 0, 0);
+					scanline.screenCenter();
+					scanline.updateHitbox();
+					scanline.alpha = 0.1;
+					scanline.cameras = [camOther];
+					add(scanline);
+
 					oldVideoResolution = true;
 					skipArrowStartTween = true;
 
 					GameOverSubstate.characterName = 'tco-aol-dead';
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0015));
 					FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				}
 
@@ -2513,7 +2522,12 @@ class PlayState extends MusicBeatState
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
 		add(timeBar);
-		if (uiType == 'default') reloadTimeBarColors();
+		if (uiType == 'default')
+		{
+			timeBar.setGraphicSize(Std.int(timeBar.width * 0.85));
+			reloadTimeBarColors();
+		}
+		
 		add(timeTxt);
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
@@ -7970,13 +7984,14 @@ class PlayState extends MusicBeatState
 
 						ytBGVideo.alpha = 0;
 						veryEpicVignette.alpha = 1;
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
-						if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new BloomShader())]);
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([]);
+						if (ClientPrefs.shaders) camHUD.setFilters([]);
 						boyfriend.color = FlxColor.WHITE;
 						dad.alpha = 1;
 
 					case 456:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+						veryEpicVignette.alpha = 0;
 
 					case 520:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -7986,16 +8001,18 @@ class PlayState extends MusicBeatState
 
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([]);
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) camHUD.setFilters([]);
+						veryEpicVignette.alpha = 1;
 
 					case 585:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						veryEpicVignette.color = FlxColor.ORANGE;
-						veryEpicVignette.alpha = 1;
 						colorTween([alanBG, adobeWindow], 0.5, FlxColor.WHITE, 0xFF3A3A3A);
+						particleEmitter.alpha.set(1, 1);
 
 					case 648:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						alphaTween([veryEpicVignette], 0, 1);
+						particleEmitter.alpha.set(0, 0);
 
 					case 656:
 						camHUD.fade(FlxColor.BLACK, 2, false);
@@ -8535,6 +8552,7 @@ class PlayState extends MusicBeatState
 				dad.playAnim('dou', true);
 				boyfriend.specialAnim = true;
 				dad.specialAnim = true;
+				FlxG.camera.shake(0.0025, 0.05);
 
 				FlxG.sound.play(Paths.sound('throwMic'), 0.8);
 
