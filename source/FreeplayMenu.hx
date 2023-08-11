@@ -28,6 +28,11 @@ import openfl.Lib;
 import sys.FileSystem;
 #end
 
+import openfl.display.Shader;
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
+import Shaders;
+
 using StringTools;
 
 class FreeplayMenu extends MusicBeatState
@@ -59,6 +64,9 @@ class FreeplayMenu extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var finishedZoom = false;
+
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
 
 	override function create()
 	{
@@ -147,6 +155,8 @@ class FreeplayMenu extends MusicBeatState
 		changeItem();
 
 		Paths.clearUnusedMemory();
+
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 
 		super.create();
 

@@ -334,7 +334,6 @@ class PlayState extends MusicBeatState
 
 			//lossing health mechanic
 				var lossingHealth:Bool = false;
-				var lossingHealthPlus:Bool = false;
 
 		//end process:
 			var newgroundsBurn:FlxSprite;
@@ -1981,7 +1980,7 @@ class PlayState extends MusicBeatState
 					var scanline = new BGSprite('aol/scanline', 0, 0, 0, 0);
 					scanline.screenCenter();
 					scanline.updateHitbox();
-					scanline.alpha = 0.1;
+					scanline.alpha = 0.05;
 					scanline.cameras = [camOther];
 					add(scanline);
 
@@ -1991,7 +1990,7 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.characterName = 'tco-aol-dead';
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0015));
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0010));
 					FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				}
 
@@ -2100,6 +2099,70 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
 
 					if (bf2 != null) dadGroup.add(bf2);
+				}
+
+				case 'aurora': //Cover 2
+				{
+					var sky:BGSprite = new BGSprite('aurora/sky', 0, 0, 1, 1);
+					sky.setGraphicSize(Std.int(sky.width * 1.4));
+					sky.screenCenter();
+					sky.updateHitbox();
+					add(sky);
+
+					var backtrees:BGSprite = new BGSprite('aurora/backtrees', 0, 0, 1, 1);
+					backtrees.setGraphicSize(Std.int(backtrees.width * 1.4));
+					backtrees.screenCenter();
+					backtrees.updateHitbox();
+					add(backtrees);
+
+					var ground:BGSprite = new BGSprite('aurora/ground', 0, 0, 1, 1);
+					ground.setGraphicSize(Std.int(ground.width * 1.4));
+					ground.screenCenter();
+					ground.updateHitbox();
+					add(ground);
+
+					auroraTree = new BGSprite('aurora/fronttree', 0, 0, 1.2, 1.2);
+					auroraTree.setGraphicSize(Std.int(auroraTree.width * 1.4));
+					auroraTree.screenCenter();
+					auroraTree.updateHitbox();
+
+					auroraLight = new BGSprite('aurora/filter', 0, 0, 1, 1);
+					auroraLight.setGraphicSize(Std.int(auroraLight.width * 1.4));
+					auroraLight.screenCenter();
+					auroraLight.updateHitbox();
+
+					jumpScare = new BGSprite('aurora/auroraJumpScare', 0, 0, 1, 1);
+					if(ClientPrefs.shaders) jumpScare.shader = new CRTShader();
+					jumpScare.screenCenter();
+					jumpScare.cameras = [camBars];
+					jumpScare.alpha = 0;
+					add(jumpScare);
+
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camBars];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					add(topBarsALT);
+
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camBars];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					add(bottomBarsALT);
+
+					if (SONG.song.toLowerCase() == 'aurora')
+					{
+						camHUD.alpha = 0;
+						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+						defaultCamZoom = 1.2;
+					}
+
+					GameOverSubstate.characterName = 'the-chosen-one-death';
+					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
+
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0018));
+					//if (ClientPrefs.shaders) addShaderToCamera(['camBars'], new ChromaticAberrationEffect(chromFloat));
+					chromFloat = 0;
 				}
 
 			case 'catto':
@@ -3227,7 +3290,7 @@ class PlayState extends MusicBeatState
 						camFollow.set(dad.getMidpoint().x + 400 + cameraX, dad.getMidpoint().y + 50 + cameraY);
 						if (dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200 + cameraX, dad.getMidpoint().y + 150 + cameraY);
 					case 'aurora':
-						camFollow.x = (dad.getMidpoint().x - 0 + cameraX);
+						camFollow.x = (dad.getMidpoint().x - 700 + cameraX);
 						
 					case 'animStage-old':
 						camFollow.set(420.95 + cameraX, 313 + cameraY);
@@ -3258,7 +3321,7 @@ class PlayState extends MusicBeatState
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 						
 					case 'cubify-stage':
-						camFollow.x = (boyfriend.getMidpoint().x - 270 + cameraXBF);
+						camFollow.x = (boyfriend.getMidpoint().x - 570 + cameraXBF);
 						
 					case 'animStage-old':
 						camFollow.set(852.9 + cameraXBF, 350 + cameraYBF);
@@ -3519,13 +3582,11 @@ class PlayState extends MusicBeatState
 		{
 			if (bsod != null) alphaTween([bsod], 1, 1);
 			if (bsod != null) colorTween([boyfriend], 1, 0xFF2C2425, FlxColor.WHITE);
-			if(CoolUtil.difficultyString() == 'INSANE') lossingHealthPlus = true;
 		}
 		else
 		{
 			if (bsod != null) alphaTween([bsod], 0, 1);
 			if (bsod != null) colorTween([boyfriend], 1, FlxColor.WHITE, 0xFF2C2425);
-			if(CoolUtil.difficultyString() == 'INSANE') lossingHealthPlus = false;
 		}
 	}
 
@@ -7990,32 +8051,57 @@ class PlayState extends MusicBeatState
 						veryEpicVignette.alpha = 0;
 						colorTween([boyfriend], 0.5, FlxColor.WHITE, FlxColor.BLACK);
 						dad.alpha = 0;
+						iconP2.alpha = 0;
+
+					case 262:
+						camGame.fade(FlxColor.WHITE, 0.4, false);
 						
 					case 264:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+						camGame.fade(FlxColor.WHITE, 0, true);
 
 						ytBGVideo.alpha = 0;
-						veryEpicVignette.alpha = 1;
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([]);
 						if (ClientPrefs.shaders) camHUD.setFilters([]);
 						boyfriend.color = FlxColor.WHITE;
 						dad.alpha = 1;
+						iconP2.alpha = 1;
+
+					case 326:
+						camBars.fade(FlxColor.BLACK, 0.4, false);
+
+					case 328:
+						camBars.fade(FlxColor.BLACK, 0, true);
+						veryEpicVignette.alpha = 1;
 
 					case 456:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						veryEpicVignette.alpha = 0;
 
+					case 516:
+						camGame.fade(FlxColor.WHITE, 0.8, false);
+						FlxTween.tween(veryEpicVignette, {alpha:0}, 0.5);
+
 					case 520:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+						camGame.fade(FlxColor.WHITE, 0, true);
+						FlxTween.tween(veryEpicVignette, {alpha:1}, 0.4);
 						
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([]);
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) camHUD.setFilters([]);
-						veryEpicVignette.alpha = 1;
 
+					case 392 | 584:
+						camGame.alpha = 0;
+						camBars.alpha = 0;
+					case 393:
+						camGame.alpha = 1;
+						camBars.alpha = 1;
 					case 585:
+						camGame.alpha = 1;
+						camBars.alpha = 1;
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						veryEpicVignette.color = FlxColor.ORANGE;
 						colorTween([alanBG, adobeWindow], 0.5, FlxColor.WHITE, 0xFF3A3A3A);
@@ -8027,7 +8113,7 @@ class PlayState extends MusicBeatState
 						particleEmitter.alpha.set(0, 0);
 
 					case 656:
-						camHUD.fade(FlxColor.BLACK, 2, false);
+						camHUD.fade(FlxColor.BLACK, 1.5, false);
 				}
 				
 			case 'aurora':
@@ -8045,7 +8131,7 @@ class PlayState extends MusicBeatState
 			case 'tune in':
 				switch(curBeat)
 				{
-					case 30 | 144:
+					case 30:
 						FlxTween.tween(ytBG, {alpha:0.25}, 0.3);
 					case 32:
 						vignetteTrojan.alpha = 1;
@@ -8058,7 +8144,7 @@ class PlayState extends MusicBeatState
 						bf3.alpha = 1;
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
 
-					case 48 | 68 | 116 | 144 | 240:
+					case 48 | 68 | 116 | 240:
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.LIME);
 
 					case 56 | 72 | 88 | 103 | 120 | 136 | 152 | 248:
@@ -8067,6 +8153,10 @@ class PlayState extends MusicBeatState
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.CYAN);
 					case 80 | 112 | 128 | 244:
 						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.ORANGE);
+
+					case 144:
+						FlxTween.color(vignetteTrojan, 0.3, vignetteTrojan.color, FlxColor.LIME);
+						FlxTween.tween(ytBG, {alpha:0.25}, 0.3);
 
 					case 158:
 					    camBars.fade(FlxColor.BLACK, 0.3, false);
@@ -8564,7 +8654,7 @@ class PlayState extends MusicBeatState
 				dad.playAnim('dou', true);
 				boyfriend.specialAnim = true;
 				dad.specialAnim = true;
-				FlxG.camera.shake(0.0025, 0.05);
+				FlxG.camera.shake(0.0045, 0.15);
 
 				FlxG.sound.play(Paths.sound('throwMic'), 0.8);
 

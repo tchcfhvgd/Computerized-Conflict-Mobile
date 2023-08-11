@@ -1,6 +1,8 @@
 TIBURONES:
 
 -Fixing the story menu
+- fix the left strum note position on the old songs
+- move the icons on freeplay a bit more up (like at the same position of the song text)
 
 MIJAE:
 

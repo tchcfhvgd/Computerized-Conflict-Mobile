@@ -1,8 +1,4 @@
 Trojan
 Dashpulse
 Alan - Tiburones
-
-
-
-
-Aurora - (I think this one is just getting for hotfix again | SKIP)
+Aurora

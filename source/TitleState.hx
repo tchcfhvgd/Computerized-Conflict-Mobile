@@ -37,6 +37,7 @@ import flixel.util.FlxTimer;
 import openfl.Assets;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import openfl.display.BlendMode;
 
 using StringTools;
 typedef TitleData =
@@ -59,20 +60,22 @@ class TitleState extends MusicBeatState
 	public static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
-	var scrollingThing:FlxBackdrop;
 	var spikes1:FlxBackdrop;
 	var spikes2:FlxBackdrop;
-	var chosenTDL:FlxSprite;
+	var chosenOne:FlxSprite;
+	var darkLord:FlxSprite;
 	var socialItems:FlxTypedGroup<FlxSprite>;
+	var alanSpr:FlxSprite;
 
 	var socialMedia:Array<String> = [
-		'twitter',
 		'gamebanana',
+		'x',
 		'gamejolt'
 	];
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
+	var smite:FlxSprite;
 
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -80,6 +83,8 @@ class TitleState extends MusicBeatState
 	var wackyImage:FlxSprite;
 
 	var titleJSON:TitleData;
+
+	var curWacky:Array<String> = [];
 
 	public static var updateVersion:String = '';
 
@@ -120,6 +125,8 @@ class TitleState extends MusicBeatState
 		PlayerSettings.init();
 
 		// DEBUG BULLSHIT
+
+		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		super.create();
 
@@ -173,10 +180,10 @@ class TitleState extends MusicBeatState
 
 	var logoBl:FlxSprite;
 	var danceLeft:Bool = false;
-	var titleText:FlxText;
+	var titleText:FlxSprite;
 	var bg:FlxSprite;
+	var bg2:FlxSprite;
 	var vignette:FlxSprite;
-	var bluething:FlxSprite;
 
 	function startIntro()
 	{
@@ -214,45 +221,54 @@ class TitleState extends MusicBeatState
 		bg = new FlxSprite();
 
 		bg.loadGraphic(Paths.image('title/background'));
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.alpha = 0;
 		add(bg);
 
-		scrollingThing = new FlxBackdrop(Paths.image('Main_Checker'), XY, 0, 0);
-		scrollingThing.setGraphicSize(Std.int(scrollingThing.width * 0.5));
-		scrollingThing.alpha = 0;
-		add(scrollingThing);
+		bg2 = new FlxSprite();
+		bg2.frames = Paths.getSparrowAtlas('title/background2');
+		bg2.antialiasing = ClientPrefs.globalAntialiasing;
+		bg2.animation.addByPrefix('anim', 'Símbolo 1', 60, true);
+		bg2.animation.play('anim');
+		bg2.screenCenter();
+		bg2.alpha = 0;
+		bg2.blend = MULTIPLY;
+		add(bg2);
 
-		vignette = new FlxSprite();
-		vignette.loadGraphic(Paths.image('title/vignette'));
+		vignette = new FlxSprite().loadGraphic(Paths.image('title/vignetteThings'));
 		vignette.alpha = 0;
 		add(vignette);
 
-		bluething = new FlxSprite();
-		bluething.loadGraphic(Paths.image('title/shit'));
-		bluething.alpha = 0;
-		add(bluething);
+		chosenOne = new FlxSprite().loadGraphic(Paths.image('title/chosenOne'));
+		chosenOne.alpha = 0;
+		chosenOne.antialiasing = ClientPrefs.globalAntialiasing;
+		add(chosenOne);
 
-		logoBl = new FlxSprite(1250, 130);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
+		darkLord = new FlxSprite((FlxG.width / 2), 0).loadGraphic(Paths.image('title/darkLord'));
+		darkLord.alpha = 0;
+		darkLord.antialiasing = ClientPrefs.globalAntialiasing;
+		add(darkLord);
 
+		smite = new FlxSprite();
+		smite.frames = Paths.getSparrowAtlas('title/thing');
+		smite.antialiasing = ClientPrefs.globalAntialiasing;
+		smite.animation.addByPrefix('do', 'yo', 24, true);
+		smite.animation.play('do');
+		smite.setGraphicSize(Std.int(smite.width * 0.8));
+		smite.screenCenter();
+		smite.alpha = 0;
+		add(smite);
+
+		logoBl = new FlxSprite(-1200, 0).loadGraphic(Paths.image('title/logo'));
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
-		logoBl.setGraphicSize(Std.int(logoBl.width * 0.6));
-		logoBl.updateHitbox();
-		// logoBl.screenCenter();
-		// logoBl.color = FlxColor.BLACK;
+		logoBl.setGraphicSize(Std.int(logoBl.width * 0.45));
 		add(logoBl);
 
-		chosenTDL = new FlxSprite(-800);
-		chosenTDL.frames = Paths.getSparrowAtlas('title/ChosenTDL-title');
-		chosenTDL.animation.addByPrefix('idle', 'ChosenTDL title', 24, false);
-		chosenTDL.setGraphicSize(Std.int(chosenTDL.width * 0.8));
-		add(chosenTDL);
-
-		titleText = new FlxText(450, 550, 0, "Press Enter To Begin!", 40);
-		titleText.setFormat(Paths.font("phantommuff.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		titleText.borderSize = 4;
+		titleText = new FlxSprite().loadGraphic(Paths.image('title/startText'));
+		titleText.antialiasing = ClientPrefs.globalAntialiasing;
+		titleText.setGraphicSize(Std.int(titleText.width * 0.5));
+		titleText.screenCenter();
+		titleText.y += 200;
 		titleText.alpha = 0;
 		add(titleText);
 		
@@ -282,13 +298,6 @@ class TitleState extends MusicBeatState
 			socialItem.antialiasing = ClientPrefs.globalAntialiasing;
 		}
 
-
-
-		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
-		logo.screenCenter();
-		logo.antialiasing = ClientPrefs.globalAntialiasing;
-		// add(logo);
-
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
 
@@ -305,6 +314,14 @@ class TitleState extends MusicBeatState
 		// credTextShit.alignment = CENTER;
 
 		credTextShit.visible = false;
+
+		alanSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('alanCursor'));
+		add(alanSpr);
+		alanSpr.visible = false;
+		alanSpr.setGraphicSize(Std.int(alanSpr.width * 0.8));
+		alanSpr.updateHitbox();
+		alanSpr.screenCenter(X);
+		alanSpr.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -339,6 +356,8 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		FlxG.watch.addQuick("beatShit", curBeat);
+
 		for (i in 0...socialMedia.length)
 		{
 			if (socialItems != null)
@@ -350,9 +369,9 @@ class TitleState extends MusicBeatState
 					switch(i)
 					{
 						case 0:
-							CoolUtil.browserLoad('https://twitter.com/Vs_TheChosenOne');
-						case 1:
 							CoolUtil.browserLoad('https://gamebanana.com/mods/340817');
+						case 1:
+							CoolUtil.browserLoad('https://x.com/Vs_TheChosenOne');
 						case 2:
 							CoolUtil.browserLoad('https://gamejolt.com/games/VsTheChosenOne/687592');
 					}
@@ -406,34 +425,28 @@ class TitleState extends MusicBeatState
 
 				timer = FlxEase.quadInOut(timer);
 
-				titleText.color = FlxColor.interpolate(titleTextColors[0], titleTextColors[1], timer);
 				titleText.alpha = FlxMath.lerp(titleTextAlphas[0], titleTextAlphas[1], timer);
 			}
 
 			if(pressedEnter)
 			{
-				titleText.color = FlxColor.WHITE;
 				titleText.alpha = 1;
 
-				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
+				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.7);
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
 				// FlxG.sound.music.stop();
 
-				new FlxTimer().start(1, function(tmr:FlxTimer)
+				FlxG.camera.shake(0.0045, 1);
+				FlxTween.tween(FlxG.camera, {zoom: 3}, 1.5, {ease: FlxEase.expoIn});
+				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 				{
-					FlxTween.tween(FlxG.camera, {zoom: 3}, 1.5, {ease: FlxEase.expoIn});
-					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
-					{
-					    MusicBeatState.switchState(new MainMenuState());
-					});
-
-					FlxG.mouse.visible = false;
-
-					closedState = true;
+				    MusicBeatState.switchState(new MainMenuState());
 				});
-				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
+
+				FlxG.mouse.visible = false;
+				closedState = true;
 			}
 		}
 
@@ -443,10 +456,7 @@ class TitleState extends MusicBeatState
 		}
 
 		if (initialized)
-		{
-			scrollingThing.x -= 0.45 * 60 * elapsed;
-			scrollingThing.y -= 0.16 * 60 * elapsed;
-			
+		{	
 			spikes1.x -= 0.45 * 60 * elapsed;
 			spikes2.x -= 0.45 * 60 * elapsed;
 		}
@@ -459,12 +469,14 @@ class TitleState extends MusicBeatState
 		for (i in 0...textArray.length)
 		{
 			var money:FlxText = new FlxText(0, 0, FlxG.width, textArray[i], 48);
-			money.setFormat("phantommuff.ttf", 48, FlxColor.WHITE, CENTER);
+			money.setFormat("vcr.ttf", 48, FlxColor.WHITE, CENTER);
 			money.screenCenter(X);
 			money.y += (i * 60) + 200 + offset;
+			money.alpha =  0.00001;
 			if(credGroup != null && textGroup != null) {
 				credGroup.add(money);
 				textGroup.add(money);
+				FlxTween.tween(money, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 			}
 		}
 	}
@@ -473,9 +485,11 @@ class TitleState extends MusicBeatState
 	{
 		if(textGroup != null && credGroup != null) {
 			var coolText:FlxText = new FlxText(0, 0, FlxG.width, text, 48);
-			coolText.setFormat("phantommuff.ttf", 48, FlxColor.WHITE, CENTER);
+			coolText.setFormat("vcr.ttf", 48, FlxColor.WHITE, CENTER);
 			coolText.screenCenter(X);
 			coolText.y += (textGroup.length * 60) + 200 + offset;
+			coolText.alpha =  0.00001;
+			FlxTween.tween(coolText, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 			credGroup.add(coolText);
 			textGroup.add(coolText);
 		}
@@ -496,12 +510,6 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if(logoBl != null)
-			logoBl.animation.play('bump', true);
-
-		if(chosenTDL != null)
-			chosenTDL.animation.play('idle', true);
-
 		if (!closedState) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 
 		if(!closedState) {
@@ -518,39 +526,71 @@ class TitleState extends MusicBeatState
 					addMoreText('proudly presents...', 15);
 				case 4:
 					deleteCoolText();
-					createCoolText(['After 1 year and more of work'], 15);
+					createCoolText(['A stickfigure mod'], 15);
 				case 5:
-					addMoreText('Its finally here...', 15);
+					addMoreText('very cool huh?', 15);
 				case 6:
 					deleteCoolText();
-					createCoolText(['Animation vs.'], -40);
+					createCoolText(['el pepe'], 15);
 				case 7:
-					addMoreText('by: Alan Becker', -40);
-				case 8:
 					deleteCoolText();
-					createCoolText(['The ultimate stickfigure mod?'], 15);
+					createCoolText(['Animation vs.'], 15);
+				case 8:
+					addMoreText('by: Alan Becker', 15);
+					alanSpr.visible = true;
 				case 9:
-					addMoreText('Idk maybe', 15);
+					alanSpr.visible = false;
+					deleteCoolText();
+					createCoolText(['Mod is meant to'], 15);
 				case 10:
+					addMoreText('be played with shaders', 15);
+				case 11:
+					deleteCoolText();
+					createCoolText(['Timeline FNF'], 15);
+				case 12:
+					addMoreText('cool song', 15);
+				case 13:
+					deleteCoolText();
+					createCoolText(['Guys sorry'], 15);
+				case 14:
+					addMoreText('for the 1 year waiting', 15);
+				case 15:
+					deleteCoolText();
+					createCoolText(['so retro...'], 15);
+				case 16:
+					addMoreText('do you guys like this title screen?', 15);
+				case 17:
+					deleteCoolText();
+					createCoolText(['you should also play'], 15);
+				case 18:
+					addMoreText('(insert mod name here)', 15);
+				case 19:
+					deleteCoolText();
+					createCoolText(['idk what to put here'], 15);
+				case 20:
+					addMoreText('anymore :(((', 15);
+				case 21:
+					deleteCoolText();
+					createCoolText([curWacky[0]]);
+				case 22:
+					addMoreText(curWacky[1]);
+				case 23:
 					deleteCoolText();
 					createCoolText(['Vs. The Chosen One?'], 15);
-				case 11:
-					addMoreText('More like...', 15);
-				case 12:
-					deleteCoolText();
-				case 13:
-					createCoolText(['i shat'], 15);
-				case 14:
-					addMoreText('in my pants', 15);
-					//if(!skippedIntro) FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.45);
-					//f (credGroup != null) remove(credGroup);
 
-					//if (chosenTDL != null) FlxTween.tween(chosenTDL, { x: -50 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+			    case 24:
+					addMoreText('More like...', 15);
 				case 25:
 					if (credGroup != null) remove(credGroup);
-					if (logoBl != null) FlxTween.tween(logoBl, { x: 700 }, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+					if (logoBl != null) FlxTween.tween(logoBl, {x: (FlxG.width / 2)}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut});
+				case 28:
+					FlxTween.tween(FlxG.camera, {zoom: -1}, 2, {ease: FlxEase.backInOut});
+				case 30:
+					FlxG.cameras.fade(FlxColor.WHITE, 1, false);
 				case 33:
+					FlxG.cameras.fade(FlxColor.WHITE, 0, true);
 					skipIntro();
+					FlxG.camera.zoom = 1;
 			}
 		}
 	}
@@ -580,8 +620,9 @@ class TitleState extends MusicBeatState
 						sound = FlxG.sound.play(Paths.sound('JingleBB'));
 
 					default: //Go back to normal ugly ass boring GF
+					    remove(alanSpr);
 						remove(credGroup);
-						FlxG.camera.flash(FlxColor.WHITE, 2);
+						FlxG.camera.flash(FlxColor.WHITE, 0.7);
 						skippedIntro = true;
 						playJingle = false;
 
@@ -602,8 +643,9 @@ class TitleState extends MusicBeatState
 				}
 				else
 				{
+					remove(alanSpr);
 					remove(credGroup);
-					FlxG.camera.flash(FlxColor.WHITE, 3);
+					FlxG.camera.flash(FlxColor.WHITE, 0.7);
 					sound.onComplete = function() {
 						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
@@ -614,26 +656,25 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
+				remove(alanSpr);
 				if (credGroup != null) remove(credGroup);
-				chosenTDL.x = -50;
-				logoBl.x = 700;
-				FlxG.camera.flash(FlxColor.WHITE, 4);
-				bluething.alpha = 1;
+				logoBl.screenCenter();
+				FlxG.camera.flash(FlxColor.WHITE, 1.2);
 				vignette.alpha = 1;
-				scrollingThing.alpha = 1;
 				bg.alpha = 1;
+				bg2.alpha = 1;
 				titleText.alpha = 1;
+				smite.alpha = 1;
+				FlxG.cameras.fade(FlxColor.WHITE, 0, true);
+				FlxG.camera.zoom = 1;
+				chosenOne.alpha = 1;
+				darkLord.alpha = 1;
+
 				socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);
 
 				FlxG.mouse.visible = true;
 
 				FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
-
-		        if (chosenTDL != null)
-		            FlxTween.tween(chosenTDL, { y: -7.3 }, Conductor.crochet * 0.002, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
-
-		        if (logoBl != null)
-		            FlxTween.tween(logoBl, { y: 123.3 }, Conductor.crochet * 0.002, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';

@@ -46,7 +46,7 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("PhantomMuff 1.5", 14, color);
+		defaultTextFormat = new TextFormat("vcr.ttf", 15, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
