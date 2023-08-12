@@ -4715,11 +4715,19 @@ class PlayState extends MusicBeatState
 					var add2:Int = 200;
 					if(oldVideoResolution) add = 310;
 					if(oldVideoResolution) add2 = 30;
+
 					babyArrow.x += add;
 					if(i > 1) { //Up and Right
 						babyArrow.x += FlxG.width / 2 + add2;
 					}
 				}
+
+				if (uiType == 'psychDef')
+				{
+					if (i == 0) babyArrow.x += babyArrow.width - 30;
+					if (!ClientPrefs.middleScroll) babyArrow.x += 17;
+				}
+
 
 				opponentStrums.add(babyArrow);
 			}

@@ -80,7 +80,7 @@ class FreeplayState extends MusicBeatState
 
 	public static var alanSongs:Array<String> = 
 	['trojan', 'conflict', 'dashpulse', 'time travel', 'cubify', 'kickstarter', 'contrivance', 'messenger', 'amity', 
-	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm'];
+	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm', 'aurora'];
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 
@@ -185,8 +185,9 @@ class FreeplayState extends MusicBeatState
 
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
-			icon.y -= 50;
+			icon.y -= 70;
 			icon.sprTracker = songText;
+			icon.yAdd -= 10;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
