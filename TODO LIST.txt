@@ -1,13 +1,11 @@
 TIBURONES:
 
--Fixing the story menu
-- fix the left strum note position on the old songs
-- move the icons on freeplay a bit more up (like at the same position of the song text)
+
+
 
 MIJAE:
 
--Finish story menu + art (27 july)
+-story menu art (27 july)
 -Polish and finish Freeplay Selection (28-30 july)
 -Finish Title State (august 1?)
--Fixing the icons not getting bigger in freeplay when you go too fast (idk)
 -Finish the other songs events grrrjkjdfkjdksfo (rest of the week)
