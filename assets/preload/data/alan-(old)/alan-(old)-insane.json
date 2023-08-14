@@ -9609,7 +9609,7 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "cursor",
+		"player2": "cursor-old",
 		"player3": "gf",
 		"song": "Alan (Old)",
 		"stage": "whiteSpace",

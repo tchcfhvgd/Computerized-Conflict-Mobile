@@ -161,7 +161,8 @@ class OptionsState extends MusicBeatState
 				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
 				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 				{
-					MusicBeatState.switchState(new MainMenuState());
+					if(TitleState.instance.titleOptions) MusicBeatState.switchState(new TitleState());
+					else MusicBeatState.switchState(new MainMenuState());
 				});
 			}
 	

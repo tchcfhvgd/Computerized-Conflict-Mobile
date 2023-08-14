@@ -2,7 +2,7 @@
 	"song": {
 		"player1": "bf",
 		"composer": "Joa",
-		"player2": "cursor",
+		"player2": "cursor-old",
 		"notes": [
 			{
 				"lengthInSteps": 16,

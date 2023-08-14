@@ -66,6 +66,7 @@ class TitleState extends MusicBeatState
 	var darkLord:FlxSprite;
 	var socialItems:FlxTypedGroup<FlxSprite>;
 	var alanSpr:FlxSprite;
+	public static var instance:TitleState;
 
 	var socialMedia:Array<String> = [
 		'gamebanana',
@@ -76,6 +77,7 @@ class TitleState extends MusicBeatState
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
 	var smite:FlxSprite;
+	var doNotZoom:Bool = false;
 
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -87,6 +89,11 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	public static var updateVersion:String = '';
+
+	var optionShortCut:FlxSprite;
+
+	public var titleOptions:Bool = false;
+	var bump:Bool = false;
 
 	override public function create():Void
 	{
@@ -127,6 +134,8 @@ class TitleState extends MusicBeatState
 		// DEBUG BULLSHIT
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
+
+		instance = this;
 
 		super.create();
 
@@ -239,12 +248,12 @@ class TitleState extends MusicBeatState
 		vignette.alpha = 0;
 		add(vignette);
 
-		chosenOne = new FlxSprite().loadGraphic(Paths.image('title/chosenOne'));
+		chosenOne = new FlxSprite(0, 800).loadGraphic(Paths.image('title/chosenOne'));
 		chosenOne.alpha = 0;
 		chosenOne.antialiasing = ClientPrefs.globalAntialiasing;
 		add(chosenOne);
 
-		darkLord = new FlxSprite((FlxG.width / 2), 0).loadGraphic(Paths.image('title/darkLord'));
+		darkLord = new FlxSprite((FlxG.width / 2), 800).loadGraphic(Paths.image('title/darkLord'));
 		darkLord.alpha = 0;
 		darkLord.antialiasing = ClientPrefs.globalAntialiasing;
 		add(darkLord);
@@ -259,7 +268,7 @@ class TitleState extends MusicBeatState
 		smite.alpha = 0;
 		add(smite);
 
-		logoBl = new FlxSprite(-1200, 0).loadGraphic(Paths.image('title/logo'));
+		logoBl = new FlxSprite(-1280, -55).loadGraphic(Paths.image('title/logo'));
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.setGraphicSize(Std.int(logoBl.width * 0.45));
 		add(logoBl);
@@ -298,6 +307,12 @@ class TitleState extends MusicBeatState
 			socialItem.antialiasing = ClientPrefs.globalAntialiasing;
 		}
 
+		optionShortCut = new FlxSprite(1200, 15).loadGraphic(Paths.image('title/optionsShortcut'));
+		optionShortCut.alpha = 0;
+		optionShortCut.setGraphicSize(Std.int(optionShortCut.width * 0.85));
+		add(optionShortCut);
+		optionShortCut.antialiasing = ClientPrefs.globalAntialiasing;
+
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
 
@@ -315,7 +330,7 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		alanSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('alanCursor'));
+		alanSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('title/alanCursor'));
 		add(alanSpr);
 		alanSpr.visible = false;
 		alanSpr.setGraphicSize(Std.int(alanSpr.width * 0.8));
@@ -379,6 +394,15 @@ class TitleState extends MusicBeatState
 			}
 		}
 
+		if(optionShortCut != null && FlxG.mouse.overlaps(optionShortCut) && FlxG.mouse.justPressed)
+		{
+			FlxG.sound.play(Paths.sound('mouseClick'));
+			MusicBeatState.switchState(new options.OptionsState());
+			titleOptions = true;
+			bump = false;
+			closedState = true;
+		}
+
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
@@ -391,6 +415,7 @@ class TitleState extends MusicBeatState
 			if (touch.justPressed)
 			{
 				pressedEnter = true;
+				bump = false;
 			}
 		}
 		#end
@@ -443,6 +468,9 @@ class TitleState extends MusicBeatState
 				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 				{
 				    MusicBeatState.switchState(new MainMenuState());
+					titleOptions = false;
+					bump = false;
+					doNotZoom = false;
 				});
 
 				FlxG.mouse.visible = false;
@@ -510,7 +538,12 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if (!closedState) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		if (!closedState && doNotZoom) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		if(!closedState && bump)
+		{
+			if (chosenOne != null)  FlxTween.tween(chosenOne, { y: -7.3 }, Conductor.crochet * 0.1000, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+			if (darkLord != null)  FlxTween.tween(darkLord, { y: -7.3 }, Conductor.crochet * 0.1000, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+		}
 
 		if(!closedState) {
 			sickBeats++;
@@ -582,15 +615,25 @@ class TitleState extends MusicBeatState
 					addMoreText('More like...', 15);
 				case 25:
 					if (credGroup != null) remove(credGroup);
-					if (logoBl != null) FlxTween.tween(logoBl, {x: (FlxG.width / 2)}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut});
+					if (logoBl != null) FlxTween.tween(logoBl, {x: 166}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut});
 				case 28:
-					FlxTween.tween(FlxG.camera, {zoom: -1}, 2, {ease: FlxEase.backInOut});
+					if(!skippedIntro)
+						{
+							doNotZoom = true;
+							FlxTween.tween(FlxG.camera, {zoom: 0.5}, 5, {ease: FlxEase.backInOut, onComplete: function(tween:FlxTween){
+								FlxG.camera.zoom = 1;
+							}});
+						}
 				case 30:
-					FlxG.cameras.fade(FlxColor.WHITE, 1, false);
+					if(!skippedIntro) FlxG.cameras.fade(FlxColor.WHITE, 1, false);
 				case 33:
 					FlxG.cameras.fade(FlxColor.WHITE, 0, true);
 					skipIntro();
 					FlxG.camera.zoom = 1;
+					if (darkLord != null) FlxTween.tween(darkLord, {y: 0}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut, startDelay: 0.5});
+					if (chosenOne != null) FlxTween.tween(chosenOne, {y: 0}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut, startDelay: 0.5, onComplete: function(tween:FlxTween){
+						bump = true;
+					}});
 			}
 		}
 	}
@@ -669,8 +712,13 @@ class TitleState extends MusicBeatState
 				FlxG.camera.zoom = 1;
 				chosenOne.alpha = 1;
 				darkLord.alpha = 1;
+				chosenOne.y = 0;
+				darkLord.y = 0;
+				bump = true;
+				doNotZoom = false;
 
 				socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);
+				optionShortCut.alpha = 1;
 
 				FlxG.mouse.visible = true;
 

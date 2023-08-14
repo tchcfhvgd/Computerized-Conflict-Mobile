@@ -592,6 +592,8 @@ class PlayState extends MusicBeatState
 	var textTween:FlxTween;
 	var textTweenAlpha:FlxTween;
 
+	public var fishEyeshader = new FishEyeShader();
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -672,7 +674,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 
-		if (SONG.song.toLowerCase() == 'amity' || SONG.song.toLowerCase() == 'trojan') FlxG.cameras.add(camChar, false);
+		if (SONG.song.toLowerCase() == 'amity' || SONG.song.toLowerCase() == 'trojan' || SONG.song.toLowerCase() == 'alan') FlxG.cameras.add(camChar, false);
 
 		FlxG.cameras.add(camBars, false);
 		FlxG.cameras.add(camHUD, false);
@@ -1571,13 +1573,13 @@ class PlayState extends MusicBeatState
 					adobeWindow.y -= 900;
 					adobeWindow.x += 1500;
 					
-					ytBGVideo = new BGSprite('trojan/alan_desktop', BF_X - 950, BF_Y - 80, 1, 1);
+					ytBGVideo = new BGSprite('trojan/alan_desktop', BF_X - 1150, BF_Y + 450, 0, 0);
 					ytBGVideo.setGraphicSize(Std.int(ytBGVideo.width * 1.15));
-					ytBGVideo.shader = new CRTShader();
 					ytBGVideo.alpha = 0;
 					
 					bgVideoPrecacher = new MP4Handler();
 					bgVideoPrecacher.playVideo(Paths.video('alan-video'), false);
+					bgVideoPrecacher.playVideo(Paths.video('alan-video2'), false);
 					bgVideoPrecacher.visible = false;
 					bgVideoPrecacher.volume = 0;
 
@@ -1611,6 +1613,12 @@ class PlayState extends MusicBeatState
 					veryEpicVignette.alpha = 0;
 					veryEpicVignette.cameras = [camBars];
 					add(veryEpicVignette);
+
+					glow= new BGSprite('coolAlanGlow', 0, 0, 1, 1);
+					glow.screenCenter();
+					glow.updateHitbox();
+					glow.cameras = [camBars];
+					add(glow);
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
@@ -1631,7 +1639,7 @@ class PlayState extends MusicBeatState
 					//default shader for alan
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0035));
 					
-					camGame.fade(FlxColor.BLACK, 0, false);
+					camBars.fade(FlxColor.BLACK, 0, false);
 					camHUD.alpha = 0;
 				}
 
@@ -4977,7 +4985,7 @@ class PlayState extends MusicBeatState
 					laggyText.screenCenter();
 				}else{
 					laggyText = new FlxText(0, 0, FlxG.width, "IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE SHADERS", 20);
-					laggyText.setFormat(Paths.font("phantommuff.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					laggyText.setFormat(Paths.font("phantommuff.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					laggyText.borderSize = 2;
 					laggyText.visible = !ClientPrefs.hideHud;
 					laggyText.cameras = [camOther];
@@ -8027,7 +8035,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 1:
-						FlxG.camera.fade(FlxColor.BLACK, 10, true);
+						camBars.fade(FlxColor.BLACK, 10, true);
 						
 					case 12:
 						FlxTween.tween(camHUD, {alpha:1}, 1.8);
@@ -8048,50 +8056,90 @@ class PlayState extends MusicBeatState
 						videoTI.volume = 0;
 						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new CRTShader())]);
+						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(new CRTShader())]);
 						veryEpicVignette.alpha = 0;
 						colorTween([boyfriend], 0.5, FlxColor.WHITE, FlxColor.BLACK);
 						dad.alpha = 0;
 						iconP2.alpha = 0;
+						glow.alpha = 0;
+						camChar.alpha = 0.85;
+						camChar.flash(FlxColor.BLACK, 0.85);
+						boyfriend.cameras = [camChar];
+						boyfriend.y += 580;
+						boyfriend.x += 50;
 
 					case 262:
-						camGame.fade(FlxColor.WHITE, 0.4, false);
+						camChar.fade(FlxColor.WHITE, 0.4, false);
 						
 					case 264:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
-						camGame.fade(FlxColor.WHITE, 0, true);
-
+						camChar.fade(FlxColor.WHITE, 0, true);
+						boyfriendGroup.cameras = [camGame];
 						ytBGVideo.alpha = 0;
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([]);
 						if (ClientPrefs.shaders) camHUD.setFilters([]);
+						if (ClientPrefs.shaders) camChar.setFilters([]);
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						blackBG.alpha = 0.5;
+
 						boyfriend.color = FlxColor.WHITE;
+						glow.alpha = 1;
 						dad.alpha = 1;
 						iconP2.alpha = 1;
 
 					case 326:
 						camBars.fade(FlxColor.BLACK, 0.4, false);
-
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([]);
+						if (ClientPrefs.shaders) camHUD.setFilters([]);
 					case 328:
 						camBars.fade(FlxColor.BLACK, 0, true);
 						veryEpicVignette.alpha = 1;
+						blackBG.alpha = 0;
 
 					case 456:
+						videoTI = new MP4Handler();
+						videoTI.playVideo(Paths.video('alan-video2'), true);
+						videoTI.visible = false;
+						videoTI.volume = 0;
+						ytBGVideo.alpha = 1;
+						FlxG.stage.removeEventListener('enterFrame', @:privateAccess videoTI.update);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new CRTShader())]);
 						veryEpicVignette.alpha = 0;
+						glow.alpha = 0;
+						boyfriend.y -= 580;
+						boyfriend.x -= 50;
+						alanBG.color = FlxColor.BLACK;
+						adobeWindow.color = FlxColor.BLACK;
 
 					case 516:
 						camGame.fade(FlxColor.WHITE, 0.8, false);
 						FlxTween.tween(veryEpicVignette, {alpha:0}, 0.5);
+						FlxTween.tween(glow, {alpha:0}, 0.5);
 
 					case 520:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						camGame.fade(FlxColor.WHITE, 0, true);
 						FlxTween.tween(veryEpicVignette, {alpha:1}, 0.4);
+						FlxTween.tween(glow, {alpha:1}, 0.4);
+						ytBGVideo.alpha = 0;
+						alanBG.color = FlxColor.WHITE;
+						adobeWindow.color = FlxColor.WHITE;
 						
-						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders)
+						{
+							FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(fishEyeshader)]);
+							fishEyeshader.MAX_POWER.value = [0.15];
+						}
+
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([]);
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) camHUD.setFilters([]);
+
+					case 580:
+						FlxTween.tween(blackBG, {alpha:0.5}, 0.4);
 
 					case 392 | 584:
 						camGame.alpha = 0;
@@ -8106,11 +8154,15 @@ class PlayState extends MusicBeatState
 						veryEpicVignette.color = FlxColor.ORANGE;
 						colorTween([alanBG, adobeWindow], 0.5, FlxColor.WHITE, 0xFF3A3A3A);
 						particleEmitter.alpha.set(1, 1);
+						glow.alpha = 0;
+						fishEyeshader.MAX_POWER.value = [0.30];
+						constantShake = true;
 
 					case 648:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
 						alphaTween([veryEpicVignette], 0, 1);
 						particleEmitter.alpha.set(0, 0);
+						constantShake = false;
 
 					case 656:
 						camHUD.fade(FlxColor.BLACK, 1.5, false);

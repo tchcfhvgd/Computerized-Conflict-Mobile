@@ -4,72 +4,63 @@
 			"loop": false,
 			"offsets": [
 				140,
-				-100
+				30
 			],
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
-			"name": "Left"
+			"name": "left"
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-50,
-				-120
+				-1,
+				-15
 			],
 			"fps": 24,
 			"anim": "singDOWN",
 			"indices": [],
-			"name": "Down"
+			"name": "down"
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-50,
-				25
+				20,
+				106
 			],
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
-			"name": "Up"
+			"name": "up"
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-70,
-				-100
+				-19,
+				34
 			],
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "Right"
+			"name": "right"
 		},
 		{
 			"offsets": [
 				0,
 				0
 			],
-			"indices": [
-				6,
-				7,
-				8,
-				9,
-				10,
-				11,
-				12,
-				13
-			],
+			"loop": false,
 			"fps": 24,
 			"anim": "idle",
-			"loop": true,
-			"name": "Idle"
+			"indices": [],
+			"name": "idle"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/CC/old/Cursor",
+	"image": "characters/CC/mouse",
 	"position": [
-		100,
-		250
+		10,
+		140
 	],
 	"healthicon": "alan",
 	"flip_x": false,
@@ -79,9 +70,9 @@
 		255
 	],
 	"camera_position": [
-		0,
-		0
+		-20,
+		110
 	],
 	"sing_duration": 4,
-	"scale": 1
+	"scale": 0.5
 }
