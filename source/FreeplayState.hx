@@ -288,10 +288,13 @@ class FreeplayState extends MusicBeatState
 		if(songName.toLowerCase() == 'alan') skipAdd = !CoolUtil.songsUnlocked.data.alanUnlocked;
 
 		if (skipAdd) return;
-			
-		var iconChar:String = CoolUtil.songsUnlocked.data.songsPlayed.contains(songName.toLowerCase()) ? songCharacter : 'interrogaciones';
+		
+		var wasPlayed:Bool = CoolUtil.songsUnlocked.data.songsPlayed.contains(songName.toLowerCase());
 
-		songs.push(new SongMetadata(songName, weekNum, iconChar, color));
+		var iconChar:String = wasPlayed ? songCharacter : 'interrogaciones';
+		var colorSong:Int = wasPlayed ? color : -1;
+
+		songs.push(new SongMetadata(songName, weekNum, iconChar, colorSong));
 	}
 
 	function weekIsLocked(name:String):Bool {
@@ -458,15 +461,7 @@ class FreeplayState extends MusicBeatState
 					persistentUpdate = false;
 					var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 					var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
-					/*#if MODS_ALLOWED
-					if(!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
-					#else
-					if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
-					#end
-						poop = songLowercase;
-						curDifficulty = 1;
-						trace('Couldnt find file');
-					}*/
+
 					trace(poop);
 		
 					PlayState.SONG = Song.loadFromJson(poop, songLowercase);
@@ -585,7 +580,9 @@ class FreeplayState extends MusicBeatState
 			});
 		}
 
-		bg.loadGraphic(Paths.image('freeplayArt/freeplayImages/bgs/' + songName));
+		var daBG:String = songHasBeenPlayed ? songName : 'no bg';
+
+		bg.loadGraphic(Paths.image('freeplayArt/freeplayImages/bgs/' + daBG));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.screenCenter();
 
