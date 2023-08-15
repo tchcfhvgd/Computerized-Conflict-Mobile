@@ -3038,6 +3038,13 @@ class PlayState extends MusicBeatState
 			funnyArray = [];
 		}
 
+		if(!CoolUtil.songsUnlocked.data.songsPlayed.contains(SONG.song.toLowerCase()))
+		{
+			trace('played ${SONG.song.toLowerCase()} for the first time');
+
+			CoolUtil.songsUnlocked.data.songsPlayed.push(SONG.song.toLowerCase());
+		}
+
 		if (isStoryMode)
 		{
 			FlxG.save.data.checkpoint = 

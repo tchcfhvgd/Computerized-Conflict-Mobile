@@ -289,7 +289,9 @@ class FreeplayState extends MusicBeatState
 
 		if (skipAdd) return;
 			
-		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+		var iconChar:String = CoolUtil.songsUnlocked.data.songsPlayed.contains(songName.toLowerCase()) ? songCharacter : 'interrogaciones';
+
+		songs.push(new SongMetadata(songName, weekNum, iconChar, color));
 	}
 
 	function weekIsLocked(name:String):Bool {
@@ -567,6 +569,9 @@ class FreeplayState extends MusicBeatState
 			alphaTween.cancel();
 		}
 
+		var songName:String = songs[curSelected].songName;
+		var songHasBeenPlayed:Bool = CoolUtil.songsUnlocked.data.songsPlayed.contains(songName.toLowerCase());
+
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
@@ -580,11 +585,13 @@ class FreeplayState extends MusicBeatState
 			});
 		}
 
-		bg.loadGraphic(Paths.image('freeplayArt/freeplayImages/bgs/' + songs[curSelected].songName));
+		bg.loadGraphic(Paths.image('freeplayArt/freeplayImages/bgs/' + songName));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.screenCenter();
 
-		featuredChar.loadGraphic(Paths.image('freeplayArt/freeplayImages/art/' + songs[curSelected].songName));
+		var featuredImage:String = songHasBeenPlayed ? songName : 'no one';
+
+		featuredChar.loadGraphic(Paths.image('freeplayArt/freeplayImages/art/${featuredImage}'));
 		featuredChar.antialiasing = ClientPrefs.globalAntialiasing;
 		featuredChar.setGraphicSize(Std.int(featuredChar.width * 0.8));
 		featuredChar.screenCenter();
@@ -611,8 +618,8 @@ class FreeplayState extends MusicBeatState
 		// selector.y = (70 * curSelected) + 30;
 
 		#if !switch
-		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
-		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
+		intendedScore = Highscore.getScore(songName, curDifficulty);
+		intendedRating = Highscore.getRating(songName, curDifficulty);
 		#end
 
 		var bullShit:Int = 0;
