@@ -213,6 +213,7 @@ class MainMenuState extends MusicBeatState
 				{
 					CoolUtil.songsUnlocked.data.alanSongs.set(FreeplayState.alanSongs[i], false);
 				}
+				
 				CoolUtil.songsUnlocked.data.cutsceneSeen = false;
 			}
 

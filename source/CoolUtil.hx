@@ -39,6 +39,8 @@ class CoolUtil
 
 	public static var songsUnlocked:FlxSave;
 
+	public static var hasPlayedAnOldSong:Bool = false; //for the old ui apparently
+
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol
 		var m:Float = Math.fround(f * snap);
