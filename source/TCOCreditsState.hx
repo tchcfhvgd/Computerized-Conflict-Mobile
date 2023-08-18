@@ -98,7 +98,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("Noogai", "noogai", "Sprite Artist", 0xFF5BFFDC, "Never gonna give you up, never gonna let you down, never gonna run around and desert you. Never gonna make you cry, never gonna say goodbye, never gonna tell you a lie and give you EMOTIONAL DAMAGE"),
 			new CreditsMetadata("Plagee", "plage", "Sprite Artist", 0xFF8DF1DC, "hello everyone"),
 			new CreditsMetadata("Dittosactualoreo", "Ditto", "Sprite/Background Artist", 0xFFFF00AA, "the person below me kisses men"),
-			new CreditsMetadata("12kNoodles", "noodles", "Background Artist", 0xFFFF3CBE, "Hello Neighbor is a stealth horror game about sneaking into your neighbor's house to figure out what horrible secrets he's hiding in the basement. You play against an advanced AI that learns from your every move. Really enjoying climbing through that backyard window? Expect a bear trap there."),
+			new CreditsMetadata("Noddles", "noodles", "Background Artist", 0xFFFF3CBE, "Hello Neighbor is a stealth horror game about sneaking into your neighbor's house to figure out what horrible secrets he's hiding in the basement. You play against an advanced AI that learns from your every move. Really enjoying climbing through that backyard window? Expect a bear trap there."),
 			new CreditsMetadata("UnnamedPersonXP", "UnnamedPerson", "Concept Artist", 0xFF8F562E, "Stickman go beep boop"),
 			new CreditsMetadata("Nep", "nep", "Portrait Artist", 0xFF0000FF, "I love men"),
 			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist", 0xFFA9D4E6, "what am i even supposed to quote here"),
