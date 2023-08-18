@@ -538,11 +538,11 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if (!closedState && doNotZoom) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		if (!closedState && !doNotZoom) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 		if(!closedState && bump)
 		{
-			if (chosenOne != null)  FlxTween.tween(chosenOne, { y: -7.3 }, Conductor.crochet * 0.1000, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
-			if (darkLord != null)  FlxTween.tween(darkLord, { y: -7.3 }, Conductor.crochet * 0.1000, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+			if (chosenOne != null)  FlxTween.tween(chosenOne, { y: -7.3 }, Conductor.crochet * 0.1000 * 2, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
+			if (darkLord != null)  FlxTween.tween(darkLord, { y: -7.3 }, Conductor.crochet * 0.1000 * 2, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
 		}
 
 		if(!closedState) {
@@ -620,7 +620,7 @@ class TitleState extends MusicBeatState
 					if(!skippedIntro)
 						{
 							doNotZoom = true;
-							FlxTween.tween(FlxG.camera, {zoom: 0.5}, 5, {ease: FlxEase.backInOut, onComplete: function(tween:FlxTween){
+							FlxTween.tween(FlxG.camera, {zoom: 0.7}, 3, {ease: FlxEase.backInOut, onComplete: function(tween:FlxTween){
 								FlxG.camera.zoom = 1;
 							}});
 						}

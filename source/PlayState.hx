@@ -2142,7 +2142,7 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.characterName = 'the-chosen-one-death';
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0018));
+					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					//if (ClientPrefs.shaders) addShaderToCamera(['camBars'], new ChromaticAberrationEffect(chromFloat));
 					chromFloat = 0;
 				}
@@ -3274,7 +3274,7 @@ class PlayState extends MusicBeatState
 						camFollow.set(dad.getMidpoint().x + 400 + cameraX, dad.getMidpoint().y + 50 + cameraY);
 						if (dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200 + cameraX, dad.getMidpoint().y + 150 + cameraY);
 					case 'aurora':
-						camFollow.x = (dad.getMidpoint().x - 700 + cameraX);
+						camFollow.x = (dad.getMidpoint().x - 500 + cameraX);
 						
 					case 'animStage-old':
 						camFollow.set(420.95 + cameraX, 313 + cameraY);
@@ -3300,7 +3300,7 @@ class PlayState extends MusicBeatState
 					case 'unfaith-BG':
 						camFollow.set(boyfriend.getMidpoint().x - 150 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
 					case 'aurora':
-						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
+						camFollow.x = (boyfriend.getMidpoint().x - 550 + cameraXBF);
 					case 'yt':
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 						
