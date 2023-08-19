@@ -599,7 +599,6 @@ class PlayState extends MusicBeatState
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
-		PauseSubState.songName = null; //Reset to default
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed', 1);
 
 		keysArray = [
@@ -1277,7 +1276,7 @@ class PlayState extends MusicBeatState
 					fireCamera.screenCenter();
 					fireCamera.y += 230;
 					fireCamera.antialiasing = ClientPrefs.globalAntialiasing;
-					fireCamera.alpha = 0;
+					fireCamera.alpha = 0.0001;
 					add(fireCamera);
 
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
@@ -2918,11 +2917,7 @@ class PlayState extends MusicBeatState
 
 		precacheList.set('throwMic', 'sound');
 
-		if (PauseSubState.songName != null) {
-			precacheList.set(PauseSubState.songName, 'music');
-		} else if(ClientPrefs.pauseMusic != 'None') {
-			precacheList.set(Paths.formatToSongPath(ClientPrefs.pauseMusic), 'music');
-		}
+		precacheList.set('pauseTCO', 'music');
 
 		precacheList.set('alphabet', 'image');
 
