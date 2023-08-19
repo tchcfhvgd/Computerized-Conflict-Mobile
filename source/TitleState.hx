@@ -198,27 +198,6 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized)
 		{
-			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-			diamond.persist = true;
-			diamond.destroyOnNoUse = false;
-
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;*/
-
-			// HAD TO MODIFY SOME BACKEND SHIT
-			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
-			// https://github.com/HaxeFlixel/flixel-addons/pull/348
-
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
-
 			if(FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
@@ -377,20 +356,7 @@ class TitleState extends MusicBeatState
 		{
 			if (socialItems != null)
 			{
-				if (FlxG.mouse.overlaps(socialItems) && FlxG.mouse.justPressed)
-				{
-					FlxG.sound.play(Paths.sound('mouseClick'));
-
-					switch(i)
-					{
-						case 0:
-							CoolUtil.browserLoad('https://gamebanana.com/mods/340817');
-						case 1:
-							CoolUtil.browserLoad('https://x.com/Vs_TheChosenOne');
-						case 2:
-							CoolUtil.browserLoad('https://gamejolt.com/games/VsTheChosenOne/687592');
-					}
-				}
+				checkIfClicked(socialItems.members[i], i);
 			}
 		}
 
@@ -739,6 +705,26 @@ class TitleState extends MusicBeatState
 				#end
 			}
 			skippedIntro = true;
+		}
+	}
+
+	function checkIfClicked(object:FlxSprite, id:Int) //the tag is the thing used for the select void
+	{
+		if(!FlxG.mouse.justPressed) return;
+		if(!FlxG.mouse.overlaps(object)) return;
+
+		trace(object);
+
+		FlxG.sound.play(Paths.sound('mouseClick'));
+
+		switch(id)
+		{
+			case 0:
+				CoolUtil.browserLoad('https://gamebanana.com/mods/340817');
+			case 1:
+				CoolUtil.browserLoad('https://x.com/Vs_TheChosenOne');
+			case 2:
+				CoolUtil.browserLoad('https://gamejolt.com/games/VsTheChosenOne/687592');
 		}
 	}
 }
