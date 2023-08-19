@@ -18,6 +18,7 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import openfl.utils.Assets;
+import FlxSpriteExtra;
 
 using StringTools;
 
@@ -56,7 +57,7 @@ class DialogueScript extends FlxSpriteGroup
 			FlxG.sound.music.fadeIn(2, 0, 1);
 		}
 
-		bgFade = new FlxSprite(-500, -500).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		bgFade = new FlxSpriteExtra(-500, -500).makeSolid(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		bgFade.scrollFactor.set();
 		bgFade.visible = true;
 		add(bgFade);

@@ -36,6 +36,8 @@ import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
 #end
 
+import FlxSpriteExtra;
+
 using StringTools;
 
 class FreeplayState extends MusicBeatState
@@ -226,7 +228,7 @@ class FreeplayState extends MusicBeatState
 		scoreText = new FlxText(FlxG.width * 0.7, 405, 0, "", 24);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 400).makeGraphic(1, 126, 0xFF000000);
+		scoreBG = new FlxSpriteExtra(scoreText.x - 6, 400).makeSolid(1, 126, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
