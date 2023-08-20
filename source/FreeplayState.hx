@@ -82,7 +82,7 @@ class FreeplayState extends MusicBeatState
 	['trojan', 'conflict', 'dashpulse', 'time travel', 'cubify', 'kickstarter', 'contrivance', 'messenger', 'amity', 
 	'tune in', 'unfaithful', 'rombie', 'fancy funk', 'catto', 'enmity', 'phantasm', 'aurora'];
 
-	public static var alreadyShowedSongs:Array<String> = ['adobe', 'outrage', 'end process'];
+	public static var alreadyShowedSongs:Array<String> = ['adobe', 'outrage', 'end process', 'practice time', 'adobe (old)', 'outrage (old)', 'alan (old)'];
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 

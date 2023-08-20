@@ -5,6 +5,9 @@ TIBURONES:
 
 MIJAE:
 
--story menu art (27 july)
--Polish and finish Freeplay Selection (28-30 july)
+-story menu art
+-finish Freeplay Selection
 -Finish the other songs events grrrjkjdfkjdksfo (rest of the week)
+
+
+Estimated Release: September 8th
