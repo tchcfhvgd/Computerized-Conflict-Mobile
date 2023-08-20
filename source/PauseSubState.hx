@@ -46,8 +46,6 @@ class PauseSubState extends MusicBeatSubstate
 	var spikes1:FlxBackdrop;
 	var spikes2:FlxBackdrop;
 
-	public static var songName:String = '';
-
 	public function new(x:Float, y:Float)
 	{
 		super();
@@ -77,7 +75,7 @@ class PauseSubState extends MusicBeatSubstate
 
 
 		pauseMusic = new FlxSound();
-		pauseMusic.loadEmbedded(Paths.music(Paths.formatToSongPath('pauseTCO')), true, true);
+		pauseMusic.loadEmbedded(Paths.music('pauseTCO'), true, true);
 
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));

@@ -30,6 +30,7 @@ import openfl.display.Shader;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
 import Shaders;
+import FlxSpriteExtra;
 
 using StringTools;
 
@@ -78,25 +79,25 @@ class MinusCharSelector extends MusicBeatState
 		scrollingThing.alpha = 0.8;
 		add(scrollingThing);
 
-		topBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+		topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 		topBars.screenCenter();
 		topBars.y -= 400;
 		topBars.angle -= 8;
 		add(topBars);
 
-		bottomBars = new FlxSprite().makeGraphic (2580, 320, FlxColor.BLACK);
+		bottomBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
 		bottomBars.screenCenter();
 		bottomBars.y += 420;
 		bottomBars.angle -= 8;
 		add(bottomBars);
 
-		LittleTopBars = new FlxSprite().makeGraphic (2580, 20, FlxColor.BLACK);
+		LittleTopBars = new FlxSpriteExtra().makeSolid(2580, 20, FlxColor.BLACK);
 		LittleTopBars.screenCenter();
 		LittleTopBars.y -= 225;
 		LittleTopBars.angle -= 8;
 		add(LittleTopBars);
 
-		LittleBottomBars = new FlxSprite().makeGraphic (2580, 20, FlxColor.BLACK);
+		LittleBottomBars = new FlxSpriteExtra().makeSolid(2580, 20, FlxColor.BLACK);
 		LittleBottomBars.screenCenter();
 		LittleBottomBars.y += 245;
 		LittleBottomBars.angle -= 8;

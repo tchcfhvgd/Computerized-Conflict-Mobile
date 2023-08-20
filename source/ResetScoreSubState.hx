@@ -2,6 +2,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
+import FlxSpriteExtra;
 
 using StringTools;
 
@@ -33,7 +34,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		name += ' (' + CoolUtil.difficulties[difficulty] + ')?';
 
-		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg = new FlxSpriteExtra().makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
