@@ -37,9 +37,11 @@ using StringTools;
 class MinusCharSelector extends MusicBeatState
 {
 	public var boyfriend:Character = null;
-	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public static var bfSkins:Array<String> = ['betaBF', 'blueBF', 'meanBF'];
+	public static var bfIcons:Array<String> = ['bf', 'bf-old', 'bf'];
 	public static var actualNum = 0;
+	var bfs = new FlxTypedGroup<FlxSprite>();
+	var icons = new FlxTypedGroup<FlxSprite>();
 	var selectedSmth:Bool = false;
 	var bg:FlxSprite;
 	var arrows:FlxSprite;
@@ -53,10 +55,14 @@ class MinusCharSelector extends MusicBeatState
 	var CharMenuText:FlxText;
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
-	var charNames:Array<String> = [
+
+	var charNames:Array<String> =
+	[
 	'Beta\nBoyfriend',
 	'Blue\nBoyfriend',
-	'Mean\nBoyfriend'];
+	'Mean\nBoyfriend'
+	];
+
 	var iconP1:HealthIcon;
 	var finishedZoom:Bool = false;
 
@@ -115,6 +121,10 @@ class MinusCharSelector extends MusicBeatState
 
 		Paths.setCurrentLevel('shared');
 
+		bfs = new FlxTypedGroup<FlxSprite>();
+		add(bfs);
+		icons = new FlxTypedGroup<FlxSprite>();
+		add(icons);
 
         boyfriend = new Character(0, 0, bfSkins[actualNum], true);
 		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.85));
@@ -143,7 +153,7 @@ class MinusCharSelector extends MusicBeatState
 
 		changeBF();
 
-		for (i in 0...bfSkins.length) preloadChar(bfSkins[i]);
+		for (i in 0...bfSkins.length) preloadChar(bfSkins[i], i);
 		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 
 		super.create();
@@ -264,7 +274,15 @@ class MinusCharSelector extends MusicBeatState
 		}
 	}
 
-	function preloadChar(character:String) {
-		Paths.image('characters/CC/extras/minus/' + character);
+	function preloadChar(character:String, i:Int)
+	{
+		var bf:FlxSprite = new FlxSprite();
+		bf.frames = Paths.getSparrowAtlas('characters/CC/extras/minus/' + character);
+		bf.alpha = 0.0001;
+		bfs.add(bf);
+
+		var icon:FlxSprite = new FlxSprite().loadGraphic(Paths.image('icons/icon-' + bfIcons));
+		icon.alpha = 0.0001;
+		icons.add(bf);
 	}
 }

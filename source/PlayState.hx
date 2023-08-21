@@ -895,11 +895,11 @@ class PlayState extends MusicBeatState
 
 							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -50, -90, 0.9, 0.9);
 							stickpage.setGraphicSize(Std.int(stickpage.width * 2.4));
-							stickpage.alpha = 0;
+							stickpage.alpha = 0.0001;
 
 							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, 600, 1, 1);
 							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.25));
-							stickpageFloor.alpha = 0;
+							stickpageFloor.alpha = 0.0001;
 
 							if(songName == 'outrage') 
 							{
@@ -918,7 +918,7 @@ class PlayState extends MusicBeatState
 							redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
 							redthing.cameras = [camOther];
-							redthing.alpha = 0;
+							redthing.alpha = 0.0001;
 							add(redthing);
 
 						case 'end process':
