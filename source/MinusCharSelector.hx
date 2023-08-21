@@ -281,7 +281,7 @@ class MinusCharSelector extends MusicBeatState
 		bf.alpha = 0.0001;
 		bfs.add(bf);
 
-		var icon:FlxSprite = new FlxSprite().loadGraphic(Paths.image('icons/icon-' + bfIcons));
+		var icon:FlxSprite = new FlxSprite().loadGraphic(Paths.image('icons/icon-' + bfIcons[i]));
 		icon.alpha = 0.0001;
 		icons.add(bf);
 	}
