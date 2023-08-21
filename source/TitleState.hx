@@ -599,7 +599,7 @@ class TitleState extends MusicBeatState
 					FlxG.camera.zoom = 1;
 					if (darkLord != null) FlxTween.tween(darkLord, {y: 0}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut, startDelay: 0.5});
 					if (chosenOne != null) FlxTween.tween(chosenOne, {y: 0}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut, startDelay: 0.5, onComplete: function(tween:FlxTween){
-						bump = true;
+						//
 					}});
 			}
 		}
@@ -681,7 +681,6 @@ class TitleState extends MusicBeatState
 				darkLord.alpha = 1;
 				chosenOne.y = 0;
 				darkLord.y = 0;
-				bump = true;
 				doNotZoom = false;
 
 				socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);

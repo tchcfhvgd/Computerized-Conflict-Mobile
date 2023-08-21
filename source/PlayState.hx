@@ -1953,10 +1953,14 @@ class PlayState extends MusicBeatState
 
 					veryEpicVignette = new BGSprite('epic', 0, 0, 1, 1);
 					veryEpicVignette.screenCenter();
-					veryEpicVignette.updateHitbox();
-					veryEpicVignette.alpha = 0;
+					veryEpicVignette.x -= 1200;
+					veryEpicVignette.y -= 250;
+					veryEpicVignette.alpha = 0.0001;
 					veryEpicVignette.color = FlxColor.YELLOW;
-					veryEpicVignette.setGraphicSize(Std.int(veryEpicVignette.width * 2));
+					veryEpicVignette.scale.x = 2560;
+					veryEpicVignette.scale.y = 2;
+					veryEpicVignette.updateHitbox();
+
 
 					var scanline = new BGSprite('aol/scanline', 0, 0, 0, 0);
 					scanline.screenCenter();
