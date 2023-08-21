@@ -1,0 +1,3 @@
+drop your characters files here
+
+you can just put the whole characters folder here and just put it back after you run the program
