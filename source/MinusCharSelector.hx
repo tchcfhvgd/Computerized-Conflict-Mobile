@@ -41,7 +41,6 @@ class MinusCharSelector extends MusicBeatState
 	public static var bfIcons:Array<String> = ['bf', 'bf-old', 'bf'];
 	public static var actualNum = 0;
 	var bfs = new FlxTypedGroup<FlxSprite>();
-	var icons = new FlxTypedGroup<FlxSprite>();
 	var selectedSmth:Bool = false;
 	var bg:FlxSprite;
 	var arrows:FlxSprite;
@@ -123,8 +122,6 @@ class MinusCharSelector extends MusicBeatState
 
 		bfs = new FlxTypedGroup<FlxSprite>();
 		add(bfs);
-		icons = new FlxTypedGroup<FlxSprite>();
-		add(icons);
 
         boyfriend = new Character(0, 0, bfSkins[actualNum], true);
 		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.85));
@@ -172,7 +169,6 @@ class MinusCharSelector extends MusicBeatState
 
 		if (!selectedSmth && finishedZoom)
 		{
-
 			if(boyfriend != null && boyfriend.animation.curAnim.finished) {
 				boyfriend.dance();
 			}
@@ -280,9 +276,5 @@ class MinusCharSelector extends MusicBeatState
 		bf.frames = Paths.getSparrowAtlas('characters/CC/extras/minus/' + character);
 		bf.alpha = 0.0001;
 		bfs.add(bf);
-
-		var icon:FlxSprite = new FlxSprite().loadGraphic(Paths.image('icons/icon-' + bfIcons[i]));
-		icon.alpha = 0.0001;
-		icons.add(bf);
 	}
 }
