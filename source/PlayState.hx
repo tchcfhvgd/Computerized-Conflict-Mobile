@@ -4395,6 +4395,7 @@ class PlayState extends MusicBeatState
 				camHUD.fade(FlxColor.BLACK, 0, true);
 
 			case 'rombie':
+				FlxG.camera.fade(FlxColor.BLACK, 1.5, true);
 				zoomTweenStart = FlxTween.tween(FlxG.camera, {zoom: 1}, 3 * playbackRate, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(twn)
@@ -4636,14 +4637,19 @@ class PlayState extends MusicBeatState
 		for (i in 0...4)
 		{
 
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
-			babyArrow.downScroll = ClientPrefs.downScroll;
-
-			if(SONG.song.toLowerCase().endsWith('(old)'))
+			if(uiType == 'psychDef')
 			{
 				STRUM_X = 122;
 				STRUM_X_MIDDLESCROLL = -278;
 			}
+			else
+			{
+				STRUM_X = 42;
+				STRUM_X_MIDDLESCROLL = -368;
+			}
+
+			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
+			babyArrow.downScroll = ClientPrefs.downScroll;
 
 			if (!isStoryMode && !skipArrowStartTween)
 			{
@@ -4707,10 +4713,7 @@ class PlayState extends MusicBeatState
 
 				if (uiType == 'psychDef')
 				{
-					if (i == 0 && CoolUtil.hasPlayedAnOldSong == false) babyArrow.x += babyArrow.width - 30;
 					if (!ClientPrefs.middleScroll) babyArrow.x += 17;
-
-					CoolUtil.hasPlayedAnOldSong = true;
 				}
 
 
@@ -8236,8 +8239,6 @@ class PlayState extends MusicBeatState
 			case 'rombie':
 				switch(curBeat)
 				{
-					case 2:
-						FlxG.camera.fade(FlxColor.BLACK, 1.5, true);
 					case 8:
 						dad.visible = true;
 						iconP2.visible = true;
