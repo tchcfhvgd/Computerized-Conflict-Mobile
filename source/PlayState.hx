@@ -2961,10 +2961,10 @@ class PlayState extends MusicBeatState
 
 			Lib.application.window.resizable = false;
 			FlxG.scaleMode = new StageSizeScaleMode();
-			FlxG.resizeGame(960, 720);
+			FlxG.resizeGame(360, 720);
 			FlxG.resizeWindow(960, 720);
-			camGame.width = 360;
-			camGame.height = 720;
+			//camGame.width = 360;
+			//camGame.height = 720;
 		}
 
 		switch(SONG.song.toLowerCase())
