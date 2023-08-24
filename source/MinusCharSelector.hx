@@ -38,7 +38,7 @@ class MinusCharSelector extends MusicBeatState
 {
 	public var boyfriend:Character = null;
 	public static var bfSkins:Array<String> = ['betaBF', 'blueBF', 'meanBF'];
-	public static var bfIcons:Array<String> = ['bf', 'bf-old', 'bf'];
+	public static var bfIcons:Array<String> = ['bf', 'bf-old', 'mean-bf'];
 	public static var actualNum = 0;
 	var bfs = new FlxTypedGroup<FlxSprite>();
 	var selectedSmth:Bool = false;

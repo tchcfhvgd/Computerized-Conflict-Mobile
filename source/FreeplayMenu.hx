@@ -64,6 +64,7 @@ class FreeplayMenu extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var finishedZoom = false;
+	var menuText:FlxText;
 
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
@@ -149,6 +150,22 @@ class FreeplayMenu extends MusicBeatState
 		infoBar.loadGraphic(Paths.image('freeplayArt/selectMenu/textShit'));
 		infoBar.scrollFactor.set();
 		add(infoBar);
+
+		var TEXT_MENU:String = 
+		'
+		Rap Battle Against\n
+		The Chosen One\n
+		and other stickfigures\n
+		from the "animation vs."\n
+		Series!
+		';
+
+		menuText = new FlxText(0, 0, FlxG.width, TEXT_MENU, 29);
+		menuText.setFormat(Paths.font("phantommuff.ttf"), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		menuText.x = FlxG.width - menuText.width - 10;
+		menuText.screenCenter(Y);
+		menuText.scrollFactor.set(0,0);
+		add(menuText);
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
