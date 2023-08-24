@@ -203,6 +203,9 @@ class TCOStoryState extends MusicBeatState
 
 		sprDifficulty = new FlxSprite(150, 200);
 		add(sprDifficulty);
+
+		weekImages = new FlxSprite();
+		add(weekImages);
 		
 		if (checkpointSystemON)
 		{
@@ -369,13 +372,11 @@ class TCOStoryState extends MusicBeatState
 		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
 		sprDifficulty.x = 40;
 		sprDifficulty.y = 230;
-		
-		weekImages = new FlxSprite().loadGraphic(Paths.image('storymenu/chapterImages/w1-' + difficulties[curDifficulty]));
-		weekImages.updateHitbox();
+
+		weekImages.loadGraphic(Paths.image('storymenu/chapterImages/w1-${diff}'));
 		weekImages.screenCenter();
 		weekImages.antialiasing = ClientPrefs.globalAntialiasing;
 		weekImages.setGraphicSize(Std.int(weekImages.width * 0.9));
-		add(weekImages);
 
 		switch(curDifficulty)
 		{
@@ -405,6 +406,7 @@ class TCOStoryState extends MusicBeatState
 		}
 		
 		lastDifficultyName = diff;
+
 		#if !switch
 		//intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName, curDifficulty);
 		#end

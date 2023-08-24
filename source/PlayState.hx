@@ -7806,6 +7806,12 @@ class PlayState extends MusicBeatState
 			case 'trojan':
 				switch(curBeat)
 				{
+					case 28 | 188:
+						camGame.fade(FlxColor.WHITE, 0.8, false);
+					case 32 | 192:
+						camGame.fade(FlxColor.WHITE, 0, true);
+					case 160:
+
 					case 64 | 224 | 320:
 						bestPart2 = true;
 						//blackBars(1);
@@ -7864,6 +7870,13 @@ class PlayState extends MusicBeatState
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						clearShaderFromCamera(['camgame', 'camhud']);
 						//blackBars(0);
+					case 400:
+						camGame.alpha = 0;
+						camOther.alpha  = 0;
+						camBars.flash(FlxColor.WHITE, 0.55);
+						camHUD.flash(FlxColor.BLACK, 0.35);
+						FlxTween.tween(camHUD, {alpha:0}, 1);
+
 				}
 
 			case 'conflict':
