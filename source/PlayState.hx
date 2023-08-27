@@ -8323,7 +8323,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 576:
-						if (ClientPrefs.shaders) colorTween([bgKickstarter], 0.7, FlxColor.WHITE, 0xFF6E6E6E); //it looks bad without shaders
+						colorTween([bgKickstarter], 0.7, FlxColor.WHITE, 0xFF6E6E6E); //it looks bad without shaders
 					case 384:
 						blackBars(1);
 					case 448:
