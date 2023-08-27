@@ -151,20 +151,9 @@ class FreeplayMenu extends MusicBeatState
 		infoBar.scrollFactor.set();
 		add(infoBar);
 
-		var TEXT_MENU:String = 
-		'
-		Rap Battle Against\n
-		The Chosen One\n
-		and other stickfigures\n
-		from the "animation vs."\n
-		Series!
-		';
-
-		menuText = new FlxText(0, 0, FlxG.width, TEXT_MENU, 29);
-		menuText.setFormat(Paths.font("phantommuff.ttf"), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
-		menuText.x = FlxG.width - menuText.width - 10;
-		menuText.screenCenter(Y);
-		menuText.scrollFactor.set(0,0);
+		menuText = new FlxText(0, 0, FlxG.width, '', 29);
+		menuText.setFormat(Paths.font("phantommuff.ttf"), 26, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		menuText.angle -= 1.5;
 		add(menuText);
 
 		FlxG.camera.follow(camFollowPos, null, 1);
@@ -295,6 +284,36 @@ class FreeplayMenu extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = folderGroup.length - 1;
 
+		switch(folders[curSelected])
+		{
+			case 'story':
+				menuText.text = '
+				Rap Battle Against The Chosen One and\n
+				other characters from the\n
+				"Animator vs. Animation" Series!
+				';
+			case 'extra':
+				menuText.text = '
+				Want more than this mod can offer?\n
+				This folder is made for you!
+				';
+			case 'cover':
+				menuText.text = '
+				Are you looking for the collab songs?\n
+				Or the covers?\n
+				All of them are here!
+				';
+		    case 'old':
+				menuText.text = '
+				Feeling to play the legacy songs, huh?\n
+				This folder section is for ya!
+				';
+		}
+
+		menuText.x = FlxG.width - menuText.width - 3;
+		menuText.screenCenter(Y);
+		menuText.scrollFactor.set(0,0);
+		menuText.y += 30;
 
 		folderGroup.forEach(function(spr:FlxSprite)
 		{

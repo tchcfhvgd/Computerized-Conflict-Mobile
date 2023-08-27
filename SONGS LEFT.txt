@@ -1,4 +1,2 @@
 Trojan
-Dashpulse
-Alan
 Aurora

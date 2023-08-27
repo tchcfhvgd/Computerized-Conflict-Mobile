@@ -1,13 +1,14 @@
 TIBURONES:
 
+Minus BF's gameovers
 
+(MAYBE) making freeplay, extra folder and alan song the only accessible things when you unlock alan.
+
+functional week score on the story menu (idk if that works thats why i put it here)
 
 
 MIJAE:
-
--story menu art
--finish Freeplay Selection
--Finish the other songs events grrrjkjdfkjdksfo (rest of the week)
+-Finish the other songs events 
 
 
 Estimated Release: September 8th
