@@ -96,6 +96,9 @@ class TitleState extends MusicBeatState
 	public var titleOptions:Bool = false;
 	var bump:Bool = false;
 
+	var zoomLerpTo:Float = 1;
+	var zoomPerSec:Float = 1;
+
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
@@ -344,7 +347,6 @@ class TitleState extends MusicBeatState
 	}
 
 	var transitioning:Bool = false;
-	private static var playJingle:Bool = false;
 
 	var newTitle:Bool = false;
 	var titleTimer:Float = 0;
@@ -352,6 +354,9 @@ class TitleState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		FlxG.watch.addQuick("beatShit", curBeat);
+
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * zoomPerSec, 0, 1);
+		FlxG.camera.zoom = FlxMath.lerp(FlxG.camera.zoom, zoomLerpTo, lerpVal);
 
 		for (i in 0...socialMedia.length)
 		{
@@ -431,7 +436,9 @@ class TitleState extends MusicBeatState
 				// FlxG.sound.music.stop();
 
 				FlxG.camera.shake(0.0045, 1);
-				FlxTween.tween(FlxG.camera, {zoom: 3}, 1.5, {ease: FlxEase.expoIn});
+				zoomLerpTo = 3;
+				zoomPerSec = 1.5;
+
 				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 				{
 				    MusicBeatState.switchState(new MainMenuState());
@@ -505,7 +512,12 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if (!closedState && !doNotZoom) FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		if (!closedState && !doNotZoom)
+		{
+			zoomLerpTo = 1.02;
+			zoomPerSec = 0.3;
+		}
+
 		if(!closedState && bump)
 		{
 			if (chosenOne != null)  FlxTween.tween(chosenOne, { y: -7.3 }, Conductor.crochet * 0.1000 * 2, { type: FlxTween.LOOPING, ease: FlxEase.quadInOut});
@@ -587,16 +599,22 @@ class TitleState extends MusicBeatState
 					if(!skippedIntro)
 						{
 							doNotZoom = true;
-							FlxTween.tween(FlxG.camera, {zoom: 0.7}, 3, {ease: FlxEase.backInOut, onComplete: function(tween:FlxTween){
-								FlxG.camera.zoom = 1;
-							}});
+							zoomLerpTo = 0.7;
+							zoomPerSec = 3;
+
+							new FlxTimer().start(3, function(tmr:FlxTimer)
+							{
+								zoomLerpTo = 1;
+								zoomPerSec = 1000;
+							});
 						}
 				case 30:
 					if(!skippedIntro) FlxG.cameras.fade(FlxColor.WHITE, 1, false);
 				case 33:
 					FlxG.cameras.fade(FlxColor.WHITE, 0, true);
 					skipIntro();
-					FlxG.camera.zoom = 1;
+					zoomLerpTo = 1;
+					zoomPerSec = 1000;
 					if (darkLord != null) FlxTween.tween(darkLord, {y: 0}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut, startDelay: 0.5});
 					if (chosenOne != null) FlxTween.tween(chosenOne, {y: 0}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.backInOut, startDelay: 0.5, onComplete: function(tween:FlxTween){
 						//
@@ -611,99 +629,28 @@ class TitleState extends MusicBeatState
 	{
 		if (!skippedIntro)
 		{
-			if (playJingle) //Ignore deez
-			{
-				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
-				if (easteregg == null) easteregg = '';
-				easteregg = easteregg.toUpperCase();
-
-				var sound:FlxSound = null;
-				switch(easteregg)
-				{
-					case 'RIVER':
-						sound = FlxG.sound.play(Paths.sound('JingleRiver'));
-					case 'SHUBS':
-						sound = FlxG.sound.play(Paths.sound('JingleShubs'));
-					case 'SHADOW':
-						FlxG.sound.play(Paths.sound('JingleShadow'));
-					case 'BBPANZU':
-						sound = FlxG.sound.play(Paths.sound('JingleBB'));
-
-					default: //Go back to normal ugly ass boring GF
-					    remove(alanSpr);
-						remove(credGroup);
-						FlxG.camera.flash(FlxColor.WHITE, 0.7);
-						skippedIntro = true;
-						playJingle = false;
-
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
-						return;
-				}
-
-				transitioning = true;
-				if(easteregg == 'SHADOW')
-				{
-					new FlxTimer().start(3.2, function(tmr:FlxTimer)
-					{
-						remove(credGroup);
-						FlxG.camera.flash(FlxColor.WHITE, 0.6);
-						transitioning = false;
-					});
-				}
-				else
-				{
-					remove(alanSpr);
-					remove(credGroup);
-					FlxG.camera.flash(FlxColor.WHITE, 0.7);
-					sound.onComplete = function() {
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
-						transitioning = false;
-					};
-				}
-				playJingle = false;
-			}
-			else //Default! Edit this one!!
-			{
-				remove(alanSpr);
-				if (credGroup != null) remove(credGroup);
-				logoBl.screenCenter();
-				FlxG.camera.flash(FlxColor.WHITE, 1.2);
-				vignette.alpha = 1;
-				bg.alpha = 1;
-				bg2.alpha = 1;
-				titleText.alpha = 1;
-				smite.alpha = 1;
-				FlxG.cameras.fade(FlxColor.WHITE, 0, true);
-				FlxG.camera.zoom = 1;
-				chosenOne.alpha = 1;
-				darkLord.alpha = 1;
-				chosenOne.y = 0;
-				darkLord.y = 0;
-				doNotZoom = false;
-
-				socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);
-				optionShortCut.alpha = 1;
-
-				FlxG.mouse.visible = true;
-
-				FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
-
-				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
-				if (easteregg == null) easteregg = '';
-				easteregg = easteregg.toUpperCase();
-				#if TITLE_SCREEN_EASTER_EGG
-				if(easteregg == 'SHADOW')
-				{
-					FlxG.sound.music.fadeOut();
-					if(FreeplayState.vocals != null)
-					{
-						FreeplayState.vocals.fadeOut();
-					}
-				}
-				#end
-			}
+			remove(alanSpr);
+			if (credGroup != null) remove(credGroup);
+			logoBl.screenCenter();
+			FlxG.camera.flash(FlxColor.WHITE, 1.2);
+			vignette.alpha = 1;
+			bg.alpha = 1;
+			bg2.alpha = 1;
+			titleText.alpha = 1;
+			smite.alpha = 1;
+			FlxG.cameras.fade(FlxColor.WHITE, 0, true);
+			zoomLerpTo = 1;
+			zoomPerSec = 1000;
+			chosenOne.alpha = 1;
+			darkLord.alpha = 1;
+			chosenOne.y = 0;
+			darkLord.y = 0;
+			doNotZoom = false;
+			socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);
+			optionShortCut.alpha = 1;
+			FlxG.mouse.visible = true;
+			FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
+				
 			skippedIntro = true;
 		}
 	}
