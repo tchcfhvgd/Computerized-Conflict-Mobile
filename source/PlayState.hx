@@ -876,7 +876,11 @@ class PlayState extends MusicBeatState
 
 						case 'outrage' | 'phantasm':
 
-							if(songName == 'outrage') addCharacterToList('stick-bf', 0);
+							if(songName == 'outrage')
+							{
+								addCharacterToList('stick-bf', 0);
+								addCharacterToList('animator-bf-stressed', 0);
+							}
 
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 
@@ -1372,7 +1376,7 @@ class PlayState extends MusicBeatState
 					tscseeing.screenCenter();
 					tscseeing.updateHitbox();
 					tscseeing.x += 2480;
-					tscseeing.y += 180;
+					tscseeing.y += 85;
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 
 					var coolVig:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/soCOOLvig', 'extras'));
@@ -1456,12 +1460,12 @@ class PlayState extends MusicBeatState
 					//babyArrowBG.postAddedToGroup();
 					
 					caShader = new ChromaticAberrationEffect(0);
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], caShader);
-					caShader.setChrome(0.0045);
+					//if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], caShader);
+					//caShader.setChrome(0.0045);
 					colorShad = new ColorSwap();
 					
-					/*if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(trojanShader.shader), new ShaderFilter(new FishEyeShader())]);
-					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(trojanShader.shader)]);*/
+					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new SaturationShader())]);
+					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new SaturationShader())]);
 
 				}
 
@@ -4267,19 +4271,19 @@ class PlayState extends MusicBeatState
 
 				scoreTxt.text = 'Puntuación: ' + songScore
 				+ '\nFallos de Combo: ' + songMisses
-				+ '\nPrecisión: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != 'N/A' ? '(' + ratingFC + ')' : '?');
+				+ '\nPrecisión: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + ')' : '?');
 
 			case 'Portuguese':
 
 				scoreTxt.text = 'Pontuação: ' + songScore
 				+ '\nFalhas de combinação: ' + songMisses
-				+ '\nPrecisão: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != 'N/A' ? '(' + ratingFC + ')' : '?');
+				+ '\nPrecisão: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + ')' : '?');
 
 			default:
 
 				scoreTxt.text = 'Score: ' + songScore
 				+ '\nCombo Breaks: ' + songMisses
-				+ '\nAccuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != 'N/A' ? '(' + ratingFC + ')' : '?');
+				+ '\nAccuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + '?)' : '?');
 		}
 		
 		if (uiType == 'psychDef') scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + ' (' + Math.floor(ratingPercent * 100) + '%)';
@@ -7775,7 +7779,7 @@ class PlayState extends MusicBeatState
 						FlxG.camera.flash(FlxColor.RED, 0.5);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
 						FlxG.camera.shake(0.01, 0.20);
-						objectColor([boyfriend, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
+						objectColor([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
 						setAlpha([redthing], 1);
 						setVisible([fires1, fires2], true);
 						if (CoolUtil.difficultyString() != 'SIMPLE') lossingHealth = true;
@@ -7786,7 +7790,7 @@ class PlayState extends MusicBeatState
 					case 424:
 						FlxG.camera.flash(FlxColor.WHITE, 0.5);
 						FlxG.camera.shake(0.01, 0.20);
-						colorTween([boyfriend, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0.8, 0xFF2C2425, FlxColor.WHITE);
+						colorTween([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0.8, 0xFF2C2425, FlxColor.WHITE);
 						lossingHealth = false;
 				}
 			case 'end process':
@@ -8146,6 +8150,10 @@ class PlayState extends MusicBeatState
 					case 16:
 						FlxTween.tween(camHUD, {alpha:1}, 1);
 						isCameraOnForcedPos = false;
+					case 402:
+						FlxTween.tween(camHUD, {alpha:0}, 0.7);
+					case 432:
+						camGame.alpha = 0;
 				}
 
 			case 'tune in':
