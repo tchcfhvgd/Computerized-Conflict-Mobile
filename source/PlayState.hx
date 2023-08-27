@@ -502,6 +502,7 @@ class PlayState extends MusicBeatState
 			var jumpScare:BGSprite;
 			var auroraLight:BGSprite;
 			var auroraTree:BGSprite;
+			var auroraTree2:BGSprite;
 
 	//end
 
@@ -2106,10 +2107,16 @@ class PlayState extends MusicBeatState
 					ground.updateHitbox();
 					add(ground);
 
-					auroraTree = new BGSprite('aurora/fronttree', 0, 0, 1.2, 1.2);
+					auroraTree = new BGSprite('aurora/fronttree', 0, 0, 1.3, 1.2);
 					auroraTree.setGraphicSize(Std.int(auroraTree.width * 1.4));
 					auroraTree.screenCenter();
 					auroraTree.updateHitbox();
+
+					auroraTree2 = new BGSprite('aurora/fronttree', 0, 0, 0.8, 1.2);
+					auroraTree2.setGraphicSize(Std.int(auroraTree2.width * 1.4));
+					auroraTree2.screenCenter();
+					auroraTree2.updateHitbox();
+					auroraTree2.flipX = true;
 
 					auroraLight = new BGSprite('aurora/filter', 0, 0, 1, 1);
 					auroraLight.setGraphicSize(Std.int(auroraLight.width * 1.4));
@@ -2342,6 +2349,7 @@ class PlayState extends MusicBeatState
 
 			case 'aurora':
 				add(auroraTree);
+				add(auroraTree2);
 				add(auroraLight);
 				
 			case 'World 1' | 'Sam Room':
@@ -3304,7 +3312,7 @@ class PlayState extends MusicBeatState
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 						
 					case 'cubify-stage':
-						camFollow.x = (boyfriend.getMidpoint().x - 570 + cameraXBF);
+						camFollow.x = (boyfriend.getMidpoint().x - 270 + cameraXBF);
 						
 					case 'animStage-old':
 						camFollow.set(852.9 + cameraXBF, 350 + cameraYBF);
