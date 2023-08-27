@@ -32,19 +32,28 @@ class GameOverSubstate extends MusicBeatSubstate
 		switch(PlayState.SONG.player1)
 		{
 			case 'bf':
-				{
-					characterName = 'bf-dead';
-					deathSoundName = 'fnf_loss_sfx';
-					loopSoundName = 'gameOver';
-					endSoundName = 'gameOverEnd';
-				}
+				characterName = 'bf-dead';
+				deathSoundName = 'fnf_loss_sfx';
+				loopSoundName = 'gameOver';
+				endSoundName = 'gameOverEnd';
+
+			case 'betaBF':
+				characterName = 'betaBF die';
+				deathSoundName = 'fnf_loss_sfx';
+				loopSoundName = 'gameOver';
+				endSoundName = 'gameOverEnd';
+
+			case 'meanBF':
+				characterName = 'meanBF die';
+				deathSoundName = 'fnf_loss_sfx';
+				loopSoundName = 'gameOver';
+				endSoundName = 'gameOverEnd';
+
 			default:
-				{
-					characterName = 'animator-bf-dead';
-					deathSoundName = 'fnf_loss_sfx';
-					loopSoundName = 'gameOver-cc';
-					endSoundName = 'gameOverEnd-cc';
-				}
+				characterName = 'animator-bf-dead';
+				deathSoundName = 'fnf_loss_sfx';
+				loopSoundName = 'gameOver-cc';
+				endSoundName = 'gameOverEnd-cc';
 		}
 	}
 
