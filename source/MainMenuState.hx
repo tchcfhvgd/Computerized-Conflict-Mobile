@@ -230,7 +230,14 @@ class MainMenuState extends MusicBeatState
 
 				CoolUtil.songsUnlocked.data.songsPlayed.push(FreeplayState.alreadyShowedSongs);
 			}
-			
+
+			if (CoolUtil.songsUnlocked.data.weeksData == null)
+			{
+				CoolUtil.songsUnlocked.data.weeksData = new Map<String, Int>();
+			}
+
+			trace(CoolUtil.songsUnlocked.data.weeksData.get('week 1-Hard'));
+
 			trace(CoolUtil.songsUnlocked.data.mainWeek);
 
 			CoolUtil.songsUnlocked.flush();

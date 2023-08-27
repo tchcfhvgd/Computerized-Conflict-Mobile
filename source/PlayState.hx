@@ -856,18 +856,18 @@ class PlayState extends MusicBeatState
 
 							spotlightdad = new FlxSprite();
 							spotlightdad.loadGraphic(Paths.image("spotlight"));
-							spotlightdad.alpha = 0;
+							spotlightdad.alpha = 0.0001;
 
 							spotlightbf = new FlxSprite();
 							spotlightbf.loadGraphic(Paths.image("spotlight"));
-							spotlightbf.alpha = 0;
+							spotlightbf.alpha = 0.0001;
 
 							LightsColors = [0xFFE5BE01, 0xFF00AAE4, 0xFF76BD17, 0xFFFF0000, 0xFFFF8000];
 
 							vignetteSTI = new BGSprite('STIvignette', 'chapter1', -650, -500, 0.9, 0.9);
 							vignetteSTI.cameras = [camHUD];
 							vignetteSTI.screenCenter();
-							vignetteSTI.alpha = 0;
+							vignetteSTI.alpha = 0.0001;
 							add(vignetteSTI);
 
 							//bbgColor = 0xFF929292;
@@ -914,7 +914,7 @@ class PlayState extends MusicBeatState
 							bsod.setGraphicSize(Std.int(bsod.width * 1.1));
 							bsod.antialiasing = ClientPrefs.globalAntialiasing;
 							if (ClientPrefs.shaders) bsod.shader = new CRTShader();
-							bsod.alpha = 0;
+							bsod.alpha = 0.0001;
 
 							redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -990,30 +990,30 @@ class PlayState extends MusicBeatState
 							corruptBG = new BGSprite('bgCorrupted', 'chapter1', -650, -600, 0.9, 0.9);
 							corruptBG.setGraphicSize(Std.int(corruptBG.width * 1.1));
 							corruptBG.color = 0xFF7B6CAD;
-							corruptBG.alpha = 0;
+							corruptBG.alpha = 0.0001;
 							if (ClientPrefs.shaders) corruptBG.shader = new CRTShader();
 
 							corruptFloor = new BGSprite('floorCorrupted', 'chapter1', -750, -405, 1, 1);
 							corruptFloor.setGraphicSize(Std.int(corruptFloor.width * 1.2));
 							corruptFloor.color = 0xFF7B6CAD;
-							corruptFloor.alpha = 0;
+							corruptFloor.alpha = 0.0001;
 							if (ClientPrefs.shaders) corruptFloor.shader = new CRTShader();
 
 							bsodStatic = new BGSprite('EProcess/error_3rdsong', 'chapter1', -50, -90, 1, 1);
 							bsodStatic.setGraphicSize(Std.int(bsodStatic.width * 2.4));
 							bsodStatic.antialiasing = ClientPrefs.globalAntialiasing;
-							bsodStatic.alpha = 0;
+							bsodStatic.alpha = 0.0001;
 							if (ClientPrefs.shaders) bsodStatic.shader = new CRTShader();
 
 							rsod = new BGSprite('EProcess/rsod', 'chapter1', -50, -90, 1, 1);
 							rsod.setGraphicSize(Std.int(rsod.width * 2.4));
 							rsod.antialiasing = ClientPrefs.globalAntialiasing;
-							rsod.alpha = 0;
+							rsod.alpha = 0.0001;
 
 							redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
 							redthing.cameras = [camBars];
-							redthing.alpha = 0;
+							redthing.alpha = 0.0001;
 							add(redthing);
 
 							if (SONG.song.toLowerCase() == 'end process' && isStoryMode)
@@ -1187,7 +1187,7 @@ class PlayState extends MusicBeatState
 					redthing.setGraphicSize(Std.int(redthing.width * 0.85));
 					redthing.screenCenter();
 					redthing.x -= 150;
-					redthing.alpha = 0;
+					redthing.alpha = 0.0001;
 					add(redthing);
 
 					topBars = new FlxSpriteExtra().makeSolid(2580, 320, FlxColor.BLACK);
@@ -1265,7 +1265,7 @@ class PlayState extends MusicBeatState
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
 					redthing.cameras = [camBars];
-					redthing.alpha = 0;
+					redthing.alpha = 0.0001;
 					add(redthing);
 					
 					fireCamera = new FlxSprite();
@@ -2065,7 +2065,7 @@ class PlayState extends MusicBeatState
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
 					redthing.cameras = [camBars];
-					redthing.alpha = 0;
+					redthing.alpha = 0.0001;
 					add(redthing);
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
@@ -6150,7 +6150,8 @@ class PlayState extends MusicBeatState
 					));
 
 					// if ()
-					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
+					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false))
+					{
 						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore)
@@ -6160,6 +6161,11 @@ class PlayState extends MusicBeatState
 
 						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
+
+						var weekPlusDiffName:String = TCOStoryState.weeks[0].name + '-${TCOStoryState.difficulties[TCOStoryState.curDifficulty]}';
+						var weekScoreOld:Int = CoolUtil.songsUnlocked.data.weeksData.get(weekPlusDiffName);
+						
+						if(campaignScore > weekScoreOld) CoolUtil.songsUnlocked.data.weeksData.set(weekPlusDiffName, campaignScore);
 					}
 					changedDifficulty = false;
 				}

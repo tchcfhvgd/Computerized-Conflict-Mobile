@@ -56,14 +56,15 @@ class TCOStoryState extends MusicBeatState
 	var selectedSmth:Bool = false;
 
 	private static var lastDifficultyName:String = '';
-	var curDifficulty:Int = 0;
+	public static var curDifficulty:Int = 0;
 	//var curDifficulty2:Int = 0;
 	var onInsane:Bool =  false;
 	var outline:FlxSprite;
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
 
-	var difficulties:Array<String> = [
+	public static var difficulties:Array<String> =
+	[
 	    'Simple',
 		'Hard',
 		'Insane'
@@ -74,7 +75,7 @@ class TCOStoryState extends MusicBeatState
 	var blackThing:FlxSpriteExtra;
 	var text:FlxText;
 
-	var weeks:Array<WeekInfo> = [];
+	public static var weeks:Array<WeekInfo> = [];
 
 	var chapterThingyText:FlxText;
 
@@ -90,7 +91,8 @@ class TCOStoryState extends MusicBeatState
 		DiscordClient.changePresence("In the Story Mode", null);
 		#end
 
-		weeks = [
+		weeks =
+		[
 			new WeekInfo('week 1', ['Adobe', 'Outrage', 'End Process'], 'Episode 1: Computer Breakdown'),
 		];
 
@@ -136,7 +138,7 @@ class TCOStoryState extends MusicBeatState
 		fires.updateHitbox();
 		fires.screenCenter();
 		fires.y += 200;
-		fires.alpha = 0;
+		fires.alpha = 0.0001;
 		fires.antialiasing = ClientPrefs.globalAntialiasing;
 
 		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
@@ -242,7 +244,6 @@ class TCOStoryState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-
 		scrollingThing.x -= 0.45 * 60 * elapsed;
 		scrollingThing.y -= 0.16 * 60 * elapsed;
 
@@ -320,24 +321,6 @@ class TCOStoryState extends MusicBeatState
 				}else{
 					checkpointSystemON = false;
 					selectedSmth = true;
-					
-					/*FlxTween.tween(blackThing, {alpha: 0}, 1, {
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							remove(blackThing);
-							blackThing.destroy();
-						}
-					});
-
-					FlxTween.tween(text, {alpha: 0}, 1, {
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							remove(text);
-							text.destroy();
-						}
-					});*/
 
 					playSongs(FlxG.save.data.checkpoint.playlist, FlxG.save.data.checkpoint.campaignScore, FlxG.save.data.checkpoint.campaignMisses, FlxG.save.data.checkpoint.difficulty);
 				}
@@ -382,7 +365,7 @@ class TCOStoryState extends MusicBeatState
 		{
 			case 0:
 				FlxG.cameras.flash(FlxColor.BLACK, 0.50);
-				fires.alpha = 0;
+				fires.alpha = 0.0001;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
 				if (!onInsane) bgSprite.color = FlxColor.WHITE;
 				onInsane = false;
@@ -390,7 +373,7 @@ class TCOStoryState extends MusicBeatState
 				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 1:
 				FlxG.cameras.flash(FlxColor.WHITE, 0.50);
-				fires.alpha = 0;
+				fires.alpha = 0.0001;
 				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
 				if (!onInsane) bgSprite.color = FlxColor.WHITE;
 				onInsane = false;
@@ -407,8 +390,12 @@ class TCOStoryState extends MusicBeatState
 		
 		lastDifficultyName = diff;
 
-		#if !switch
-		//intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName, curDifficulty);
+		#if !switch //how would we port it to switch tho
+
+		var weekPlusDiffName:String = weeks[0].name + '-${difficulties[curDifficulty]}';
+		var weekScore:Int = CoolUtil.songsUnlocked.data.weeksData.get(weekPlusDiffName);
+
+		intendedScore = weekScore;
 		#end
 		
 		trace(diff);
@@ -416,35 +403,6 @@ class TCOStoryState extends MusicBeatState
 	
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
-	
-	/*function updateText()
-	{
-		var weekArray:Array<String> = loadedWeeks[curWeek].weekCharacters;
-		for (i in 0...grpWeekCharacters.length) {
-			grpWeekCharacters.members[i].changeCharacter(weekArray[i]);
-		}
-
-		var leWeek:WeekData = loadedWeeks[curWeek];
-		var stringThing:Array<String> = [];
-		for (i in 0...leWeek.songs.length) {
-			stringThing.push(leWeek.songs[i][0]);
-		}
-
-		txtTracklist.text = '';
-		for (i in 0...stringThing.length)
-		{
-			txtTracklist.text += stringThing[i] + '\n';
-		}
-
-		txtTracklist.text = txtTracklist.text.toUpperCase();
-
-		txtTracklist.screenCenter(X);
-		txtTracklist.x -= FlxG.width * 0.35;
-
-		#if !switch
-		intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName, curDifficulty);
-		#end
-	}*/
 
     public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
 
@@ -492,7 +450,7 @@ class TCOStoryState extends MusicBeatState
 		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + '-' + difficulties[difficultyStory], PlayState.storyPlaylist[0].toLowerCase());
 		PlayState.campaignScore = campaignScore;
 		PlayState.campaignMisses = campaignMisses;
-	    PlayState.storyWeek = 1;
+	    PlayState.storyWeek = 0;
 		PlayState.seenCutscene = false;
 		PlayState.weekNames = 'Episode 1: Computer Breakdown';
 		LoadingState.loadAndSwitchState(new PlayState(), true);
