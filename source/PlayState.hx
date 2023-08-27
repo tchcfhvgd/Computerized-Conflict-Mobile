@@ -4767,6 +4767,8 @@ class PlayState extends MusicBeatState
 			for (timer in modchartTimers) {
 				timer.active = false;
 			}
+
+			if (popUpTimer != null) popUpTimer.active = false;
 		}
 
 		super.openSubState(SubState);
@@ -4801,6 +4803,10 @@ class PlayState extends MusicBeatState
 			for (timer in modchartTimers) {
 				timer.active = true;
 			}
+
+			if (popUpTimer != null) popUpTimer.active = true;
+
+
 			paused = false;
 			if (videoTI != null) videoTI.resume();
 			if (zoomTweenStart != null) zoomTweenStart.active = true;
@@ -4997,27 +5003,10 @@ class PlayState extends MusicBeatState
 
 		//TODO: rework
 		//TODO: 440, 22
-		if (popUp != null && closePopup != null) {
+		if (popUp != null && closePopup != null)
+		{
 			FlxG.mouse.visible = true;
-			if (FlxG.mouse.overlaps(closePopup, closePopup.cameras[1]) && FlxG.mouse.justPressed)
-			{
-				FlxG.sound.play(Paths.sound('mouseClick'));
-
-				//tweens are broken when 2 clicks in a row idk why xd
-
-				//FlxTween.tween(popUp, {alpha:0}, 0.15, {onComplete: function(tween:FlxTween) {
-					remove(popUp);
-					popUp.destroy();
-					popUp = null;
-				//}});
-				//FlxTween.tween(closePopup, {alpha:0}, 0.15, {onComplete: function(tween:FlxTween) {
-					remove(closePopup);
-					closePopup.destroy();
-					closePopup = null;
-				//}});
-				popUpTimer.cancel();
-				popUpTimer.destroy();
-			}
+			checkIfClicked(closePopup, 'EP popup');
 		}
 
 		if(!inCutscene)
@@ -5424,8 +5413,6 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 		paused = true;
 
-		if (SONG.song.toLowerCase() == 'end process' && popUpTimer != null) popUpTimer.active = false;
-
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		/*if (FlxG.random.bool(0.1))
 		{
@@ -5777,42 +5764,39 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Popup':
-				if (!cpuControlled){
-					if (popUp != null) {
-						return;
-					}
+				if (popUp != null) return;
+				if (cpuControlled) return;
+				if (CoolUtil.difficultyString() == 'SIMPLE') return;
 
-					FlxG.sound.play(Paths.sound("erro"));
-					popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
-					popUp.cameras = [camGame];
-					popUp.scrollFactor.set();
-					popUp.updateHitbox();
-					add(popUp);
+				FlxG.sound.play(Paths.sound("erro"));
+				popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
+				popUp.cameras = [camBars];
+				popUp.updateHitbox();
+				add(popUp);
 
-					closePopup = new FlxSprite().loadGraphic(Paths.image('EProcess/popups/close_icon', 'chapter1'));
-					closePopup.cameras = [camGame];
-					closePopup.scale.set(0.20, 0.20);
-					closePopup.x = popUp.x + 436;
-					closePopup.y = popUp.y + 22;
-					closePopup.scrollFactor.set();
-					closePopup.updateHitbox();
-					add(closePopup);
+				closePopup = new FlxSprite().loadGraphic(Paths.image('EProcess/popups/close_icon', 'chapter1'));
+				closePopup.cameras = [camBars];
+				closePopup.scale.set(0.20, 0.20);
+				closePopup.x = popUp.x + 436;
+				closePopup.y = popUp.y + 22;
+				closePopup.setGraphicSize(Std.int(closePopup.width * 0.2));
+				closePopup.updateHitbox();
+				add(closePopup);
 
-					var timeThing = 10;
-					switch(CoolUtil.difficultyString())
-					{
-						case 'SIMPLE':
-							timeThing = 20;
-						case 'HARD':
-							timeThing = 15;
-					}
-
-					popUpTimer = new FlxTimer();
-					popUpTimer.start(timeThing, function(timer:FlxTimer) {
-						health = -0.1;
-					});
+				var timeThing = 10; //ahí para que te jodas un poquito si juegas en insane
+				switch(CoolUtil.difficultyString())
+				{
+					case 'HARD':
+						timeThing = 25;
 				}
 
+				popUpTimer = new FlxTimer();
+				popUpTimer.start(timeThing, function(timer:FlxTimer)
+				{
+					popUpTimer = null;
+					health = -0.1;
+				});
+				
 			case 'zoomBeatType1':
 				if(ClientPrefs.camZooms) zoomType1 = true;
 			case 'zoomBeatType2':
@@ -6260,7 +6244,8 @@ class PlayState extends MusicBeatState
 	}
 
 	public function KillNotes() {
-		while(notes.length > 0) {
+		while(notes.length > 0)
+		{
 			var daNote:Note = notes.members[0];
 			daNote.active = false;
 			daNote.visible = false;
@@ -8662,6 +8647,45 @@ class PlayState extends MusicBeatState
 		});
 	}
 
+	function checkIfClicked(object:FlxSprite, tag:String) //the tag is the thing used for the select void
+	{
+		if(!FlxG.mouse.justPressed) return;
+		if(!mouseOverlaps(object)) return;
+
+		trace(object);
+
+		//FlxG.sound.play(Paths.sound('mouseClick'));
+
+		switch(tag)
+		{
+			case 'EP popup':
+				FlxG.sound.play(Paths.sound('mouseClick'));
+
+				//tweens are broken when 2 clicks in a row idk why xd
+
+				remove(popUp);
+				popUp.destroy();
+				popUp = null;
+				remove(closePopup);
+				closePopup.destroy();
+				closePopup = null;
+			
+				popUpTimer.cancel();
+				popUpTimer.destroy();
+		}
+	}
+
+	function mouseOverlaps(spr:FlxSprite) //I needed neo's help for this
+	{
+		for (camera in spr.cameras)
+		{
+			if (spr.overlapsPoint(FlxG.mouse.getWorldPosition(camera), true, camera))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	var curLight:Int = -1;
-	var curLightEvent:Int = -1;
 }
