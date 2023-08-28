@@ -63,6 +63,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
+		var option:Option = new Option('Enable Judgement Counter',
+			"If checked, a judgement counter will appear on the HUD, wooahh..",
+			'judCounter',
+			'bool',
+			false);
+		addOption(option);
+
 		var option:Option = new Option('Enable Lane Underlay',
 			"Enables a black underlay behind the notes\nfor better reading!\n(Similar to Funky Friday's Scroll Underlay or osu!mania's thing)",
 			'laneunderlay',

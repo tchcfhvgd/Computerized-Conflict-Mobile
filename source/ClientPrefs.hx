@@ -35,6 +35,7 @@ class ClientPrefs {
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
 
+	public static var judCounter:Bool = false;
 	public static var laneunderlay:Bool = false;
 	public static var laneTransparency:Float = 0.5;
 	public static var language:String = 'English';
@@ -143,6 +144,7 @@ class ClientPrefs {
 
 		FlxG.save.data.language = language;
 		FlxG.save.data.mechanics = mechanics;
+		FlxG.save.data.judCounter = judCounter;
 		FlxG.save.data.laneunderlay = laneunderlay;
 		FlxG.save.data.laneTransparency = laneTransparency;
 		FlxG.save.data.cameraMovement = cameraMovement;
@@ -272,8 +274,8 @@ class ClientPrefs {
 			mechanics = FlxG.save.data.mechanics;
 		}
 
-		if(FlxG.save.data.laneunderlay != null) {
-			laneunderlay = FlxG.save.data.laneunderlay;
+		if(FlxG.save.data.judCounter != null) {
+			judCounter = FlxG.save.data.judCounter;
 		}
 
 		if (FlxG.save.data.cameraMovement != null) {

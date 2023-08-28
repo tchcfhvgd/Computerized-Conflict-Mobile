@@ -2756,7 +2756,7 @@ class PlayState extends MusicBeatState
 				judgementCounter.scrollFactor.set();
 				judgementCounter.screenCenter(Y);
 				judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}';
-				add(judgementCounter);
+				if (ClientPrefs.judCounter) add(judgementCounter);
 		}
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
@@ -4381,7 +4381,7 @@ class PlayState extends MusicBeatState
 			if (iconP4 != null) FlxTween.tween(iconP4, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 
 			FlxTween.tween(scoreTxt, {alpha:1}, 0.5, {ease: FlxEase.circOut});
-			//if (judgementCounter != null) FlxTween.tween(judgementCounter, {alpha:1}, 0.5, {ease: FlxEase.circOut});
+			if (judgementCounter != null) FlxTween.tween(judgementCounter, {alpha:1}, 0.5, {ease: FlxEase.circOut});
 
 		}
 
@@ -8566,7 +8566,7 @@ class PlayState extends MusicBeatState
 			}
 
 			// Rating FC
-			ratingFC = "";
+			ratingFC = "?";
 			if (sicks > 0) ratingFC = "SFC";
 			if (goods > 0) ratingFC = "GFC";
 			if (bads > 0 || shits > 0) ratingFC = "FC";

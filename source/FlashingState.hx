@@ -180,6 +180,7 @@ class FlashingState extends MusicBeatState
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
 				goinToTitleState();
+				FlxG.save.data.flashing = true;
 			}
 		}
 		super.update(elapsed);
