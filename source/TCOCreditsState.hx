@@ -24,6 +24,7 @@ import flixel.FlxObject;
 import flixel.tweens.FlxEase;
 import flixel.addons.display.FlxBackdrop;
 import openfl.Lib;
+import Shaders;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -56,6 +57,9 @@ class TCOCreditsState extends MusicBeatState
 	var descText:FlxText;
 	var moveTween:FlxTween;
 	var descBox:AttachedSprite;
+
+	public static var crtShader = new CRTShader();
+	var shaderFilter = new ShaderFilter(crtShader);
 
 	override function create()
 	{
@@ -266,6 +270,9 @@ class TCOCreditsState extends MusicBeatState
 		add(flippedArrow);*/
 
 		changeSelection();
+
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
+		if (ClientPrefs.shaders) camTexts.setFilters([shaderFilter]);
 
 		super.create();
 	}

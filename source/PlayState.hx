@@ -4407,7 +4407,7 @@ class PlayState extends MusicBeatState
 				camHUD.fade(FlxColor.BLACK, 0, true);
 
 			case 'rombie':
-				FlxG.camera.fade(FlxColor.BLACK, 1.5, true);
+				FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				zoomTweenStart = FlxTween.tween(FlxG.camera, {zoom: 1}, 3 * playbackRate, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(twn)
@@ -8246,6 +8246,8 @@ class PlayState extends MusicBeatState
 			case 'rombie':
 				switch(curBeat)
 				{
+					case 3:
+						FlxG.camera.fade(FlxColor.BLACK, 1.5, true);
 					case 8:
 						dad.visible = true;
 						iconP2.visible = true;
