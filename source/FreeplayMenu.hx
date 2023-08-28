@@ -65,6 +65,7 @@ class FreeplayMenu extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var finishedZoom = false;
 	var menuText:FlxText;
+	var yellowSquare:FlxSpriteExtra;
 
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
@@ -135,6 +136,14 @@ class FreeplayMenu extends MusicBeatState
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
+
+		var leftBar:FlxSpriteExtra = new FlxSpriteExtra().makeSolid(50, 720, FlxColor.WHITE);
+		leftBar.scrollFactor.set();
+		add(leftBar);
+
+		yellowSquare = new FlxSpriteExtra(0, 0).makeSolid(50, 50, 0xFFfeff95);
+		yellowSquare.scrollFactor.set();
+		add(yellowSquare);
 
 		littleBar = new FlxSprite();
 		littleBar.loadGraphic(Paths.image('freeplayArt/selectMenu/bar'));
@@ -292,22 +301,26 @@ class FreeplayMenu extends MusicBeatState
 				other characters from the\n
 				"Animator vs. Animation" Series!
 				';
+				yellowSquare.y = 210;
 			case 'extra':
 				menuText.text = '
 				Want more than this mod can offer?\n
 				This folder is made for you!
 				';
+				yellowSquare.y = 310;
 			case 'cover':
 				menuText.text = '
 				Are you looking for the collab songs?\n
 				Or the covers?\n
 				All of them are here!
 				';
+				yellowSquare.y = 410;
 		    case 'old':
 				menuText.text = '
 				Feeling to play the legacy songs, huh?\n
 				This folder section is for ya!
 				';
+				yellowSquare.y = 510;
 		}
 
 		menuText.x = FlxG.width - menuText.width - 3;

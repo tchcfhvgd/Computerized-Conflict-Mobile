@@ -1376,7 +1376,7 @@ class PlayState extends MusicBeatState
 					tscseeing.screenCenter();
 					tscseeing.updateHitbox();
 					tscseeing.x += 2480;
-					tscseeing.y += 85;
+					tscseeing.y += 95;
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 
 					var coolVig:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/soCOOLvig', 'extras'));
@@ -1465,7 +1465,7 @@ class PlayState extends MusicBeatState
 					colorShad = new ColorSwap();
 					
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new SaturationShader())]);
-					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new SaturationShader())]);
+					//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new SaturationShader())]);
 
 				}
 
@@ -4283,7 +4283,7 @@ class PlayState extends MusicBeatState
 
 				scoreTxt.text = 'Score: ' + songScore
 				+ '\nCombo Breaks: ' + songMisses
-				+ '\nAccuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + '?)' : '?');
+				+ '\nAccuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + ')' : '?');
 		}
 		
 		if (uiType == 'psychDef') scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + ' (' + Math.floor(ratingPercent * 100) + '%)';
