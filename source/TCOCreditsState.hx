@@ -23,6 +23,8 @@ import FreeplayMenu;
 import flixel.FlxObject;
 import flixel.tweens.FlxEase;
 import flixel.addons.display.FlxBackdrop;
+import openfl.filters.BitmapFilter;
+import openfl.filters.ShaderFilter;
 import openfl.Lib;
 import Shaders;
 #if MODS_ALLOWED
