@@ -378,7 +378,9 @@ class PlayState extends MusicBeatState
 			var adobeWindow:BGSprite;
 			var sFWindow:BGSprite;
 			var scroll:FlxBackdrop;
+			var viraScroll:FlxBackdrop;
 			var vignettMid:FlxSprite;
+			var vignetteFin:FlxSprite;
 			var SpinAmount:Float = 0;
 			var isPlayersSpinning:Bool = false;
 			var caShader:ChromaticAberrationEffect;
@@ -1349,7 +1351,6 @@ class PlayState extends MusicBeatState
 
 					alanBG = new BGSprite('trojan/alan_desktop', -80, -1800, 1, 1);
 					alanBG.setGraphicSize(Std.int(alanBG.width * 5));
-					//if (ClientPrefs.shaders) alanBG.shader = new FishEyeShader();
 
 					adobeWindow = new BGSprite('trojan/XD', -80, -1800, 1, 1);
 					adobeWindow.setGraphicSize(Std.int(adobeWindow.width * 2));
@@ -1357,14 +1358,11 @@ class PlayState extends MusicBeatState
 					adobeWindow.y -= 900;
 					adobeWindow.x += 1500;
 
-					//if (ClientPrefs.shaders) adobeWindow.shader = new FishEyeShader();
-
 					sFWindow = new BGSprite('trojan/stickFightwindow', -80, -1800, 1, 1);
 					sFWindow.screenCenter();
 					sFWindow.y -= 900;
 					sFWindow.x += 900;
 					sFWindow.setGraphicSize(Std.int(sFWindow.width * 1.5));
-					//if (ClientPrefs.shaders) sFWindow.shader = new FishEyeShader();
 
 					daFloor = new BGSprite('trojan/floor', -80, -1800, 1, 1);
 					daFloor.screenCenter();
@@ -1382,7 +1380,6 @@ class PlayState extends MusicBeatState
 					var coolVig:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/soCOOLvig', 'extras'));
 					coolVig.antialiasing = ClientPrefs.globalAntialiasing;
 					coolVig.cameras = [camBars];
-					//add(coolVig);
 
 					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
 					radialLine.cameras = [camBars];
@@ -1426,46 +1423,32 @@ class PlayState extends MusicBeatState
 					add(daFloor);
 					add(tscseeing);
 
-					/*particleEmitter = new FlxEmitter(0, 1000);
-					particleEmitter.launchMode = FlxEmitterMode.SQUARE;
-					particleEmitter.velocity.set(-50, -200, 50, -600, -90, 0, 90, -600);
-					particleEmitter.scale.set(2, 2, 2, 2, 0, 0, 0, 0);
-					particleEmitter.drag.set(0, 0, 0, 0, 5, 5, 10, 10);
-					particleEmitter.width = 2787.45;
-					//particleEmitter.alpha.set(0, 0);
-					particleEmitter.lifespan.set(1.9, 4.9);
-
-					particleEmitter.loadParticles(Paths.image('particle'), 500, 16, true);
-					particleEmitter.color.set(FlxColor.YELLOW, FlxColor.YELLOW);
-
-					particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
-					add(particleEmitter);
-
 					scroll = new FlxBackdrop(Paths.image('trojan/scrollmidsong', 'extras'), XY, 0, 0);
-					scroll.setGraphicSize(Std.int(scroll.width * 0.8));
-					scroll.cameras = [camChar];
-					add(scroll);*/
+					scroll.setGraphicSize(Std.int(scroll.width * 0.9));
+					scroll.alpha = 0;
+					add(scroll);
 
-					vignettMid = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vignettemidsong', 'extras'));
+					vignettMid = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vigMidSong', 'extras'));
 					vignettMid.antialiasing = ClientPrefs.globalAntialiasing;
-					vignettMid.cameras = [camChar];
 					vignettMid.alpha = 0;
+					vignettMid.scrollFactor.set();
+					vignettMid.cameras = [camChar];
 					add(vignettMid);
 
-					//for (i in 0...4) babyArrowBG = new StrumNote(0,  0, i, playerHandler);
-					//babyArrowBG.screenCenter();
-					//opponentStrums.add(babyArrowBG);
+					viraScroll = new FlxBackdrop(Paths.image('trojan/exe', 'extras'), XY, 0, 0);
+					viraScroll.setGraphicSize(Std.int(viraScroll.width * 0.9));
+					viraScroll.alpha = 0;
+					add(viraScroll);
 
-					//strumLineNotes.add(babyArrowBG);
-					//babyArrowBG.postAddedToGroup();
+					vignetteFin = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vignetteFin', 'extras'));
+					vignetteFin.antialiasing = ClientPrefs.globalAntialiasing;
+					vignetteFin.alpha = 0;
+					vignetteFin.scrollFactor.set();
+					vignetteFin.cameras = [camChar];
+					add(vignetteFin);
 					
 					caShader = new ChromaticAberrationEffect(0);
-					//if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], caShader);
-					//caShader.setChrome(0.0045);
 					colorShad = new ColorSwap();
-					
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new SaturationShader())]);
-					//if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(new SaturationShader())]);
 
 				}
 
@@ -2306,6 +2289,9 @@ class PlayState extends MusicBeatState
 						add(bsodStatic);
 						add(rsod);
 				}
+			case 'alan-pc-virabot':
+				add(scroll);
+				add(viraScroll);
 			case 'animStage-old':
 				add(bsod);
 		}
@@ -4903,9 +4889,12 @@ class PlayState extends MusicBeatState
 		{
 			case 'alan-pc-conflict':
 				confBSODShake(1.0);
-			/*case 'alan-pc-virabot':
+			case 'alan-pc-virabot':
 				scroll.x -= 0.45 * 60 * elapsed;
-				scroll.y -= 0.16 * 60 * elapsed;*/
+				scroll.y -= 0.16 * 60 * elapsed;
+
+				viraScroll.x -= 0.85 * 60 * elapsed;
+				viraScroll.y -= 0.56 * 60 * elapsed;
 		}
 
 		switch(curStage)
@@ -7851,42 +7840,51 @@ class PlayState extends MusicBeatState
 
 					case 256:
 						vignetteTrojan.alpha = 0;
+						vignettMid.alpha = 1;
+						scroll.alpha = 1;
 						coolShit.alpha = 0;
 						bestPart2 = false;
-						camChar.alpha = 1;
 						camChar.flash(FlxColor.WHITE, 0.85);
-						dadGroup.cameras = [camChar];
-						boyfriendGroup.cameras = [camChar];
-						boyfriend.setColorTransform(1, 1, 1, 1, 169, 203, 255, 0);
-						dad.setColorTransform(1, 1, 1, 1, 255, 47, 96, 0);
-						//boyfriend.x -= 250;
-						dad.x -= 950;
-						dad.y -= 100;
+						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
+						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
+						gf.alpha = 0;
 
 					case 288:
 
 						camChar.flash(FlxColor.WHITE, 0.85);
 
 					case 318:
-
-						FlxTween.tween(camChar, {alpha:0}, 0.45);
-						
+						scroll.alpha = 0;
+						vignettMid.alpha = 0;
 					case 348:
 						FlxG.sound.play(Paths.sound('intro3'), 0.4);
 					case 349:
 						FlxG.sound.play(Paths.sound('intro2'), 0.4);
 					case 350:
 						FlxG.sound.play(Paths.sound('intro1'), 0.4);
+						camGame.fade(FlxColor.WHITE, 0.5, false);
 					case 351:
 						FlxG.sound.play(Paths.sound('introGo'), 0.4);
 					case 352:
-						if (ClientPrefs.shaders && ClientPrefs.flashing) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader)]);
+						camGame.fade(FlxColor.WHITE, 0.5, true);
+						if (ClientPrefs.shaders && ClientPrefs.flashing) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader), new ShaderFilter(fishEyeshader)]);
+						fishEyeshader.MAX_POWER.value = [0.15];
 						isPlayersSpinning = true;
+						viraScroll.alpha = 1;
+						vignetteFin.alpha = 1;
+						gf.alpha = 0;
+						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
 						
 
 					case 384:
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						clearShaderFromCamera(['camgame', 'camhud']);
+						fishEyeshader.MAX_POWER.value = [0];
+						viraScroll.alpha = 0;
+						vignetteFin.alpha = 0;
+						scroll.alpha = 0;
+						vignettMid.alpha = 0;
+						gf.alpha = 1;
 						//blackBars(0);
 					case 400:
 						camGame.alpha = 0;
