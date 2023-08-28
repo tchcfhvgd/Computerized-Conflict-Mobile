@@ -2,11 +2,8 @@ TIBURONES:
 
 (MAYBE) making freeplay, extra folder and alan song the only accessible things when you unlock alan.
 
-functional week score on the story menu (idk if that works thats why i put it here)
-
-
 MIJAE:
--Finish the other songs events 
+-Finish TROJAN GRR
 
 
 Estimated Release: September 8th
