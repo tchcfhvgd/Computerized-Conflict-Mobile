@@ -125,6 +125,8 @@ class PauseSubState extends MusicBeatSubstate
 		arrow.scrollFactor.set();
 		add(arrow);
 
+		if (PlayState.instance.oldVideoResolution) arrow.alpha = 0;
+
 		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
 		spikes2.y += 630;
 		spikes2.scrollFactor.set(0, 0);
