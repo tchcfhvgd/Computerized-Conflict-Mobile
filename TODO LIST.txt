@@ -3,13 +3,7 @@ TIBURONES:
 (STUFF THAT MAYBE U SHOULD DO IF POSSIBLE)
 {
    - making freeplay, extra folder and       alan song the only accessible things
-   when you unlock alan.
-
-   - make the old songs and practice time
-    look like they're unlocked by default
-    on freeplay.
-
-   - hay un bug cuando sales del modo     historia, cuando quieres volver a     cargar los datos de la partida     anterior, aun tienes posibilidad de     moverte en el menu con izquierda o     derecha, cosa que no deberia pasar.
+   when you unlock alan. -La verdad, prefiero que se vea todo un poco más oscuro y que no se bloquee, está eso bien?
 }
 
 MIJAE:

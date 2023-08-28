@@ -300,18 +300,16 @@ class TCOStoryState extends MusicBeatState
 
 			if (controls.UI_RIGHT_P)
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeDifficulty(1);
+				changeDifficulty(1, checkpointSystemON);
 			}
 			else if (controls.UI_LEFT_P)
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeDifficulty(-1);
+				changeDifficulty(-1, checkpointSystemON);
 			}
 			else if (controls.ACCEPT)
 			{
+				selectedSmth = true;
 				if (!checkpointSystemON){
-					selectedSmth = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					FlxTween.tween(FlxG.camera, {zoom: 3}, 1, {ease: FlxEase.expoIn});
 					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
@@ -320,7 +318,6 @@ class TCOStoryState extends MusicBeatState
 					});
 				}else{
 					checkpointSystemON = false;
-					selectedSmth = true;
 
 					playSongs(FlxG.save.data.checkpoint.playlist, FlxG.save.data.checkpoint.campaignScore, FlxG.save.data.checkpoint.campaignMisses, FlxG.save.data.checkpoint.difficulty);
 				}
@@ -340,8 +337,12 @@ class TCOStoryState extends MusicBeatState
 		//
 	}
 
-	function changeDifficulty(change:Int = 0):Void
+	function changeDifficulty(change:Int = 0, ?stop:Bool = false):Void
 	{
+		if(stop) return;
+		
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+
 		curDifficulty += change;
 
 		if (curDifficulty < 0)

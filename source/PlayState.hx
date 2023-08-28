@@ -1208,10 +1208,6 @@ class PlayState extends MusicBeatState
 					bottomBars.y += 850;
 					add(bottomBars);
 
-					if (SONG.song.toLowerCase() == 'rombie')
-					{
-						FlxG.camera.fade(FlxColor.BLACK, 0, false);
-					}
 
 					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(distortShader.shader)]);
 					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(distortShaderHUD.shader)]);
@@ -1252,8 +1248,8 @@ class PlayState extends MusicBeatState
 					add(bottomBarsALT);
 					
 					needsBlackBG = true;
-					camGame.alpha = 0;
-					camHUD.alpha = 0;
+					camGame.alpha = 0.0001;
+					camHUD.alpha = 0.0001;
 					
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 
@@ -1336,8 +1332,16 @@ class PlayState extends MusicBeatState
 					vignetteTrojan.screenCenter();
 					vignetteTrojan.alpha = 0;
 					vignetteTrojan.color = FlxColor.CYAN;
-					//vignetteTrojan.blend = LIGHTEN;
 					add(vignetteTrojan);
+
+					if (SONG.song.toLowerCase() == 'dashpulse') 
+					{
+						whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+						whiteScreen.scrollFactor.set();
+						whiteScreen.screenCenter();
+						add(whiteScreen);
+						whiteScreen.cameras = [camHUD];
+					}
 
 					oldVideoResolution = true;
 					noCurLight = true;
@@ -2466,7 +2470,9 @@ class PlayState extends MusicBeatState
 
 		switch(curStage)
 		{
-
+			case 'bbpanzu-stage':
+				otakuBG.color = 0xFF191919;
+				gf.color = 0xFF191919;
 		}
 
 		var file:String = Paths.json(songName + '/dialogueScript'); //Checks for json/script dialogue
@@ -4393,13 +4399,17 @@ class PlayState extends MusicBeatState
 				camHUD.fade(FlxColor.BLACK, 0, true);
 
 			case 'rombie':
-				FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				zoomTweenStart = FlxTween.tween(FlxG.camera, {zoom: 1}, 3 * playbackRate, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(twn)
 					{
 						defaultCamZoom = 1;
 					},
+				});
+			
+			case 'dashpulse':
+				zoomTweenStart = FlxTween.tween(whiteScreen, {alpha: 0}, Conductor.crochet/1000*32, {
+				ease: FlxEase.linear
 				});
 		}
 
@@ -7933,6 +7943,10 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(FlxG.camera, {zoom:1.3}, 1.5, {ease: FlxEase.sineInOut});
 					case 99:
 						FlxTween.tween(FlxG.camera, {zoom:FlxG.camera.zoom - 0.2}, 3, {ease: FlxEase.sineInOut});
+					case 100:
+						otakuBG.color = 0xFFFFFFFF;
+						gf.color = 0xFFFFFFFF;
+						camGame.flash(FlxColor.WHITE, Conductor.crochet/1000);
 					case 256:
 						colorTween([gf, otakuBG], 0.7, FlxColor.WHITE, 0xFF191919);
 						defaultCamZoom = 1.1;
@@ -8256,8 +8270,6 @@ class PlayState extends MusicBeatState
 			case 'rombie':
 				switch(curBeat)
 				{
-					case 3:
-						FlxG.camera.fade(FlxColor.BLACK, 1.5, true);
 					case 8:
 						dad.visible = true;
 						iconP2.visible = true;

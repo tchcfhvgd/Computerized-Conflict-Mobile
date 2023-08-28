@@ -72,7 +72,7 @@ class FlashingState extends MusicBeatState
 		spikes2.scrollFactor.set(0, 0);
 		if (spikes2 != null) add(spikes2);
 		
-		var flashText = new FlxText(250, 125, FlxG.width, "Shaders and flashing lights\nare enabled by default.\n(There are also advanced shaders which\nmight me too lagy)", 42);
+		var flashText = new FlxText(250, 125, FlxG.width, "Shaders and flashing lights\nare enabled by default.\n(There are also advanced shaders which\nmight me too laggy)", 42);
 		flashText.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		flashText.borderSize = 5;
 		add(flashText);

@@ -228,7 +228,10 @@ class MainMenuState extends MusicBeatState
 			{
 				CoolUtil.songsUnlocked.data.songsPlayed = new Array<String>();
 
-				CoolUtil.songsUnlocked.data.songsPlayed.push(FreeplayState.alreadyShowedSongs);
+				for (i in 0...FreeplayState.alreadyShowedSongs.length)
+				{
+					CoolUtil.songsUnlocked.data.songsPlayed.push(FreeplayState.alreadyShowedSongs[i]);
+				}
 			}
 
 			if (CoolUtil.songsUnlocked.data.weeksData == null)
