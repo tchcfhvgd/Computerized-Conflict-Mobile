@@ -198,6 +198,8 @@ class TitleState extends MusicBeatState
 	var bg2:FlxSprite;
 	var vignette:FlxSprite;
 
+	var fadefuckthisshit:FlxSprite;
+
 	function startIntro()
 	{
 		if (!initialized)
@@ -323,6 +325,10 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
+		fadefuckthisshit = new FlxSpriteExtra().makeSolid(FlxG.width*2, FlxG.height*2, 0xFF000000);
+		add(fadefuckthisshit);
+		fadefuckthisshit.alpha = 0.000001;
+
 		if (initialized)
 			skipIntro();
 		else
@@ -439,12 +445,14 @@ class TitleState extends MusicBeatState
 				zoomLerpTo = 3;
 				zoomPerSec = 1.5;
 
-				FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
+				FlxTween.tween(fadefuckthisshit, {alpha: 0}, 0.8,
 				{
-				    MusicBeatState.switchState(new MainMenuState());
-					titleOptions = false;
-					bump = false;
-					doNotZoom = false;
+					onComplete: function(tween:FlxTween){
+						MusicBeatState.switchState(new MainMenuState());
+						titleOptions = false;
+						bump = false;
+						doNotZoom = false;
+					},
 				});
 
 				FlxG.mouse.visible = false;
@@ -609,9 +617,12 @@ class TitleState extends MusicBeatState
 							});
 						}
 				case 30:
-					if(!skippedIntro) FlxG.cameras.fade(FlxColor.WHITE, 1, false);
+					if(!skippedIntro)
+					{
+						fadefuckthisshit.color = 0xFFFFFFFF;
+						FlxTween.tween(fadefuckthisshit, {alpha: 0}, 1);
+					}
 				case 33:
-					FlxG.cameras.fade(FlxColor.WHITE, 0, true);
 					skipIntro();
 					zoomLerpTo = 1;
 					zoomPerSec = 1000;
@@ -638,7 +649,8 @@ class TitleState extends MusicBeatState
 			bg2.alpha = 1;
 			titleText.alpha = 1;
 			smite.alpha = 1;
-			FlxG.cameras.fade(FlxColor.WHITE, 0, true);
+			fadefuckthisshit.color = 0xFF000000;
+			fadefuckthisshit.alpha = 0.0;
 			zoomLerpTo = 1;
 			zoomPerSec = 1000;
 			chosenOne.alpha = 1;

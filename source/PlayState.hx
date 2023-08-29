@@ -1805,7 +1805,12 @@ class PlayState extends MusicBeatState
 					add(whiteScreen);
 					whiteScreen.cameras = [camHUD];
 
-					var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
+					var soundCaryArray:Array<String> = 
+					#if !web
+					FileSystem.readDirectory('assets/sounds/carykh/');
+					#else
+					['sound (1)', 'sound (2)', 'sound (3)'];
+					#end
 					for (i in 0...soundCaryArray.length){
 						precacheList.set(soundCaryArray[i], 'sound');
 					}
@@ -5487,7 +5492,12 @@ class PlayState extends MusicBeatState
 						vocals.volume = 0;
 						vocals.pause();
 
-						var soundCaryArray:Array<String> = FileSystem.readDirectory('assets/sounds/carykh/');
+						var soundCaryArray:Array<String> = 
+						#if !web
+						FileSystem.readDirectory('assets/sounds/carykh/');
+						#else
+						['sound (1)', 'sound (2)', 'sound (3)'];
+						#end
 						var chosenInt = FlxG.random.int(0, soundCaryArray.length-1);
 						var shit:FlxSound = new FlxSound().loadEmbedded('assets/sounds/carykh/' + soundCaryArray[chosenInt]);
 						shit.play(true);

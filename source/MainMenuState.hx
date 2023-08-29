@@ -46,13 +46,13 @@ class MainMenuState extends MusicBeatState
 		'freeplay',
 		'storymode',
 		'credits',
-		'art_gallery',
+		#if !web 'art_gallery', #end //I know that this mod is not getting ported to web but uh I was bored
 		'vault',
 		'options'
 	];
 
 	var optionShit_NO_STORY:Array<String> = [
-		'art_gallery',
+		#if !web 'art_gallery', #end
 		'storymode',
 		'credits',
 		'options'
@@ -651,7 +651,7 @@ class MainMenuState extends MusicBeatState
 						case 'awards':
 							MusicBeatState.switchState(new AchievementsMenuState());
 						case 'art_gallery':
-							MusicBeatState.switchState(new FanArtState());
+							#if !web MusicBeatState.switchState(new FanArtState()); #end
 						case 'credits':
 							MusicBeatState.switchState(new TCOCreditsState());
 						case 'options':

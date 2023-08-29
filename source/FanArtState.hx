@@ -24,8 +24,10 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+#if sys
 import sys.FileSystem;
 import sys.io.File;
+#end
 import openfl.Lib;
 import flixel.addons.display.FlxBackdrop;
 
