@@ -110,23 +110,6 @@ class TitleState extends MusicBeatState
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
 
-		//trace(path, FileSystem.exists(path));
-
-		/*#if (polymod && !html5)
-		if (sys.FileSystem.exists('mods/')) {
-			var folders:Array<String> = [];
-			for (file in sys.FileSystem.readDirectory('mods/')) {
-				var path = haxe.io.Path.join(['mods/', file]);
-				if (sys.FileSystem.isDirectory(path)) {
-					folders.push(file);
-				}
-			}
-			if(folders.length > 0) {
-				polymod.Polymod.init({modRoot: "mods", dirs: folders});
-			}
-		}
-		#end*/
-
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
@@ -214,7 +197,7 @@ class TitleState extends MusicBeatState
 
 		bg.loadGraphic(Paths.image('title/background'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.alpha = 0;
+		bg.alpha = 0.00001;
 		add(bg);
 
 		bg2 = new FlxSprite();
@@ -223,21 +206,21 @@ class TitleState extends MusicBeatState
 		bg2.animation.addByPrefix('anim', 'Símbolo 1', 60, true);
 		bg2.animation.play('anim');
 		bg2.screenCenter();
-		bg2.alpha = 0;
+		bg2.alpha = 0.00001;
 		bg2.blend = MULTIPLY;
 		add(bg2);
 
 		vignette = new FlxSprite().loadGraphic(Paths.image('title/vignetteThings'));
-		vignette.alpha = 0;
+		vignette.alpha = 0.00001;
 		add(vignette);
 
 		chosenOne = new FlxSprite(0, 800).loadGraphic(Paths.image('title/chosenOne'));
-		chosenOne.alpha = 0;
+		chosenOne.alpha = 0.00001;
 		chosenOne.antialiasing = ClientPrefs.globalAntialiasing;
 		add(chosenOne);
 
 		darkLord = new FlxSprite((FlxG.width / 2), 800).loadGraphic(Paths.image('title/darkLord'));
-		darkLord.alpha = 0;
+		darkLord.alpha = 0.00001;
 		darkLord.antialiasing = ClientPrefs.globalAntialiasing;
 		add(darkLord);
 
@@ -248,7 +231,7 @@ class TitleState extends MusicBeatState
 		smite.animation.play('do');
 		smite.setGraphicSize(Std.int(smite.width * 0.8));
 		smite.screenCenter();
-		smite.alpha = 0;
+		smite.alpha = 0.00001;
 		add(smite);
 
 		logoBl = new FlxSprite(-1280, -55).loadGraphic(Paths.image('title/logo'));
@@ -261,7 +244,7 @@ class TitleState extends MusicBeatState
 		titleText.setGraphicSize(Std.int(titleText.width * 0.5));
 		titleText.screenCenter();
 		titleText.y += 200;
-		titleText.alpha = 0;
+		titleText.alpha = 0.00001;
 		add(titleText);
 		
 		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
@@ -291,7 +274,7 @@ class TitleState extends MusicBeatState
 		}
 
 		optionShortCut = new FlxSprite(1200, 15).loadGraphic(Paths.image('title/optionsShortcut'));
-		optionShortCut.alpha = 0;
+		optionShortCut.alpha = 0.00001;
 		optionShortCut.setGraphicSize(Std.int(optionShortCut.width * 0.85));
 		add(optionShortCut);
 		optionShortCut.antialiasing = ClientPrefs.globalAntialiasing;
