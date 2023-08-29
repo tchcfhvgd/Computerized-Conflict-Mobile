@@ -99,6 +99,16 @@ class MainMenuState extends MusicBeatState
 	var shaderFilter = new ShaderFilter(crtShader);
 	var finishedZoom = false;
 
+	var colorsMap:Map<String, FlxColor> =
+	[
+		'storymode' => FlxColor.ORANGE,
+		'freeplay' => FlxColor.CYAN,
+		'credits' => 0xFF3de66f,
+		'art_gallery' => FlxColor.YELLOW,
+		'vault' => FlxColor.BLACK,
+		'options' => FlxColor.WHITE,
+	];
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -193,7 +203,8 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
 
-		if (CoolUtil.songsUnlocked == null){
+		if (CoolUtil.songsUnlocked == null)
+		{
 			trace('null null null');
 			CoolUtil.songsUnlocked = new FlxSave();
 			CoolUtil.songsUnlocked.bind("Computarized-Conflict");
@@ -238,10 +249,6 @@ class MainMenuState extends MusicBeatState
 			{
 				CoolUtil.songsUnlocked.data.weeksData = new Map<String, Int>();
 			}
-
-			trace(CoolUtil.songsUnlocked.data.weeksData.get('week 1-Hard'));
-
-			trace(CoolUtil.songsUnlocked.data.mainWeek);
 
 			CoolUtil.songsUnlocked.flush();
 		}
@@ -304,7 +311,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
+		blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 		blackBG.scrollFactor.set();
 		blackBG.alpha = 0;
 		blackBG.screenCenter();
@@ -691,98 +698,21 @@ class MainMenuState extends MusicBeatState
 			colorTween.cancel();
 		}
 
-		switch(optionShit[curSelected])
-		{
-			case 'storymode':
+		var nameOfOptionSelected:String = optionShit[curSelected];
 
-				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.ORANGE, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
+		colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, colorsMap.get(nameOfOptionSelected), {
+			onComplete: function(twn:FlxTween) {
+				colorTween = null;
+			}
+		});
 
-				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.ORANGE, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
+		colorTween = FlxTween.color(vignette, 1, vignette.color, colorsMap.get(nameOfOptionSelected), {
+			onComplete: function(twn:FlxTween) {
+				colorTween = null;
+			}
+		});
 
-				itemsText.text = 'Face off against Alan Becker stick figures with the power of music!';
-
-			case 'freeplay':
-
-				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.CYAN, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.CYAN, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				itemsText.text = 'Play bonus songs and meet other stick figures, will you recognize them?';
-
-			case 'credits':
-
-				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, 0xFF3de66f, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				colorTween = FlxTween.color(vignette, 1, vignette.color, 0xFF3de66f, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				itemsText.text = 'Meet the people behind this mod!';
-
-			case 'art_gallery':
-
-				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.YELLOW, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.YELLOW, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				itemsText.text = 'Look at some art made by our followers!';
-
-			case 'options':
-
-				colorTween = FlxTween.color(scrollingThing, 1, scrollingThing.color, FlxColor.WHITE, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				colorTween = FlxTween.color(vignette, 1, vignette.color, FlxColor.WHITE, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-			    });
-
-				itemsText.text = 'Configure your controls and more to your preference!';
-
-			case 'vault':
-
-				colorTween = FlxTween.color(scrollingThing, 0.5, scrollingThing.color, FlxColor.BLACK, {
-					onComplete: function(twn:FlxTween) {
-						colorTween = null;
-					}
-				});
-
-				itemsText.text = '...';
-		}
+		itemsText.text = textChange(nameOfOptionSelected);
 	}
 
     public function addShaderToCamera(cam:String, effect:ShaderEffect){//STOLE FROM ANDROMEDA
@@ -808,5 +738,25 @@ class MainMenuState extends MusicBeatState
 				}
 				camGame.setFilters(newCamEffects);
 		}
+	}
+
+	function textChange(tag:String)
+	{
+		switch(tag)
+		{
+			case 'storymode': return 'Face off against Alan Becker stick figures with the power of music!';
+
+			case 'freeplay': return 'Play bonus songs and meet other stick figures, will you recognize them?';
+
+			case 'credits': return 'Meet the people behind this mod!';
+
+			case 'art_gallery': return 'Look at some art made by our followers!';
+
+			case 'options': return 'Configure your controls and more to your preference!';
+			
+			case 'vault': return '...';
+		}
+
+		return '';
 	}
 }

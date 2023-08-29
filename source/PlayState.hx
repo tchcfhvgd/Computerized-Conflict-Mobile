@@ -1389,7 +1389,7 @@ class PlayState extends MusicBeatState
 					radialLine.cameras = [camBars];
 					radialLine.screenCenter();
 					add(radialLine);
-					radialLine.alpha = 0;
+					radialLine.alpha = 0.0001; //kinda laggy when it changes to an alpha of 1 if it's set to 0
 
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
