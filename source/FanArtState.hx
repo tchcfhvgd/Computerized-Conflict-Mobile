@@ -28,6 +28,7 @@ import flixel.util.FlxColor;
 import sys.FileSystem;
 import sys.io.File;
 #end
+import openfl.utils.Assets as OpenFlAssets;
 import openfl.Lib;
 import flixel.addons.display.FlxBackdrop;
 

@@ -201,7 +201,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.mouse.visible = true;
 
-		FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
+		#if !web FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0); #end
 
 		if (CoolUtil.songsUnlocked == null)
 		{

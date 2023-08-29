@@ -632,7 +632,7 @@ class TitleState extends MusicBeatState
 			socialItems.forEach(function(socialItem:FlxSprite) socialItem.alpha = 1);
 			optionShortCut.alpha = 1;
 			FlxG.mouse.visible = true;
-			FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0);
+			#if !web FlxG.mouse.load(Paths.image("EProcess/alt", 'chapter1').bitmap, 1.5, 0); #end
 				
 			skippedIntro = true;
 		}
