@@ -218,7 +218,7 @@ class TitleState extends MusicBeatState
 		add(bg);
 
 		bg2 = new FlxSprite();
-		bg2.frames = Paths.getSparrowAtlas('title/background2');
+		bg2.frames = Paths.getSparrowAtlas('title/background2'); //this shit uses like 230MB and I am not even joking
 		bg2.antialiasing = ClientPrefs.globalAntialiasing;
 		bg2.animation.addByPrefix('anim', 'Símbolo 1', 60, true);
 		bg2.animation.play('anim');
