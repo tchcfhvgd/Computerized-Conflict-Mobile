@@ -358,9 +358,10 @@ class TCOStoryState extends MusicBeatState
 		sprDifficulty.y = 230;
 
 		weekImages.loadGraphic(Paths.image('storymenu/chapterImages/w1-${diff}'));
-		weekImages.screenCenter();
+		weekImages.screenCenter(Y);
+		weekImages.x = FlxG.width - weekImages.width;
 		weekImages.antialiasing = ClientPrefs.globalAntialiasing;
-		weekImages.setGraphicSize(Std.int(weekImages.width * 0.9));
+		weekImages.setGraphicSize(Std.int(weekImages.width * 0.8));
 
 		switch(curDifficulty)
 		{
