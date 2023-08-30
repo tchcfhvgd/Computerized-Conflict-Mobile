@@ -75,7 +75,6 @@ class MainMenuState extends MusicBeatState
 
 	public static var showTyping:Bool = false;
 	var typinText:FlxText;
-	var blackBG:FlxSprite;
 	var menuText:FlxText;
 	var itemsText:FlxText;
 	var glitchBG:BGSprite;
@@ -310,12 +309,6 @@ class MainMenuState extends MusicBeatState
 		CoolUtil.songsUnlocked.flush();*/
 
 		FlxG.camera.follow(camFollowPos, null, 1);
-
-		blackBG = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
-		blackBG.scrollFactor.set();
-		blackBG.alpha = 0;
-		blackBG.screenCenter();
-		add(blackBG);
 
 		if (showTyping){
 			typinText = new FlxText(0, FlxG.height / 16, 0, "", 12);
