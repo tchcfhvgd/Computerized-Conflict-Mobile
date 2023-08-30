@@ -1409,7 +1409,7 @@ class PlayState extends MusicBeatState
 					vignetteTrojan.cameras = [camBars];
 					vignetteTrojan.scale.set(0.7, 0.7);
 					vignetteTrojan.screenCenter();
-					vignetteTrojan.alpha = 0;
+					vignetteTrojan.alpha = 0.0001;
 					//vignetteTrojan.blend = LIGHTEN;
 					add(vignetteTrojan);
 
@@ -1418,7 +1418,7 @@ class PlayState extends MusicBeatState
 					coolShit.cameras = [camBars];
 					coolShit.scale.set(20, 20);
 					coolShit.screenCenter();
-					coolShit.alpha = 0;
+					coolShit.alpha = 0.0001;
 					//coolShit.blend = LIGHTEN;
 					add(coolShit);
 
@@ -1430,24 +1430,24 @@ class PlayState extends MusicBeatState
 
 					scroll = new FlxBackdrop(Paths.image('trojan/scrollmidsong', 'extras'), XY, 0, 0);
 					scroll.setGraphicSize(Std.int(scroll.width * 0.9));
-					scroll.alpha = 0;
+					scroll.alpha = 0.0001;
 					add(scroll);
 
 					vignettMid = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vigMidSong', 'extras'));
 					vignettMid.antialiasing = ClientPrefs.globalAntialiasing;
-					vignettMid.alpha = 0;
+					vignettMid.alpha = 0.0001;
 					vignettMid.scrollFactor.set();
 					vignettMid.cameras = [camChar];
 					add(vignettMid);
 
 					viraScroll = new FlxBackdrop(Paths.image('trojan/exe', 'extras'), XY, 0, 0);
 					viraScroll.setGraphicSize(Std.int(viraScroll.width * 0.9));
-					viraScroll.alpha = 0;
+					viraScroll.alpha = 0.0001;
 					add(viraScroll);
 
 					vignetteFin = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/vignetteFin', 'extras'));
 					vignetteFin.antialiasing = ClientPrefs.globalAntialiasing;
-					vignetteFin.alpha = 0;
+					vignetteFin.alpha = 0.0001;
 					vignetteFin.scrollFactor.set();
 					vignetteFin.cameras = [camChar];
 					add(vignetteFin);
@@ -4944,6 +4944,8 @@ class PlayState extends MusicBeatState
 
 				viraScroll.x -= 0.85 * 60 * elapsed;
 				viraScroll.y -= 0.56 * 60 * elapsed;
+
+				waterShit([256, 318]);
 		}
 
 		switch(curStage)
@@ -4996,9 +4998,10 @@ class PlayState extends MusicBeatState
 			FlxG.camera.shake(0.0045, 0.15);
 		}
 
-		var timeOrSomething:Float = (Conductor.songPosition/3000)*(SONG.bpm/25);
 		if(dad.curCharacter == 'cursor')
 		{
+			var timeOrSomething:Float = (Conductor.songPosition/3000)*(SONG.bpm/25);
+			
 			dad.x = DAD_X + dad.positionArray[0] + 800*Math.sin(timeOrSomething);
 			dad.y = DAD_Y + dad.positionArray[1] + 600*Math.sin(timeOrSomething/2);
 		}
@@ -5918,7 +5921,7 @@ class PlayState extends MusicBeatState
 				punchFancy();
 
 			case 'Virabot Attack':
-				virabotAttack();
+				//virabotAttack();
 				
 			case 'Jumpscare':
 				jumpscare(Std.parseFloat(value1));
@@ -8755,6 +8758,35 @@ class PlayState extends MusicBeatState
 			}
 		}
 		return false;
+	}
+
+	function waterShit(betweenBeats:Array<Int>)
+	{
+		if(curBeat >= betweenBeats[0] && curBeat < betweenBeats[1])
+		{
+			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/30);
+
+			dad.setPosition(DAD_X, DAD_Y);
+			startCharacterPos(dad, true);
+			dad.angle = 30*Math.cos(test/6);
+			dad.x += 50*Math.cos(test/6);
+			dad.y += 50*Math.sin(test/6);
+
+			boyfriend.setPosition(BF_X, BF_Y);
+			startCharacterPos(boyfriend);
+			boyfriend.angle = 30*Math.sin(test/6);
+			boyfriend.x += 50*Math.sin(test/6);
+			boyfriend.y += 50*Math.cos(test/6);
+		}
+		else
+		{
+			dad.setPosition(DAD_X, DAD_Y);
+			startCharacterPos(dad, true);
+			dad.angle = 0;
+			boyfriend.setPosition(BF_X, BF_Y);
+			startCharacterPos(boyfriend);
+			boyfriend.angle = 0;
+		}
 	}
 
 	var curLight:Int = -1;
