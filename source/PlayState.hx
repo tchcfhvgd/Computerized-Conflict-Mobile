@@ -1478,7 +1478,7 @@ class PlayState extends MusicBeatState
 					bsod.screenCenter();
 					bsod.x += 1250;
 					bsod.antialiasing = ClientPrefs.globalAntialiasing;
-					bsod.alpha = 0;
+					bsod.alpha = 0.0001;
 
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -7499,8 +7499,7 @@ class PlayState extends MusicBeatState
 						case 944:
 							if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 
-							if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-							else if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+							if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]); //the bbpanzu bloom shader is also laggy af and idk if it's actually less laggy lmfao
 							whiteScreen.alpha = 1;
 							objectColor([dad, boyfriend], FlxColor.BLACK);
 							camHUD.fade(FlxColor.BLACK, 1.5, true);
