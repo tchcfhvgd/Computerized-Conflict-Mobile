@@ -449,6 +449,7 @@ class PlayState extends MusicBeatState
 			var glowBeat:Bool = false;
 			var glowSuperBeat:Bool = false;
 			var glowTween:FlxTween;
+			var tipDay:BGSprite;
 			
 		//amity:
 		    var bgGarden:BGSprite;
@@ -1686,6 +1687,21 @@ class PlayState extends MusicBeatState
 
 					camBars.x += 0.5;
 
+					tipDay = new BGSprite('tipOfTheDay', 0, 0, 1, 1);
+					tipDay.setGraphicSize(Std.int(tipDay.width * 2));
+					tipDay.cameras = [camOther];
+					tipDay.screenCenter();
+					tipDay.antialiasing = ClientPrefs.globalAntialiasing;
+					add(tipDay);
+
+					if(SONG.song.toLowerCase() == 'contrivance')
+					{
+						camGame.fade(FlxColor.BLACK, 0, false);
+						camHUD.alpha = 0;
+						precacheList.set('samTip', 'sound');
+						skipCountdown = true;
+					}
+
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0015));
 				}
 
@@ -2914,7 +2930,25 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			startCountdown();
+			switch (daSong)
+			{
+				case 'contrivance':
+					canReset = false;
+					canPause = false;
+					tipDay.alpha = 1;
+					var tip:FlxSound = new FlxSound().loadEmbedded(Paths.sound('samTip'));
+					tip.play(true);
+					tip.onComplete = function() {
+						startCountdown();
+						canReset = true;
+						canPause = true;
+						camGame.fade(FlxColor.BLACK, 0.5, true);
+						remove(tipDay);
+						tipDay.destroy();
+					}
+				default:
+					startCountdown();
+			}
 		}
 		RecalculateRating();
 
@@ -7393,6 +7427,8 @@ class PlayState extends MusicBeatState
 
 			case 'contrivance':
 				switch(curStep) {
+					    case 15:
+							FlxTween.tween(camHUD, {alpha: 1}, 0.7);
 						case 412:
 							blackBars(1);
 							
