@@ -4978,7 +4978,10 @@ class PlayState extends MusicBeatState
 		}*/
 
 		if (whiteScreen != null) whiteScreen.scale.set(Std.int(FlxG.width/FlxG.camera.zoom) + 50, Std.int(FlxG.height/FlxG.camera.zoom) + 50);
-		if (whiteScreen != null && SONG.song.toLowerCase() == 'rombie') whiteScreen.scale.set(Std.int(FlxG.width*2/FlxG.camera.zoom), Std.int(FlxG.height*2/FlxG.camera.zoom));
+		if (whiteScreen != null && SONG.song.toLowerCase() == 'rombie')
+		{
+			whiteScreen.scale.set(Std.int(FlxG.width*1.5/FlxG.camera.zoom), Std.int(FlxG.height*1.5/FlxG.camera.zoom));
+		}
 
 		if (ytBGVideo != null && videoTI != null) ytBGVideo.loadGraphic(videoTI.bitmapData);
 
