@@ -901,16 +901,16 @@ class PlayState extends MusicBeatState
 							fires2.visible = false;
 							add(fires2);
 
-							stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -50, -90, 0.9, 0.9);
-							stickpage.setGraphicSize(Std.int(stickpage.width * 2.4));
-							stickpage.alpha = 0.0001;
-
-							stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, 600, 1, 1);
-							stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.25));
-							stickpageFloor.alpha = 0.0001;
-
 							if(songName == 'outrage') 
 							{
+								stickpage = new BGSprite('victim/distorted_stickpage_bg', 'chapter1', -50, -90, 0.9, 0.9);
+								stickpage.setGraphicSize(Std.int(stickpage.width * 2.4));
+								stickpage.alpha = 0.0001;
+
+								stickpageFloor = new BGSprite('victim/dsp_floor', 'chapter1', -350, 600, 1, 1);
+								stickpageFloor.setGraphicSize(Std.int(stickpageFloor.width * 1.25));
+								stickpageFloor.alpha = 0.0001;
+
 								ScaredCrowd = new BGSprite('theBGGuyz', 'chapter1', -265, 105, 0.95, 0.95, ['BG Guys Scared'], true);
 								ScaredCrowd.setGraphicSize(Std.int(ScaredCrowd.width * 1.1));
 								ScaredCrowd.antialiasing = ClientPrefs.globalAntialiasing;
@@ -6135,19 +6135,15 @@ class PlayState extends MusicBeatState
 			CoolUtil.songsUnlocked.data.alanSongs.set(SONG.song.toLowerCase(), true);
 
 			CoolUtil.songsUnlocked.flush();
-
-			for (i in 0...FreeplayState.alanSongs.length)
-			{
-				trace(FreeplayState.alanSongs[i] + ' ' + CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i]));
-			}
-
-			for (i in 0...FreeplayState.alanSongs.length)
-			{
-				if (!CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i])) playAlanVideo = false;
-
-				//CoolUtil.songsUnlocked.data.cutsceneSeen = true;
-			}
 		}
+
+		for (i in 0...FreeplayState.alanSongs.length)
+		{
+			trace(FreeplayState.alanSongs[i] + ' ' + CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i]));
+
+			if (!CoolUtil.songsUnlocked.data.alanSongs.get(FreeplayState.alanSongs[i])) playAlanVideo = false;
+		}
+
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
@@ -7582,10 +7578,10 @@ class PlayState extends MusicBeatState
 						isCameraOnForcedPos = true;
 						camFollow.x = boyfriendCameraOffset[0] + 1200;
 						camFollow.y -= 50;
-						dad.alpha = 0;
+						dad.alpha = 0.0001;
 
 					case 112:
-						camGame.alpha = 0;
+						camGame.alpha = 0.0001;
 
 					case 128:
 						camGame.alpha = 1;
