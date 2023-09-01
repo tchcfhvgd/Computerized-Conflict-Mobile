@@ -7901,7 +7901,10 @@ class PlayState extends MusicBeatState
 						});*/
 
 						radialLine.alpha = 1;
-						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						else if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						scroll.alpha = 0;
+						vignettMid.alpha = 0;
 
 					case 96:
 						vignetteTrojan.alpha = 0;
@@ -7927,10 +7930,6 @@ class PlayState extends MusicBeatState
 					case 288:
 
 						camChar.flash(FlxColor.WHITE, 0.85);
-
-					case 318:
-						scroll.alpha = 0;
-						vignettMid.alpha = 0;
 					case 348:
 						FlxG.sound.play(Paths.sound('intro3'), 0.4);
 						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
