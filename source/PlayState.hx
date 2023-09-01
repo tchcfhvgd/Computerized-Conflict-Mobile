@@ -551,7 +551,6 @@ class PlayState extends MusicBeatState
 		//vignettes type:
 			var vignetteTrojan:FlxSprite; //USED IN TROJAN AND OTHER COOL SONGS
 			var coolShit:FlxSprite; //USED IN TROJAN AND OTHER COOL SONGS
-			var vignetteSTI:BGSprite; //USED IN ADOBE
 
 		//things from the 0.5.1
 		public var camGameShaders:Array<ShaderEffect> = [];
@@ -866,14 +865,6 @@ class PlayState extends MusicBeatState
 							spotlightbf = new FlxSprite();
 							spotlightbf.loadGraphic(Paths.image("spotlight"));
 							spotlightbf.alpha = 0.0001;
-
-							LightsColors = [0xFFE5BE01, 0xFF00AAE4, 0xFF76BD17, 0xFFFF0000, 0xFFFF8000];
-
-							vignetteSTI = new BGSprite('STIvignette', 'chapter1', -650, -500, 0.9, 0.9);
-							vignetteSTI.cameras = [camHUD];
-							vignetteSTI.screenCenter();
-							vignetteSTI.alpha = 0.0001;
-							add(vignetteSTI);
 
 							//bbgColor = 0xFF929292;
 
@@ -7744,21 +7735,13 @@ class PlayState extends MusicBeatState
 
 		if (curBeat % 1 == 0 && bestPart2)
 		{
-			if (SONG.song.toLowerCase() != 'adobe')
-			{
-				vignetteTrojan.alpha = 1;
-				FlxTween.tween(vignetteTrojan, {alpha:0}, 0.2, {ease: FlxEase.quadInOut});
+			vignetteTrojan.alpha = 1;
+			FlxTween.tween(vignetteTrojan, {alpha:0}, 0.2, {ease: FlxEase.quadInOut});
 
-				if (curSong == 'trojan')
-				{
-					coolShit.alpha = 1;
-					FlxTween.tween(coolShit, {alpha:0}, Conductor.crochet * 5, {ease: FlxEase.sineIn});
-				}
-			}
-			else
+			if (curSong == 'trojan')
 			{
-				vignetteSTI.alpha = 1;
-				FlxTween.tween(vignetteSTI, {alpha:0}, 0.2);
+				coolShit.alpha = 1;
+				FlxTween.tween(coolShit, {alpha:0}, Conductor.crochet * 5, {ease: FlxEase.sineIn});
 			}
 		}
 

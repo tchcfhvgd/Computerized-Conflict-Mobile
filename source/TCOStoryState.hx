@@ -58,7 +58,6 @@ class TCOStoryState extends MusicBeatState
 	private static var lastDifficultyName:String = '';
 	public static var curDifficulty:Int = 0;
 	//var curDifficulty2:Int = 0;
-	var onInsane:Bool =  false;
 	var outline:FlxSprite;
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
@@ -368,26 +367,24 @@ class TCOStoryState extends MusicBeatState
 			case 0:
 				FlxG.cameras.flash(FlxColor.BLACK, 0.50);
 				fires.alpha = 0.0001;
-				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
-				if (!onInsane) bgSprite.color = FlxColor.WHITE;
-				onInsane = false;
 				bgSprite.alpha = 1;
+				bgSprite.color = FlxColor.WHITE;
+				circleTiles.color = FlxColor.WHITE;
+				scrollingThing.color = FlxColor.WHITE;
 				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
 			case 1:
 				FlxG.cameras.flash(FlxColor.WHITE, 0.50);
 				fires.alpha = 0.0001;
-				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, FlxColor.WHITE);
-				if (!onInsane) bgSprite.color = FlxColor.WHITE;
-				onInsane = false;
 				bgSprite.alpha = 1;
-				FlxG.sound.music.fadeIn(1, FlxG.sound.music.volume * 1);
+				bgSprite.color = FlxColor.WHITE;
+				circleTiles.color = FlxColor.WHITE;
+				scrollingThing.color = FlxColor.WHITE;
 			case 2:
 		        FlxG.cameras.flash(FlxColor.RED, 0.50);
 				fires.alpha = 1;
-				onInsane = true;
-				if (onInsane) FlxTween.color(bgSprite, 1, FlxColor.WHITE, 0xFF2C2425);
-				FlxG.sound.music.fadeOut(1, FlxG.sound.music.volume * 0);
-				if (onInsane) FlxG.sound.play(Paths.sound('fire'), 1, false);
+				bgSprite.color = 0xFF2C2425;
+				circleTiles.color = 0xFF2C2425;
+				scrollingThing.color = 0xFF2C2425;
 		}
 		
 		lastDifficultyName = diff;
