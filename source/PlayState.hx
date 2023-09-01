@@ -592,6 +592,9 @@ class PlayState extends MusicBeatState
 
 	public var fishEyeshader = new FishEyeShader();
 
+	//only used in end process I think
+	var stopTweens = new Array<FlxTween>();
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -942,56 +945,59 @@ class PlayState extends MusicBeatState
 							fires2.setGraphicSize(Std.int(fires2.width * 1.4));
 							add(fires2);
 
-							virabot1 = new BGSprite('EProcess/virabop', 'chapter1', -50, 455, 0.9, 0.9, ['ViraBop']);
-							virabot1.setGraphicSize(Std.int(virabot1.width * 1.3));
-							add(virabot1);
+							if (!ClientPrefs.lowQuality)
+							{
+								virabot1 = new BGSprite('EProcess/virabop', 'chapter1', -50, 455, 0.9, 0.9, ['ViraBop']);
+								virabot1.setGraphicSize(Std.int(virabot1.width * 1.3));
+								add(virabot1);
 
-							virabot4 = new BGSprite('EProcess/virabop', 'chapter1', -650, 455, 0.9, 0.9, ['ViraBop']);
-							virabot4.setGraphicSize(Std.int(virabot1.width * 1.3));
-							add(virabot4);
+								virabot4 = new BGSprite('EProcess/virabop', 'chapter1', -650, 455, 0.9, 0.9, ['ViraBop']);
+								virabot4.setGraphicSize(Std.int(virabot1.width * 1.3));
+								add(virabot4);
 
-							virabot2 = new BGSprite('EProcess/virabop', 'chapter1', 1250, 455, 0.9, 0.9, ['ViraBop']);
-							virabot2.setGraphicSize(Std.int(virabot2.width * 1.3));
-							virabot2.flipX = true;
-					   	 	add(virabot2);
+								virabot2 = new BGSprite('EProcess/virabop', 'chapter1', 1250, 455, 0.9, 0.9, ['ViraBop']);
+								virabot2.setGraphicSize(Std.int(virabot2.width * 1.3));
+								virabot2.flipX = true;
+								add(virabot2);
 
-							virabot3 = new BGSprite('EProcess/virabop', 'chapter1', 1750, 455, 0.9, 0.9, ['ViraBop']);
-							virabot3.setGraphicSize(Std.int(virabot3.width * 1.3));
-							virabot3.flipX = true;
-							add(virabot3);
+								virabot3 = new BGSprite('EProcess/virabop', 'chapter1', 1750, 455, 0.9, 0.9, ['ViraBop']);
+								virabot3.setGraphicSize(Std.int(virabot3.width * 1.3));
+								virabot3.flipX = true;
+								add(virabot3);
 
-							googleBurn = new FlxSprite(0, -1100);
-							googleBurn.frames = Paths.getSparrowAtlas('EProcess/GoogleBurning', 'chapter1');
-							googleBurn.animation.addByPrefix('idle', 'Symbol 2 instance 10', 16, true);
-							googleBurn.animation.play('idle');
-							googleBurn.scale.set(0.7, 0.7);
-							googleBurn.screenCenter();
-							googleBurn.y -= 900;
-							googleBurn.x += 250;
-							googleBurn.angle = -4;
-							add(googleBurn);
-							//FlxTween.tween(googleBurn, {y: googleBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
-							FlxTween.angle(googleBurn, googleBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
+								googleBurn = new FlxSprite(0, -1100);
+								googleBurn.frames = Paths.getSparrowAtlas('EProcess/GoogleBurning', 'chapter1');
+								googleBurn.animation.addByPrefix('idle', 'Symbol 2 instance 10', 16, true);
+								googleBurn.animation.play('idle');
+								googleBurn.scale.set(0.7, 0.7);
+								googleBurn.screenCenter();
+								googleBurn.y -= 900;
+								googleBurn.x += 250;
+								googleBurn.angle = -4;
+								add(googleBurn);
+								//FlxTween.tween(googleBurn, {y: googleBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+								FlxTween.angle(googleBurn, googleBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
 
-							twitterBurn = new FlxSprite(1300, -820); //thank to god the most toxic social media is on fire
-							twitterBurn.frames = Paths.getSparrowAtlas('EProcess/TwitterBurning', 'chapter1');
-							twitterBurn.animation.addByPrefix('idle', 'Symbol 4 instance 10', 16, true);
-							twitterBurn.animation.play('idle');
-							twitterBurn.scale.set(0.7, 0.7);
-							twitterBurn.angle = -4;
-							add(twitterBurn);
-							//FlxTween.tween(twitterBurn, {y: twitterBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
-							FlxTween.angle(twitterBurn, twitterBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
+								twitterBurn = new FlxSprite(1300, -820); //thank to god the most toxic social media is on fire
+								twitterBurn.frames = Paths.getSparrowAtlas('EProcess/TwitterBurning', 'chapter1');
+								twitterBurn.animation.addByPrefix('idle', 'Symbol 4 instance 10', 16, true);
+								twitterBurn.animation.play('idle');
+								twitterBurn.scale.set(0.7, 0.7);
+								twitterBurn.angle = -4;
+								add(twitterBurn);
+								//FlxTween.tween(twitterBurn, {y: twitterBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+								FlxTween.angle(twitterBurn, twitterBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
 
-							newgroundsBurn = new FlxSprite(-1000, -1020);
-							newgroundsBurn.frames = Paths.getSparrowAtlas('EProcess/NewgroundsBurning', 'chapter1');
-							newgroundsBurn.animation.addByPrefix('idle', 'Symbol 3 instance 10', 16, true);
-							newgroundsBurn.animation.play('idle');
-							newgroundsBurn.scale.set(0.7, 0.7);
-							newgroundsBurn.angle = -4;
-							add(newgroundsBurn);
-							//FlxTween.tween(newgroundsBurn, {y: newgroundsBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
-							FlxTween.angle(newgroundsBurn, newgroundsBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
+								newgroundsBurn = new FlxSprite(-1000, -1020);
+								newgroundsBurn.frames = Paths.getSparrowAtlas('EProcess/NewgroundsBurning', 'chapter1');
+								newgroundsBurn.animation.addByPrefix('idle', 'Symbol 3 instance 10', 16, true);
+								newgroundsBurn.animation.play('idle');
+								newgroundsBurn.scale.set(0.7, 0.7);
+								newgroundsBurn.angle = -4;
+								add(newgroundsBurn);
+								//FlxTween.tween(newgroundsBurn, {y: newgroundsBurn.y + 30}, 1, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+								FlxTween.angle(newgroundsBurn, newgroundsBurn.angle, 4, 2, {ease: FlxEase.quartInOut, type: PINGPONG});
+							}
 
 							corruptBG = new BGSprite('bgCorrupted', 'chapter1', -650, -600, 0.9, 0.9);
 							corruptBG.setGraphicSize(Std.int(corruptBG.width * 1.1));
@@ -1373,13 +1379,16 @@ class PlayState extends MusicBeatState
 					daFloor.y += 710;
 					daFloor.x += 2300;
 
-					tscseeing = new BGSprite('trojan/secbop', 0, 0, 1, 1, ['secbop']);
-					tscseeing.setGraphicSize(Std.int(tscseeing.width * 1.3));
-					tscseeing.screenCenter();
-					tscseeing.updateHitbox();
-					tscseeing.x += 2480;
-					tscseeing.y += 95;
-					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
+					if (!ClientPrefs.lowQuality)
+					{
+						tscseeing = new BGSprite('trojan/secbop', 0, 0, 1, 1, ['secbop']);
+						tscseeing.setGraphicSize(Std.int(tscseeing.width * 1.3));
+						tscseeing.screenCenter();
+						tscseeing.updateHitbox();
+						tscseeing.x += 2480;
+						tscseeing.y += 95;
+						tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
+					}
 
 					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['anime_lines'], true);
 					radialLine.setGraphicSize(Std.int(radialLine.width * 1.7));
@@ -1422,7 +1431,7 @@ class PlayState extends MusicBeatState
 					add(adobeWindow);
 					add(sFWindow);
 					add(daFloor);
-					add(tscseeing);
+					if (!ClientPrefs.lowQuality) add(tscseeing);
 
 					filter = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/filterr', 'extras'));
 					filter.antialiasing = ClientPrefs.globalAntialiasing;
@@ -1845,14 +1854,17 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders) unfaithBG.shader = wavShader.shader;
 					add(unfaithBG);
 
-					unfaithBACK = new BGSprite('unfaithful/unfaithful_back', 0, 0, 0.85, 0.85);
-					unfaithBACK.setGraphicSize(Std.int(unfaithBACK.width * 0.85));
-					unfaithBACK.screenCenter();
-					unfaithBACK.updateHitbox();
-					unfaithBACK.x += 380;
-					add(unfaithBACK);
+					if (!ClientPrefs.lowQuality)
+					{
+						unfaithBACK = new BGSprite('unfaithful/unfaithful_back', 0, 0, 0.85, 0.85);
+						unfaithBACK.setGraphicSize(Std.int(unfaithBACK.width * 0.85));
+						unfaithBACK.screenCenter();
+						unfaithBACK.updateHitbox();
+						unfaithBACK.x += 380;
+						add(unfaithBACK);
 
-					FlxTween.tween(unfaithBACK, {y: unfaithBACK.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+						FlxTween.tween(unfaithBACK, {y: unfaithBACK.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+					}
 					
 					blackBGgf = new FlxSpriteExtra(-120, -120).makeSolid(Std.int(FlxG.width * 100), Std.int(FlxG.height * 150), FlxColor.BLACK);
 					blackBGgf.scrollFactor.set();
@@ -1879,18 +1891,20 @@ class PlayState extends MusicBeatState
 					unfaithFloor.setGraphicSize(Std.int(unfaithFloor.width * 1.85));
 					unfaithFloor.screenCenter();
 					unfaithFloor.y += 550;
-					//unfaithFloor.x += 150;
 					unfaithFloor.updateHitbox();
 					add(unfaithFloor);
 
-					unfaithFRONT = new BGSprite('unfaithful/unfaithful_front', 0, 0, 1.3, 1.3);
-					unfaithFRONT.setGraphicSize(Std.int(unfaithFRONT.width * 1.2));
-					unfaithFRONT.screenCenter();
-					unfaithFRONT.x -= 215;
-					unfaithFRONT.y += 450;
-					unfaithFRONT.updateHitbox();
+					if (!ClientPrefs.lowQuality)
+					{
+						unfaithFRONT = new BGSprite('unfaithful/unfaithful_front', 0, 0, 1.3, 1.3);
+						unfaithFRONT.setGraphicSize(Std.int(unfaithFRONT.width * 1.2));
+						unfaithFRONT.screenCenter();
+						unfaithFRONT.x -= 215;
+						unfaithFRONT.y += 450;
+						unfaithFRONT.updateHitbox();
 
-					FlxTween.tween(unfaithFRONT, {y: unfaithFRONT.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+						FlxTween.tween(unfaithFRONT, {y: unfaithFRONT.y + 50}, 2, {ease:FlxEase.smoothStepInOut, type: PINGPONG});
+					}
 
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
@@ -2350,7 +2364,7 @@ class PlayState extends MusicBeatState
 						//add(shine);
 				}
 			case 'unfaith-BG':
-				add(unfaithFRONT);
+				if (!ClientPrefs.lowQuality) add(unfaithFRONT);
 				add(overlayUnfaith);
 
 			case 'kickstarter':
@@ -4804,6 +4818,9 @@ class PlayState extends MusicBeatState
 			for (timer in modchartTimers) {
 				timer.active = false;
 			}
+			for (tween in stopTweens) {
+				tween.active = false;
+			}
 
 			if (popUpTimer != null) popUpTimer.active = false;
 		}
@@ -4839,6 +4856,9 @@ class PlayState extends MusicBeatState
 			}
 			for (timer in modchartTimers) {
 				timer.active = true;
+			}
+			for (tween in stopTweens) {
+				tween.active = true;
 			}
 
 			if (popUpTimer != null) popUpTimer.active = true;
@@ -7843,9 +7863,18 @@ class PlayState extends MusicBeatState
 				{
 					case 80:
 						FlxTween.tween(redthing, {alpha: 1}, 0.6);
-						FlxTween.tween(newgroundsBurn, {y:newgroundsBurn.y +2300}, 2, {ease: FlxEase.linear, type:LOOPING});
-						FlxTween.tween(twitterBurn, {y:twitterBurn.y +1800}, 1.6, {ease: FlxEase.linear, type:LOOPING});
-						FlxTween.tween(googleBurn, {y:googleBurn.y +2900}, 2.5, {ease: FlxEase.linear, type:LOOPING});
+
+						if (!ClientPrefs.lowQuality)
+						{
+							var epTween1:FlxTween = FlxTween.tween(newgroundsBurn, {y:newgroundsBurn.y +2300}, 2, {ease: FlxEase.linear, type:LOOPING});
+							var epTween2:FlxTween = FlxTween.tween(twitterBurn, {y:twitterBurn.y +1800}, 1.6, {ease: FlxEase.linear, type:LOOPING});
+							var epTween3:FlxTween = FlxTween.tween(googleBurn, {y:googleBurn.y +2900}, 2.5, {ease: FlxEase.linear, type:LOOPING});
+
+							stopTweens.push(epTween1);
+							stopTweens.push(epTween2);
+							stopTweens.push(epTween3);
+						}
+
 					case 140:
 						//FlxG.sound.play(Paths.sound('intro3'), 0.6);
 					case 141:
@@ -7881,7 +7910,8 @@ class PlayState extends MusicBeatState
 					case 64 | 224 | 320:
 						bestPart2 = true;
 						//blackBars(1);
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
+						if (!ClientPrefs.lowQuality)colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
+						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
 						/*babyArrowCamGame = true;
 						opponentStrums.forEach(function(spr:StrumNote) {
 							spr.x = 1050 + 112 * spr.ID;
@@ -7895,7 +7925,8 @@ class PlayState extends MusicBeatState
 						coolShit.alpha = 0;
 						bestPart2 = false;
 						filter.alpha = 0;
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
+						if (!ClientPrefs.lowQuality) colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
+						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						radialLine.alpha = 0;
 
 					case 256:
@@ -7939,11 +7970,13 @@ class PlayState extends MusicBeatState
 						viraScroll.alpha = 1;
 						vignetteFin.alpha = 1;
 						gf.alpha = 0;
-						colorTween([alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
-						
+						if (!ClientPrefs.lowQuality) colorTween([alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
+						else colorTween([alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
+
 
 					case 384:
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
+						if (!ClientPrefs.lowQuality) colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
+						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						clearShaderFromCamera(['camgame', 'camhud']);
 						fishEyeshader.MAX_POWER.value = [0];
 						constantShake = false;
@@ -8454,19 +8487,21 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'adobe':
-				if(!ClientPrefs.lowQuality) {
-					switch (SONG.song.toLowerCase())
-					{
-						case 'adobe':
-							if (curBeat % 1 == 0 && Crowd != null) setDance([Crowd], true);
-						case 'end process':
+				switch (SONG.song.toLowerCase())
+				{
+					case 'adobe':
+						if (curBeat % 1 == 0 && Crowd != null) setDance([Crowd], true);
+					case 'end process':
+						if (!ClientPrefs.lowQuality)
+						{
 							if (curBeat % 2 == 0 && virabot1 != null && virabot2 != null && virabot3 != null
 							&& virabot4 != null) setDance([virabot1, virabot2, virabot3, virabot4], true);
-					}
+						}
 				}
 
 			case 'alan-pc-virabot':
-				if (!ClientPrefs.lowQuality) {
+				if (!ClientPrefs.lowQuality)
+				{
 					if (curBeat % 1 == 0) setDance([tscseeing], true);
 				}
 
