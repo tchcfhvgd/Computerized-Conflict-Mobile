@@ -383,8 +383,7 @@ class PlayState extends MusicBeatState
 			var vignetteFin:FlxSprite;
 			var SpinAmount:Float = 0;
 			var isPlayersSpinning:Bool = false;
-			var caShader:ChromaticAberrationEffect;
-			var chromFloat:Float = 0;
+			var filter:FlxSprite;
 
 			//kaboom effect
 			var angleshit = 1;
@@ -1382,11 +1381,8 @@ class PlayState extends MusicBeatState
 					tscseeing.y += 95;
 					tscseeing.antialiasing = ClientPrefs.globalAntialiasing;
 
-					var coolVig:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/soCOOLvig', 'extras'));
-					coolVig.antialiasing = ClientPrefs.globalAntialiasing;
-					coolVig.cameras = [camBars];
-
-					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['Símbolo 2'], true);
+					radialLine = new BGSprite('radial line', 'extras', 0, 0, 1, 1, ['anime_lines'], true);
+					radialLine.setGraphicSize(Std.int(radialLine.width * 1.7));
 					radialLine.cameras = [camBars];
 					radialLine.screenCenter();
 					add(radialLine);
@@ -1428,6 +1424,13 @@ class PlayState extends MusicBeatState
 					add(daFloor);
 					add(tscseeing);
 
+					filter = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/filterr', 'extras'));
+					filter.antialiasing = ClientPrefs.globalAntialiasing;
+					filter.alpha = 1;
+					filter.scrollFactor.set();
+					filter.cameras = [camChar];
+					add(filter);
+
 					scroll = new FlxBackdrop(Paths.image('trojan/scrollmidsong', 'extras'), XY, 0, 0);
 					scroll.setGraphicSize(Std.int(scroll.width * 0.9));
 					scroll.alpha = 0.0001;
@@ -1451,8 +1454,7 @@ class PlayState extends MusicBeatState
 					vignetteFin.scrollFactor.set();
 					vignetteFin.cameras = [camChar];
 					add(vignetteFin);
-					
-					caShader = new ChromaticAberrationEffect(0);
+
 					colorShad = new ColorSwap();
 
 				}
@@ -2165,8 +2167,6 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
 
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
-					//if (ClientPrefs.shaders) addShaderToCamera(['camBars'], new ChromaticAberrationEffect(chromFloat));
-					chromFloat = 0;
 				}
 
 			case 'catto':
@@ -3015,6 +3015,8 @@ class PlayState extends MusicBeatState
 			case 'time travel':
 				triggerEventNote('Change Character', 'dad', 'carykhTALK');
 				triggerEventNote('Change Character', 'dad', 'carykh');
+			case 'phantasm':
+				iconP2.visible = false;
 			case 'amity':
 				addCharacterToList('angry-minus-tco', 1);
 			case 'rombie':
@@ -4942,8 +4944,8 @@ class PlayState extends MusicBeatState
 				scroll.x -= 0.45 * 60 * elapsed;
 				scroll.y -= 0.16 * 60 * elapsed;
 
-				viraScroll.x -= 0.85 * 60 * elapsed;
-				viraScroll.y -= 0.56 * 60 * elapsed;
+				viraScroll.x -= 0.45 * 240 * elapsed;
+				viraScroll.y -= 0.16 * 240 * elapsed;
 
 				waterShit([256, 318]);
 		}
@@ -7872,7 +7874,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 28 | 188:
-						camGame.fade(FlxColor.WHITE, 0.8, false);
+						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
 					case 32 | 192:
 						camGame.fade(FlxColor.WHITE, 0, true);
 					case 160:
@@ -7893,6 +7895,7 @@ class PlayState extends MusicBeatState
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
 						bestPart2 = false;
+						filter.alpha = 0;
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						radialLine.alpha = 0;
 
@@ -7902,6 +7905,7 @@ class PlayState extends MusicBeatState
 						scroll.alpha = 1;
 						coolShit.alpha = 0;
 						bestPart2 = false;
+						filter.alpha = 0;
 						camChar.flash(FlxColor.WHITE, 0.85);
 						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
@@ -7916,11 +7920,14 @@ class PlayState extends MusicBeatState
 						vignettMid.alpha = 0;
 					case 348:
 						FlxG.sound.play(Paths.sound('intro3'), 0.4);
+						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
+						cameraLocked = true;
+						FlxTween.tween(boyfriend, {y: BF_Y - 1000}, 1, {ease: FlxEase.quadIn});
+						FlxTween.tween(boyfriend, {angle: 359.99 * 4}, 23);
 					case 349:
 						FlxG.sound.play(Paths.sound('intro2'), 0.4);
 					case 350:
 						FlxG.sound.play(Paths.sound('intro1'), 0.4);
-						camGame.fade(FlxColor.WHITE, 0.5, false);
 					case 351:
 						FlxG.sound.play(Paths.sound('introGo'), 0.4);
 					case 352:
@@ -7928,21 +7935,25 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders && ClientPrefs.flashing) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader), new ShaderFilter(fishEyeshader)]);
 						fishEyeshader.MAX_POWER.value = [0.15];
 						isPlayersSpinning = true;
+						cameraLocked = false;
+						constantShake = true;
 						viraScroll.alpha = 1;
 						vignetteFin.alpha = 1;
 						gf.alpha = 0;
-						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
+						colorTween([alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
 						
 
 					case 384:
 						colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						clearShaderFromCamera(['camgame', 'camhud']);
 						fishEyeshader.MAX_POWER.value = [0];
+						constantShake = false;
 						viraScroll.alpha = 0;
 						vignetteFin.alpha = 0;
 						scroll.alpha = 0;
 						vignettMid.alpha = 0;
 						gf.alpha = 1;
+						filter.alpha = 1;
 						//blackBars(0);
 					case 400:
 						camGame.alpha = 0;
@@ -7950,6 +7961,10 @@ class PlayState extends MusicBeatState
 						camBars.flash(FlxColor.WHITE, 0.55);
 						camHUD.flash(FlxColor.BLACK, 0.35);
 						FlxTween.tween(camHUD, {alpha:0}, 1);
+						coolShit.alpha = 0;
+						bestPart2 = false;
+						radialLine.alpha = 0;
+						filter.alpha = 0;
 
 				}
 
@@ -8454,8 +8469,6 @@ class PlayState extends MusicBeatState
 			case 'alan-pc-virabot':
 				if (!ClientPrefs.lowQuality) {
 					if (curBeat % 1 == 0) setDance([tscseeing], true);
-					
-					//FlxTween.tween(caShader, {chromeOffset: 0}, 0.45, {ease: FlxEase.sineOut});
 				}
 
 			case 'yt':
@@ -8481,7 +8494,10 @@ class PlayState extends MusicBeatState
 			curLight = FlxG.random.int(0, LightsColors.length - 1, [curLight]);
 			vignetteTrojan.color = LightsColors[curLight];
 
-			if(curSong == 'trojan') coolShit.color = LightsColors[curLight];
+			if(curSong == 'trojan')
+			{
+				coolShit.color = LightsColors[curLight];
+			}
 		}
 
 		if (kaboomEnabled)

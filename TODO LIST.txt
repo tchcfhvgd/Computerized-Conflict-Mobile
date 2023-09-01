@@ -4,6 +4,7 @@ TIBURONES:
 {
    - making freeplay, extra folder and       alan song the only accessible things
    when you unlock alan. -La verdad, prefiero que se vea todo un poco más oscuro y que no se bloquee, está eso bien?
+  ok
 }
 
 MIJAE:
