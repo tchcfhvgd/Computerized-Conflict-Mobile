@@ -15,6 +15,7 @@ import sys.FileSystem;
 #else
 import openfl.utils.Assets;
 #end
+import flixel.FlxState;
 
 using StringTools;
 
@@ -40,6 +41,8 @@ class CoolUtil
 	public static var songsUnlocked:FlxSave;
 
 	public static var hasPlayedAnOldSong:Bool = false; //for the old ui apparently
+
+	public static var curState:Class<FlxState> = Main.game.initialState; //this is used for the fucking uhhh extra info in the fps
 
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol

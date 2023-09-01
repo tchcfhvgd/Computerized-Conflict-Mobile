@@ -90,6 +90,10 @@ class FPS extends TextField
 			text += "\nMemory: " + memoryMegas + " MB";
 			#end
 
+			#if !web
+			if(ClientPrefs.showExtraInfo) text += "\nCurState: " + CoolUtil.curState;
+			#end
+
 			textColor = 0xFFFFFFFF;
 			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
 			{
