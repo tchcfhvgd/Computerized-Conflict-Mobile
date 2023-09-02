@@ -1797,7 +1797,7 @@ class PlayState extends MusicBeatState
 
 					camBars.x += 0.5;
 
-					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 					//if (ClientPrefs.shaders) addShaderToCamera('camhud', new ChromaticAberrationEffect(0.0015));
 					
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
@@ -4067,7 +4067,7 @@ class PlayState extends MusicBeatState
 				case 'aurora':
 					isCameraOnForcedPos = true;
 					camFollow.x = 1150;
-					camFollow.y = 150;
+					camFollow.y = 550;
 
 				case 'phantasm':
 					
@@ -7919,6 +7919,7 @@ class PlayState extends MusicBeatState
 						vignetteTrojan.alpha = 0;
 						vignettMid.alpha = 1;
 						scroll.alpha = 1;
+						radialLine.alpha = 0;
 						coolShit.alpha = 0;
 						bestPart2 = false;
 						filter.alpha = 0;
@@ -7960,6 +7961,7 @@ class PlayState extends MusicBeatState
 						if (!ClientPrefs.lowQuality) colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						clearShaderFromCamera(['camgame', 'camhud']);
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						fishEyeshader.MAX_POWER.value = [0];
 						constantShake = false;
 						viraScroll.alpha = 0;
@@ -8067,8 +8069,8 @@ class PlayState extends MusicBeatState
 						dadGroup.cameras = [camChar];
 						boyfriendGroup.cameras = [camChar];
 						clearShaderFromCamera(['camgame']);
-						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader)]); 
-						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader)]); 
+						else if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camChar.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
 						setAlpha([blackBG], 1);
 
 						boyfriend.y -= 170;
