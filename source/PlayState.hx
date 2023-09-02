@@ -8190,12 +8190,17 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders)
 						{
 							FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader), new ShaderFilter(fishEyeshader)]);
-							fishEyeshader.MAX_POWER.value = [0.15];
 						}
 
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 
-						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) FlxG.camera.setFilters([]);
+						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders)
+						{
+							FlxG.camera.setFilters([new ShaderFilter(fishEyeshader)]);
+						}
+
+						fishEyeshader.MAX_POWER.value = [0.15];
+
 						if (ClientPrefs.shaders && !ClientPrefs.advancedShaders) camHUD.setFilters([]);
 
 					case 580:
