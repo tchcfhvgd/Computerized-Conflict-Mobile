@@ -342,8 +342,6 @@ class PlayState extends MusicBeatState
 
 			var constantShake:Bool = false;
 
-			var endProcessChrom:Float = 0.0045;
-
 			//corrupted bgs:
 				var corruptBG:BGSprite;
 				var corruptFloor:BGSprite;
@@ -923,6 +921,8 @@ class PlayState extends MusicBeatState
 							redthing.alpha = 0.0001;
 							add(redthing);
 
+							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0005));
+
 						case 'end process':
 
 							FlxG.mouse.visible = true;
@@ -1036,7 +1036,7 @@ class PlayState extends MusicBeatState
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 
 							//chromHandler = 0.0045;
-							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(endProcessChrom));
+							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
 					}
 
 					Floor = new BGSprite('floor', 'chapter1', -750, 713, 1, 1);
@@ -1389,6 +1389,12 @@ class PlayState extends MusicBeatState
 					add(radialLine);
 					radialLine.alpha = 0.0001; //kinda laggy when it changes to an alpha of 1 if it's set to 0
 
+					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
+					redthing.antialiasing = ClientPrefs.globalAntialiasing;
+					redthing.cameras = [camBars];
+					redthing.alpha = 0.0001;
+					add(redthing);
+
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
@@ -1427,7 +1433,7 @@ class PlayState extends MusicBeatState
 
 					filter = new FlxSprite(0, 0).loadGraphic(Paths.image('trojan/filterr', 'extras'));
 					filter.antialiasing = ClientPrefs.globalAntialiasing;
-					filter.alpha = 1;
+					filter.alpha = 0.0001;
 					filter.scrollFactor.set();
 					filter.cameras = [camChar];
 					add(filter);
@@ -1457,6 +1463,7 @@ class PlayState extends MusicBeatState
 					add(vignetteFin);
 
 					colorShad = new ColorSwap();
+					if(SONG.song.toLowerCase() == 'trojan') camGame.alpha = 0;
 
 				}
 
@@ -4426,6 +4433,9 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 		{
+			case 'trojan':
+				camGame.alpha = 1;
+				filter.alpha = 1;
 			case 'time travel':
 				songLength = 106000;
 				FlxTween.tween(whiteScreen, {alpha: 0}, 1, {ease: FlxEase.circOut});
@@ -7826,7 +7836,7 @@ class PlayState extends MusicBeatState
 				{
 					case 32:
 						FlxG.camera.flash(FlxColor.RED, 0.5);
-						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0040));
 						FlxG.camera.shake(0.01, 0.20);
 						objectColor([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
 						setAlpha([redthing], 1);
@@ -7887,34 +7897,40 @@ class PlayState extends MusicBeatState
 				{
 					case 28 | 188:
 						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
-					case 32 | 192:
+					case 32:
 						camGame.fade(FlxColor.WHITE, 0, true);
-					case 160:
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0045));
+						redthing.alpha = 1;
 
 					case 64 | 224 | 320:
 						bestPart2 = true;
-						//blackBars(1);
 						if (!ClientPrefs.lowQuality)colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
 						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
-						/*babyArrowCamGame = true;
-						opponentStrums.forEach(function(spr:StrumNote) {
-							spr.x = 1050 + 112 * spr.ID;
-						});*/
-
 						radialLine.alpha = 1;
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]); //put the advanced shader first
 						else if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						scroll.alpha = 0;
 						vignettMid.alpha = 0;
+						redthing.alpha = 0;
+						camGame.alpha= 1;
+						filter.alpha = 1;
 
 					case 96:
 						vignetteTrojan.alpha = 0;
 						coolShit.alpha = 0;
 						bestPart2 = false;
-						filter.alpha = 0;
 						if (!ClientPrefs.lowQuality) colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						radialLine.alpha = 0;
+						redthing.alpha = 0;
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
+
+					case 160:
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+					case 192:
+						camGame.fade(FlxColor.WHITE, 0, true);
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
+						redthing.alpha = 1;
 
 					case 256:
 						vignetteTrojan.alpha = 0;
@@ -7932,6 +7948,12 @@ class PlayState extends MusicBeatState
 					case 288:
 
 						camChar.flash(FlxColor.WHITE, 0.85);
+
+					case 318:
+						camGame.alpha = 0;
+						boyfriend.setColorTransform(1, 1, 1, 1, 0, 0, 0, 0);
+						dad.setColorTransform(1, 1, 1, 1, 0, 0, 0, 0);
+						vignettMid.alpha = 0;
 					case 348:
 						FlxG.sound.play(Paths.sound('intro3'), 0.4);
 						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
@@ -7955,6 +7977,7 @@ class PlayState extends MusicBeatState
 						constantShake = true;
 						viraScroll.alpha = 1;
 						vignetteFin.alpha = 1;
+						filter.alpha = 0;
 						gf.alpha = 0;
 						if (!ClientPrefs.lowQuality) colorTween([alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
 						else colorTween([alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
@@ -7970,10 +7993,12 @@ class PlayState extends MusicBeatState
 						viraScroll.alpha = 0;
 						vignetteFin.alpha = 0;
 						scroll.alpha = 0;
-						vignettMid.alpha = 0;
 						gf.alpha = 1;
 						filter.alpha = 1;
 						//blackBars(0);
+
+					case 388:
+					    boyfriend.setColorTransform(1, 1, 1, 1, 0, 0, 0, 0);
 					case 400:
 						camGame.alpha = 0;
 						camOther.alpha  = 0;
