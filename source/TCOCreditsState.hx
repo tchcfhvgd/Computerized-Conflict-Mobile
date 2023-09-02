@@ -52,6 +52,7 @@ class TCOCreditsState extends MusicBeatState
 
 	var camDefault:FlxCamera;
 	var camTexts:FlxCamera;
+	var camSpecialThanks:FlxCamera;
 
 	var prompt:FlxSprite;
 	var prompttext:FlxText;
@@ -60,8 +61,12 @@ class TCOCreditsState extends MusicBeatState
 	var moveTween:FlxTween;
 	var descBox:AttachedSprite;
 
+	var specialThanks:FlxSprite;
+
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
+
+	var moveCredits:Bool = true;
 
 	override function create()
 	{
@@ -77,11 +82,14 @@ class TCOCreditsState extends MusicBeatState
 		camDefault = new FlxCamera();
 		camTexts = new FlxCamera();
 		camTexts.bgColor.alpha = 0;
+		camSpecialThanks = new FlxCamera();
+		camSpecialThanks.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camDefault);
 		FlxG.cameras.add(camTexts, false);
+		FlxG.cameras.add(camSpecialThanks, false);
 
-		CustomFadeTransition.nextCamera = camTexts;
+		CustomFadeTransition.nextCamera = camSpecialThanks;
 
 		credits = [
 			//Tco Dev Team
@@ -252,29 +260,18 @@ class TCOCreditsState extends MusicBeatState
 		descText.color = 0xFFffffff;
 		add(descText);
 
-		/*arrow = new FlxSprite(1150, 593);
-		arrow.frames = Paths.getSparrowAtlas('FAMenu/arrows');
-		arrow.animation.addByPrefix('idle', 'arrow0', 24, false);
-		arrow.animation.addByPrefix('smash', 'arrow press', 24, false);
-		arrow.setGraphicSize(Std.int(arrow.width * 0.4));
-		arrow.scrollFactor.set();
-		arrow.antialiasing = ClientPrefs.globalAntialiasing;
-		add(arrow);
-
-		flippedArrow = new FlxSprite(0, 593);
-		flippedArrow.frames = Paths.getSparrowAtlas('FAMenu/arrows');
-		flippedArrow.animation.addByPrefix('idle', 'arrow0', 24, false);
-		flippedArrow.animation.addByPrefix('smash', 'arrow press', 24, false);
-		flippedArrow.setGraphicSize(Std.int(flippedArrow.width * 0.4));
-		flippedArrow.scrollFactor.set();
-		flippedArrow.flipX = true;
-		flippedArrow.antialiasing = ClientPrefs.globalAntialiasing;
-		add(flippedArrow);*/
+		specialThanks = new FlxSprite();
+		specialThanks.loadGraphic(Paths.image('creditsmenu/specialThanks'));
+		specialThanks.antialiasing = ClientPrefs.globalAntialiasing;
+		specialThanks.alpha = 0.0001;
+		specialThanks.cameras = [camSpecialThanks];
+		add(specialThanks);
 
 		changeSelection();
 
 		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 		if (ClientPrefs.shaders) camTexts.setFilters([shaderFilter]);
+		if (ClientPrefs.shaders) camSpecialThanks.setFilters([shaderFilter]);
 
 		super.create();
 	}
@@ -298,7 +295,6 @@ class TCOCreditsState extends MusicBeatState
 		{
 			if (controls.UI_UP_P)
 			{
-				//flippedArrow.animation.play('smash');
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
@@ -328,15 +324,18 @@ class TCOCreditsState extends MusicBeatState
 			}
 		}
 
-		//if(controls.ACCEPT && credits[curSelected].link.length > 0) {
-		//	CoolUtil.browserLoad(credits[curSelected].link);
-		//}
+		if(FlxG.keys.justPressed.TAB) 
+		{
+			trace('tab');
+			specialThanks.alpha = specialThanks.alpha == 1 ? 0.0001 : 1;
+			moveCredits = !moveCredits;
+		}
 
 		if (controls.BACK)
 		{
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			CustomFadeTransition.nextCamera = camTexts;
+			CustomFadeTransition.nextCamera = camSpecialThanks;
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
@@ -352,6 +351,7 @@ class TCOCreditsState extends MusicBeatState
 	function changeSelection(change:Int = 0, playSound:Bool = true)
 	{
 		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		if(!moveCredits) return;
 
 		curSelected += change;
 
