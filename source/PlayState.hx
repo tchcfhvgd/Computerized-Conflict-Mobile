@@ -394,6 +394,7 @@ class PlayState extends MusicBeatState
 
 			var dodged:Bool;
 			var babyArrowCamGame:Bool = false;
+			var stopBFFlyTrojan = false;
 
 			//public var trojanShader:Shaders.Glitch02Effect = new Glitch02Effect(8, 6, 3);
 			public var testShader3D:Shaders.Test3DEffect = new Test3DEffect(); //fuck
@@ -7901,8 +7902,8 @@ class PlayState extends MusicBeatState
 						});*/
 
 						radialLine.alpha = 1;
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
-						else if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]); //put the advanced shader first
+						else if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						scroll.alpha = 0;
 						vignettMid.alpha = 0;
 
@@ -7935,6 +7936,7 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('intro3'), 0.4);
 						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
 						cameraLocked = true;
+						stopBFFlyTrojan = true;
 						FlxTween.tween(boyfriend, {y: BF_Y - 1000}, 1, {ease: FlxEase.quadIn});
 						FlxTween.tween(boyfriend, {angle: 359.99 * 4}, 23);
 					case 349:
@@ -7944,6 +7946,7 @@ class PlayState extends MusicBeatState
 					case 351:
 						FlxG.sound.play(Paths.sound('introGo'), 0.4);
 					case 352:
+						stopBFFlyTrojan = false;
 						camGame.fade(FlxColor.WHITE, 0.5, true);
 						if (ClientPrefs.shaders && ClientPrefs.flashing) FlxG.camera.setFilters([new ShaderFilter(colorShad.shader), new ShaderFilter(fishEyeshader)]);
 						fishEyeshader.MAX_POWER.value = [0.15];
@@ -8069,8 +8072,8 @@ class PlayState extends MusicBeatState
 						dadGroup.cameras = [camChar];
 						boyfriendGroup.cameras = [camChar];
 						clearShaderFromCamera(['camgame']);
-						if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader)]); 
-						else if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camChar.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camChar.setFilters([new ShaderFilter(new BBPANZUBloomShader())]);
+						else if (ClientPrefs.shaders) camChar.setFilters([new ShaderFilter(nightTimeShader.shader)]); 
 						setAlpha([blackBG], 1);
 
 						boyfriend.y -= 170;
@@ -8800,6 +8803,8 @@ class PlayState extends MusicBeatState
 
 	function waterShit(betweenBeats:Array<Int>)
 	{
+		if(stopBFFlyTrojan) return;
+
 		if(curBeat >= betweenBeats[0] && curBeat < betweenBeats[1])
 		{
 			var test:Float = (Conductor.songPosition/3000)*(SONG.bpm/30);
