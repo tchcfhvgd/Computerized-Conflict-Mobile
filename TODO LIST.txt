@@ -5,11 +5,11 @@ MIJAE OR TIBURONES:
    - making freeplay, extra folder and       alan song the only accessible things
    when you unlock alan. -La verdad, prefiero que se vea todo un poco más oscuro y que no se bloquee, está eso bien?
   ok
+  la verdad no me apetece nada hacer esto, mejor lo dejo para el hotfix igual si lo hacemos
 }
 
 Code the adobe cutscene ingame
 
-Make the "X" button change to Twitter button by pressing shift on Title State.
 
-
-Estimated Release: September 8th
+Estimated Playtesting start: September 8th
+Estimated Release: September 15th

@@ -346,6 +346,16 @@ class TitleState extends MusicBeatState
 			if (socialItems != null)
 			{
 				checkIfClicked(socialItems.members[i], i);
+
+				if(i == 1) //Twitter/X (ew X)
+				{
+					if(FlxG.keys.justPressed.SHIFT) 
+					{
+						socialItems.members[i].ID = socialItems.members[i].ID == 0 ? 1 : 0; //change between twitter and X
+						var items:Array<String> = ['twitter', 'x'];
+						socialItems.members[i].loadGraphic(Paths.image('title/${items[socialItems.members[i].ID]}')); //dumb but I think it works
+					}
+				}
 			}
 		}
 
