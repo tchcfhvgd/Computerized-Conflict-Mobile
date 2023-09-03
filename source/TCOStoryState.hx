@@ -313,12 +313,12 @@ class TCOStoryState extends MusicBeatState
 					FlxTween.tween(FlxG.camera, {zoom: 3}, 1, {ease: FlxEase.expoIn});
 					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 					{
-						playSongs(weeks[0].songs, 0, 0, curDifficulty);
+						playSongs(weeks[0].songs, 0, 0, curDifficulty, true);
 					});
 				}else{
 					checkpointSystemON = false;
 
-					playSongs(FlxG.save.data.checkpoint.playlist, FlxG.save.data.checkpoint.campaignScore, FlxG.save.data.checkpoint.campaignMisses, FlxG.save.data.checkpoint.difficulty);
+					playSongs(FlxG.save.data.checkpoint.playlist, FlxG.save.data.checkpoint.campaignScore, FlxG.save.data.checkpoint.campaignMisses, FlxG.save.data.checkpoint.difficulty, false);
 				}
 			}
 		}
@@ -439,7 +439,7 @@ class TCOStoryState extends MusicBeatState
 		}
     }
 
-    function playSongs(songlist:Array<String>, campaignScore:Int, campaignMisses:Int, difficultyStory:Int)
+    function playSongs(songlist:Array<String>, campaignScore:Int, campaignMisses:Int, difficultyStory:Int, introCutscene:Bool)
     {
 		PlayState.storyPlaylist = songlist;
 		PlayState.isStoryMode = true;
@@ -452,7 +452,18 @@ class TCOStoryState extends MusicBeatState
 	    PlayState.storyWeek = 0;
 		PlayState.seenCutscene = false;
 		PlayState.weekNames = 'Episode 1: Computer Breakdown';
-		LoadingState.loadAndSwitchState(new PlayState(), true);
+
+		if (introCutscene)
+		{
+			LoadingState.loadAndSwitchState(new CutsceneState('adobe', true, function() //this is still playing somehow
+				{
+					LoadingState.loadAndSwitchState(new PlayState(), true);
+				}), true);
+		}
+		else
+		{
+			LoadingState.loadAndSwitchState(new PlayState(), true);
+		}
 
 		FreeplayState.destroyFreeplayVocals();
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();

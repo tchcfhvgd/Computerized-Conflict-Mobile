@@ -58,7 +58,6 @@ import animateatlas.AtlasFrameMaker;
 import Achievements;
 import StageData;
 import FunkinLua;
-import DialogueScript;
 import Conductor.Rating;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.text.FlxTypeText;
@@ -238,7 +237,6 @@ class PlayState extends MusicBeatState
 	public var cameraSpeed:Float = 1;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
-	var ScriptdialogueJson:ScriptDialogueFile = null;
 
 	var blammedLightsBlack:FlxSprite;
 
@@ -868,6 +866,8 @@ class PlayState extends MusicBeatState
 							//bbgColor = 0xFF929292;
 
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0005));
+
+							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 
 						case 'outrage' | 'phantasm':
 
@@ -2509,11 +2509,6 @@ class PlayState extends MusicBeatState
 				gf.color = 0xFF191919;
 		}
 
-		var file:String = Paths.json(songName + '/dialogueScript'); //Checks for json/script dialogue
-		if (OpenFlAssets.exists(file)) {
-			ScriptdialogueJson = DialogueScript.parseDialogue(file);
-		}
-
 		Conductor.songPosition = -5000 / Conductor.songPosition;
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50);
@@ -2934,8 +2929,6 @@ class PlayState extends MusicBeatState
 		{
 			switch (daSong)
 			{
-				case 'adobe':
-					startDialogueScript(ScriptdialogueJson);
 				default:
 					startCountdown();
 			}
@@ -3918,53 +3911,6 @@ class PlayState extends MusicBeatState
 	}
 
 	var dialogueCount:Int = 0;
-	public var scriptDialogue:DialogueScript;
-
-	public function startDialogueScript(dialogueFile:ScriptDialogueFile, ?song:String = null):Void
-	{
-		// TO DO: Make this more flexible, maybe?
-		if(scriptDialogue != null) return;
-
-		if(dialogueFile.dialogue.length > 0) {
-			inCutscene = true;
-			precacheList.set('dialogue', 'sound');
-			precacheList.set('dialogueClose', 'sound');
-			scriptDialogue = new DialogueScript(dialogueFile, song);
-			scriptDialogue.scrollFactor.set();
-			if(endingSong) {
-				scriptDialogue.finishThing = function() {
-					scriptDialogue = null;
-					endSong();
-				}
-			} else {
-				scriptDialogue.finishThing = function() {
-					scriptDialogue = null;
-
-					if(SONG.song.toLowerCase() == 'adobe')
-					{
-						FlxG.sound.play(Paths.sound('Lights_Shut_off'));
-						camHUD.fade(FlxColor.BLACK, 0, false, function()
-						{
-							startCountdown();
-						});
-					}
-					else startCountdown();
-				}
-			}
-			scriptDialogue.nextDialogueThing = startNextDialogue;
-			scriptDialogue.skipDialogueThing = skipDialogue;
-			scriptDialogue.cameras = [camHUD];
-			add(scriptDialogue);
-		} else {
-			FlxG.log.warn('Your dialogue file is badly formatted!');
-			if(endingSong) {
-				endSong();
-			} else {
-				startCountdown();
-			}
-		}
-	}
-
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
 
@@ -4433,6 +4379,8 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 		{
+			case 'adobe':
+				FlxG.camera.fade(FlxColor.BLACK, 1, true);
 			case 'trojan':
 				camGame.alpha = 1;
 				filter.alpha = 1;
@@ -7909,17 +7857,17 @@ class PlayState extends MusicBeatState
 						else if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						scroll.alpha = 0;
 						vignettMid.alpha = 0;
-						redthing.alpha = 0;
+						redthing.alpha = 0.0001;
 						camGame.alpha= 1;
 						filter.alpha = 1;
 
 					case 96:
-						vignetteTrojan.alpha = 0;
-						coolShit.alpha = 0;
+						vignetteTrojan.alpha = 0.0001;
+						coolShit.alpha = 0.0001;
 						bestPart2 = false;
 						if (!ClientPrefs.lowQuality) colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
-						radialLine.alpha = 0;
+						radialLine.alpha = 0.0001;
 						redthing.alpha = 0;
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 
@@ -7931,17 +7879,17 @@ class PlayState extends MusicBeatState
 						redthing.alpha = 1;
 
 					case 256:
-						vignetteTrojan.alpha = 0;
+						vignetteTrojan.alpha = 0.0001;
 						vignettMid.alpha = 1;
 						scroll.alpha = 1;
-						radialLine.alpha = 0;
+						radialLine.alpha = 0.0001;
 						coolShit.alpha = 0;
 						bestPart2 = false;
-						filter.alpha = 0;
+						filter.alpha = 0.0001;
 						camChar.flash(FlxColor.WHITE, 0.85);
 						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
-						gf.alpha = 0;
+						gf.alpha = 0.0001;
 
 					case 288:
 
@@ -7975,8 +7923,8 @@ class PlayState extends MusicBeatState
 						constantShake = true;
 						viraScroll.alpha = 1;
 						vignetteFin.alpha = 1;
-						filter.alpha = 0;
-						gf.alpha = 0;
+						filter.alpha = 0.0001;
+						gf.alpha = 0.0001;
 						if (!ClientPrefs.lowQuality) colorTween([alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
 						else colorTween([alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.BLACK);
 
@@ -7993,6 +7941,7 @@ class PlayState extends MusicBeatState
 						scroll.alpha = 0;
 						gf.alpha = 1;
 						filter.alpha = 1;
+						radialLine.alpha = 0;
 						//blackBars(0);
 
 					case 388:

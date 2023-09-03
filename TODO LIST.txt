@@ -6,9 +6,9 @@ MIJAE OR TIBURONES:
    when you unlock alan. -La verdad, prefiero que se vea todo un poco más oscuro y que no se bloquee, está eso bien?
   ok
   la verdad no me apetece nada hacer esto, mejor lo dejo para el hotfix igual si lo hacemos
-}
 
-Code the adobe cutscene ingame
+ ta bien
+}
 
 
 Estimated Playtesting start: September 8th

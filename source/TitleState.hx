@@ -423,7 +423,7 @@ class TitleState extends MusicBeatState
 				titleText.alpha = 1;
 
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 0.7);
-				FlxG.sound.play(Paths.sound('ANGRY_TEXT_BOX'), 0.7);
+				FlxG.sound.play(Paths.sound('ANGRY_TEXT_BOX'));
 
 				transitioning = true;
 				// FlxG.sound.music.stop();
