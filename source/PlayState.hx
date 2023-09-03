@@ -5057,7 +5057,7 @@ class PlayState extends MusicBeatState
 					laggyText.alpha = 1;
 					laggyText.screenCenter();
 				}else{
-					laggyText = new FlxText(0, 0, FlxG.width, "IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE SHADERS", 20);
+					laggyText = new FlxText(0, 0, FlxG.width, "IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE ADVANCED SHADERS", 20);
 					laggyText.setFormat(Paths.font("phantommuff.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					laggyText.borderSize = 2;
 					laggyText.visible = !ClientPrefs.hideHud;
@@ -7301,7 +7301,7 @@ class PlayState extends MusicBeatState
 						dadGroup.alpha = 1;
 						opponentStrums.forEach(function(spr:StrumNote) spr.alpha = 1);
 						iconP2.alpha = 1;
-						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
+						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 					case 1168:
 						camHUD.flash(FlxColor.WHITE, 1);
 						FlxTween.tween(whiteScreen, {alpha:1}, 3);
