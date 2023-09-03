@@ -38,8 +38,6 @@ class LoadingState extends MusicBeatState
 		this.target = target;
 		this.stopMusic = stopMusic;
 		this.directory = directory;
-
-		CoolUtil.curState = Type.getClass(target);
 	}
 
 	var funkay:FlxSprite;
@@ -144,8 +142,6 @@ class LoadingState extends MusicBeatState
 
 	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 	{
-		CoolUtil.curState = Type.getClass(target);
-		
 		MusicBeatState.switchState(getNextState(target, stopMusic));
 	}
 

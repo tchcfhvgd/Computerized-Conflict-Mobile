@@ -42,8 +42,6 @@ class CoolUtil
 
 	public static var hasPlayedAnOldSong:Bool = false; //for the old ui apparently
 
-	public static var curState:Class<FlxState> = Main.game.initialState; //this is used for the fucking uhhh extra info in the fps
-
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol
 		var m:Float = Math.fround(f * snap);
