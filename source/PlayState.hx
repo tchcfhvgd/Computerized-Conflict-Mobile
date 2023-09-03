@@ -7346,7 +7346,6 @@ class PlayState extends MusicBeatState
 						colorTween([gf, dad, Crowd, Background1, Floor], 0.7, FlxColor.WHITE, 0xFF191919);
 						spotlightdad.alpha = 0.8;
 						spotlightbf.alpha = 0.8;
-						bestPart2 = true;
 					case 1024:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 						FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -7354,7 +7353,6 @@ class PlayState extends MusicBeatState
 						blackBars(0);
 						spotlightdad.alpha = 0;
 						spotlightbf.alpha = 0;
-						bestPart2 = false;
 				}
 
 			case 'outrage':

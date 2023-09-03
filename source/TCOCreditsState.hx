@@ -332,9 +332,6 @@ class TCOCreditsState extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			if(!moveCredits)
-				specialThanks.alpha = 0.0001;
-
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			CustomFadeTransition.nextCamera = camSpecialThanks;
