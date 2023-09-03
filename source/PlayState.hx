@@ -5057,7 +5057,7 @@ class PlayState extends MusicBeatState
 					laggyText.alpha = 1;
 					laggyText.screenCenter();
 				}else{
-					laggyText = new FlxText(0, 0, FlxG.width, "IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE ADVANCED SHADERS", 20);
+					laggyText = new FlxText(0, 0, FlxG.width, 'IF IT\'S TOO LAGGY,\nGO TO THE OPTIONS MENU AND \nDISABLE ${ClientPrefs.advancedShaders ? 'ADVANCED ' : ''}SHADERS', 20);
 					laggyText.setFormat(Paths.font("phantommuff.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					laggyText.borderSize = 2;
 					laggyText.visible = !ClientPrefs.hideHud;

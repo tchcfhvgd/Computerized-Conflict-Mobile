@@ -321,7 +321,7 @@ class MainMenuState extends MusicBeatState
 		glitchBG.cameras = [camHUD];
 		glitchBG.screenCenter();
 		glitchBG.antialiasing = ClientPrefs.globalAntialiasing;
-		glitchBG.alpha = 0;
+		glitchBG.alpha = 0.0001;
 		add(glitchBG);
 
 		chrom = new ChromaticAberrationEffect(0);
@@ -627,6 +627,8 @@ class MainMenuState extends MusicBeatState
 					shit.play(true);
 					shit.onComplete = function() {
 						FlxG.switchState(new VaultState());
+
+						//CoolUtil.curState = Type.getClass(new VaultState());
 					}
 				}
 

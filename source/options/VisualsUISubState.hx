@@ -99,7 +99,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangeFPSCounter;
 
 		var option:Option = new Option('Extra FPS info',
-			'If checked, shows the current state.\nmight take a while to load tho',
+			'If checked, shows the current state.',
 			'showExtraInfo',
 			'bool',
 			false);
