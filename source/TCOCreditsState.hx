@@ -324,15 +324,17 @@ class TCOCreditsState extends MusicBeatState
 			}
 		}
 
-		if(FlxG.keys.justPressed.TAB) 
+		if(FlxG.keys.justPressed.SPACE) 
 		{
-			trace('tab');
 			specialThanks.alpha = specialThanks.alpha == 1 ? 0.0001 : 1;
 			moveCredits = !moveCredits;
 		}
 
 		if (controls.BACK)
 		{
+			if(!moveCredits)
+				specialThanks.alpha = 0.0001;
+
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			CustomFadeTransition.nextCamera = camSpecialThanks;

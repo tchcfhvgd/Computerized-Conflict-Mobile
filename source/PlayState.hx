@@ -8253,6 +8253,7 @@ class PlayState extends MusicBeatState
 
 					case 648:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new GreyscaleEffect());
+						//FlxG.camera.setFilters([new Effect(new GreyscaleEffect())]);
 						alphaTween([veryEpicVignette], 0, 1);
 						particleEmitter.alpha.set(0, 0);
 						constantShake = false;
