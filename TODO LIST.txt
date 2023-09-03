@@ -1,4 +1,4 @@
-TIBURONES:
+MIJAE OR TIBURONES:
 
 (STUFF THAT MAYBE U SHOULD DO IF POSSIBLE)
 {
@@ -7,7 +7,9 @@ TIBURONES:
   ok
 }
 
-MIJAE:
+Code the adobe cutscene ingame
+
+Make the "X" button change to Twitter button by pressing shift on Title State.
 
 
 Estimated Release: September 8th
