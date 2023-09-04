@@ -1,1 +1,78 @@
-{"animations":[{"loop":false,"offsets":[300,190],"anim":"idle","fps":24,"name":"idle","indices":[]},{"offsets":[341,351],"loop":false,"fps":24,"anim":"singLEFT","indices":[],"name":"left"},{"loop":false,"offsets":[418,186],"anim":"singDOWN","fps":24,"name":"down","indices":[]},{"loop":false,"offsets":[490,672],"anim":"singUP","fps":24,"name":"up","indices":[]},{"loop":false,"offsets":[268,209],"anim":"singRIGHT","fps":24,"name":"right","indices":[]}],"no_antialiasing":false,"image":"characters/CC/extras/minus/ANGRYMINUStco","position":[0,170],"healthicon":"the-chosen-one","flip_x":false,"healthbar_colors":[252,174,0],"camera_position":[-480,-260],"sing_duration":6.1,"scale":1}
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				1603,
+				455
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "minus_singLEFT",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "minus_idle"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				2584,
+				460
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "minus_singDOWN",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				3003,
+				723
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "minus_singUP",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				1080,
+				360
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "minus_singRIGHT",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/minus/minus_angry",
+	"position": [
+		0,
+		-110
+	],
+	"healthicon": "the-chosen-one",
+	"flip_x": false,
+	"healthbar_colors": [
+		252,
+		174,
+		0
+	],
+	"camera_position": [
+		300,
+		450
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

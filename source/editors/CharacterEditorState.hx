@@ -118,7 +118,7 @@ class CharacterEditorState extends MusicBeatState
 
 		loadChar(!daAnim.startsWith('bf'), false);
 
-		healthBarBG = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('healthBar'));
+		healthBarBG = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('healthBars/healthBar'));
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
 		healthBarBG.cameras = [camHUD];
@@ -1187,6 +1187,8 @@ class CharacterEditorState extends MusicBeatState
 						var multiplier = 1;
 						if (holdShift)
 							multiplier = 10;
+						else if (FlxG.keys.pressed.CONTROL)
+							multiplier = 100;
 
 						var arrayVal = 0;
 						if(i > 1) arrayVal = 1;

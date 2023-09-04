@@ -1,1 +1,78 @@
-{"animations":[{"loop":false,"offsets":[0,-170],"anim":"idle","fps":16,"name":"idle","indices":[]},{"offsets":[-86,-266],"indices":[],"fps":40,"anim":"singRIGHT","loop":false,"name":"right"},{"offsets":[-12,96],"indices":[],"fps":40,"anim":"singUP","loop":false,"name":"up"},{"offsets":[48,-242],"indices":[],"fps":40,"anim":"singDOWN","loop":false,"name":"down"},{"offsets":[279,-198],"indices":[],"fps":40,"anim":"singLEFT","loop":false,"name":"left"}],"no_antialiasing":false,"image":"characters/CC/extras/bluestick_dude","position":[0,25],"healthicon":"bbpanzu-ava2-stick","flip_x":false,"healthbar_colors":[54,154,240],"camera_position":[150,250],"sing_duration":4.20000000000001,"scale":1.1}
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				-170
+			],
+			"loop": false,
+			"fps": 16,
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-169
+			],
+			"anim": "singRIGHT",
+			"fps": 40,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-166
+			],
+			"anim": "singUP",
+			"fps": 40,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-52,
+				-174
+			],
+			"anim": "singDOWN",
+			"fps": 40,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-1,
+				-171
+			],
+			"anim": "singLEFT",
+			"fps": 40,
+			"name": "left",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/bluestick_dude",
+	"position": [
+		90,
+		75
+	],
+	"healthicon": "bbpanzu-ava2-stick",
+	"flip_x": false,
+	"healthbar_colors": [
+		54,
+		154,
+		240
+	],
+	"camera_position": [
+		260,
+		440
+	],
+	"sing_duration": 4.20000000000001,
+	"scale": 1.1
+}
