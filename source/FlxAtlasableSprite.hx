@@ -71,6 +71,9 @@ class FlxAtlasableSprite extends FlxSprite {
 				_matrix.rotateWithTrig(_cosAngle, _sinAngle);
 		}
 
+		#if (flixel >= "5.0.0")
+		getScreenPosition(_point, camera).subtractPoint(offset);
+		#end
 		_point.add(origin.x, origin.y);
 		_matrix.translate(_point.x, _point.y);
 
