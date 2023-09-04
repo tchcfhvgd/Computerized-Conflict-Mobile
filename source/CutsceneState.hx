@@ -73,10 +73,14 @@ class CutsceneState extends MusicBeatState
 	{
 		if (!skipeable) 
 		{
+			#if (hxCodec >= "2.6.1")
+			video.volume = Std.int(#if FLX_SOUND_SYSTEM ((FlxG.sound.muted) ? 0 : 1) * #end FlxG.sound.volume * 100);
+			#else
 			if (FlxG.sound.muted || FlxG.sound.volume <= 0)
 				video.volume = 0;
 			else
 				video.volume = FlxG.sound.volume + 0.4;
+			#end
 		}
 
 		super.update(elapsed);

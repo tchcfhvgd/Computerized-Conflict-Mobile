@@ -1,9 +1,12 @@
 package flixel.animation;
 
+import flxanimate.FlxAnimate;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
+
+using StringTools;
 
 class FlxAnimationController implements IFlxDestroyable
 {
@@ -11,6 +14,11 @@ class FlxAnimationController implements IFlxDestroyable
 	 * Property access for currently playing animation (warning: can be `null`).
 	 */
 	public var curAnim(get, set):FlxAnimation;
+
+	/**
+	 * Changes how the FlxAnimationController gets its data from.
+	 */
+	public var animateAtlas:FlxAnimate;
 
 	/**
 	 * The frame index of the current animation. Can be changed manually.
@@ -48,21 +56,13 @@ class FlxAnimationController implements IFlxDestroyable
 	 * If assigned, will be called each time the current animation's frame changes.
 	 * A function that has 3 parameters: a string name, a frame number, and a frame index.
 	 */
-	#if haxe4
 	public var callback:(name:String, frameNumber:Int, frameIndex:Int) -> Void;
-	#else
-	public var callback:String->Int->Int->Void;
-	#end
 
 	/**
 	 * If assigned, will be called each time the current animation finishes.
 	 * A function that has 1 parameter: a string name - animation name.
 	 */
-	#if haxe4
 	public var finishCallback:(name:String) -> Void;
-	#else
-	public var finishCallback:String->Void;
-	#end
 
 	/**
 	 * Internal, reference to owner sprite.
@@ -92,6 +92,8 @@ class FlxAnimationController implements IFlxDestroyable
 	public var followGlobalSpeed:Bool = true;
 	public function update(elapsed:Float):Void
 	{
+		if(animateAtlas != null) return;
+
 		if (_curAnim != null)
 		{
 			var e:Float = elapsed;
@@ -148,6 +150,7 @@ class FlxAnimationController implements IFlxDestroyable
 		destroyAnimations();
 		_animations = null;
 		callback = null;
+		animateAtlas = null;
 		_sprite = null;
 	}
 
@@ -382,9 +385,24 @@ class FlxAnimationController implements IFlxDestroyable
 	 * @param   FlipX       Whether the frames should be flipped horizontally.
 	 * @param   FlipY       Whether the frames should be flipped vertically.
 	 */
-	public function addByIndices(Name:String, Prefix:String, Indices:Array<Int>, Postfix:String, FrameRate:Int = 30, Looped:Bool = true, FlipX:Bool = false,
+	public function addByIndices(Name:String, Prefix:String, Indices:Array<Int>, Postfix:String, FrameRate:Int = 0, Looped:Bool = true, FlipX:Bool = false,
 			FlipY:Bool = false):Void
 	{
+		if(animateAtlas != null) {
+			if(Prefix.endsWith("0")) {
+				Prefix = Prefix.substring(0, Prefix.length - 1);
+				Prefix = Prefix + "\\";
+			}
+			var added = animateAtlas.anim.addBySymbolIndices(Name, Prefix, Indices, FrameRate, Looped);
+			if(added) {
+				var anim:FlxAnimation = new FlxAnimation(this, Name, [0], FrameRate, Looped);
+				_animations.set(Name, anim);
+			}
+			return;
+		}
+
+		if(FrameRate == 0) FrameRate = 30;
+
 		if (_sprite.frames != null)
 		{
 			var frameIndices:Array<Int> = new Array<Int>();
@@ -463,8 +481,23 @@ class FlxAnimationController implements IFlxDestroyable
 	 * @param   FlipX       Whether the frames should be flipped horizontally.
 	 * @param   FlipY       Whether the frames should be flipped vertically.
 	 */
-	public function addByPrefix(Name:String, Prefix:String, FrameRate:Int = 30, Looped:Bool = true, FlipX:Bool = false, FlipY:Bool = false):Void
+	public function addByPrefix(Name:String, Prefix:String, FrameRate:Int = 0, Looped:Bool = true, FlipX:Bool = false, FlipY:Bool = false):Void
 	{
+		if(animateAtlas != null) {
+			if(Prefix.endsWith("0")) {
+				Prefix = Prefix.substring(0, Prefix.length - 1);
+				Prefix = Prefix + "\\";
+			}
+			var added = animateAtlas.anim.addBySymbol(Name, Prefix, FrameRate, Looped);
+			if(added) {
+				var anim:FlxAnimation = new FlxAnimation(this, Name, [0], FrameRate, Looped);
+				_animations.set(Name, anim);
+			}
+			return;
+		}
+
+		if(FrameRate == 0) FrameRate = 30;
+
 		if (_sprite.frames != null)
 		{
 			var animFrames:Array<FlxFrame> = new Array<FlxFrame>();
@@ -516,6 +549,8 @@ class FlxAnimationController implements IFlxDestroyable
 		}
 	}
 
+	//var atlasPlayingAnim:String = null;
+
 	/**
 	 * Plays an existing animation (e.g. `"run"`).
 	 * If you call an animation that is already playing, it will be ignored.
@@ -537,9 +572,18 @@ class FlxAnimationController implements IFlxDestroyable
 			_curAnim = null;
 		}
 
-		if (AnimName == null || _animations.get(AnimName) == null)
+		if (AnimName == null || (/*animateAtlas != null ? !animateAtlas.anim.existsByName(AnimName) : */!_animations.exists(AnimName)))
 		{
 			FlxG.log.warn("No animation called \"" + AnimName + "\"");
+			return;
+		}
+
+		if(animateAtlas != null) {
+			animateAtlas.anim.play(AnimName, Force, Reversed, Frame);
+			//atlasPlayingAnim = AnimName;
+
+			_curAnim = _animations.get(AnimName);//new FlxAnimation(this, AnimName, [0], 0);
+			//_curAnim.play(Force, Reversed, Frame);
 			return;
 		}
 
@@ -783,6 +827,70 @@ class FlxAnimationController implements IFlxDestroyable
 		return AnimName;
 	}
 
+	/**
+	 * Gets a list with all the animations that are added in a sprite.
+	 * WARNING: Do not confuse with `getNameList`, this function returns the animation instances
+	 * @return an array with all the animations.
+	 * @since 4.11.0
+	 */
+	public function getAnimationList():Array<FlxAnimation>
+	{
+		var animList:Array<FlxAnimation> = [];
+
+		for (anims in _animations)
+		{
+			animList.push(anims);
+		}
+
+		return animList;
+	}
+
+	/**
+	 * Gets a list with all the name animations that are added in a sprite
+	 * WARNING: Do not confuse with `getAnimationList`, this function returns the animation names
+	 * @return an array with all the animation names in it.
+	 * @since 4.11.0
+	 */
+	public function getNameList():Array<String>
+	{
+		var namesList:Array<String> = [];
+		for (names in _animations.keys())
+		{
+			namesList.push(names);
+		}
+
+		return namesList;
+	}
+
+	/**
+	 * Checks if an animation exists by it's name.
+	 * @param name The animation name.
+	 * @since 4.11.0
+	 */
+	public function exists(name:String):Bool
+	{
+		return _animations.exists(name);
+	}
+
+	/**
+	 * Renames the animation with a new name.
+	 * @param oldName the name that is replaced.
+	 * @param newName the name that replaces the old one.
+	 * @since 4.11.0
+	 */
+	public function rename(oldName:String, newName:String)
+	{
+		var anim = _animations.get(oldName);
+		if (anim == null)
+		{
+			FlxG.log.warn('No animation called "$oldName"');
+			return;
+		}
+		_animations.set(newName, anim);
+		anim.name = newName;
+		_animations.remove(oldName);
+	}
+
 	inline function get_curAnim():FlxAnimation
 	{
 		return _curAnim;
@@ -790,6 +898,9 @@ class FlxAnimationController implements IFlxDestroyable
 
 	inline function set_curAnim(Anim:FlxAnimation):FlxAnimation
 	{
+		//if(animateAtlas != null) {
+		//	return Anim;
+		//}
 		if (Anim != _curAnim)
 		{
 			if (_curAnim != null)
@@ -833,6 +944,9 @@ class FlxAnimationController implements IFlxDestroyable
 
 	function get_finished():Bool
 	{
+		//if(animateAtlas != null) {
+		//	return animateAtlas.anim.finished;
+		//}
 		var finished:Bool = true;
 		if (_curAnim != null)
 		{
