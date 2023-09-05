@@ -1,66 +1,66 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				-5,
 				-216
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "ViraUp",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "ViraUp"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-25,
 				-209
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "ViraRight",
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "ViraRight"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-5,
+				-214
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "ViraLeft",
 			"indices": []
 		},
 		{
-			"offsets": [
-				-5,
-				-214
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "idle",
-			"indices": [],
-			"name": "ViraIdle"
-		},
-		{
-			"offsets": [
-				-5,
-				-214
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "ViraLeft"
-		},
-		{
-			"loop": false,
 			"offsets": [
 				2,
 				-213
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "ViraDown",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "ViraDown"
+		},
+		{
+			"offsets": [
+				-5,
+				-214
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "ViraIdle"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/extras/virabot",
 	"position": [
 		0,
-		340
+		320
 	],
 	"healthicon": "virabot",
 	"flip_x": false,
@@ -70,8 +70,8 @@
 		28
 	],
 	"camera_position": [
-		350,
-		250
+		135,
+		326
 	],
 	"sing_duration": 4,
 	"scale": 1.2
