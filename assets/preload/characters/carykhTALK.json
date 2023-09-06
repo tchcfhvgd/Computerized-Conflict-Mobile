@@ -1,77 +1,77 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				-157,
 				-97
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "cutsceneTALK",
-			"fps": 24,
-			"name": "caryTALK",
-			"indices": []
+			"indices": [],
+			"name": "caryTALK"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "caryTALK",
-			"indices": []
+			"indices": [],
+			"name": "caryTALK"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "caryTALK",
-			"indices": []
+			"indices": [],
+			"name": "caryTALK"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "caryTALK",
-			"indices": []
+			"indices": [],
+			"name": "caryTALK"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "caryTALK",
-			"indices": []
+			"indices": [],
+			"name": "caryTALK"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "caryTALK",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "caryTALK"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/CC/extras/carykh/carytalk",
 	"position": [
-		-155,
-		78
+		-170,
+		73
 	],
 	"healthicon": "carykh",
 	"flip_x": false,
@@ -81,8 +81,8 @@
 		46
 	],
 	"camera_position": [
-		380,
-		430
+		300,
+		335
 	],
 	"sing_duration": 6.1,
 	"scale": 1.1
