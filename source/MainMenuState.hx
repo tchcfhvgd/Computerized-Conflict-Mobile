@@ -97,6 +97,7 @@ class MainMenuState extends MusicBeatState
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
 	var finishedZoom = false;
+	var star:FlxSprite;
 
 	var colorsMap:Map<String, FlxColor> =
 	[
@@ -172,13 +173,13 @@ class MainMenuState extends MusicBeatState
 
 		spikes1 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
 		spikes1.y -= 60;
-		spikes1.scrollFactor.set(0, 0);
+		spikes1.scrollFactor.set();
 		spikes1.flipY = true;
 		add(spikes1);
 
 		spikes2 = new FlxBackdrop(Paths.image('mainmenu/spikes'), X, 0, 0);
 		spikes2.y += 630;
-		spikes2.scrollFactor.set(0, 0);
+		spikes2.scrollFactor.set();
 		add(spikes2);
 
 		menuText = new FlxText(0, 0, FlxG.width, 'MAIN MENU', 29);
@@ -192,6 +193,10 @@ class MainMenuState extends MusicBeatState
 		itemsText.y += 300;
 		itemsText.x -= 630;
 		add(itemsText);
+
+		star = new FlxSprite(1200, 15).loadGraphic(Paths.image('mainmenu/star'));
+		star.scrollFactor.set();
+		star.antialiasing = ClientPrefs.globalAntialiasing;
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
@@ -253,6 +258,7 @@ class MainMenuState extends MusicBeatState
 		}
 
 		if (!CoolUtil.songsUnlocked.data.mainWeek) optionShit = optionShit_NO_STORY;
+		if(CoolUtil.songsUnlocked.data.seenCredits = true) add(star);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -488,6 +494,13 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
+
+			if (star != null && FlxG.mouse.overlaps(star) && FlxG.mouse.justPressed)
+			{
+				FlxG.sound.play(Paths.sound('mouseClick'));
+				selectedSomethin = true;
+				
+			}
 
 			menuItems.forEach(function(spr:FlxSprite)
 			{
