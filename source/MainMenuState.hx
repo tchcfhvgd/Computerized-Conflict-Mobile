@@ -109,6 +109,8 @@ class MainMenuState extends MusicBeatState
 		'options' => FlxColor.WHITE,
 	];
 
+	var starThingOpened = false;
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -194,10 +196,6 @@ class MainMenuState extends MusicBeatState
 		itemsText.x -= 630;
 		add(itemsText);
 
-		star = new FlxSprite(1200, 15).loadGraphic(Paths.image('mainmenu/star'));
-		star.scrollFactor.set();
-		star.antialiasing = ClientPrefs.globalAntialiasing;
-
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -257,13 +255,39 @@ class MainMenuState extends MusicBeatState
 			CoolUtil.songsUnlocked.flush();
 		}
 
+		if(CoolUtil.songsUnlocked.data.seenCredits != null && CoolUtil.songsUnlocked.data.mainWeek)
+		{
+			blackThingIG = new FlxSpriteExtra().makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
+			blackThingIG.cameras = [camGF];
+			blackThingIG.screenCenter();
+			blackThingIG.alpha = 0.3;
+			add(blackThingIG);
+
+			var TEXT_THANKS = 
+			'
+			Thank you for playing this mod.\n
+			lol.
+			';
+
+			textPopup = new FlxText(0, 0, FlxG.width, TEXT_THANKS, 22);
+			textPopup.setFormat('VCR OSD Mono', 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			textPopup.borderSize = 1.25;
+			textPopup.cameras = [camGF];
+			textPopup.screenCenter();
+			add(textPopup);
+
+			star = new FlxSprite(1200, 15).loadGraphic(Paths.image('mainmenu/star'));
+			star.scrollFactor.set();
+			star.antialiasing = ClientPrefs.globalAntialiasing;
+			star.cameras = [camHUD];
+
+			add(star);
+		}
+
 		if (!CoolUtil.songsUnlocked.data.mainWeek) optionShit = optionShit_NO_STORY;
-		if(CoolUtil.songsUnlocked.data.seenCredits = true) add(star);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
-
-		var scale:Float = 1;
 
 		for (i in 0...optionShit.length)
 		{
@@ -308,11 +332,6 @@ class MainMenuState extends MusicBeatState
 
 			menuItem.updateHitbox();
 		}
-
-		/*for (i in 0...VaultState.codesAndShit.length){
-			CoolUtil.songsUnlocked.data.songs.set(VaultState.codesAndShit[i][1], false);
-		}
-		CoolUtil.songsUnlocked.flush();*/
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
@@ -486,7 +505,6 @@ class MainMenuState extends MusicBeatState
 			{
 				loadState();
 			}
-
 			#if debug
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
@@ -494,13 +512,6 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
-
-			if (star != null && FlxG.mouse.overlaps(star) && FlxG.mouse.justPressed)
-			{
-				FlxG.sound.play(Paths.sound('mouseClick'));
-				selectedSomethin = true;
-				
-			}
 
 			menuItems.forEach(function(spr:FlxSprite)
 			{
@@ -615,6 +626,15 @@ class MainMenuState extends MusicBeatState
 
 	function loadState()
 	{
+		if(starThingOpened) return;
+
+		if(star != null && FlxG.mouse.overlaps(star) && FlxG.mouse.justPressed)
+		{
+			trace('star');
+			startShitLolz();
+			return;
+		}
+
 		selectedSomethin = true;
 		FlxG.sound.play(Paths.sound('confirmMenu'));
 
@@ -667,13 +687,17 @@ class MainMenuState extends MusicBeatState
 					}
 				});
 			}
-
-			/*if (curSelected == spr.ID)
-			{
-				spr.acceleration.y = 5550;
-				spr.velocity.y -= 5550;
-			}*/
 		});
+	}
+
+	function startShitLolz()
+	{
+		selectedSomethin = true;
+
+		starThingOpened = true;
+		targetAlphaCamPopup = 1;
+
+		FlxG.sound.play(Paths.sound('mouseClick'));
 	}
 
 	function loadTutorial()

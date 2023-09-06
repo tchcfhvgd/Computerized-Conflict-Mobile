@@ -139,6 +139,8 @@ class TCOCreditsState extends MusicBeatState
 			//new CreditsMetadata("", "jet", "", 0xFF, ""),
 		];
 
+		if(CoolUtil.songsUnlocked.data.seenCredits == null) CoolUtil.songsUnlocked.data.seenCredits = true;
+
 		bg = new FlxSprite().loadGraphic(Paths.image('creditsmenu/background'));
 		bg.scrollFactor.set();
 		bg.updateHitbox();
