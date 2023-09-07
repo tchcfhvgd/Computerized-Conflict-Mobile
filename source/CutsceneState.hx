@@ -126,6 +126,7 @@ class CutsceneState extends MusicBeatState
 				MusicBeatState.switchState(new MessagesState(true));
 			case 'alan-unlock' | 'tco_credits':
 				MusicBeatState.switchState(new FreeplayMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			default:
 				LoadingState.loadAndSwitchState(new PlayState());
 		}
