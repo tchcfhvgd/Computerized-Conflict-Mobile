@@ -260,13 +260,17 @@ class MainMenuState extends MusicBeatState
 			blackThingIG = new FlxSpriteExtra().makeSolid(FlxG.width, FlxG.height, FlxColor.BLACK);
 			blackThingIG.cameras = [camGF];
 			blackThingIG.screenCenter();
-			blackThingIG.alpha = 0.3;
+			blackThingIG.alpha = 0.5;
 			add(blackThingIG);
 
 			var TEXT_THANKS = 
 			'
-			Thank you for playing this mod.\n
-			lol.
+			Star:,\n\n
+			You have done something amazing!\n
+			You have beaten every challengue from this mod,\n
+			and now you are one more in the  gang who reached this achievement.\n
+			You have proven that with effort, you can do anything.\n
+			We are proud of you.
 			';
 
 			textPopup = new FlxText(0, 0, FlxG.width, TEXT_THANKS, 22);

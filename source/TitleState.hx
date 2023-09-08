@@ -539,7 +539,7 @@ class TitleState extends MusicBeatState
 					createCoolText(['el pepe'], 15);
 				case 7:
 					deleteCoolText();
-					createCoolText(['Animation vs.'], 15);
+					createCoolText(['Animator vs. Animation'], 15);
 				case 8:
 					addMoreText('by: Alan Becker', 15);
 					alanSpr.visible = true;

@@ -2047,6 +2047,12 @@ class PlayState extends MusicBeatState
 					add(bottomBarsALT);
 
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0008));
+
+					if(SONG.song.toLowerCase() == 'fancy funk')
+					{
+						FlxG.camera.fade(FlxColor.BLACK, 0, false);
+						camHUD.alpha = 0.00001;
+					}
 				}
 
 			case 'flashBG': //showdown collab
@@ -3982,7 +3988,7 @@ class PlayState extends MusicBeatState
 				bf2.alpha = 0;
 				bf3.alpha = 0;
 
-				boyfriend.y = BF_Y - 350;
+				boyfriend.y = BF_Y - 120;
 			}
 
 			//shit
@@ -3993,8 +3999,8 @@ class PlayState extends MusicBeatState
 					spotlightdad.x = dad.x - 400;
 					spotlightdad.y = dad.y + dad.height - 1550;
 
-					spotlightbf.x = boyfriend.x - 355;
-					spotlightbf.y = boyfriend.y + boyfriend.height - 1650;
+					spotlightbf.x = boyfriend.x - 50;
+					spotlightbf.y = boyfriend.y + boyfriend.height - 1450;
 
 				case 'time travel' | 'messenger':
 
@@ -4380,7 +4386,7 @@ class PlayState extends MusicBeatState
 		switch(SONG.song.toLowerCase())
 		{
 			case 'adobe':
-				FlxG.camera.fade(FlxColor.BLACK, 1, true);
+				FlxG.camera.fade(FlxColor.BLACK, 3, true);
 			case 'trojan':
 				camGame.alpha = 1;
 				filter.alpha = 1;
@@ -6020,7 +6026,7 @@ class PlayState extends MusicBeatState
 				switch(curStage)
 				{
 					case 'stage' | 'alan-pc-conflict' | 'alan-pc-virabot' | 'adobe' | 'alan-pc-song' | 'bbpanzu-stage':
-						camFollow.set(boyfriend.getMidpoint().x + 100, boyfriend.getMidpoint().y - 100);
+						camFollow.set(boyfriend.getMidpoint().x + 450, boyfriend.getMidpoint().y - 100);
 					case 'Sam Room':
 						if (defaultCamZoom < 0.75) camFollow.set(boyfriend.getMidpoint().x - 575, boyfriend.getMidpoint().y - 215);
 						else  camFollow.set(boyfriend.getMidpoint().x - 365, boyfriend.getMidpoint().y - 120);
@@ -7652,6 +7658,12 @@ class PlayState extends MusicBeatState
 			case 'fancy funk':
 				switch(curStep)
 				{
+					case 25:
+						FlxG.camera.fade(FlxColor.BLACK, 1, true);
+						FlxG.camera.follow(camFollowPos, LOCKON, cameraSpeed*0.5);
+					case 64:
+						FlxTween.tween(camHUD, {alpha: 1}, 0.5);
+						FlxG.camera.follow(camFollowPos, LOCKON, cameraSpeed);
 					case 448:
 						objectColor([fancyBG, fancyFloor, boyfriend, gf, dad], FlxColor.WHITE);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
@@ -7745,12 +7757,6 @@ class PlayState extends MusicBeatState
 				coolShit.alpha = 1;
 				FlxTween.tween(coolShit, {alpha:0}, Conductor.crochet * 5, {ease: FlxEase.sineIn});
 			}
-		}
-
-		if(SONG.song.toLowerCase() == 'fancy funk')
-		{
-			if (SONG.notes[curSection].mustHitSection) FlxTween.tween(spotlightdad, {x: spotlightdad.x + 300}, 0.3, {ease: FlxEase.sineInOut});
-			else FlxTween.tween(spotlightdad, {x: dad.x - 300}, 0.3, {ease: FlxEase.sineInOut});
 		}
 		
 		if(glowTween != null) {
