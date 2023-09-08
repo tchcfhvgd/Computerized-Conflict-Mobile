@@ -3343,17 +3343,19 @@ class PlayState extends MusicBeatState
 						else  camFollow.set(boyfriend.getMidpoint().x - 365 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
 						
 						//camFollow.set(boyfriend.getMidpoint().x - 355 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
-					case 'World 1' | 'yt':
+					case 'yt':
+						camFollow.x = (boyfriend.getMidpoint().x + 250 + cameraXBF);
+					case 'World 1':
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 					case 'flashBG':
-						camFollow.set(boyfriend.getMidpoint().x - 300 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
+						camFollow.set(boyfriend.getMidpoint().x + 300 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
 					case 'unfaith-BG':
 						camFollow.set(boyfriend.getMidpoint().x - 150 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
 					case 'aurora':
 						camFollow.x = (boyfriend.getMidpoint().x - 550 + cameraXBF);
 						
 					case 'cubify-stage':
-						camFollow.x = (boyfriend.getMidpoint().x - 270 + cameraXBF);
+						camFollow.x = (boyfriend.getMidpoint().x + 270 + cameraXBF);
 						
 					case 'animStage-old':
 						camFollow.set(852.9 + cameraXBF, 350 + cameraYBF);
@@ -6017,22 +6019,26 @@ class PlayState extends MusicBeatState
 
 				switch(curStage)
 				{
+					case 'stage' | 'alan-pc-conflict' | 'alan-pc-virabot' | 'adobe' | 'alan-pc-song' | 'bbpanzu-stage':
+						camFollow.set(boyfriend.getMidpoint().x + 100, boyfriend.getMidpoint().y - 100);
 					case 'Sam Room':
 						if (defaultCamZoom < 0.75) camFollow.set(boyfriend.getMidpoint().x - 575, boyfriend.getMidpoint().y - 215);
 						else  camFollow.set(boyfriend.getMidpoint().x - 365, boyfriend.getMidpoint().y - 120);
 						
 						//camFollow.set(boyfriend.getMidpoint().x - 355 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
-					case 'World 1' | 'yt':
+					case 'yt':
+						camFollow.x = (boyfriend.getMidpoint().x + 250);
+					case 'World 1':
 						camFollow.x = (boyfriend.getMidpoint().x - 250);
 					case 'flashBG':
-						camFollow.set(boyfriend.getMidpoint().x - 300, boyfriend.getMidpoint().y - 50);
+						camFollow.set(boyfriend.getMidpoint().x + 300, boyfriend.getMidpoint().y - 50);
 					case 'unfaith-BG':
 						camFollow.set(boyfriend.getMidpoint().x - 150, boyfriend.getMidpoint().y - 50);
 					case 'aurora':
 						camFollow.x = (boyfriend.getMidpoint().x - 550);
 						
 					case 'cubify-stage':
-						camFollow.x = (boyfriend.getMidpoint().x - 270);
+						camFollow.x = (boyfriend.getMidpoint().x + 270);
 						
 					case 'animStage-old':
 						camFollow.set(852.9, 350);
