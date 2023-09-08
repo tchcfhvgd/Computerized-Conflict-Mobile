@@ -113,12 +113,12 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		Paths.clearStoredMemory();
+
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
-
-		Paths.clearStoredMemory();
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -267,7 +267,7 @@ class MainMenuState extends MusicBeatState
 			'
 			Star:\n\n
 			You have done something amazing!\n
-			You have beaten every challenge from this mod,\n
+			You have beaten this mod\'s main week,\n
 			and now you are one more in the gang who reached this achievement.\n
 			You have proven that with effort, you can do anything.\n
 			We are proud of you.
@@ -362,6 +362,8 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 
+		Paths.clearUnusedMemory();
+
 		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 
 		super.create();
@@ -371,8 +373,6 @@ class MainMenuState extends MusicBeatState
 		{
 			finishedZoom = true;
 		});
-
-		Paths.clearUnusedMemory();
 	}
 
 	function createGFPopup()
@@ -605,6 +605,16 @@ class MainMenuState extends MusicBeatState
 			}
 		}
 
+		if(selectedSomethin && starThingOpened)
+		{
+			if (controls.BACK)
+			{
+				starThingOpened = false;
+				selectedSomethin = false;
+				targetAlphaCamPopup = 0;
+			}
+		}
+
 		camGF.alpha = FlxMath.lerp(camGF.alpha, targetAlphaCamPopup, lerpVal);
 
 		if (gfMoment)
@@ -641,6 +651,8 @@ class MainMenuState extends MusicBeatState
 
 		selectedSomethin = true;
 		FlxG.sound.play(Paths.sound('confirmMenu'));
+
+		if(star != null) FlxTween.tween(star, {alpha: 0}, 0.4, {ease: FlxEase.expoIn});
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{

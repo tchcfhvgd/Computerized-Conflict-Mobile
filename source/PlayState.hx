@@ -2974,8 +2974,6 @@ class PlayState extends MusicBeatState
 			precacheList.set('missnote3', 'sound');
 		}
 
-		precacheList.set('throwMic', 'sound');
-
 		precacheList.set('pauseTCO', 'music');
 
 		precacheList.set('alphabet', 'image');
@@ -3575,16 +3573,16 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function healthDrainRates(simple:Float, hard:Float, insane:Float)
+	function healthDrainRates(simple:Float, hard:Float, insane:Float, mult:Float = 1)
 	{
 		switch(CoolUtil.difficultyString())
 		{
 			case 'SIMPLE':
-				health -= simple;
+				health -= simple * mult;
 			case 'HARD':
-				health -= hard;
+				health -= hard * mult;
 			case 'INSANE':
-				health -= insane;
+				health -= insane * mult;
 		}
 	}
 
@@ -4617,6 +4615,9 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
+
+			case 'Xx_FancyPants_xX':
+				precacheList.set('throwMic', 'sound');
 		}
 
 		eventPushedMap.set(event.event, true);
@@ -6882,17 +6883,13 @@ class PlayState extends MusicBeatState
 				if ((!FlxG.fullscreen || !Application.current.window.maximized) && !SONG.notes[curSection].bf2Section) setCamShake([camHUD, camGame], 0.015, 0.05, 0.005);
 				else if (!SONG.notes[curSection].bf2Section) setCamShake([camHUD, camGame, camOther], 0.015, 0.05, 0.0045);
 
-				//if (healthBar.percent > 10 && !SONG.notes[curSection].bf2Section) healthDrainRates(0, 0.02, 0.045);
-
 			case 'angry-minus-tco':
 				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camGame], 0.015, 0.05, 0.005);
 				else setCamShake([camGame, camBars, camOther], 0.015, 0.05, 0.005);
 			case 'the-dark-lord':
-				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023);
+				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023, note.isSustainNote ? 0.5 : 1);
 			case 'joe-rombie':
-				var mult:Float = 1;
-				if (note.isSustainNote) mult = 0.3;
-				if (healthBar.percent > 10) healthDrainRates(0.01 * mult, 0.03 * mult, 0.04 * mult);
+				if (healthBar.percent > 10) healthDrainRates(0.01, 0.03, 0.04, note.isSustainNote ? 0.3 : 1);
 		}
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
@@ -8723,7 +8720,8 @@ class PlayState extends MusicBeatState
 		return super.switchTo(state);
 	}
 
-	function punchFancy(){
+	function punchFancy()
+	{
 		boyfriend.playAnim('pre-attack', true);
 		boyfriend.specialAnim = true;
 		FlxTween.tween(boyfriend, {x: boyfriend.x - dad.x}, 0.3, {ease: FlxEase.sineInOut,
