@@ -265,10 +265,10 @@ class MainMenuState extends MusicBeatState
 
 			var TEXT_THANKS = 
 			'
-			Star:,\n\n
+			Star:\n\n
 			You have done something amazing!\n
-			You have beaten every challengue from this mod,\n
-			and now you are one more in the  gang who reached this achievement.\n
+			You have beaten every challenge from this mod,\n
+			and now you are one more in the gang who reached this achievement.\n
 			You have proven that with effort, you can do anything.\n
 			We are proud of you.
 			';
