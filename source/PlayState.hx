@@ -3343,7 +3343,7 @@ class PlayState extends MusicBeatState
 						else  camFollow.set(boyfriend.getMidpoint().x - 365 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
 						
 						//camFollow.set(boyfriend.getMidpoint().x - 355 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
-					case 'World 1':
+					case 'World 1' | 'yt':
 						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 					case 'flashBG':
 						camFollow.set(boyfriend.getMidpoint().x - 300 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
@@ -3351,8 +3351,6 @@ class PlayState extends MusicBeatState
 						camFollow.set(boyfriend.getMidpoint().x - 150 + cameraXBF, boyfriend.getMidpoint().y - 50 + cameraYBF);
 					case 'aurora':
 						camFollow.x = (boyfriend.getMidpoint().x - 550 + cameraXBF);
-					case 'yt':
-						camFollow.x = (boyfriend.getMidpoint().x - 250 + cameraXBF);
 						
 					case 'cubify-stage':
 						camFollow.x = (boyfriend.getMidpoint().x - 270 + cameraXBF);
@@ -5991,15 +5989,55 @@ class PlayState extends MusicBeatState
 			if(isDad)
 			{
 				camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-				camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-				camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+				camFollow.x += dad.cameraPosition[0];
+				camFollow.y += dad.cameraPosition[1];
+
+				switch(curStage)
+				{
+					case 'Sam Room':
+						if (defaultCamZoom < 0.75) camFollow.x = (dad.getMidpoint().x + 525);
+						else camFollow.x = (dad.getMidpoint().x + 285);
+					case 'flashBG':
+						camFollow.set(dad.getMidpoint().x + 400, dad.getMidpoint().y + 50);
+						if (dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200, dad.getMidpoint().y + 150);
+					case 'aurora':
+						camFollow.x = (dad.getMidpoint().x - 500);
+						
+					case 'animStage-old':
+						camFollow.set(420.95, 313);
+				}
+
 				tweenCamIn();
 			}
 			else
 			{
 				camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-				camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-				camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
+				camFollow.x -= boyfriend.cameraPosition[0];
+				camFollow.y += boyfriend.cameraPosition[1];
+
+				switch(curStage)
+				{
+					case 'Sam Room':
+						if (defaultCamZoom < 0.75) camFollow.set(boyfriend.getMidpoint().x - 575, boyfriend.getMidpoint().y - 215);
+						else  camFollow.set(boyfriend.getMidpoint().x - 365, boyfriend.getMidpoint().y - 120);
+						
+						//camFollow.set(boyfriend.getMidpoint().x - 355 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
+					case 'World 1' | 'yt':
+						camFollow.x = (boyfriend.getMidpoint().x - 250);
+					case 'flashBG':
+						camFollow.set(boyfriend.getMidpoint().x - 300, boyfriend.getMidpoint().y - 50);
+					case 'unfaith-BG':
+						camFollow.set(boyfriend.getMidpoint().x - 150, boyfriend.getMidpoint().y - 50);
+					case 'aurora':
+						camFollow.x = (boyfriend.getMidpoint().x - 550);
+						
+					case 'cubify-stage':
+						camFollow.x = (boyfriend.getMidpoint().x - 270);
+						
+					case 'animStage-old':
+						camFollow.set(852.9, 350);
+						
+				}
 
 				if (bf2 != null || bf3 != null)
 				{
@@ -6240,7 +6278,7 @@ class PlayState extends MusicBeatState
 				else
 				{
 					var goToFreeplay:Bool = true;
-					if (!CoolUtil.songsUnlocked.data.cutsceneSeen && playAlanVideo) 
+					if (!CoolUtil.songsUnlocked.data.cutsceneSeen && playAlanVideo && !ClientPrefs.getGameplaySetting('botplay', false)) 
 					{
 						CoolUtil.songsUnlocked.data.cutsceneSeen = true;
 
@@ -6251,7 +6289,7 @@ class PlayState extends MusicBeatState
 						}, false));
 					}
 
-					if (SONG.song.toLowerCase() == 'alan' && CoolUtil.songsUnlocked.data.seenCredits == null)
+					if (SONG.song.toLowerCase() == 'alan' && CoolUtil.songsUnlocked.data.seenCredits == null  && !ClientPrefs.getGameplaySetting('botplay', false))
 					{
 						CoolUtil.songsUnlocked.data.seenCredits = true;
 
@@ -6259,6 +6297,7 @@ class PlayState extends MusicBeatState
 
 						LoadingState.loadAndSwitchState(new CutsceneState('tco_credits', true, function() {
 							MusicBeatState.switchState(new FreeplayMenu());
+							FlxG.sound.playMusic(Paths.music('freakyMenu'));
 						}, false));
 					}
 
