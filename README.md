@@ -32,7 +32,7 @@ After downloading it, go to `C:\HaxeToolkit\haxe\lib\` and extract the zip file.
 ## Dev. Team:
 * JetTRG - Director, Charter, Concept artist.
 * MijaeLio - Co-Director & Main Programmer.
-* Tiburones 202 - Programmer.
+* Tiburones 202 - Programmer & Charter.
 * Ne_Eo - Programmer.
 * amaarzadjali - Musician.
 * Joa - Musician.
@@ -77,7 +77,7 @@ _____________________________________
 
 ### Special Thanks:
 * Alan Becker - Creator of "Animator Vs. Animation".
-* JansenM - "3D Stick" creator.
+* JansenM - "3D STICK" creator.
 * Rob-D - Creator of "Joe Zombie".
 * Brad Borne - Creator of "Fancy Pants".
 * CaryKH - "Time Travel" video and voicelines.
