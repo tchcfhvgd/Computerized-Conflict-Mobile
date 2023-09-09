@@ -10,7 +10,6 @@ MIJAE OR TIBURONES:
  ta bien
 }
 
-- Make it when you click the Main Menu star, the screen goes semi-black and a text appear (you can put any text in it as placeholder im gonna write something else tomorrow), use the VCR font and dont make the text take up much screen space.
+just fix the mentioned bugs on the Playtest server lol
 
-Estimated Playtesting start: September 8th
 Estimated Release: September 15th
