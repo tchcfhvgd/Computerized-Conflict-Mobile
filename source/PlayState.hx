@@ -7957,7 +7957,7 @@ class PlayState extends MusicBeatState
 						cameraLocked = true;
 						stopBFFlyTrojan = true;
 						FlxTween.tween(boyfriend, {y: BF_Y - 1000}, 1, {ease: FlxEase.quadIn});
-						FlxTween.tween(boyfriend, {angle: 359.99 * 4}, 23);
+						FlxTween.tween(boyfriendGroup, {angle: 359.99 * 4}, 23);
 					case 349:
 						FlxG.sound.play(Paths.sound('intro2'), 0.4);
 					case 350:
@@ -8842,7 +8842,7 @@ class PlayState extends MusicBeatState
 
 			boyfriend.setPosition(BF_X, BF_Y);
 			startCharacterPos(boyfriend);
-			boyfriend.angle = 30*Math.sin(test/6);
+			boyfriendGroup.angle = 30*Math.sin(test/6);
 			boyfriend.x += 50*Math.sin(test/6);
 			boyfriend.y += 50*Math.cos(test/6);
 		}
@@ -8853,7 +8853,7 @@ class PlayState extends MusicBeatState
 			dad.angle = 0;
 			boyfriend.setPosition(BF_X, BF_Y);
 			startCharacterPos(boyfriend);
-			boyfriend.angle = 0;
+			boyfriendGroup.angle = 0;
 		}
 	}
 

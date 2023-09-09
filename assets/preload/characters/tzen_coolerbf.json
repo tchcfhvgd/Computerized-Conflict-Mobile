@@ -57,14 +57,14 @@
 		},
 		{
 			"offsets": [
-				-361,
-				219
+				-75,
+				119
 			],
-			"loop": false,
+			"indices": [],
 			"fps": 24,
 			"anim": "hurt",
-			"indices": [],
-			"name": "BF hit"
+			"loop": false,
+			"name": "BF hit0"
 		},
 		{
 			"offsets": [
