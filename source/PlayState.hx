@@ -6212,10 +6212,14 @@ class PlayState extends MusicBeatState
 					FlxG.save.data.checkpoint = null;
 					FlxG.save.flush();
 
+					#if !web
 					LoadingState.loadAndSwitchState(new CutsceneState('codes', true, function() {
-							MusicBeatState.switchState(new MessagesState(true));
+						MusicBeatState.switchState(new MessagesState(true));
 					}, false
 					));
+					#else
+					MusicBeatState.switchState(new MessagesState(true));
+					#end
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false))
@@ -6253,8 +6257,7 @@ class PlayState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
-					//showHUDTween(0, 1);
-					//showCamOtherTween(1, 0);
+					#if !web
 					inCutscene = true;
 					camOther.fade(FlxColor.BLACK, 1, false, function() {
 						cancelMusicFadeTween();
@@ -6265,6 +6268,9 @@ class PlayState extends MusicBeatState
 
 						}));
 					});
+					#else
+					LoadingState.loadAndSwitchState(new PlayState());
+					#end
 
 					if (oldSongs)
 					{

@@ -218,9 +218,11 @@ class TCOCreditsState extends MusicBeatState
 			creditText.distancePerItem.x = 0;
 			creditText.distancePerItem.y = 200;
 			creditText.targetY = i;
+			#if !web
 			if(i == 0) {
 				creditText.outline = outlineWidth;
 			}
+			#end
 			creditText.snapToPosition();
 			grpCredits.add(creditText);
 
@@ -400,11 +402,11 @@ class TCOCreditsState extends MusicBeatState
 		{
 			var shit = i - curSelected;
 			var scale = shit == 0 ? 0.75 : 0.375;
-			var outline:Float = shit == 0 ? outlineWidth : 0;
-			var outlineAlpha:Float = shit == 0 ? 1.0 : 0.0;
+			#if !web var outline:Float = shit == 0 ? outlineWidth : 0;
+			var outlineAlpha:Float = shit == 0 ? 1.0 : 0.0; #end
 
 			item.textOffsetX = shit == 0 ? 120 : 0;
-			tween(item, {scaleX: scale, "scale.y": scale, outline: outline, outlineAlpha: outlineAlpha}, 0.2, {
+			tween(item, {scaleX: scale, "scale.y": scale, #if !web outline: outline, outlineAlpha: outlineAlpha #end}, 0.2, {
 				ease: FlxEase.quadOut
 			});
 

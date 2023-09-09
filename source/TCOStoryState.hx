@@ -453,6 +453,7 @@ class TCOStoryState extends MusicBeatState
 		PlayState.seenCutscene = false;
 		PlayState.weekNames = 'Episode 1: Computer Breakdown';
 
+		#if !web
 		if (introCutscene)
 		{
 			LoadingState.loadAndSwitchState(new CutsceneState('adobe', true, function() //this is still playing somehow
@@ -464,6 +465,9 @@ class TCOStoryState extends MusicBeatState
 		{
 			LoadingState.loadAndSwitchState(new PlayState(), true);
 		}
+		#else
+		LoadingState.loadAndSwitchState(new PlayState(), true);
+		#end
 
 		FreeplayState.destroyFreeplayVocals();
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
