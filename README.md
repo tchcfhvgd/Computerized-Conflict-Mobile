@@ -41,7 +41,7 @@ After downloading it, go to `C:\HaxeToolkit\haxe\lib\` and extract the zip file.
 * TheNatz - Musician.
 * Prod.kxri - Musician.
 * Eclyptic - Musician.
-* Magbros.ogg - Musician.
+* Magbros - Musician.
 * Puppet Master - Musician.
 * DangDoodle - Musician.
 * Splat - Sprite Artist.
