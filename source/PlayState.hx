@@ -7320,15 +7320,12 @@ class PlayState extends MusicBeatState
 					case 256:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 
-						if (ClientPrefs.shaders) boyfriend.shader = new BloomShader();
-						if (ClientPrefs.shaders) dad.shader = new BloomShader();
-						if (ClientPrefs.shaders) gf.shader = new BloomShader();
-						if (ClientPrefs.shaders) Crowd.shader = new BloomShader();
+						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						
 						Crowd.color = 0xFFFFFFFF;
 						gf.color = 0xFFFFFFFF;
-						Background1.color = 0xFFFFFFFF;
-						whiteScreen.color = 0xFFFFFFFF;
+						Background1.color = 0xFF727272;
+						whiteScreen.color = 0xFF727272;
 
 						FlxG.camera.flash(FlxColor.WHITE, 1);
 						spotlightdad.alpha = 0;
