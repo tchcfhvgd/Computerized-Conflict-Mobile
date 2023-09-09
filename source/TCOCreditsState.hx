@@ -118,7 +118,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("NexusLoaf", "nexusLoaf", "Portrait Artist.", 0xFFA9D4E6, "what am i even supposed to quote here"),
 			new CreditsMetadata("Hexal", "hexal", "Cutscene Maker (Outrage and End Process).", 0xFF585454, "im animator :poop emoji:"),
 			new CreditsMetadata("Xyriax", "xyriax", "Extra Charter (Insane Difficulty).", 0xFF0000FF, "charters are overrated"),
-			new CreditsMetadata("Shammal", "shammal", "Extra Charter.", 0xFF7AFF7A, "TRANS RIGHTS GRAAAH"),
+			new CreditsMetadata("Shammal", "shammal", "Extra Charter.", 0xFF7AFF7A, "TRANS RIGHTS GRAAAH\n\n(I charted the hard difficulties for End Process, Trojan, Conflict, Cubify, Kickstarter. Phantasm, and Aurora!)"),
 			new CreditsMetadata("LeLazyOne", "lelazyone", "Trailer Editor & Animator.", 0xFFFFBA7A, "i like girls"),
 
 			//Contributers (no icons)
@@ -132,7 +132,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\".", 0xFFFFFFFF, ""),
 			new CreditsMetadata("DTunes", "", "A composer of \"Alan (Remake)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("atpx8", "", "Helped with the End Process pop-ups mechanic.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Tentilog", "", "3D Black STICK Sprite.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Tentilog", "", "3D STICK Sprite.", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Koi", "", "Rombie BG Artist.", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Blonic", "", "Logo Artist.", 0xFFFFFFFF, ""),
 
