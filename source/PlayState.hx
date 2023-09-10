@@ -4383,8 +4383,6 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 		{
-			case 'adobe':
-				FlxG.camera.fade(FlxColor.BLACK, 3, true);
 			case 'trojan':
 				camGame.alpha = 1;
 				filter.alpha = 1;
@@ -7269,7 +7267,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(blackBG, {alpha:0}, 0.5);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0025));
 					case 640:
-						camHUD.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) camHUD.flash(FlxColor.WHITE, 1);
 						whiteScreen.alpha = 1;
 						boyfriendGroup.alpha = 0;
 						iconP1.alpha = 0;
@@ -7297,7 +7295,7 @@ class PlayState extends MusicBeatState
 					case 896:
 						camHUD.fade(FlxColor.BLACK, 1, false);
 					case 912:
-						camHUD.flash(FlxColor.WHITE, 0.8);
+						if(ClientPrefs.flashing) camHUD.flash(FlxColor.WHITE, 0.8);
 						whiteScreen.alpha = 0;
 						camHUD.fade(FlxColor.BLACK, 0, true);
 						dadGroup.alpha = 1;
@@ -7305,7 +7303,7 @@ class PlayState extends MusicBeatState
 						iconP2.alpha = 1;
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 					case 1168:
-						camHUD.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) camHUD.flash(FlxColor.WHITE, 1);
 						FlxTween.tween(whiteScreen, {alpha:1}, 3);
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 1296:
@@ -7315,7 +7313,7 @@ class PlayState extends MusicBeatState
 				switch(curStep)
 				{
 					case 1:
-						camHUD.fade(FlxColor.BLACK, 2, true);
+						FlxG.camera.fade(FlxColor.BLACK, 3, true);
 						Crowd.color = 0xFF3A3A3A;
 						gf.color = 0xFF3A3A3A;
 						Background1.color = 0xFF3A3A3A;
@@ -7330,16 +7328,16 @@ class PlayState extends MusicBeatState
 						
 						Crowd.color = 0xFFFFFFFF;
 						gf.color = 0xFFFFFFFF;
-						Background1.color = 0xFF727272;
-						whiteScreen.color = 0xFF727272;
+						Background1.color = 0xFFbababa;
+						whiteScreen.color = 0xFFbababa;
 
-						FlxG.camera.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						spotlightdad.alpha = 0;
 						spotlightbf.alpha = 0;
 					case 576:
 						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5);
 					case 768:
-						FlxG.camera.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						FlxG.camera.shake(0.0175, 0.15);
 						blackBars(1);
 						colorTween([gf, dad, Crowd, Background1, Floor], 0.7, FlxColor.WHITE, 0xFF191919);
@@ -7347,7 +7345,7 @@ class PlayState extends MusicBeatState
 						spotlightbf.alpha = 0.8;
 					case 1024:
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
-						FlxG.camera.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						colorTween([gf, dad, boyfriend, Crowd, Background1, Floor], 0.7, 0xFF191919, FlxColor.WHITE);
 						blackBars(0);
 						spotlightdad.alpha = 0;
@@ -7373,7 +7371,7 @@ class PlayState extends MusicBeatState
 						tcoBSOD(true);
 						bsod.alpha = 1; //fixing the bug
 						setAlpha([blackBG], 0);
-						FlxG.camera.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 					case 1025 | 1670:
 						tcoBSOD(false);
 				}
@@ -7832,7 +7830,7 @@ class PlayState extends MusicBeatState
 				switch(curBeat)
 				{
 					case 32:
-						FlxG.camera.flash(FlxColor.RED, 0.5);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0040));
 						FlxG.camera.shake(0.01, 0.20);
 						objectColor([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
@@ -7844,7 +7842,7 @@ class PlayState extends MusicBeatState
 						tcoStickPage(true);
 
 					case 424:
-						FlxG.camera.flash(FlxColor.WHITE, 0.5);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 0.5);
 						FlxG.camera.shake(0.01, 0.20);
 						colorTween([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0.8, 0xFF2C2425, FlxColor.WHITE);
 						lossingHealth = false;
@@ -7937,14 +7935,14 @@ class PlayState extends MusicBeatState
 						coolShit.alpha = 0;
 						bestPart2 = false;
 						filter.alpha = 0.0001;
-						camChar.flash(FlxColor.WHITE, 0.85);
+						if(ClientPrefs.flashing) camChar.flash(FlxColor.WHITE, 0.85);
 						boyfriend.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 						dad.setColorTransform(1, 1, 1, 1, 255, 255, 255, 0);
 						gf.alpha = 0.0001;
 
 					case 288:
 
-						camChar.flash(FlxColor.WHITE, 0.85);
+						if(ClientPrefs.flashing) camChar.flash(FlxColor.WHITE, 0.85);
 
 					case 318:
 						camGame.alpha = 0;
@@ -7954,7 +7952,7 @@ class PlayState extends MusicBeatState
 					case 348:
 						FlxG.sound.play(Paths.sound('intro3'), 0.4);
 						camGame.fade(FlxColor.WHITE, (Conductor.crochet/1000*3), false);
-						cameraLocked = true;
+						//cameraLocked = true;
 						stopBFFlyTrojan = true;
 						FlxTween.tween(boyfriend, {y: BF_Y - 1000}, 1, {ease: FlxEase.quadIn});
 						FlxTween.tween(boyfriendGroup, {angle: 359.99 * 4}, 23);
@@ -8000,8 +7998,8 @@ class PlayState extends MusicBeatState
 					case 400:
 						camGame.alpha = 0;
 						camOther.alpha  = 0;
-						camBars.flash(FlxColor.WHITE, 0.55);
-						camHUD.flash(FlxColor.BLACK, 0.35);
+						if(ClientPrefs.flashing) camBars.flash(FlxColor.WHITE, 0.55);
+						if(ClientPrefs.flashing) camHUD.flash(FlxColor.BLACK, 0.35);
 						FlxTween.tween(camHUD, {alpha:0}, 1);
 						coolShit.alpha = 0;
 						bestPart2 = false;
@@ -8035,7 +8033,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(redthing, {alpha:0}, 0.3, {ease: FlxEase.sineInOut});
 					case 332:
 						FlxG.camera.fade(FlxColor.BLACK, 0, false);
-						camBars.flash(FlxColor.WHITE, 0.85);
+						if(ClientPrefs.flashing) camBars.flash(FlxColor.WHITE, 0.85);
 						redthing.alpha = 0;
 				}
 
@@ -8051,7 +8049,7 @@ class PlayState extends MusicBeatState
 					case 100:
 						otakuBG.color = 0xFFFFFFFF;
 						gf.color = 0xFFFFFFFF;
-						camGame.flash(FlxColor.WHITE, Conductor.crochet/1000);
+						if(ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, Conductor.crochet/1000);
 					case 256:
 						colorTween([gf, otakuBG], 0.7, FlxColor.WHITE, 0xFF191919);
 						defaultCamZoom = 1.1;
@@ -8150,7 +8148,7 @@ class PlayState extends MusicBeatState
 						iconP2.alpha = 0;
 						glow.alpha = 0;
 						camChar.alpha = 0.85;
-						camChar.flash(FlxColor.BLACK, 0.85);
+						if(ClientPrefs.flashing) camChar.flash(FlxColor.BLACK, 0.85);
 						boyfriend.cameras = [camChar];
 						boyfriend.y += 580;
 						boyfriend.x += 50;

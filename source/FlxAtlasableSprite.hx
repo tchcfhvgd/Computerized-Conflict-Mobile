@@ -41,7 +41,7 @@ class FlxAtlasableSprite extends FlxSprite {
 			animateAtlas.visible = visible;
 			animateAtlas.flipX = flipX;
 			animateAtlas.flipY = flipY;
-			animateAtlas.shader = shaderEnabled ? shader : null;
+			//animateAtlas.shader = shaderEnabled ? shader : null;
 			animateAtlas.antialiasing = antialiasing;
 			animateAtlas.colorTransform = colorTransform;
 			animateAtlas.color = color;
