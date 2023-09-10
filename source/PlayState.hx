@@ -6033,7 +6033,10 @@ class PlayState extends MusicBeatState
 				switch(curStage)
 				{
 					case 'stage' | 'alan-pc-conflict' | 'alan-pc-virabot' | 'adobe' | 'alan-pc-song' | 'bbpanzu-stage':
-						camFollow.set(boyfriend.getMidpoint().x + 450, boyfriend.getMidpoint().y - 100);
+						if(boyfriend.curCharacter == 'animator-bf' || boyfriend.curCharacter == 'animator-bf-stressed' || boyfriend.curCharacter == 'tzen_coolerbf')
+						{
+							camFollow.set(boyfriend.getMidpoint().x + 450, boyfriend.getMidpoint().y - 100);
+						}
 					case 'Sam Room':
 						if (defaultCamZoom < 0.75) camFollow.set(boyfriend.getMidpoint().x - 575, boyfriend.getMidpoint().y - 215);
 						else  camFollow.set(boyfriend.getMidpoint().x - 365, boyfriend.getMidpoint().y - 120);
