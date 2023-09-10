@@ -917,7 +917,7 @@ class PlayState extends MusicBeatState
 
 							redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
-							redthing.cameras = [camOther];
+							redthing.cameras = [camBars];
 							redthing.alpha = 0.0001;
 							add(redthing);
 
@@ -4738,6 +4738,12 @@ class PlayState extends MusicBeatState
 				opponentStrums.add(babyArrow);
 			}
 
+			if(uiType == 'default' && !oldVideoResolution)
+			{
+				var MOVE_IN:Int = 20;
+				babyArrow.x += player == 0 ? MOVE_IN : -MOVE_IN;
+			}
+
 			strumLineNotes.add(babyArrow);
 			babyArrow.postAddedToGroup();
 		}
@@ -5954,8 +5960,10 @@ class PlayState extends MusicBeatState
 	
 	function jumpscare(duration:Float) 
 	{
+		if(jumpScare == null) return; //prevent a crash yeahhhhhh
+
 		jumpScare.alpha = 1;
-		camHUD.alpha = 0;
+		camHUD.alpha = 0.2;
 		camBars.shake(0.01015625, (((!Math.isNaN(duration)) ? duration : 1) * Conductor.stepCrochet) / 1000, function()
 			{
 				FlxTween.tween(jumpScare, {alpha:0}, 0.4, {ease: FlxEase.circOut});
