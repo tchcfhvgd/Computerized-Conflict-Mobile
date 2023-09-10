@@ -5960,8 +5960,10 @@ class PlayState extends MusicBeatState
 	
 	function jumpscare(duration:Float) 
 	{
+		if(jumpScare == null) return; //prevent a crash yeahhhhhh
+
 		jumpScare.alpha = 1;
-		camHUD.alpha = 0;
+		camHUD.alpha = 0.2;
 		camBars.shake(0.01015625, (((!Math.isNaN(duration)) ? duration : 1) * Conductor.stepCrochet) / 1000, function()
 			{
 				FlxTween.tween(jumpScare, {alpha:0}, 0.4, {ease: FlxEase.circOut});
