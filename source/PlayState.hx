@@ -917,7 +917,7 @@ class PlayState extends MusicBeatState
 
 							redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 							redthing.antialiasing = ClientPrefs.globalAntialiasing;
-							redthing.cameras = [camOther];
+							redthing.cameras = [camBars];
 							redthing.alpha = 0.0001;
 							add(redthing);
 
@@ -4736,6 +4736,12 @@ class PlayState extends MusicBeatState
 
 
 				opponentStrums.add(babyArrow);
+			}
+
+			if(uiType == 'default' && !oldVideoResolution)
+			{
+				var MOVE_IN:Int = 20;
+				babyArrow.x += player == 0 ? MOVE_IN : -MOVE_IN;
 			}
 
 			strumLineNotes.add(babyArrow);
