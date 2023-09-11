@@ -35,6 +35,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	public static var lagText = true;
 
 	public static var judCounter:Bool = false;
 	public static var laneunderlay:Bool = false;
@@ -150,6 +151,7 @@ class ClientPrefs {
 		FlxG.save.data.laneTransparency = laneTransparency;
 		FlxG.save.data.cameraMovement = cameraMovement;
 		FlxG.save.data.screenShake = screenShake;
+		FlxG.save.data.lagText = lagText;
 
 		FlxG.save.flush();
 
@@ -294,6 +296,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.laneTransparency != null) {
 			laneTransparency = FlxG.save.data.laneTransparency;
+		}
+		if (FlxG.save.data.lagText != null) {
+			lagText = FlxG.save.data.lagText;
 		}
 
 		if(FlxG.save.data.gameplaySettings != null)

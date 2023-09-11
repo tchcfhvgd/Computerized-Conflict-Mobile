@@ -63,6 +63,13 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Screen Shake',
+			"Uncheck this if you don't want the screen to shake!",
+			'screenShake',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Camera Zooms',
 			"If unchecked, the camera won't zoom in on a beat hit.",
 			'camZooms',
@@ -87,6 +94,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.maxValue = 1;
 		option.changeValue = 0.1;
 		option.decimals = 1;
+		addOption(option);
+
+		var option:Option = new Option('Laggy Text',
+			"Uncheck this if you don't want that warning text\n telling you to turn off shaders to appear.\n(It can be very annoying sometimes).",
+			'lagText',
+			'bool',
+			true);
 		addOption(option);
 
 		#if !mobile

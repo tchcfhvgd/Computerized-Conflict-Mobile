@@ -428,7 +428,7 @@ class TitleState extends MusicBeatState
 				transitioning = true;
 				// FlxG.sound.music.stop();
 
-				FlxG.camera.shake(0.0045, 1);
+				if(ClientPrefs.screenShake) FlxG.camera.shake(0.0045, 1);
 				zoomLerpTo = 3;
 				zoomPerSec = 1.5;
 
@@ -571,9 +571,9 @@ class TitleState extends MusicBeatState
 					addMoreText('(insert mod name here)', 15);
 				case 19:
 					deleteCoolText();
-					createCoolText(['idk what to put here'], 15);
+					createCoolText(['This is not'], 15);
 				case 20:
-					addMoreText('anymore :(((', 15);
+					addMoreText('an only AvA mod.', 15);
 				case 21:
 					deleteCoolText();
 					createCoolText([curWacky[0]]);

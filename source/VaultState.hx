@@ -366,7 +366,7 @@ class VaultState extends MusicBeatState
 				selectedSmth = true;
 						
 				FlxG.sound.music.stop();
-				FlxG.camera.shake(0.035, 7);
+				if(ClientPrefs.screenShake) FlxG.camera.shake(0.035, 7);
 				FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
 					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 					{
@@ -401,7 +401,7 @@ class VaultState extends MusicBeatState
 		if (wrongTween != null) wrongTween.cancel();
 
 		var wrongInt = FlxG.random.int(0, wrongTextArray.length-1);
-		FlxG.camera.shake(0.015, 0.5);
+		if(ClientPrefs.screenShake) FlxG.camera.shake(0.015, 0.5);
 		FlxG.sound.play(Paths.sound('fault'), 0.3);
 		if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.4);
 
