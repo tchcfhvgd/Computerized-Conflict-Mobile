@@ -6173,7 +6173,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var playAlanVideo:Bool = true;
-		if(FreeplayState.alanSongs.contains(SONG.song.toLowerCase()))
+		if(FreeplayState.alanSongs.contains(SONG.song.toLowerCase()) && !ClientPrefs.getGameplaySetting('botplay', false))
 		{
 			CoolUtil.songsUnlocked.data.alanSongs.set(SONG.song.toLowerCase(), true);
 

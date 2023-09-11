@@ -72,19 +72,16 @@ class FlashingState extends MusicBeatState
 		spikes2.scrollFactor.set(0, 0);
 		if (spikes2 != null) add(spikes2);
 		
-		var flashText = new FlxText(250, 125, FlxG.width, "Shaders and flashing lights\nare enabled by default.\n(There are also advanced shaders which\nmight me too laggy)", 42);
-		flashText.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		flashText.borderSize = 5;
+		var flashText = new FlxText(250, 125, FlxG.width, "Shaders, Screen Shake and Flashing Lights\nare enabled by default.\n(There's are also advanced shaders which\nmight be too laggy)", 42);
+		flashText.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(flashText);
 		
 		var Text2 = new FlxText(250, 300, FlxG.width, "If you don't feel comfortable,\ndisable these options on the\nMain Menu.", 42);
-		Text2.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		Text2.borderSize = 5;
+		Text2.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(Text2);
 		
 		var Text3 = new FlxText(250, 550, FlxG.width, "Hope you enjoy this mod!", 42);
-		Text3.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		Text3.borderSize = 5;
+		Text3.setFormat(Paths.font("phantommuff.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(Text3);
 		
 		var OverHereText = new FlxText(0, 15, FlxG.width, "Hey! Over here!", 45);
