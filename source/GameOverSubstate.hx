@@ -9,6 +9,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.text.FlxText;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -18,6 +19,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
 	var gfMoment:Bool = MainMenuState.gfMoment;
+	var retryText:FlxText;
 
 	var stageSuffix:String = "";
 
@@ -89,6 +91,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
 
+		if (PlayState.SONG.song.toLowerCase() == 'phantasm') boyfriend.alpha = 0;
+
 		switch(characterName)
 		{
 			case 'tco-aol-dead':
@@ -97,7 +101,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 100, boyfriend.getGraphicMidpoint().y + 500);
 			case 'stick-bf-death':
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 100, boyfriend.getGraphicMidpoint().y + 100);
-			case 'animator-bf-dead':
+			case 'animator-bf-dead' | 'animator-bf-dead-flipX':
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x + 250, boyfriend.getGraphicMidpoint().y + 180);
 			default:
 				camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
@@ -116,6 +120,13 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 		add(camFollowPos);
+
+		retryText = new FlxText(0, 0, FlxG.width, 'RETRY?\n\nENTER - Yes.\nESC - No.');
+		retryText.setFormat(Paths.font("vcr.ttf"), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
+		retryText.alpha = 0.0001;
+		retryText.scrollFactor.set();
+		retryText.screenCenter();
+		if (PlayState.SONG.song.toLowerCase() == 'phantasm') add(retryText);
 		
 		if (ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5);
 		
@@ -135,6 +146,12 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.ACCEPT)
 		{
+			if (PlayState.SONG.song.toLowerCase() == 'phantasm')
+			{
+				retryText.applyMarkup("RETRY?\n\n$ENTER - Yes.$\nESC - No.", [new FlxTextFormatMarkerPair(new FlxTextFormat(FlxColor.YELLOW), "$")]);
+				retryText.alpha = 1;
+			}
+
 			endBullshit();
 		}
 
@@ -193,6 +210,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					coolStartDeath();
 				}
 				boyfriend.startedDeath = true;
+				if (PlayState.SONG.song.toLowerCase() == 'phantasm') FlxTween.tween(retryText, {alpha:1}, 0.45);
 			}
 		}
 

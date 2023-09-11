@@ -1067,7 +1067,12 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
 
-					if (songName == 'phantasm') defaultCamZoom = 1.8;
+					if (songName == 'phantasm')
+					{
+						defaultCamZoom = 1.8;
+						GameOverSubstate.deathSoundName = 'aurora_loss_sfx';
+
+					}
 
 					needsBlackBG = true;
 
@@ -1138,8 +1143,10 @@ class PlayState extends MusicBeatState
 
 					leftSide = true;
 
-						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
-						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+					GameOverSubstate.characterName = 'animator-bf-dead-flipX';
+
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]);
+					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) camHUD.setFilters([new ShaderFilter(nightTimeShader.shader)]);
 				}
 
 			case 'rombieBG': //the joe rombie is real
@@ -1179,7 +1186,7 @@ class PlayState extends MusicBeatState
 
 
 
-					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+					whiteScreen = new FlxSpriteExtra(0, 0).makeSolid(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.RED);
 					whiteScreen.scrollFactor.set();
 					whiteScreen.screenCenter();
 					whiteScreen.alpha = 0;
@@ -2183,7 +2190,7 @@ class PlayState extends MusicBeatState
 					}
 
 					GameOverSubstate.characterName = 'the-chosen-one-death';
-					GameOverSubstate.deathSoundName = 'tco_loss_sfx';
+					GameOverSubstate.deathSoundName = 'aurora_loss_sfx';
 
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 				}
@@ -2949,6 +2956,7 @@ class PlayState extends MusicBeatState
 					canPause = false;
 					tipDay.alpha = 1;
 					var tip:FlxSound = new FlxSound().loadEmbedded(Paths.sound('samTip'));
+					vocals.pause();
 					tip.play(true);
 					tip.onComplete = function() {
 						startCountdown();

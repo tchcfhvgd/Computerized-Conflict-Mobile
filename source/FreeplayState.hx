@@ -597,7 +597,7 @@ class FreeplayState extends MusicBeatState
 		featuredChar.setGraphicSize(Std.int(featuredChar.width * 0.8));
 		featuredChar.screenCenter();
 		featuredChar.x -= 150;
-		featuredChar.alpha = 0;
+		featuredChar.alpha = 0.0001;
 
 		//if (featuredChar != null)
 		//{
