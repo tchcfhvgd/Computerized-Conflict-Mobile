@@ -304,31 +304,33 @@ class MainMenuState extends MusicBeatState
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			menuItem.setGraphicSize(Std.int(menuItem.width * 0.2));
+
 			var off = 0;
+			var off_NO_STORY = 0;
+			var fuckOPTIONS = 0;
 			if(CoolUtil.songsUnlocked.data.mainWeek) off = -100;
-			switch(i){
+			else {off_NO_STORY = -50; fuckOPTIONS = 250;}
+
+			switch(i)
+			{
 				case 0:
-					menuItem.x = 50;
-					menuItem.y = 50 + off;
-
-				case 1:
-					menuItem.x = 450;
-					menuItem.y = -100 + off;
-
-				case 2:
-					menuItem.x = 850;
+					menuItem.x = 100 + off_NO_STORY;
 					menuItem.y = 100 + off;
-
+				case 1:
+					menuItem.x = 500 + off_NO_STORY;
+					menuItem.y = 150 + off;
+				case 2:
+					menuItem.x = 930 + off_NO_STORY;
+					menuItem.y = 130 + off;
 				case 3:
-					menuItem.x = 245 + off;
-					menuItem.y = 400 + off;
-
+					menuItem.x = 245 + off + off_NO_STORY + fuckOPTIONS;
+					menuItem.y = 385 + off;
 				case 4:
-					menuItem.x = 645 + off;
-					menuItem.y = 600 + off;
+					menuItem.x = 610 + off;
+					menuItem.y = 385 + off;
 				case 5:
-					menuItem.x = 1045 + off;
-					menuItem.y = 400 + off;
+					menuItem.x = 950 + off;
+					menuItem.y = 385 + off;
 			}
 
 			menuItem.scale.x = 0.25;
@@ -431,7 +433,7 @@ class MainMenuState extends MusicBeatState
 		spikes2.x -= 0.45 * 60 * elapsed;
 
 		menuItems.forEach(function(menuItem:FlxSprite){
-			var off = 0;
+			/*var off = 0;
 			var off_NO_STORY = 0;
 			var fuckOPTIONS = 0;
 			if(CoolUtil.songsUnlocked.data.mainWeek) off = -100;
@@ -456,7 +458,7 @@ class MainMenuState extends MusicBeatState
 				case 5:
 					menuItem.x = 950 + off;
 					menuItem.y = 385 + off;
-			}
+			}*/
 			menuItem.updateHitbox();
 		});
 
@@ -676,8 +678,6 @@ class MainMenuState extends MusicBeatState
 					shit.play(true);
 					shit.onComplete = function() {
 						FlxG.switchState(new VaultState());
-
-						//CoolUtil.curState = Type.getClass(new VaultState());
 					}
 				}
 
