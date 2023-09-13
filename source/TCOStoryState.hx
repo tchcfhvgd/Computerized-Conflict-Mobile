@@ -57,7 +57,6 @@ class TCOStoryState extends MusicBeatState
 
 	private static var lastDifficultyName:String = '';
 	public static var curDifficulty:Int = 0;
-	//var curDifficulty2:Int = 0;
 	var outline:FlxSprite;
 	public static var crtShader = new CRTShader();
 	var shaderFilter = new ShaderFilter(crtShader);
@@ -320,6 +319,8 @@ class TCOStoryState extends MusicBeatState
 				}else{
 					checkpointSystemON = false;
 
+					curDifficulty = FlxG.save.data.checkpoint.difficulty;
+					trace(curDifficulty + ' ' + FlxG.save.data.checkpoint.difficulty);
 					playSongs(FlxG.save.data.checkpoint.playlist, FlxG.save.data.checkpoint.campaignScore, FlxG.save.data.checkpoint.campaignMisses, FlxG.save.data.checkpoint.difficulty, false);
 				}
 			}
@@ -327,7 +328,7 @@ class TCOStoryState extends MusicBeatState
 
 		super.update(elapsed);
 	}
-
+	
 	override function beatHit()
 	{
 		super.beatHit();

@@ -3284,7 +3284,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	//MOD FUNCTIONS ALERT!!!!!! (very cringe)
+	//MOD FUNCTIONS ALERT!!!!!! (very cringe) (Somertimes)
 
 	function cameraMovement(setMovementValue:Int)
 	{
@@ -4924,6 +4924,21 @@ class PlayState extends MusicBeatState
 					cameraMovement(25);
 			}
 		}
+		else
+		{
+			if(SONG.song.toLowerCase() == 'alan')
+			{
+				if (generatedMusic && !endingSong && !isCameraOnForcedPos && PlayState.SONG.notes[Std.int(curStep / 16)] != null)
+				{
+					if (!PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+					{
+						camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+						camFollow.x += dad.cameraPosition[0];
+						camFollow.y += dad.cameraPosition[1];
+					}
+				}
+			}
+		}
 
 		switch (curStage)
 		{
@@ -5456,14 +5471,6 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 		paused = true;
 
-		// 1 / 1000 chance for Gitaroo Man easter egg
-		/*if (FlxG.random.bool(0.1))
-		{
-			// gitaroo man easter egg
-			cancelMusicFadeTween();
-			MusicBeatState.switchState(new GitarooPause());
-		}
-		else {*/
 		if(FlxG.sound.music != null) {
 			FlxG.sound.music.pause();
 			vocals.pause();
