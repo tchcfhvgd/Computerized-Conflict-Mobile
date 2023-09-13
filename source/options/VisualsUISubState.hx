@@ -96,6 +96,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
+		var option:Option = new Option('Combo Stacking',
+			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
+			'comboStacking',
+			'bool',
+			false);
+		addOption(option);
+
 		var option:Option = new Option('Laggy Text',
 			"Uncheck this if you don't want that warning text\n telling you to turn off shaders to appear.\n(It can be very annoying sometimes).",
 			'lagText',
@@ -119,13 +126,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		#end
-
-		var option:Option = new Option('Combo Stacking',
-			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
-			'comboStacking',
-			'bool',
-			true);
-		addOption(option);
 
 		super();
 	}

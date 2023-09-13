@@ -6316,7 +6316,7 @@ class PlayState extends MusicBeatState
 				{
 					MusicBeatState.switchState(new MainMenuState());
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					gfMoment = false;
+					MainMenuState.gfMoment = false;
 				}
 				else
 				{

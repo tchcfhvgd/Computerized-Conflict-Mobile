@@ -348,7 +348,7 @@ class PauseSubState extends MusicBeatSubstate
 						MusicBeatState.switchState(new TCOStoryState());
 					} else if(gfMoment) {
 						MusicBeatState.switchState(new MainMenuState());
-						gfMoment = false;
+						MainMenuState.gfMoment = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayMenu());
 					}
