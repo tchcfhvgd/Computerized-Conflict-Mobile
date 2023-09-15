@@ -859,7 +859,7 @@ class FlxCamera extends FlxBasic
 			var isColored = (transform != null && transform.hasRGBMultipliers());
 			var hasColorOffsets:Bool = (transform != null && transform.hasRGBAOffsets());
 
-			if(angle != 0) {
+			if(rotation != 0) {
 				matrix.translate(-width/2, -height/2);
 				matrix.rotateWithTrig(_cosAngle, _sinAngle);
 				matrix.translate(width/2, height/2);
@@ -2098,18 +2098,18 @@ class FlxCamera extends FlxBasic
 		return Alpha;
 	}
 
-	function set_angle(Angle:Float):Float
+	function set_rotation(Angle:Float):Float
 	{
-		angle = Angle;
-		var radians:Float = angle * FlxAngle.TO_RAD;
+		rotation = Angle;
+		var radians:Float = Angle * FlxAngle.TO_RAD;
 		_sinAngle = Math.sin(radians);
 		_cosAngle = Math.cos(radians);
 		return Angle;
 	}
 
-	function set_rotation(Rotation:Float):Float
+	function set_angle(Rotation:Float):Float
 	{
-		rotation = Rotation;
+		angle = Rotation;
 		flashSprite.rotation = Rotation;
 		return Rotation;
 	}
