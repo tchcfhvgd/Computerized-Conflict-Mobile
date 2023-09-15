@@ -1257,7 +1257,6 @@ class PlayState extends MusicBeatState
 					camHUD.alpha = 0.0001;
 					
 					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
-
 				}
 
 			case 'garden':
@@ -7930,7 +7929,6 @@ class PlayState extends MusicBeatState
 						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.1, FlxColor.WHITE, 0xFF191919);
 						radialLine.alpha = 1;
 						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(nightTimeShader.shader)]); //put the advanced shader first
-						else if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						scroll.alpha = 0;
 						vignettMid.alpha = 0;
 						redthing.alpha = 0.0001;
@@ -7948,7 +7946,7 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 
 					case 160:
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 192:
 						camGame.fade(FlxColor.WHITE, 0, true);
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
@@ -8009,7 +8007,7 @@ class PlayState extends MusicBeatState
 						if (!ClientPrefs.lowQuality) colorTween([gf, alanBG, tscseeing, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						else colorTween([gf, alanBG, sFWindow, adobeWindow, daFloor], 0.8, 0xFF191919, FlxColor.WHITE);
 						clearShaderFromCamera(['camgame', 'camhud']);
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						fishEyeshader.MAX_POWER.value = [0];
 						constantShake = false;
 						viraScroll.alpha = 0;
@@ -8191,7 +8189,7 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.shaders) FlxG.camera.setFilters([]);
 						if (ClientPrefs.shaders) camHUD.setFilters([]);
 						if (ClientPrefs.shaders) camChar.setFilters([]);
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 						blackBG.alpha = 0.5;
 
 						boyfriend.color = FlxColor.WHITE;
@@ -8395,7 +8393,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(blackBG, {alpha:0.93}, 0.8);
 						FlxTween.tween(overlayUnfaith, {alpha:1}, 0.8);
 						particleEmitter.alpha.set(1, 1);
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
+						if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
 					case 320:
 						particleEmitter.alpha.set(0, 0);
 						FlxTween.tween(blackBG, {alpha:0}, 0.5);
