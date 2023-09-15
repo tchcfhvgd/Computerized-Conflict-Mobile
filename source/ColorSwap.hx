@@ -10,26 +10,50 @@ class ColorSwap {
 	public var brightness(default, set):Float = 0;
 
 	private function set_hue(value:Float) {
-		hue = value;
-		shader.uHsv.value[0] = hue;
-		return hue;
+		shader.uHsv.value[0] = value;
+		return hue = value;
 	}
 
 	private function set_saturation(value:Float) {
-		saturation = value;
-		shader.uHsv.value[1] = saturation;
-		return saturation;
+		shader.uHsv.value[1] = value;
+		return saturation = value;
 	}
 
 	private function set_brightness(value:Float) {
-		brightness = value;
-		shader.uHsv.value[2] = brightness;
-		return brightness;
+		shader.uHsv.value[2] = value;
+		return brightness = value;
 	}
 
 	public function new()
 	{
 		shader.uHsv.value = [0, 0, 0];
+	}
+}
+
+class CSData {
+	public var uHsv:Array<Float> = [0, 0, 0];
+
+	public var hue(default, set):Float = 0;
+	public var saturation(default, set):Float = 0;
+	public var brightness(default, set):Float = 0;
+
+	private function set_hue(value:Float) {
+		uHsv[0] = value;
+		return hue = value;
+	}
+
+	private function set_saturation(value:Float) {
+		uHsv[1] = value;
+		return saturation = value;
+	}
+
+	private function set_brightness(value:Float) {
+		uHsv[2] = value;
+		return brightness = value;
+	}
+
+	public function new()
+	{
 	}
 }
 

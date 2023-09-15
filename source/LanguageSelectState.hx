@@ -109,44 +109,44 @@ class LanguageSelectState extends MusicBeatState
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					menuItems.forEach(function(spr:FlxSprite)
+				menuItems.forEach(function(spr:FlxSprite)
+				{
+					if (curSelected != spr.ID)
 					{
-						if (curSelected != spr.ID)
-						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
-					    }
+						FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							ease: FlxEase.quadOut,
+							onComplete: function(twn:FlxTween)
+							{
+								spr.kill();
+							}
+						});
+					}
+				});
+			
+				var daChoice:String = languages[curSelected];
 
-						var daChoice:String = languages[curSelected];
+				switch (daChoice)
+				{
+					case 'spanish':
+						ClientPrefs.language = 'Español'; //why this doesn't work
 
-						switch (daChoice)
-						{
-							case 'spanish':
-								ClientPrefs.language == 'Español'; //why this doesn't work
+					case 'english':
+						ClientPrefs.language = 'English';
 
-							case 'english':
-								ClientPrefs.language == 'English';
+					case 'portuguese':
+						ClientPrefs.language = 'Portuguese';
+				}
 
-							case 'portuguese':
-								ClientPrefs.language == 'Portuguese';
-						}
+				ClientPrefs.saveSettings();
 
-						ClientPrefs.saveSettings();
+				/*if(FlxG.save.data.language != null) {
+					FlxG.save.data.language;
 
-						if(FlxG.save.data.language != null) {
-							FlxG.save.data.language;
+				}*/
 
-						}
+				//FlxG.save.flush();
 
-						FlxG.save.flush();
-
-						MusicBeatState.switchState(new FlashingState());
-					});
+				MusicBeatState.switchState(new FlashingState());
 			}
 		}
 

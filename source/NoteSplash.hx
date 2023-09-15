@@ -4,9 +4,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 
-class NoteSplash extends FlxSprite
+class NoteSplash extends FlxColorSwapSprite
 {
-	public var colorSwap:ColorSwap = null;
 	private var idleAnim:String;
 	private var textureLoaded:String = null;
 
@@ -18,8 +17,7 @@ class NoteSplash extends FlxSprite
 
 		loadAnims(skin);
 
-		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
+		shader = getColorSwap();
 
 		setupNoteSplash(x, y, note);
 		antialiasing = ClientPrefs.globalAntialiasing;
@@ -59,10 +57,11 @@ class NoteSplash extends FlxSprite
 			animation.addByPrefix("note0-" + i, "note splash purple " + i, 24, false);
 			animation.addByPrefix("note3-" + i, "note splash red " + i, 24, false);
 		}
+		textureLoaded = skin;
 	}
 
 	override function update(elapsed:Float) {
-		if(animation.curAnim != null)if(animation.curAnim.finished) kill();
+		if(animation.curAnim != null && animation.curAnim.finished) kill();
 
 		super.update(elapsed);
 	}

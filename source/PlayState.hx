@@ -1351,7 +1351,9 @@ class PlayState extends MusicBeatState
 					oldVideoResolution = true;
 					noCurLight = true;
 					cameraSpeed = 1.2;
+					#if !mac
 					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(new JpegShader())]);
+					#end
 				}
 
 			case 'alan-pc-virabot': //Virabot song

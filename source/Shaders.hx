@@ -1479,7 +1479,7 @@ void main() {
 
 
 	//film grain
-	color *= filmGrain();
+	//color *= filmGrain();
 
 
 	//ACES Tonemapping
