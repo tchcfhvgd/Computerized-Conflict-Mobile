@@ -14,7 +14,7 @@ class DiscordClient
 {
 	public static var isInitialized:Bool = false;
 	public static var currentButton1Label:String = "Download The Mod";
-	public static var currentButton1Url:String = "https://gamebanana.com/mods/340817";
+	public static var currentButton1Url:String = "https://gamebanana.com/mods/468922";
 	public function new()
 	{
 		trace("Discord Client starting...");

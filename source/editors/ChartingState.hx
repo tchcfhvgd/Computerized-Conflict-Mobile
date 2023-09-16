@@ -483,10 +483,6 @@ class ChartingState extends MusicBeatState
 					}
 
 				}
-				if (songName == 'redzone-error' || songName == 'redzone error') {
-					Application.current.window.alert("Hint: It's something in the main menu", "Try getting to this song another way!");
-					System.exit(0);
-				}
 
 				if(songName == 'alan' && !CoolUtil.songsUnlocked.data.alanUnlocked) loadSong = false;
 

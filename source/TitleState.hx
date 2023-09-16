@@ -660,7 +660,7 @@ class TitleState extends MusicBeatState
 		switch(id)
 		{
 			case 0:
-				CoolUtil.browserLoad('https://gamebanana.com/mods/340817');
+				CoolUtil.browserLoad('https://gamebanana.com/mods/468922');
 			case 1:
 				CoolUtil.browserLoad('https://x.com/Vs_TheChosenOne');
 			case 2:

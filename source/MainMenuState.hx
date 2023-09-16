@@ -597,6 +597,7 @@ class MainMenuState extends MusicBeatState
 				typin = 'LOADING REDZONE ERROR';
 				PlayState.storyDifficulty = 2;
 				PlayState.SONG = Song.loadFromJson('redzone-error-insane', 'redzone-error');
+				PlayState.isStoryMode = false;
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 			}
 

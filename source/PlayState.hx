@@ -7357,8 +7357,16 @@ class PlayState extends MusicBeatState
 						
 						Crowd.color = 0xFFFFFFFF;
 						gf.color = 0xFFFFFFFF;
-						Background1.color = 0xFFbababa;
-						whiteScreen.color = 0xFFbababa;
+						if (ClientPrefs.shaders)
+						{
+							Background1.color = 0xFFbababa;
+						    whiteScreen.color = 0xFFbababa;
+						}
+						else
+						{
+							Background1.color = 0xFFFFFFFF;
+						    whiteScreen.color = 0xFFFFFFFF;
+						}
 
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						spotlightdad.alpha = 0;
