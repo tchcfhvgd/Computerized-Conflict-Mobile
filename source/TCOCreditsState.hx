@@ -124,17 +124,17 @@ class TCOCreditsState extends MusicBeatState
 			//Contributers (no icons)
 			//Also try making credit sections if you can lol
 
-			new CreditsMetadata("Scorpzie", "", "Original vocals for \"Adobe (Old)\".", 0xFFFFFFFF, ""),
-			new CreditsMetadata("XG_Chris", "", "Old Artist.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("03Cube", "", "Virabot, fires and social media burning sprites.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("ROCKY", "", "\"Dashpulse\" vocals composer.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Deltom", "", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
-			new CreditsMetadata("ProfessorBonnie", "", "Composed \"Time Travel\".", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Scorpzie", "scorpzie", "Original vocals for \"Adobe (Old)\".", 0xFFFFFFFF, ""),
+			new CreditsMetadata("XG_Chris", "chris", "Old Artist.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("03Cube", "cheese", "Virabot, fires and social media burning sprites.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("ROCKY", "rocky", "\"Dashpulse\" vocals composer.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Deltom", "deltom", "Composed \"Trojan\"", 0xFFFFFFFF, ""),
+			new CreditsMetadata("ProfessorBonnie", "profesorbonnie", "Composed \"Time Travel\".", 0xFFFFFFFF, ""),
 			new CreditsMetadata("DTunes", "", "A composer of \"Alan (Remake)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("atpx8", "", "Helped with the End Process pop-ups mechanic.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Tentilog", "", "3D STICK Sprite.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Tentilog", "tenti", "3D STICK Sprite.", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Koi", "", "Rombie BG Artist.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Blonic", "", "Logo Artist.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Blonic", "blonic", "Logo Artist.", 0xFFFFFFFF, ""),
 
 			//new CreditsMetadata("", "jet", "", 0xFF, ""),
 		];
