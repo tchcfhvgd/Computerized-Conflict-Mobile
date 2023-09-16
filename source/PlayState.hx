@@ -6340,7 +6340,7 @@ class PlayState extends MusicBeatState
 						goToFreeplay = false;
 
 						LoadingState.loadAndSwitchState(new CutsceneState('tco_credits', true, function() {
-							MusicBeatState.switchState(new FreeplayMenu());
+							MusicBeatState.switchState(new TitleState());
 							FlxG.sound.playMusic(Paths.music('freakyMenu'));
 						}, false));
 					}
@@ -7029,6 +7029,8 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
 							}
+							FlxG.sound.play(Paths.sound("burnSound"));
+							
 						case 'stopwatch':
 							if (canTimeTravel)
 							{
