@@ -63,6 +63,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
+		var option:Option = new Option('Disable Mechanics',
+			"If checked, disables the mechanics (ONLY HARD MODE!!!)",
+			'noMechanics',
+			'bool',
+			false);
+		addOption(option);
+
 		var option:Option = new Option('Enable Judgement Counter',
 			"If checked, a judgement counter will appear on the HUD, wooahh..",
 			'judCounter',

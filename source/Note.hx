@@ -199,6 +199,7 @@ class Note extends FlxColorSwapSprite
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
 					noteSplashTexture = "fuck off";
+
 				case 'demonetization brah':
 					loadGraphic(Paths.image('dangerNotes/demonetization'));
 					ignoreNote = true;
@@ -238,12 +239,12 @@ class Note extends FlxColorSwapSprite
 		if(noteData > -1) {
 			texture = '';
 			shader = getColorSwap();
-			
+
 			x += swagWidth * (noteData);
 			if (PlayState.SONG.song.toLowerCase().endsWith('(old)')) swagWidth = 160 * 0.7;
 			//else if (PlayState.instance.oldVideoResolution) swagWidth = 160 * 0.5;
 			else swagWidth = 160 * 0.6;
-			
+
 			if(!isSustainNote && noteData > -1 && noteData < 4) { //Doing this 'if' check to fix the warnings on Senpai songs
 				var animToPlay:String = '';
 				animToPlay = colArray[noteData % 4];

@@ -2836,20 +2836,6 @@ class PlayState extends MusicBeatState
 		scoreTxt.alpha = 0;
 		if (judgementCounter != null) judgementCounter.alpha = 0;
 
-		if (oldVideoResolution)
-		{
-			timeBarBG.x -= 80;
-			timeBar.x -= 80;
-			healthBar.x -= 110;
-			healthBarBG.x -= 110;
-			iconP1.x -= 110;
-			iconP2.x -= 110;
-			scoreTxt.x += 80;
-			timeTxt.x -= 80;
-			judgementCounter.x += 70;
-			botplayTxt.x -= 80;
-		}
-
 
 		startingSong = true;
 
@@ -3006,27 +2992,6 @@ class PlayState extends MusicBeatState
 		if (curStage == 'alan-pc-conflict')
 		{
 			objectColor([boyfriend, alanBG, daFloor], 0xFF2C2425);
-		}
-
-		if (oldVideoResolution)
-		{
-			camOther.x -= 50; // Best fix ever 2022 (it's just for centering the camera lawl)
-			camHUD.x -= 70;
-			//timeBarBG.x += 70;
-			//timeBar.x += 70;
-			/*healthBar.x += 70;
-			healthBarBG.x += 70;
-			iconP1.x += 70;
-			iconP2.x += 70;
-			scoreTxt.x += 70;
-			timeTxt.x += 70;*/
-
-			Lib.application.window.resizable = false;
-			FlxG.scaleMode = new StageSizeScaleMode();
-			FlxG.resizeGame(360, 720);
-			FlxG.resizeWindow(960, 720);
-			//camGame.width = 360;
-			//camGame.height = 720;
 		}
 
 		switch(SONG.song.toLowerCase())
@@ -3584,6 +3549,8 @@ class PlayState extends MusicBeatState
 
 	function healthDrainRates(simple:Float, hard:Float, insane:Float, mult:Float = 1)
 	{
+		if((CoolUtil.difficultyString() == 'HARD' || CoolUtil.difficultyString() == 'SIMPLE') && ClientPrefs.noMechanics) return;
+
 		switch(CoolUtil.difficultyString())
 		{
 			case 'SIMPLE':
@@ -4689,28 +4656,14 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = targetAlpha;
 			}
 
-			var offsetBOYFRIEND = 120;
-			var offsetDAD = -45;
+			var offsetBOYFRIEND = 40;
 			
 			if (oldVideoResolution)
 			{
-				if (skipCountdown) offsetDAD = 120;
 				if (player == 1)
 				{
 					babyArrow.x -= 120 + offsetBOYFRIEND;
 					if(ClientPrefs.middleScroll) babyArrow.x += 160;
-				}
-				else
-				{
-					babyArrow.x += 15 - offsetDAD;
-					if(ClientPrefs.middleScroll) {
-						var offset2 = 45;
-						if(i > 1) { //Up and Right
-							babyArrow.x -= offset2;
-						}else{
-							babyArrow.x += 45 + offset2;
-						}
-					}
 				}
 			}
 			
@@ -5021,9 +4974,13 @@ class PlayState extends MusicBeatState
 			FlxG.fullscreen = false;
 		}
 
-		if (health > 0.2 && lossingHealth && CoolUtil.difficultyString() != 'SIMPLE')
+		var drainShitz = true;
+		if(CoolUtil.difficultyString() == 'SIMPLE') drainShitz = false;
+		if(CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics) drainShitz = false;
+
+		if (health > 0.2 && lossingHealth && drainShitz)
 		{
-			health -= 0.0015 * 60 * elapsed;
+			health -= 0.09 * elapsed;
 		}
 
 		//trace(1/elapsed +' ' + elapsed + ' ' + FlxG.updateFramerate + '   ' + timeWithLowerFps);
@@ -5409,6 +5366,17 @@ class PlayState extends MusicBeatState
 						daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
+					}
+
+					if(daNote.noteType != '') //not normal notes
+					{
+						var exceptions:Array<String> = ['Hurt Note', 'Alt Animation', 'No Animation', 'GF Sing', 'Green Sing', 'TSC Sing']; //you add the notes that you don't want to be deleted here
+						if(CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics && !exceptions.contains(daNote.noteType))
+						{
+							daNote.kill();
+							notes.remove(daNote, true);
+							daNote.destroy();
+						}
 					}
 
 					if (!daNote.checkedSlash && (daNote.strumTime - Conductor.songPosition) < 180 && daNote.noteType == 'Tdl note') {
@@ -5823,6 +5791,7 @@ class PlayState extends MusicBeatState
 				if (popUp != null) return;
 				if (cpuControlled) return;
 				if (CoolUtil.difficultyString() == 'SIMPLE') return;
+				if (CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics) return;
 
 				FlxG.sound.play(Paths.sound("erro"));
 				popUp = new FlxSprite(FlxG.random.int(0, 774), FlxG.random.int(0, 421)).loadGraphic(Paths.image('EProcess/popups/popup_' + FlxG.random.int(1, 7), 'chapter1'));
@@ -5843,7 +5812,7 @@ class PlayState extends MusicBeatState
 				switch(CoolUtil.difficultyString())
 				{
 					case 'HARD':
-						timeThing = 25;
+						timeThing = 27; // nerfing more lolz
 				}
 
 				popUpTimer = new FlxTimer();
@@ -8744,7 +8713,8 @@ class PlayState extends MusicBeatState
 			FlxG.mouse.visible = false;
 		}
 
-		if(oldVideoResolution){
+		if(oldVideoResolution)
+		{
 			Lib.application.window.resizable = true;
 			FlxG.scaleMode = new RatioScaleMode(false);
 			FlxG.resizeGame(1280, 720);

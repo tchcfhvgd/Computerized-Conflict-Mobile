@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
@@ -370,6 +371,14 @@ class VaultState extends MusicBeatState
 				FlxTween.tween(whiteScreen, {alpha:1}, 3, { onComplete: function(twn:FlxTween) {
 					FlxG.camera.fade(FlxColor.BLACK, 0.8, false, function()
 					{
+						if (FreeplayState.minimizeWindowArray.contains(codesAndShit[i][1].toLowerCase()))
+						{
+							Lib.application.window.resizable = false;
+							FlxG.scaleMode = new StageSizeScaleMode();
+							FlxG.resizeGame(360, 720);
+							FlxG.resizeWindow(960, 720);
+						}
+
 						LoadingState.loadAndSwitchState(new PlayState(), true);
 						FreeplayState.destroyFreeplayVocals();
 					});

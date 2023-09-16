@@ -1,5 +1,7 @@
 package;
 
+import openfl.Lib;
+import flixel.system.scaleModes.StageSizeScaleMode;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -87,6 +89,8 @@ class FreeplayState extends MusicBeatState
 	public static var alreadyShowedSongs:Array<String> = ['adobe', 'outrage', 'end process', 'practice time', 'adobe (old)', 'outrage (old)', 'alan (old)'];
 
 	var precacheList:Map<String, String> = new Map<String, String>();
+
+	public static var minimizeWindowArray:Array<String> = ['dashpulse', 'messenger', 'rombie'];
 
 	public function new (?newWeeks:Null<Array<String>>) //code is from w.i. btw
 	{
@@ -497,6 +501,14 @@ class FreeplayState extends MusicBeatState
 					   else
 					   {
 							LoadingState.loadAndSwitchState(new PlayState());
+
+							if(minimizeWindowArray.contains(songs[curSelected].songName.toLowerCase()))
+							{
+								Lib.application.window.resizable = false;
+								FlxG.scaleMode = new StageSizeScaleMode();
+								FlxG.resizeGame(360, 720);
+								FlxG.resizeWindow(960, 720);
+							}
 					   }
 		
 					});
