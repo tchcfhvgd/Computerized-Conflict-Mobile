@@ -10,6 +10,4 @@ MIJAE OR TIBURONES:
  ta bien
 }
 
-just fix the mentioned bugs on the Playtest server lol
-
-Estimated Release: September 15th
+reading and comprehending every bit of code from voiid chronicles since the source code has been released
