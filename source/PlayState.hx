@@ -4624,8 +4624,7 @@ class PlayState extends MusicBeatState
 		var targetAlpha:Float = 1;
 		if (player < 1)
 		{
-			if(!ClientPrefs.opponentStrums) targetAlpha = 0;
-			else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
+			if(!ClientPrefs.opponentStrums || ClientPrefs.middleScroll) targetAlpha = 0;
 		}
 
 		for (i in 0...4)
@@ -5285,6 +5284,8 @@ class PlayState extends MusicBeatState
 
 					if(daNote.copyAlpha)
 						daNote.alpha = strumAlpha;
+
+					if (!ClientPrefs.opponentStrums || ClientPrefs.middleScroll) daNote.alpha = 0;
 
 					if(daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
