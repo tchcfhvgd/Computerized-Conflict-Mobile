@@ -133,7 +133,7 @@ class TCOCreditsState extends MusicBeatState
 			new CreditsMetadata("DTunes", "", "A composer of \"Alan (Remake)\"", 0xFFFFFFFF, ""),
 			new CreditsMetadata("atpx8", "", "Helped with the End Process pop-ups mechanic.", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Tentilog", "tenti", "3D STICK Sprite.", 0xFFFFFFFF, ""),
-			new CreditsMetadata("Koi", "", "Rombie BG Artist.", 0xFFFFFFFF, ""),
+			new CreditsMetadata("Koi", "koi", "Rombie BG Artist.", 0xFFFFFFFF, ""),
 			new CreditsMetadata("Blonic", "blonic", "Logo Artist.", 0xFFFFFFFF, ""),
 
 			//new CreditsMetadata("", "jet", "", 0xFF, ""),

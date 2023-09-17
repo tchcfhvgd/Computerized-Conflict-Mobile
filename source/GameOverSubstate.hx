@@ -10,6 +10,7 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
+import flixel.system.scaleModes.StageSizeScaleMode;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -252,6 +253,14 @@ class GameOverSubstate extends MusicBeatSubstate
 				//FlxTween.cancelTweensOf(PlayState..camera);
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
+				    if (FreeplayState.minimizeWindowArray.contains(codesAndShit[i][1].toLowerCase()))
+					{
+						Lib.application.window.resizable = false;
+						FlxG.scaleMode = new StageSizeScaleMode();
+						FlxG.resizeGame(360, 720);
+						FlxG.resizeWindow(960, 720);
+					}
+					
 					MusicBeatState.resetState();
 				});
 			});
