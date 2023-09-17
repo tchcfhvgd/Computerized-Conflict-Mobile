@@ -73,7 +73,6 @@ class MinusCharSelector extends MusicBeatState
 
 		bg = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
-		//bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -201,7 +200,6 @@ class MinusCharSelector extends MusicBeatState
 
 				PlayState.SONG.player1 = bfSkins[actualNum];
 				PlayState.amityChar = bfSkins[actualNum];
-				//PlayState.SONG.player1 = bfSkins[actualNum];
 			}
 
 
