@@ -1,5 +1,7 @@
 package;
 
+import openfl.Lib;
+import flixel.system.scaleModes.StageSizeScaleMode;
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;

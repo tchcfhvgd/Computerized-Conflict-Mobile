@@ -8719,15 +8719,18 @@ class PlayState extends MusicBeatState
 		if (judgementCounter != null) judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}';
 	}
 
-	override function switchTo(state:FlxState){
+	override function switchTo(state:FlxState)
+	{
 		// DO CLEAN-UP HERE!!
 		if(curSong == 'end process'){
 			FlxG.mouse.unload();
 			FlxG.mouse.visible = false;
 		}
 
-		if(oldVideoResolution)
+		if(oldVideoResolution && Type.getClass(state) != PlayState)
 		{
+			trace(endingSong, (paused && !isDead), !isDead);
+
 			Lib.application.window.resizable = true;
 			FlxG.scaleMode = new RatioScaleMode(false);
 			FlxG.resizeGame(1280, 720);

@@ -10,8 +10,6 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
-import openfl.Lib;
-import flixel.system.scaleModes.StageSizeScaleMode;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -192,25 +190,8 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			if (boyfriend.animation.curAnim.finished && !playingDeathSound)
 			{
-				if (PlayState.SONG.stage == 'tank')
-				{
-					playingDeathSound = true;
-					coolStartDeath(0.2);
+				coolStartDeath();
 
-					var exclude:Array<Int> = [];
-					//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
-
-					FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
-						if(!isEnding)
-						{
-							FlxG.sound.music.fadeIn(0.2, 1, 4);
-						}
-					});
-				}
-				else
-				{
-					coolStartDeath();
-				}
 				boyfriend.startedDeath = true;
 				if (PlayState.SONG.song.toLowerCase() == 'phantasm') FlxTween.tween(retryText, {alpha:1}, 0.45);
 			}
@@ -253,15 +234,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				//FlxTween.cancelTweensOf(PlayState..camera);
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
-				{
-				    if (FreeplayState.minimizeWindowArray.contains(PlayState.SONG.song.toLowerCase()))
-					{
-						Lib.application.window.resizable = false;
-						FlxG.scaleMode = new StageSizeScaleMode();
-						FlxG.resizeGame(360, 720);
-						FlxG.resizeWindow(960, 720);
-					}
-					
+				{				
 					MusicBeatState.resetState();
 				});
 			});
