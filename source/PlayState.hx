@@ -590,6 +590,7 @@ class PlayState extends MusicBeatState
 
 	//only used in end process I think
 	var stopTweens = new Array<FlxTween>();
+	var stopTimers = new Array<FlxTimer>();
 
 	override public function create()
 	{
@@ -4743,6 +4744,9 @@ class PlayState extends MusicBeatState
 			for (tween in stopTweens) {
 				tween.active = false;
 			}
+			for (timer in stopTimers) {
+				timer.active = false;
+			}
 
 			if (popUpTimer != null) popUpTimer.active = false;
 		}
@@ -4781,6 +4785,9 @@ class PlayState extends MusicBeatState
 			}
 			for (tween in stopTweens) {
 				tween.active = true;
+			}
+			for (timer in stopTimers) {
+				timer.active = true;
 			}
 
 			if (popUpTimer != null) popUpTimer.active = true;
@@ -5950,12 +5957,17 @@ class PlayState extends MusicBeatState
 
 		jumpScare.alpha = 1;
 		camHUD.alpha = 0.2;
-		if(ClientPrefs.screenShake) camBars.shake(0.01015625, (((!Math.isNaN(duration)) ? duration : 1) * Conductor.stepCrochet) / 1000, function()
-			{
-				FlxTween.tween(jumpScare, {alpha:0}, 0.4, {ease: FlxEase.circOut});
-				FlxTween.tween(camHUD, {alpha:1}, 0.4, {ease: FlxEase.circOut});
-			}, true
-		);
+		var timeAfterTime:Float = (((!Math.isNaN(duration)) ? duration : 1) * Conductor.stepCrochet) / 1000;
+		if(ClientPrefs.screenShake) camBars.shake(0.01015625, timeAfterTime);
+
+		var timerJumpscare = new FlxTimer();
+		timerJumpscare.start(timeAfterTime, function(timer:FlxTimer)
+		{
+			FlxTween.tween(jumpScare, {alpha:0}, 0.4, {ease: FlxEase.circOut});
+			FlxTween.tween(camHUD, {alpha:1}, 0.4, {ease: FlxEase.circOut});
+		});
+
+		stopTimers.push(timerJumpscare);
 	}
 
 	function moveCameraSection():Void {
