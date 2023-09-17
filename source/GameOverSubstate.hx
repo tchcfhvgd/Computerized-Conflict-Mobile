@@ -10,6 +10,7 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
+import openfl.Lib;
 import flixel.system.scaleModes.StageSizeScaleMode;
 
 class GameOverSubstate extends MusicBeatSubstate
