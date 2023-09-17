@@ -253,7 +253,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				//FlxTween.cancelTweensOf(PlayState..camera);
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
-				    if (FreeplayState.minimizeWindowArray.contains(codesAndShit[i][1].toLowerCase()))
+				    if (FreeplayState.minimizeWindowArray.contains(PlayState.SONG.song.toLowerCase()))
 					{
 						Lib.application.window.resizable = false;
 						FlxG.scaleMode = new StageSizeScaleMode();
