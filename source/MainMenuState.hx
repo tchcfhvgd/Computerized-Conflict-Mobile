@@ -113,8 +113,6 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
-
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end

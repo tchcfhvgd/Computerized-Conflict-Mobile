@@ -190,6 +190,9 @@ class Note extends FlxColorSwapSprite
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
 					noteSplashTexture = "fuck off";
+					if(CoolUtil.difficultyString() == 'HARD') alpha = 0.4;
+					copyAlpha = false;
+
 				case 'Tdl note':
 					loadGraphic(Paths.image('dangerNotes/tdl_blade'));
 					noAnimation = true;

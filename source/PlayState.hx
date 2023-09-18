@@ -5381,22 +5381,32 @@ class PlayState extends MusicBeatState
 						}
 					}
 
-					if (!daNote.checkedSlash && (daNote.strumTime - Conductor.songPosition) < 180 && daNote.noteType == 'Tdl note') {
-						if (!slashing){
-							slashing = true;
-							if(dad.animation.getByName('attack') != null) {
-								dad.playAnim('attack', true);
-								dad.specialAnim = true;
-								trace('attack!');
-								new FlxTimer().start(1, function(timer:FlxTimer)
-								{
-									slashing = false;
-									dad.specialAnim = false;
-								});
+					switch(daNote.noteType)
+					{
+						case 'Tdl note':
+							if (!daNote.checkedSlash && (daNote.strumTime - Conductor.songPosition) < 180) {
+								if (!slashing){
+									slashing = true;
+									if(dad.animation.getByName('attack') != null) {
+										dad.playAnim('attack', true);
+										dad.specialAnim = true;
+										trace('attack!');
+										new FlxTimer().start(1, function(timer:FlxTimer)
+										{
+											slashing = false;
+											dad.specialAnim = false;
+										});
+									}
+								}
+							
+								daNote.checkedSlash = true;
 							}
-						}
 
-						daNote.checkedSlash = true;
+						/*case 'stopwatch':
+							if (!daNote.checkedSlash) {
+								daNote.alpha = 0.8;
+								daNote.checkedSlash = true;
+							}*/
 					}
 				});
 			}
