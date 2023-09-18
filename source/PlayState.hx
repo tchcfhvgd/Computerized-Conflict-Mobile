@@ -421,6 +421,7 @@ class PlayState extends MusicBeatState
 
 		//dashpulse:
 			var otakuBG:BGSprite;
+			public var multiplierDrain:Float = 1; //health drain in that one part yeah
 			public var NTSCshader:Shaders.NTSCEffect = new NTSCEffect(); //fuck
 
 		//kickstarter:
@@ -4980,14 +4981,7 @@ class PlayState extends MusicBeatState
 			FlxG.fullscreen = false;
 		}
 
-		var drainShitz = true;
-		if(CoolUtil.difficultyString() == 'SIMPLE') drainShitz = false;
-		if(CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics) drainShitz = false;
-
-		if (health > 0.2 && lossingHealth && drainShitz)
-		{
-			health -= 0.09 * elapsed;
-		}
+		healthDrainLolz(0.09 * elapsed, 0.2, multiplierDrain);
 
 		//trace(1/elapsed +' ' + elapsed + ' ' + FlxG.updateFramerate + '   ' + timeWithLowerFps);
 
@@ -6899,7 +6893,7 @@ class PlayState extends MusicBeatState
 			case 'angry-minus-tco':
 				if (!FlxG.fullscreen || !Application.current.window.maximized) setCamShake([camGame], 0.015, 0.05, 0.005);
 				else setCamShake([camGame, camBars, camOther], 0.015, 0.05, 0.005);
-			case 'the-dark-lord':
+			case 'the-dark-lord' | 'virabot':
 				if (healthBar.percent > 10) healthDrainRates(0.005, 0.015, 0.023, note.isSustainNote ? 0.5 : 1);
 			case 'joe-rombie':
 				if (healthBar.percent > 10) healthDrainRates(0.01, 0.03, 0.04, note.isSustainNote ? 0.3 : 1);
@@ -7854,7 +7848,7 @@ class PlayState extends MusicBeatState
 						objectColor([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
 						setAlpha([redthing], 1);
 						setVisible([fires1, fires2], true);
-						if (CoolUtil.difficultyString() != 'SIMPLE') lossingHealth = true;
+						lossingHealth = true;
 
 					case 288:
 						tcoStickPage(true);
@@ -8071,11 +8065,14 @@ class PlayState extends MusicBeatState
 						colorTween([gf, otakuBG], 0.7, FlxColor.WHITE, 0xFF191919);
 						defaultCamZoom = 1.1;
 						bestPart2 = true;
+						lossingHealth = true;
+						multiplierDrain = 1.5;
 
 					case 320:
 						colorTween([gf, otakuBG], 1, 0xFF191919, FlxColor.WHITE);
 						defaultCamZoom = 0.65;
 						bestPart2 = false;
+						lossingHealth = false;
 
 					case 354:
 						FlxTween.tween(camHUD, {alpha:0}, 1, {ease: FlxEase.sineInOut});
@@ -8358,6 +8355,7 @@ class PlayState extends MusicBeatState
 						vignetteTrojan.color = FlxColor.RED;
 
 						triggerEventNote('Camera Follow Pos', '', '');
+
 					case 256:
 						camHUD.fade(FlxColor.BLACK, 2, false);
 				}
@@ -8874,6 +8872,16 @@ class PlayState extends MusicBeatState
 			startCharacterPos(boyfriend);
 			boyfriendGroup.angle = 0;
 		}
+	}
+
+	function healthDrainLolz(drain:Float, min:Float, mult:Float)
+	{
+		if(!lossingHealth) return;
+		if(CoolUtil.difficultyString() == 'SIMPLE') return;
+		if(CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics) return;
+		if(health <= min) return;
+
+		health -= drain * multiplierDrain;
 	}
 
 	var curLight:Int = -1;
