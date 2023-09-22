@@ -1024,7 +1024,7 @@ class PlayState extends MusicBeatState
 
 							if (SONG.song.toLowerCase() == 'end process' && isStoryMode)
 							{
-								popupsExplanation = new FlxText(0, 0, FlxG.width, "Close the popus when they appear,\nand press the slice notes", 20);
+								popupsExplanation = new FlxText(0, 0, FlxG.width, "Close the popups when they appear,\nand press the slice notes", 20);
 								popupsExplanation.setFormat(Paths.font("phantommuff.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 								popupsExplanation.borderSize = 2;
 								popupsExplanation.cameras = [camHUD];
