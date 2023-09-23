@@ -447,6 +447,7 @@ class PlayState extends MusicBeatState
 			var glowSuperBeat:Bool = false;
 			var glowTween:FlxTween;
 			var tipDay:BGSprite;
+			var silhouettes:FlxBackdrop;
 			
 		//amity:
 		    var bgGarden:BGSprite;
@@ -1679,6 +1680,14 @@ class PlayState extends MusicBeatState
 					particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
 					add(particleEmitter);
 
+					silhouettes = new FlxBackdrop(Paths.image('silhouettes', 'extras'), X, 0, 0);
+					silhouettes.setGraphicSize(Std.int(silhouettes.width * 0.9));
+					silhouettes.cameras = [camBars];
+					silhouettes.screenCenter();
+					silhouettes.x += 350;
+					silhouettes.alpha = 0.0001;
+					add(silhouettes);
+
 					topBars = new FlxSpriteExtra().makeSolid(2700, 320, FlxColor.BLACK);
 					topBars.cameras = [camBars];
 					topBars.screenCenter();
@@ -1953,14 +1962,12 @@ class PlayState extends MusicBeatState
 			case 'aol': //ava 2
 				{
 					camZooming = true;
-					aolBG = new BGSprite('aol/messenger_bg', 0, 0, 0.6, 1);
-					aolBG.screenCenter();
+					aolBG = new BGSprite('aol/messenger_bg', -906, -720, 0.6, 1);
 					aolBG.updateHitbox();
 					add(aolBG);
 
-					aolBack = new BGSprite('aol/messenger_back', 0, 0, 1, 1);
+					aolBack = new BGSprite('aol/messenger_back', 343.5, 210.5, 1, 1);
 					aolBack.setGraphicSize(Std.int(aolBack.width * 3));
-					aolBack.screenCenter();
 					aolBack.x += 980;
 					aolBack.updateHitbox();
 					add(aolBack);
@@ -1980,19 +1987,16 @@ class PlayState extends MusicBeatState
 					particleEmitter.start(false, FlxG.random.float(.01097, .0308), 1000000);
 					add(particleEmitter);
 
-					aolFloor = new BGSprite('aol/messenger_floor', 0, 0, 1, 1);
+					aolFloor = new BGSprite('aol/messenger_floor', 130.5, 221.5, 1, 1);
 					//floor.setGraphicSize(Std.int(floor.width * 2)); fuck this
 					aolFloor.scale.set(2.5, 2);
-					aolFloor.screenCenter();
 					aolFloor.y += 625;
 					aolFloor.x -= 200;
 					aolFloor.updateHitbox();
 					add(aolFloor);
 
-					veryEpicVignette = new BGSprite('epic', 0, 0, 1, 1);
-					veryEpicVignette.screenCenter();
+					veryEpicVignette = new BGSprite('epic', 179.5, -250, 1, 1);
 					veryEpicVignette.x -= 1200;
-					veryEpicVignette.y -= 250;
 					veryEpicVignette.alpha = 0.0001;
 					veryEpicVignette.color = FlxColor.YELLOW;
 					veryEpicVignette.scale.x = 2560;
@@ -2000,8 +2004,7 @@ class PlayState extends MusicBeatState
 					veryEpicVignette.updateHitbox();
 
 
-					var scanline = new BGSprite('aol/scanline', 0, 0, 0, 0);
-					scanline.screenCenter();
+					var scanline = new BGSprite('aol/scanline', -460, 0, 0, 0);
 					scanline.updateHitbox();
 					scanline.alpha = 0.05;
 					scanline.cameras = [camOther];
@@ -7490,6 +7493,11 @@ class PlayState extends MusicBeatState
 								opponentStrums.members[i].visible = false;
 								opponentStrums.members[i].x -= 1200;
 							}
+						case 448:
+							FlxTween.tween(silhouettes, {alpha: 1}, 0.4);
+							silhouettes.velocity.set(-254,0);
+						case 472:
+							FlxTween.tween(silhouettes, {alpha: 0}, 0.4);
 						case 476:
 							blackBars(0);
 							FlxTween.tween(camHUD, {alpha: 1}, 1);
