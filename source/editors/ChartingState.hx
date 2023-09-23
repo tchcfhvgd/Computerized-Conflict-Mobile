@@ -1,5 +1,7 @@
 package editors;
 
+import flixel.system.scaleModes.StageSizeScaleMode;
+import openfl.Lib;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -1764,6 +1766,15 @@ class ChartingState extends MusicBeatState
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
+
+				if (FreeplayState.minimizeWindowArray.contains(_song.song.toLowerCase()))
+				{
+					Lib.application.window.resizable = false;
+					FlxG.scaleMode = new StageSizeScaleMode();
+					FlxG.resizeGame(360, 720);
+					FlxG.resizeWindow(960, 720);
+				}
+
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
