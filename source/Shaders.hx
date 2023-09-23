@@ -403,7 +403,7 @@ void main()
 {
     vec2 uv = floor(fragCoord-8.*floor(fragCoord/8.));
     gl_FragColor.rgb = toRGB(IDCT8x8(8.*floor(fragCoord/8.),uv)/256.+.5);
-    gl_FragColor.a = flixel_texture2D(bitmap, uvv);
+    gl_FragColor.a = flixel_texture2D(bitmap, uvv).a;
 
 }
 ')
