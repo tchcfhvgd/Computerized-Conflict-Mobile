@@ -4662,7 +4662,7 @@ class PlayState extends MusicBeatState
 
 			var offsetBOYFRIEND = 40;
 			
-			if (oldVideoResolution)
+			if (oldVideoResolution || skipCountdown && oldVideoResolution)
 			{
 				if (player == 1)
 				{
