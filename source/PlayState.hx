@@ -4659,15 +4659,22 @@ class PlayState extends MusicBeatState
 			{
 				babyArrow.alpha = targetAlpha;
 			}
-
-			var offsetBOYFRIEND = 40;
 			
-			if (oldVideoResolution || skipCountdown && oldVideoResolution)
+			if (oldVideoResolution)
 			{
 				if (player == 1)
 				{
+					var offsetBOYFRIEND = 40;
+
 					babyArrow.x -= 120 + offsetBOYFRIEND;
 					if(ClientPrefs.middleScroll) babyArrow.x += 160;
+				}
+
+				if(skipCountdown && player == 0)
+				{
+					var offsetDAD = 40;
+
+					babyArrow.x -= 120 + offsetDAD;
 				}
 			}
 			
@@ -5289,7 +5296,7 @@ class PlayState extends MusicBeatState
 					if(daNote.copyAlpha)
 						daNote.alpha = strumAlpha;
 
-					if (!ClientPrefs.opponentStrums || ClientPrefs.middleScroll) daNote.alpha = 0;
+					if (!ClientPrefs.opponentStrums || (ClientPrefs.middleScroll && !daNote.mustPress)) daNote.alpha = 0;
 
 					if(daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
@@ -6238,14 +6245,6 @@ class PlayState extends MusicBeatState
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false))
 					{
-						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
-
-						if (SONG.validScore)
-						{
-							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
-						}
-
-						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
 
 						var weekPlusDiffName:String = TCOStoryState.weeks[0].name + '-${TCOStoryState.difficulties[TCOStoryState.curDifficulty]}';

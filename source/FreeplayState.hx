@@ -118,9 +118,8 @@ class FreeplayState extends MusicBeatState
 
 		FlxG.camera.zoom = 1.5;
 		
-		for (i in 0...weeks.length) {
-			if(weekIsLocked(weeks[i])) continue;
-
+		for (i in 0...weeks.length)
+		{
 			var leWeek:WeekData = WeekData.weeksLoaded.get(weeks[i]);
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
@@ -303,11 +302,6 @@ class FreeplayState extends MusicBeatState
 		var colorSong:Int = wasPlayed ? color : -1;
 
 		songs.push(new SongMetadata(songName, weekNum, iconChar, colorSong));
-	}
-
-	function weekIsLocked(name:String):Bool {
-		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
-		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
 
 	function checkIfAlanIsLocked()
