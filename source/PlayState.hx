@@ -667,11 +667,15 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 
-		if (SONG.song.toLowerCase() == 'amity' || SONG.song.toLowerCase() == 'trojan' || SONG.song.toLowerCase() == 'alan') FlxG.cameras.add(camChar, false);
+		var songsWithCamChar:Array<String> = ['amity', 'trojan', 'alan'];
+		if (songsWithCamChar.contains(SONG.song.toLowerCase())) FlxG.cameras.add(camChar, false);
 
 		FlxG.cameras.add(camBars, false);
 		FlxG.cameras.add(camHUD, false);
-		FlxG.cameras.add(camLYRICS, false);
+
+		var songsWithCamLyrics:Array<String> = ['practice time', 'time travel', 'contrivance'];
+		if (songsWithCamLyrics.contains(SONG.song.toLowerCase())) FlxG.cameras.add(camLYRICS, false);
+
 		FlxG.cameras.add(camOther, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
