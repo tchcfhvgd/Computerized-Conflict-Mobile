@@ -2007,7 +2007,6 @@ class PlayState extends MusicBeatState
 					var scanline = new BGSprite('aol/scanline', -460, 0, 0, 0);
 					scanline.updateHitbox();
 					scanline.alpha = 0.05;
-					scanline.cameras = [camOther];
 					add(scanline);
 
 					oldVideoResolution = true;
@@ -2558,7 +2557,7 @@ class PlayState extends MusicBeatState
 		
 			add(laneunderlay);
 			add(laneunderlayOpponent);
-			if(ClientPrefs.middleScroll)
+			if(ClientPrefs.middleScroll || !ClientPrefs.opponentStrums)
 			{
 				remove(laneunderlayOpponent);
 				laneunderlayOpponent.destroy();
@@ -3036,6 +3035,11 @@ class PlayState extends MusicBeatState
 			showHUDTween(1, 1);
 			camZooming = true;
 			funnyArray = [];
+			if (laneunderlay != null) laneunderlay.x = (playerStrums.members[0].x + playerStrums.members[1].x) / 2 - 60;
+			if (laneunderlayOpponent != null) laneunderlayOpponent.x = (opponentStrums.members[0].x + opponentStrums.members[1].x) / 2 - 60;
+
+			if (laneunderlay != null) laneunderlay.screenCenter(Y);
+			if (laneunderlayOpponent != null) laneunderlayOpponent.screenCenter(Y);
 		}
 
 		if(!CoolUtil.songsUnlocked.data.songsPlayed.contains(SONG.song.toLowerCase()))
@@ -3303,6 +3307,8 @@ class PlayState extends MusicBeatState
 					case 'Sam Room':
 						if (defaultCamZoom < 0.75) camFollow.x = (dad.getMidpoint().x + 525 + cameraX);
 						else camFollow.x = (dad.getMidpoint().x + 285 + cameraX);
+					case 'aol':
+						if (defaultCamZoom > 0.6) camFollow.set(dad.getMidpoint().x + 200 + cameraX, dad.getMidpoint().y - 50 + cameraY);
 					case 'flashBG':
 						camFollow.set(dad.getMidpoint().x + 400 + cameraX, dad.getMidpoint().y + 50 + cameraY);
 						if (dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200 + cameraX, dad.getMidpoint().y + 150 + cameraY);
@@ -3326,6 +3332,8 @@ class PlayState extends MusicBeatState
 						else  camFollow.set(boyfriend.getMidpoint().x - 365 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
 						
 						//camFollow.set(boyfriend.getMidpoint().x - 355 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
+					case 'aol':
+						if (defaultCamZoom > 0.6) camFollow.x = (boyfriend.getMidpoint().x - 350 + cameraXBF);
 					case 'yt':
 						camFollow.x = (boyfriend.getMidpoint().x + 250 + cameraXBF);
 					case 'World 1':
@@ -3669,11 +3677,11 @@ class PlayState extends MusicBeatState
 
 		if (ClientPrefs.middleScroll && alpha <= 0.35)
 		{
-			for (i in 0...opponentStrums.length) alphaTween([opponentStrums.members[i]], duration, 0.35);
+			for (i in 0...opponentStrums.length) alphaTween([opponentStrums.members[i]], ClientPrefs.middleScroll ? 0 : duration, 0.35);
 		}
 		else
 		{
-			for (i in 0...opponentStrums.length) alphaTween([opponentStrums.members[i]], duration, alpha);
+			for (i in 0...opponentStrums.length) alphaTween([opponentStrums.members[i]], ClientPrefs.middleScroll ? 0 : duration, alpha);
 		}
 	}
 
@@ -5289,7 +5297,7 @@ class PlayState extends MusicBeatState
 					if(daNote.copyAlpha)
 						daNote.alpha = strumAlpha;
 
-					if (!ClientPrefs.opponentStrums || ClientPrefs.middleScroll) daNote.alpha = 0;
+					//if (!ClientPrefs.opponentStrums || ClientPrefs.middleScroll) daNote.alpha = 0;
 
 					if(daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
@@ -6017,6 +6025,8 @@ class PlayState extends MusicBeatState
 					case 'Sam Room':
 						if (defaultCamZoom < 0.75) camFollow.x = (dad.getMidpoint().x + 525);
 						else camFollow.x = (dad.getMidpoint().x + 285);
+					case 'aol':
+						if (defaultCamZoom > 0.6) camFollow.set(dad.getMidpoint().x + 200, dad.getMidpoint().y - 50);
 					case 'flashBG':
 						camFollow.set(dad.getMidpoint().x + 400, dad.getMidpoint().y + 50);
 						if (dad.curCharacter == 'the-chosen-one') camFollow.set(dad.getMidpoint().x + 200, dad.getMidpoint().y + 150);
@@ -6047,6 +6057,8 @@ class PlayState extends MusicBeatState
 						else  camFollow.set(boyfriend.getMidpoint().x - 365, boyfriend.getMidpoint().y - 120);
 						
 						//camFollow.set(boyfriend.getMidpoint().x - 355 + cameraXBF, boyfriend.getMidpoint().y - 120 + cameraYBF);
+					case 'aol':
+						if (defaultCamZoom > 0.6) camFollow.x = (boyfriend.getMidpoint().x - 350);
 					case 'yt':
 						camFollow.x = (boyfriend.getMidpoint().x + 250);
 					case 'World 1':
@@ -7297,7 +7309,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(boyfriend, {alpha:0}, 0.5);
 						FlxTween.tween(iconP1, {alpha:0}, 0.5);
 						FlxTween.tween(iconP2, {alpha:1}, 0.5);
-						opponentStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:1}, 0.5));
+						opponentStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:ClientPrefs.middleScroll ? 0 : 1}, 0.5));
 						playerStrums.forEach(function(spr:StrumNote)  FlxTween.tween(spr, {alpha:0}, 0.5));
 
 					case 700 | 828:
@@ -7317,7 +7329,7 @@ class PlayState extends MusicBeatState
 						whiteScreen.alpha = 0;
 						camHUD.fade(FlxColor.BLACK, 0, true);
 						dadGroup.alpha = 1;
-						opponentStrums.forEach(function(spr:StrumNote) spr.alpha = 1);
+						opponentStrums.forEach(function(spr:StrumNote) spr.alpha = ClientPrefs.middleScroll ? 0 : 1);
 						iconP2.alpha = 1;
 						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
 					case 1168:
@@ -7521,10 +7533,10 @@ class PlayState extends MusicBeatState
 						case 504:
 							for (i in 0...opponentStrums.length) {
 								if (!ClientPrefs.middleScroll) {
-									FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 1);
+									FlxTween.tween(opponentStrums.members[i], {alpha: ClientPrefs.middleScroll ? 0 : 1}, 1);
 									FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + 1200}, 2, {ease: FlxEase.sineInOut});
 								}else{
-									FlxTween.tween(opponentStrums.members[i], {alpha: 0.35}, 1);
+									FlxTween.tween(opponentStrums.members[i], {alpha: ClientPrefs.middleScroll ? 0 : 0.35}, 1);
 									opponentStrums.members[i].x += 1200;
 								}
 							}
@@ -7590,7 +7602,7 @@ class PlayState extends MusicBeatState
 						}
 					case 192:
 						for (i in 0...opponentStrums.length) {
-							FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 1);
+							FlxTween.tween(opponentStrums.members[i], {alpha: ClientPrefs.middleScroll ? 0 : 1}, 1);
 						}
 					case 256:
 						showHUDTween(1, 1);
@@ -7612,7 +7624,7 @@ class PlayState extends MusicBeatState
 						particleEmitter.alpha.set(1, 1);
 						veryEpicVignette.alpha = 1;
 					case 1312:
-						camFollow.x = 1150;
+						camFollow.x = 900;
 						camFollow.y = 550;
 						isCameraOnForcedPos = true;
 					case 1376:
@@ -8353,7 +8365,7 @@ class PlayState extends MusicBeatState
 						//thanks ne_eo
 						skipMoveCam = true;
 
-						triggerEventNote('Camera Follow Pos', Std.string(dad.getMidpoint().x + 600), Std.string(dad.getMidpoint().y + 150));
+						triggerEventNote('Camera Follow Pos', '1020', '900');
 
 						ytBGVideo.alpha = 1;
 
@@ -8473,10 +8485,10 @@ class PlayState extends MusicBeatState
 						//.destroy();
 						cattoBG.alpha = 1;
 					case 156:
-						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:0}, 1));
+						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:ClientPrefs.middleScroll ? 0 : 1}, 1));
 
 					case 160:
-						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:1}, 1));
+						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:ClientPrefs.middleScroll ? 0 : 1}, 1));
 				}
 			case 'kickstarter':
 				switch(curBeat)

@@ -1,1 +1,78 @@
-{"animations":[{"offsets":[32,48],"loop":false,"fps":24,"anim":"singLEFT","indices":[],"name":"AOL left"},{"offsets":[-109,12],"loop":false,"fps":24,"anim":"singDOWN","indices":[],"name":"AOL down"},{"offsets":[-12,6],"loop":false,"fps":24,"anim":"singUP","indices":[],"name":"AOL up"},{"offsets":[-81,149],"loop":false,"fps":24,"anim":"singRIGHT","indices":[],"name":"AOL right"},{"offsets":[0,0],"loop":false,"fps":12,"anim":"idle","indices":[],"name":"AOL idle"}],"no_antialiasing":false,"image":"characters/CC/extras/aol","position":[-150,560],"healthicon":"aol","flip_x":false,"healthbar_colors":[255,204,0],"camera_position":[200,20],"sing_duration":6.1,"scale":1.5}
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				32,
+				48
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "AOL left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-109,
+				12
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "AOL down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-12,
+				6
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "AOL up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-81,
+				149
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "AOL right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 12,
+			"name": "AOL idle",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/extras/aol",
+	"position": [
+		-150,
+		560
+	],
+	"healthicon": "aol",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		204,
+		0
+	],
+	"camera_position": [
+		-180,
+		-100
+	],
+	"sing_duration": 6.1,
+	"scale": 1.5
+}
