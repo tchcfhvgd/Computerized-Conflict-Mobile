@@ -8370,7 +8370,7 @@ class PlayState extends MusicBeatState
 						//thanks ne_eo
 						skipMoveCam = true;
 
-						triggerEventNote('Camera Follow Pos', '1020', '900');
+						triggerEventNote('Camera Follow Pos', '1420', '675');
 
 						ytBGVideo.alpha = 1;
 
