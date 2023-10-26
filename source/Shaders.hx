@@ -1008,19 +1008,19 @@ class Test3DEffect extends Effect //fuck
 
 class Shader244p extends FlxShader
 {
-	@:glFragmentSource('
-#pragma header
+    @:glFragmentSource('
+    #pragma header
+    
+    void main() {
+        vec2 pos = openfl_TextureCoordv;
+        pos = floor(pos * vec2(320, 224)) / vec2(320, 224);
+    gl_FragColor = flixel_texture2D(bitmap, pos);
+    }')
 
-void main() {
-	vec4 pos = flixel_texture2D(openfl_TextureCoordv);
-	pos = floor(pos * vec2(320, 224)) / vec2(320, 224);
-gl_FragColor = vec4(bitmap, pos);
-}')
-
-   public function new()
-   {
-		super();
-   }
+	public function new()
+	{
+	    super();
+	}
 }
 
 class EpicRainbowTrailShader extends FlxShader //yes ik there's already a function to do this without shader but this looks epic

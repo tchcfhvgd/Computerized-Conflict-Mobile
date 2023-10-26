@@ -101,6 +101,8 @@ class Main extends Sprite
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 
+		FlxG.signals.gameResized.add(fixCameraShaders);
+
 		#if desktop
 		if (!DiscordClient.isInitialized) {
 			DiscordClient.initialize();
@@ -109,6 +111,27 @@ class Main extends Sprite
 			});
 		}
 		#end
+	}
+
+	public static function fixCameraShaders(w:Int, h:Int) //fixes shaders after resizing the window / fullscreening
+	{
+		if (FlxG.cameras.list.length > 0)
+		{
+			for (cam in FlxG.cameras.list)
+			{
+				if (cam.flashSprite != null)
+				{
+					@:privateAccess 
+					{
+						cam.flashSprite.__cacheBitmap = null;
+						cam.flashSprite.__cacheBitmapData = null;
+						cam.flashSprite.__cacheBitmapData2 = null;
+						cam.flashSprite.__cacheBitmapData3 = null;
+						cam.flashSprite.__cacheBitmapColorTransform = null;
+					}
+				}
+			}
+		}
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
