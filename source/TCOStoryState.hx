@@ -399,8 +399,6 @@ class TCOStoryState extends MusicBeatState
 
 		intendedScore = weekScore;
 		#end
-		
-		trace(diff);
 	}
 	
 	var lerpScore:Int = 0;
