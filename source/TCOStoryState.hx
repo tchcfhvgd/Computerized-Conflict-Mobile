@@ -297,8 +297,7 @@ class TCOStoryState extends MusicBeatState
 					});
 				}
 			}
-
-			if (controls.UI_RIGHT_P)
+			else if (controls.UI_RIGHT_P)
 			{
 				changeDifficulty(1, checkpointSystemON);
 			}
