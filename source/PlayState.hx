@@ -7522,7 +7522,7 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim('hey', true);
 							boyfriend.specialAnim = true;
 							cameraLocked = true;
-							camFollowPos.setPosition(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y + 0);
+							camFollowPos.setPosition(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y);
 							FlxG.camera.focusOn(camFollowPos.getPosition());
 							
 						case 480:

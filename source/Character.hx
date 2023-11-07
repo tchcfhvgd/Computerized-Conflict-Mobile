@@ -127,7 +127,7 @@ class Character extends FlxAtlasableSprite
 
 				if(json.scale != 1) {
 					jsonScale = json.scale;
-					setGraphicSize(Std.int(width * jsonScale));
+					scale.set(jsonScale, jsonScale);
 					updateHitbox();
 				}
 

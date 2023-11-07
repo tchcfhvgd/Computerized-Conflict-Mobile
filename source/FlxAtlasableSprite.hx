@@ -31,8 +31,9 @@ class FlxAtlasableSprite extends FlxSprite {
 		@:privateAccess {
 			animateAtlas.cameras = cameras;
 			animateAtlas.scrollFactor = scrollFactor;
-			animateAtlas.scale = scale;
-			animateAtlas.offset = offset;
+			animateAtlas.scale.copyFrom(scale);
+			animateAtlas.offset.copyFrom(offset);
+			animateAtlas.origin.copyFrom(origin);
 			//animateAtlas.rotOffset = rotOffset;
 			animateAtlas.x = x;
 			animateAtlas.y = y;

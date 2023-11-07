@@ -215,7 +215,8 @@ class FreeplayMenu extends MusicBeatState
 			}else{
 				a = 0.85;
 			}
-			spr.scale.x += (a-spr.scale.x)/(250*elapsed);
+
+			spr.scale.x = FlxMath.lerp(spr.scale.x, a, lerpVal);
 			spr.scale.y = spr.scale.x;
 
 			spr.updateHitbox();
@@ -230,8 +231,7 @@ class FreeplayMenu extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
-
-			if (controls.UI_DOWN_P)
+			else if (controls.UI_DOWN_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
@@ -253,8 +253,7 @@ class FreeplayMenu extends MusicBeatState
 					MusicBeatState.switchState(new MainMenuState());
 				});
 			}
-
-			if (controls.ACCEPT)
+			else if (controls.ACCEPT)
 			{
 				selectedSmth = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
