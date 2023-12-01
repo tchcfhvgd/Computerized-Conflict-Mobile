@@ -496,7 +496,7 @@ class FreeplayState extends MusicBeatState
 					   {
 							LoadingState.loadAndSwitchState(new PlayState());
 
-							if(minimizeWindowArray.contains(songs[curSelected].songName.toLowerCase()))
+							if(minimizeWindowArray.contains(songs[curSelected].songName.toLowerCase()) && !ClientPrefs.wideScreenSongs))
 							{
 								Lib.application.window.resizable = false;
 								FlxG.scaleMode = new StageSizeScaleMode();

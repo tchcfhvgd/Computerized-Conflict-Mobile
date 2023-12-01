@@ -45,6 +45,7 @@ class ClientPrefs {
 	public static var mechanics:String = 'Enabled';
 	public static var cameraMovement = true;
 	public static var screenShake = true;
+	public static var wideScreenSongs = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,

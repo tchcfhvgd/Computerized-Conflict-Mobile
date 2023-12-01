@@ -1224,7 +1224,7 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders && ClientPrefs.advancedShaders) FlxG.camera.setFilters([new ShaderFilter(distortShader.shader)]);
 					if (ClientPrefs.shaders) camHUD.setFilters([new ShaderFilter(distortShaderHUD.shader)]);
 
-					oldVideoResolution = true;
+					if (!ClientPrefs.wideScreenSongs) oldVideoResolution = true;
 
 					skipCountdown = true;
 
@@ -1354,7 +1354,7 @@ class PlayState extends MusicBeatState
 						whiteScreen.cameras = [camHUD];
 					}
 
-					oldVideoResolution = true;
+					if (!ClientPrefs.wideScreenSongs) oldVideoResolution = true;
 					noCurLight = true;
 					cameraSpeed = 1.2;
 
@@ -2016,7 +2016,7 @@ class PlayState extends MusicBeatState
 					scanline.alpha = 0.05;
 					add(scanline);
 
-					oldVideoResolution = true;
+					if (!ClientPrefs.wideScreenSongs) oldVideoResolution = true;
 					skipArrowStartTween = true;
 
 					GameOverSubstate.characterName = 'tco-aol-dead';

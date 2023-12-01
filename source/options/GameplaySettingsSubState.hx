@@ -41,6 +41,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Window Size Changes',
+			'If checked, the game window will not change resolution to some specific songs.',
+			'wideScreenSongs',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Controller Mode',
 			'Check this if you want to play with\na controller instead of using your Keyboard.',
 			'controllerMode',
