@@ -1,0 +1,210 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "red phase 1 idle"
+		},
+		{
+			"offsets": [
+				103,
+				6
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "red phase 1 left"
+		},
+		{
+			"offsets": [
+				2,
+				-109
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "red phase 1 down"
+		},
+		{
+			"offsets": [
+				29,
+				-49
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "red phase 1 right"
+		},
+		{
+			"offsets": [
+				56,
+				-1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "red phase 1 up"
+		},
+		{
+			"offsets": [
+				244,
+				2
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "phase2Transition",
+			"indices": [],
+			"name": "red phase transition 1"
+		},
+		{
+			"offsets": [
+				227,
+				-261
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "red phase 2 idle"
+		},
+		{
+			"offsets": [
+				226,
+				-261
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT-alt",
+			"indices": [],
+			"name": "red phase 2 left"
+		},
+		{
+			"offsets": [
+				223,
+				-261
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN-alt",
+			"indices": [],
+			"name": "red phase 2 down"
+		},
+		{
+			"offsets": [
+				223,
+				-260
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "red phase 2 right"
+		},
+		{
+			"offsets": [
+				223,
+				-209
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "red phase 2 up"
+		},
+		{
+			"offsets": [
+				319,
+				3
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt2",
+			"indices": [],
+			"name": "red phase 3 idle"
+		},
+		{
+			"offsets": [
+				849,
+				4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT-alt2",
+			"indices": [],
+			"name": "red phase 3 left"
+		},
+		{
+			"offsets": [
+				337,
+				56
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN-alt2",
+			"indices": [],
+			"name": "red phase 3 down"
+		},
+		{
+			"offsets": [
+				312,
+				-4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT-alt2",
+			"indices": [],
+			"name": "red phase 3 right"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				370,
+				98
+			],
+			"anim": "phase3Transition",
+			"fps": 24,
+			"name": "red phase transition 2",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				418,
+				82
+			],
+			"anim": "singUP-alt2",
+			"fps": 24,
+			"name": "red phase 3 up",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CC/StickFigureRed",
+	"position": [
+		80,
+		120
+	],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [
+		201,
+		0,
+		0
+	],
+	"camera_position": [
+		0,
+		50
+	],
+	"sing_duration": 6.1,
+	"scale": 1.2
+}

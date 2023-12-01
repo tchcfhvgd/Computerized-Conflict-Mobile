@@ -51,14 +51,16 @@ class FreeplayMenu extends MusicBeatState
 		'story',
 		'extra',
 		'cover',
-		'old'
+		'old',
+		'null'
 	];
 
 	var weeks:Array<Array<String>> = [
-		['Chapter 1'],
+		['Chapter 1', 'Chapter 2'],
 		['Tutorial Week', 'Extras', 'Secret'],
 		['Covers'],
-		['Old']
+		['Old'],
+		['The End']
 	];
 	var selectedSmth:Bool = false;
 	var camFollow:FlxObject;
