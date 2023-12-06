@@ -465,7 +465,7 @@ class FreeplayState extends MusicBeatState
 					var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 
 					trace(poop);
-		
+
 					PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 					PlayState.isStoryMode = false;
 					PlayState.vaultSong = false;

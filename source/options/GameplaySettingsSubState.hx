@@ -42,10 +42,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Window Size Changes',
-			'If checked, the game window will not change resolution to some specific songs.',
+			'If checked, the game window will change its resolution to some specific songs.',
 			'wideScreenSongs',
 			'bool',
-			true);
+			false);
 		addOption(option);
 
 		var option:Option = new Option('Controller Mode',
