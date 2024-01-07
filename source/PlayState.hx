@@ -6937,11 +6937,15 @@ class PlayState extends MusicBeatState
 		combo = 0;
 		health -= daNote.missHealth * healthLoss;
 
-		if(daNote.noteType == 'Tdl note'){
+		if(daNote.noteType == 'Tdl note')
+		{
 			FlxG.sound.play(Paths.sound("darkLordAttack"));
 
-			boyfriend.playAnim('hurt', true);
-			boyfriend.specialAnim = true;
+			if(boyfriend.animation.getByName('hurt') != null)
+			{
+				boyfriend.playAnim('hurt', true);
+				boyfriend.specialAnim = true;
+			}
 		}
 
 		if(instakillOnMiss)
@@ -6960,15 +6964,13 @@ class PlayState extends MusicBeatState
 		RecalculateRating(true);
 
 		var char:Character = boyfriend;
-		if(daNote.gfNote) {
+
+		if(daNote.gfNote)
 			char = gf;
-		}
-		if(daNote.tscNote) {
+		else if(daNote.tscNote)
 			char = bf2;
-		}
-		if(daNote.greenNote) {
+		else if(daNote.greenNote)
 			char = bf3;
-		}
 
 		if(char != null && (!daNote.noMissAnimation || char == bf2) && char.hasMissAnimations)
 		{
@@ -7141,7 +7143,7 @@ class PlayState extends MusicBeatState
 								boyfriend.specialAnim = true;
 							}
 
-						case 'Fire Note': //Hurt note
+						case 'Fire Note': //Fire note
 							if(boyfriend.animation.getByName('hurt') != null) {
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
@@ -7256,8 +7258,10 @@ class PlayState extends MusicBeatState
 				case 'Tdl note':
 					FlxG.sound.play(Paths.sound("darkLordAttack"));
 
-					boyfriend.playAnim('dodge', true);
-					boyfriend.specialAnim = true;
+					if(boyfriend.animation.getByName('dodge') != null) {
+						boyfriend.playAnim('dodge', true);
+						boyfriend.specialAnim = true;
+					}
 				case 'demonetization brah':
 					strikes++;
 
