@@ -8049,6 +8049,41 @@ class PlayState extends MusicBeatState
 					case 456:
 						FlxG.camera.fade(FlxColor.BLACK, 2, false);
 				}
+
+			case 'end process (reborn)':
+				switch(curBeat)
+				{
+					case 76:
+						defaultCamZoom += 0.3;
+
+					case 78 | 79:
+						defaultCamZoom -= 0.075;
+
+					case 80:
+						defaultCamZoom -= 0.15;
+						FlxG.camera.zoom = defaultCamZoom;
+
+						FlxG.camera.flash(FlxColor.WHITE, Conductor.crochet / 1000);
+
+					case 144:
+						defaultCamZoom += 0.2;
+
+						if(curStage == 'unfaith-BG')
+							colorTween([unfaithBG], Conductor.crochet / 1000 * 16, FlxColor.WHITE, 0xFF990404);
+
+					case 192:
+						defaultCamZoom += 0.2;
+
+					case 176:
+						defaultCamZoom -= 0.2;
+
+					case 208:
+						defaultCamZoom -= 0.2;
+
+						if(curStage == 'unfaith-BG')
+							colorTween([unfaithBG], Conductor.crochet / 1000 * 4, 0xFF990404, FlxColor.WHITE);
+				}
+
 			case 'proficiency':
 				switch(curBeat)
 				{
