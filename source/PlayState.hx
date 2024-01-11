@@ -3622,7 +3622,11 @@ class PlayState extends MusicBeatState
 
 	function colorTween(object:Array<FlxSprite>, duration:Float, colorToSayGoodbye:FlxColor, colorToSayHello:FlxColor)
 	{
-		for (i in 0...object.length) FlxTween.color(object[i], duration, colorToSayGoodbye, colorToSayHello);
+		for (i in 0...object.length) {
+			var newTweenColor = FlxTween.color(object[i], duration, colorToSayGoodbye, colorToSayHello);
+
+			stopTweens.push(newTweenColor);
+		}
 	}
 
 	function objectColor(object:Array<FlxSprite>, shitColor:FlxColor)
@@ -8068,7 +8072,7 @@ class PlayState extends MusicBeatState
 					case 144:
 						defaultCamZoom += 0.2;
 
-						if(curStage == 'unfaith-BG')
+						if(curStage == 'unfaith-BG') //unfaith bg is just a placeholer, basically the fucking uhhh unfaithful bg yeah
 							colorTween([unfaithBG], Conductor.crochet / 1000 * 16, FlxColor.WHITE, 0xFF990404);
 
 					case 192:
@@ -8082,6 +8086,37 @@ class PlayState extends MusicBeatState
 
 						if(curStage == 'unfaith-BG')
 							colorTween([unfaithBG], Conductor.crochet / 1000 * 4, 0xFF990404, FlxColor.WHITE);
+
+					case 336:
+						if(curStage == 'unfaith-BG')
+							colorTween([unfaithBG, unfaithBACK, unfaithFRONT], Conductor.crochet / 1000 * 16, FlxColor.WHITE, 0xFF2C2425);
+
+						var epRTween1:FlxTween = FlxTween.tween(this, {defaultCamZoom: defaultCamZoom + 0.4}, Conductor.crochet / 1000 * 16, {ease: FlxEase.linear});
+
+						stopTweens.push(epRTween1);
+					
+					case 368:
+						var epRTween2:FlxTween = FlxTween.tween(this, {defaultCamZoom: defaultCamZoom - 0.4}, Conductor.crochet / 1000, {ease: FlxEase.linear});
+
+						stopTweens.push(epRTween2);
+
+					case 384:
+						if(curStage == 'unfaith-BG')
+							colorTween([unfaithBG, unfaithBACK, unfaithFRONT], Conductor.crochet / 1000 * 12, 0xFF2C2425, FlxColor.WHITE);
+
+					case 398:
+						if(curStage == 'unfaith-BG')
+							colorTween([unfaithBG, unfaithBACK, unfaithFRONT], Conductor.crochet / 1000 * 1.5, FlxColor.WHITE, 0xFF2C2425);
+
+						var epRTween3:FlxTween = FlxTween.tween(this, {defaultCamZoom: defaultCamZoom + 0.4}, Conductor.crochet / 1000 * 16, {ease: FlxEase.linear});
+
+						stopTweens.push(epRTween3);
+
+					case 400:
+						if(curStage == 'unfaith-BG')
+							colorTween([unfaithBG, unfaithBACK, unfaithFRONT], Conductor.crochet / 1000 * 8, 0xFF2C2425, FlxColor.WHITE);
+
+						defaultCamZoom -= 0.4;
 				}
 
 			case 'proficiency':
