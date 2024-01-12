@@ -90,7 +90,7 @@ class FreeplayState extends MusicBeatState
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 
-	public static var minimizeWindowArray:Array<String> = ['dashpulse', 'messenger', 'rombie'];
+	public static var minimizeWindowArray:Array<String> = ['dashpulse', 'messenger', 'rombie', 'powerup'];
 
 	public function new (?newWeeks:Null<Array<String>>) //code is from w.i. btw
 	{

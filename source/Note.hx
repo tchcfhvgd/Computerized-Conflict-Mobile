@@ -135,6 +135,8 @@ class Note extends FlxColorSwapSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 'Guitar Hero':
+					reloadNote('GH');
 				case 'Hurt Note':
 					ignoreNote = mustPress;
 					reloadNote('HURT');

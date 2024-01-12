@@ -358,6 +358,8 @@ class PlayState extends MusicBeatState
 	//end
 
 	//week 2:
+	    //general:
+		    var sofa:BGSprite;
 	    //proficiency:
 		    var altAnimation2 = false;
 	//end
@@ -425,6 +427,7 @@ class PlayState extends MusicBeatState
 			public static var funnyArray:Array<Int>;
 			public static var ratingPercentTT:Float;
 			var textLyrics:FlxTypeText; //the dialog text
+			var blendImage:BGSprite;
 
 		//dashpulse:
 			var otakuBG:BGSprite;
@@ -1116,16 +1119,24 @@ class PlayState extends MusicBeatState
 					particleEmitter.color.set(FlxColor.WHITE, FlxColor.WHITE);
 					add(particleEmitter);
 
+					googleBurn = new FlxSprite(1280, 85);
+					googleBurn.frames = Paths.getSparrowAtlas('EProcess/GoogleBurning', 'chapter1');
+					googleBurn.animation.addByPrefix('idle', 'Symbol 2 instance 10', 16, true);
+					googleBurn.animation.play('idle');
+					add(googleBurn);
+
 					daFloor = new BGSprite('floor', -80, -1800, 1, 1);
 					daFloor.screenCenter();
 					daFloor.y += 710;
 					daFloor.x += 2300;
 					add(daFloor);
 
+					sofa = new BGSprite('couch_' + SONG.player2, 1000, 480, 1, 1, ['couch beat0'], true);
+					sofa.setGraphicSize(Std.int(sofa.width * 1.1));
+
 					veryEpicVignette = new BGSprite('proficiency/proficiencyOverlay1', 0, 0, 1, 1);
 					veryEpicVignette.screenCenter();
 					veryEpicVignette.updateHitbox();
-					veryEpicVignette.alpha = 0;
 					veryEpicVignette.cameras = [camBars];
 					add(veryEpicVignette);
 
@@ -1148,6 +1159,22 @@ class PlayState extends MusicBeatState
 					redthing.cameras = [camBars];
 					redthing.alpha = 0.0001;
 					add(redthing);
+
+					twitterBurn = new FlxSprite(2850, 500);
+					twitterBurn.frames = Paths.getSparrowAtlas('EProcess/TwitterBurning', 'chapter1');
+					twitterBurn.animation.addByPrefix('idle', 'Symbol 4 instance 10', 16, true);
+					twitterBurn.animation.play('idle');
+					twitterBurn.scale.set(1.2, 1.2);
+					twitterBurn.scrollFactor.set(1.3, 1.3);
+					twitterBurn.angle = -20;
+
+					newgroundsBurn = new FlxSprite(-485,230);
+					newgroundsBurn.frames = Paths.getSparrowAtlas('EProcess/NewgroundsBurning', 'chapter1');
+					newgroundsBurn.animation.addByPrefix('idle', 'Symbol 3 instance 10', 16, true);
+					newgroundsBurn.animation.play('idle');
+					newgroundsBurn.scale.set(1.2, 1.2);
+					newgroundsBurn.scrollFactor.set(1.3, 1.3);
+					newgroundsBurn.angle = 40;
 
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
@@ -1950,6 +1977,10 @@ class PlayState extends MusicBeatState
 					add(whiteScreen);
 					whiteScreen.cameras = [camHUD];
 
+					blendImage = new BGSprite('time-travel/screen', 0, 0, 0, 0);
+					blendImage.screenCenter();
+					blendImage.blend = HARDLIGHT;
+
 					var soundCaryArray:Array<String> = 
 					#if !web
 					FileSystem.readDirectory('assets/sounds/carykh/');
@@ -2132,6 +2163,29 @@ class PlayState extends MusicBeatState
 					FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				}
 
+			case 'Voltagen':
+				{
+					var bg:BGSprite = new BGSprite('voltagen/electric', -500, -150, 1, 1);
+					//bg.screenCenter();
+					bg.setGraphicSize(Std.int(bg.width * 1.1));
+					bg.updateHitbox();
+					add(bg);
+
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camBars];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					add(topBarsALT);
+			
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camBars];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					add(bottomBarsALT);
+
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0010));
+				}
+
 			case 'World 1':
 				{
 					fancyBG = new BGSprite('world1/fancy_bg', 0, 0, 0.35, 0.35);
@@ -2178,6 +2232,29 @@ class PlayState extends MusicBeatState
 						FlxG.camera.fade(FlxColor.BLACK, 0, false);
 						camHUD.alpha = 0.00001;
 					}
+				}
+
+			case 'Overworld':
+				{
+					var bg:BGSprite = new BGSprite('powerup/smb_bg', 0, 0, 1, 1);
+					add(bg);
+
+					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					topBarsALT.cameras = [camBars];
+					topBarsALT.screenCenter();
+					topBarsALT.y -= 450;
+					if (ClientPrefs.wideScreenSongs) add(topBarsALT);
+			
+					bottomBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
+					bottomBarsALT.cameras = [camBars];
+					bottomBarsALT.screenCenter();
+					bottomBarsALT.y += 450;
+					if (ClientPrefs.wideScreenSongs) add(bottomBarsALT);
+					
+					if (!ClientPrefs.wideScreenSongs)  oldVideoResolution = true;
+					leftSide = true;
+
+					if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new CRTShader())]);
 				}
 
 			case 'flashBG': //showdown collab
@@ -2458,6 +2535,8 @@ class PlayState extends MusicBeatState
 						add(bsodStatic);
 						add(rsod);
 				}
+			case 'desktop':
+				if(sofa != null) add(sofa);
 			case 'alan-pc-virabot':
 				add(scroll);
 				add(viraScroll);
@@ -2493,12 +2572,18 @@ class PlayState extends MusicBeatState
 					case 'end process':
 						//add(shine);
 				}
+			case 'desktop':
+				add(newgroundsBurn);
+				add(twitterBurn);
 			case 'unfaith-BG':
 				if (!ClientPrefs.lowQuality) add(unfaithFRONT);
 				add(overlayUnfaith);
 
 			case 'kickstarter':
 				add(overlayKick);
+
+			case 'carykh':
+				add(blendImage);
 
 			case 'cubify-stage':
 				add(overlayCubify);
@@ -2638,6 +2723,8 @@ class PlayState extends MusicBeatState
 			case 'bbpanzu-stage':
 				otakuBG.color = 0xFF191919;
 				gf.color = 0xFF191919;
+			case 'Overworld':
+				boyfriendGroup.scale.set(0.6, 0.6);
 		}
 
 		Conductor.songPosition = -5000 / Conductor.songPosition;
@@ -4491,8 +4578,9 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 		{
-			case 'proficiency':
+			case 'proficiency' | 'stick em up' | 'artistry' | 'morality':
 				camBars.fade(FlxColor.BLACK, 0, true);
+				camHUD.alpha = 1;
 			case 'trojan':
 				camGame.alpha = 1;
 				filter.alpha = 1;
@@ -4618,6 +4706,18 @@ class PlayState extends MusicBeatState
 				}
 
 				var oldNote:Note = null;
+
+				var noteBeat = Conductor.getBeat(daStrumTime);
+
+				if (songNotes[3] == null || songNotes[3] == '' || songNotes[3].length == 0)
+				{
+					switch(SONG.song.toLowerCase())
+					{
+						case 'masterpiece':
+							if(noteBeat >= 800)
+								songNotes[3] = 'Guitar Hero';
+					}
+				}
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.mustPress = gottaHitNote;
@@ -5929,6 +6029,9 @@ class PlayState extends MusicBeatState
 				} else {
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
+
+			case '':
+				
 
 			case 'Popup':
 				if (popUp != null) return;
@@ -7468,23 +7571,10 @@ class PlayState extends MusicBeatState
 						spotlightdad.alpha = 0.7;
 						spotlightbf.alpha = 0.7;
 					case 256:
-						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
-
-						if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(new BloomShader())]);
-						
 						Crowd.color = 0xFFFFFFFF;
 						gf.color = 0xFFFFFFFF;
-						if (ClientPrefs.shaders)
-						{
-							Background1.color = 0xFFbababa;
-						    whiteScreen.color = 0xFFbababa;
-						}
-						else
-						{
-							Background1.color = 0xFFFFFFFF;
-						    whiteScreen.color = 0xFFFFFFFF;
-						}
-
+						Background1.color = 0xFFFFFFFF;
+						whiteScreen.color = 0xFFFFFFFF;
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						spotlightdad.alpha = 0;
 						spotlightbf.alpha = 0;
@@ -8080,6 +8170,33 @@ class PlayState extends MusicBeatState
 						glow.alpha = 1;
 						redthing.alpha = 1;
 						camChar.alpha = 1;
+				}
+			case 'masterpiece':
+				switch(curBeat)
+				{
+					case 4:
+						camBars.fade(FlxColor.BLACK, 3, true);
+					case 32:
+						FlxTween.tween(camHUD, {alpha:1}, 1);
+					case 383:
+						camHUD.fade(FlxColor.BLACK, 0.5, false);
+					case 416:
+						camHUD.fade(FlxColor.BLACK, 1, true);
+						scoreTxt.alpha = 0;
+						healthBar.alpha = 0;
+						healthBarBG.alpha = 0;
+						iconP1.alpha = 0;
+						iconP2.alpha = 0;
+					case 640:
+						opponentStrums.forEach(function(spr:StrumNote) {spr.alpha = 0;});
+						playerStrums.forEach(function(spr:StrumNote) {spr.alpha = 0;});
+					case 654:
+
+					case 798:
+
+					case 896:
+
+
 				}
 			case 'trojan':
 				switch(curBeat)

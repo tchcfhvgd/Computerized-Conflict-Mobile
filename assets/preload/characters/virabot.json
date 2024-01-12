@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-5,
 				-216
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "ViraUp"
+			"fps": 24,
+			"name": "ViraUp",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-25,
 				-209
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "ViraRight"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-5,
-				-214
-			],
-			"anim": "singLEFT",
 			"fps": 24,
-			"name": "ViraLeft",
+			"name": "ViraRight",
 			"indices": []
 		},
 		{
 			"offsets": [
-				2,
-				-213
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singDOWN",
-			"indices": [],
-			"name": "ViraDown"
-		},
-		{
-			"offsets": [
 				-5,
 				-214
 			],
 			"loop": false,
 			"fps": 24,
-			"anim": "idle",
+			"anim": "singLEFT",
 			"indices": [],
-			"name": "ViraIdle"
+			"name": "ViraLeft"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				2,
+				-213
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "ViraDown",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-5,
+				-214
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "ViraIdle",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -74,5 +74,5 @@
 		326
 	],
 	"sing_duration": 4,
-	"scale": 1.2
+	"scale": 1
 }
