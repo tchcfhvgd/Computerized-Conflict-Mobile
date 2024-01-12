@@ -5472,6 +5472,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		var mechanicsShit:Bool = CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics;
 		if (generatedMusic && !inCutscene)
 		{
 			notes.update(elapsed);
@@ -5608,7 +5609,7 @@ class PlayState extends MusicBeatState
 					if(daNote.noteType != '') //not normal notes
 					{
 						var exceptions:Array<String> = ['Hurt Note', 'Alt Animation', 'No Animation', 'GF Sing', 'Green Sing', 'TSC Sing']; //you add the notes that you don't want to be deleted here
-						if(CoolUtil.difficultyString() == 'HARD' && ClientPrefs.noMechanics && !exceptions.contains(daNote.noteType))
+						if(mechanicsShit && !exceptions.contains(daNote.noteType))
 						{
 							daNote.kill();
 							notes.remove(daNote, true);
