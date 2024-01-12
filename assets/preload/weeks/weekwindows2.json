@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["Infernal", "tdl", [146, 113, 253]],
+		["Conflict", "tco", [146, 113, 253]],
+		["Overseer", "tdl", [146, 113, 253]]
+	],
+
+	"weekCharacters": [
+		"",
+		"bf",
+		"gf"
+	],
+	"weekBackground": "animStage",
+
+	"storyName": "",
+	"weekBefore": "weekwindows",
+	"weekName": "Week Windows: The Sequel",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": true
+}

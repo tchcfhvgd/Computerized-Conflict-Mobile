@@ -1,116 +1,86 @@
-# Friday Night Funkin' - Computerized Conflict (APRIL FOOLS)
-Rap battle against The Chosen One and The Dark Lord in Friday Night Funkin'! along with other stick figures around the internet..
-
-Engine used: Psych Engine 0.6.3: https://github.com/ShadowMario/FNF-PsychEngine
-
-![logo](https://cdn.discordapp.com/attachments/812123319586521122/1053517548118868048/logo.png?width=921&height=701)
+# Friday Night Funkin' - Psych Engine
+Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 
 ## Installation:
-You must have [the most up-to-date version of Haxe](https://haxe.org/download/), and please use HaxeFlixel 5.0.2 please.
-
 Follow a Friday Night Funkin' source code compilation tutorial, after this you will need to install LuaJIT.
 
-To install LuaJIT do this: `haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit`  on a Command prompt/PowerShell
+You can do this with: `haxelib install linc_luajit` on a Command prompt/PowerShell
 
 ...Or if you don't want your mod to be able to run .lua scripts, delete the "LUA_ALLOWED" line on Project.xml
 
+## Credits:
+* Shadow Mario - Coding
+* RiverOaken - Arts and Animations
 
-If you get an error about StatePointer when using Lua, run `haxelib remove linc_luajit` into Command Prompt/PowerShell, then re-install linc_luajit.
-
-If you want video support on your mod, simply do `haxelib install hxCodec` on a Command prompt/PowerShell.
-
-otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
-
-To install the new DiscordRPC you need to type: `haxelib git discord_rpc https://github.com/YoshiCrafter29/LincDiscordRPCButtons` on a Command prompt/PowerShell, or else the mod will not compile.
-
-If you can't install the discord_rpc in that way, download this one: https://drive.google.com/file/d/1uybV4nLgIFv6j5dnl1yAV8sT7dc5Dfib/view
-
-After downloading it, go to `C:\HaxeToolkit\haxe\lib\` and extract the zip file.
-
-![thumbnail](https://cdn.discordapp.com/attachments/992852052017434707/1012226946408644618/Untitled1044_20220705141239.png?width=1286&height=730)
-
-## Dev. Team:
-* JetTRG - Director, Charter, Concept artist.
-* MijaeLio - Co-Director & Main Programmer.
-* Tiburones 202 - Programmer & Charter.
-* Ne_Eo - Programmer.
-* amaarzadjali - Musician.
-* Joa - Musician.
-* SharkFaceGaming - Musician.
-* JaceLOL - Musician.
-* TheNatz - Musician.
-* Prod.kxri - Musician.
-* Eclyptic - Musician.
-* Magbros - Musician.
-* Puppet Master - Musician.
-* DangDoodle - Musician.
-* Splat - Sprite Artist.
-* noogai9876 - Sprite Artist & Cutscene Maker (Adobe).
-* Plagee - Sprite Artist.
-* Dittosactualoreo - Background Artist.
-* Noddles - Background Artist.
-* UnnamedPersonXP - Concept Artist.
-* NizzyWitch - Portrait Artist.
-* NexusLoaf - Portrait Artist.
-* Hexal - Cutscene Maker (Outrage and End Process).
-* Xyriax - Extra Charter (Insane difficulty).
-* shammal - Extra Charter.
-* LeLazyOne - Video Editor & Animator
-
-* Wong Mau Catto - Emotional support for the whole dev team.
-_____________________________________
-
-## Contributers:
-* Scorpzie - Original vocals of "Adobe (Old)".
-* XG_Chris - Old Artist.
-* 03Cube - Virabot, fires and social media burning sprites.
-* Gojira Darko - Old scared BF sprite.
-* atpx8 - Helped on "End Process" popups mechanic.
-* Deltom - Composed "Trojan".
-* ROCKY - Composed "Dashpulse" vocals.
-* ProfessorBonnie - Composed "Time Travel".
-* DTunes- A composer of "Alan (Remake)".
-* Tentilog - 3D STICK Sprite.
-* Koi - Rombie BG Artist.
-* Blonic - Logo Artist.
-_____________________________________
-
-### Special Thanks:
-* Alan Becker - Creator of "Animator Vs. Animation".
-* JansenM - "3D STICK" creator.
-* Rob-D - Creator of "Joe Zombie".
-* Brad Borne - Creator of "Fancy Pants".
-* CaryKH - "Time Travel" video and voicelines.
-
-_____________________________________
-  
-* Biddle3 - Original composer of "Phantasm".
-* Armydillo - Original composer of "Aurora".
-* TzenNime - Cool BF sprite.
-* Yes, It's Bee - Minus TCO design.
-* Azel - Creator of "Friday Night Funkin: The Showdown" (Enmity collab).
-* YoshiCrafter29 - Modified Discord RPC.
-_____________________________________
-
-![cursor](https://cdn.discordapp.com/attachments/812123319586521122/1053523407511232573/cursor.png?width=300&height=300)
-
-
-
-## Psych Engine Team:
-* Shadow Mario - Programmer
-* RiverOaken - Artist
-* Yoshubs - Assistant Programmer
-
-### Psych Engine special thanks:
-* bbpanzu - Ex-Programmer
-* shubs - New Input System
-* SqirraRNG - Crash Handler and Base code for Chart Editor's Waveform
-* KadeDev - Fixed some cool stuff on Chart Editor and other PRs
-* iFlicky - Composer of Psync and Tea Time, also made the Dialogue Sounds
-* PolybiusProxy - .MP4 Video Loader Library (hxCodec)
+### Special Thanks
 * Keoiki - Note Splash Animations
-* Smokey - Sprite Atlas Support
-* Nebula the Zorua - LUA JIT Fork and some Lua reworks
+
+WARNING: This engine is still very early in development! You can request new features though
 _____________________________________
 
-![catto](https://cdn.discordapp.com/attachments/842824254889656320/990246620237017098/white_cat_ilysm.jpg?width=1080&height=1025)
+# Features
+
+## Attractive animated dialogue boxes:
+
+![](https://user-images.githubusercontent.com/44785097/127706669-71cd5cdb-5c2a-4ecc-871b-98a276ae8070.gif)
+
+
+## Atleast one change to every week:
+### Week 1:
+  * New Dad Left sing sprite 
+  * Unused stage lights are now used
+### Week 2:
+  * Both BF and Skid & Pump does "Hey!" animations
+  * Thunders does a quick light flash and zooms the camera in slightly
+  * Added a quick transition/cutscene to Monster
+### Week 3:
+  * BF does "Hey!" during Philly Nice
+  * Blammed has a cool new colors flash during that sick part of the song
+### Week 4:
+  * Better hair physics for Mom/Boyfriend (Maybe even slightly better than Week 7's :eyes:)
+  * Henchmen die during all songs. Yeah :(
+### Week 5:
+  * Bottom Boppers and GF does "Hey!" animations during Cocoa and Eggnog
+  * On Winter Horrorland, GF bops her head slower in some parts of the song.
+### Week 6:
+  * On Thorns, the HUD is hidden during the cutscene
+  * Also there's the Background girls being spooky during the "Hey!" parts of the Instrumental
+
+## Cool new Chart Editor changes and countless bug fixes
+![](https://i.imgur.com/h6Ja7eT.png)
+* You can now chart "Event" notes, which are bookmarks that trigger specific actions that usually were hardcoded on the vanilla version of the game.
+* Your song's BPM can now have decimal values
+* You can manually adjust a Note's strum time if you're really going for milisecond precision
+* You can change a note's type on the Editor, it comes with two example types:
+  * Alt Animation: Forces an alt animation to play, useful for songs like Ugh/Stress
+  * Hey: Forces a "Hey" animation instead of the base Sing animation, if Boyfriend hits this note, Girlfriend will do a "Hey!" too.
+
+## Improved Animation Debug menu (Press 8 in-game on a Debug build)
+![](https://user-images.githubusercontent.com/44785097/127721062-f912853c-2513-41b8-bd66-fd80d9d4ee0f.png)
+* You can now press Save Offsets to save a .txt file with the editted offsets
+* You can also now change the characters while on the Menu
+* Go back to the game by pressing Escape
+NOTE: This should be used for fixing your character floating or being slightly under the ground! It's not for texture editting.
+
+## Story mode menu rework:
+![](https://i.imgur.com/UB2EKpV.png)
+* Added a different BG to every song (less Tutorial)
+* All menu characters are now in individual spritesheets, makes modding it easier.
+
+## Credits menu
+![](https://i.imgur.com/NdIQt3d.png)
+* You can add a head icon, name, description and a Redirect link for when the player presses Enter while the item is currently selected.
+
+## Awards/Achievements
+* The engine comes with 16 example achievements that you can mess with and learn how it works (Check Achievements.hx and search for "checkForAchievement" on PlayState.hx)
+
+## Options menu:
+* You can change Note colors, Controls and Preferences there.
+ * On Preferences you can toggle Downscroll, Anti-Aliasing, Framerate, Low Quality, Note Splashes, Hide Hud elements, Flashing Lights, etc.
+
+## Other gameplay features:
+* When the enemy hits a note, it plays the note hit animation on their strum, just like when the player hits a note.
+* Lag doesn't impact the camera movement and player icon scaling anymore.
+* Some stuff based on Week 7's changes has been put in (Background colors on Freeplay, Note splashes)
+* You can reset your Score on Freeplay/Story Mode by pressing Reset button.
+* You can listen to a song on Freeplay by pressing Space once.

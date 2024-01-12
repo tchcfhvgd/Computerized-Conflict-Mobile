@@ -1,0 +1,32 @@
+{
+	"dialogue": [
+		{
+			"speed": 0.05,
+			"portrait": "tco_angry",
+			"boxState": "angry",
+			"expression": "talk",
+			"text": "they pibby-fied me dude"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf",
+			"boxState": "normal",
+			"expression": "shocked",
+			"text": "you aint supposed to talk yk that"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "tco_angry",
+			"boxState": "angry",
+			"expression": "talk",
+			"text": "SHUT THE FUCK UP YOU JUST FORGOT IM STILL ANGRY DUDE SUCK MY DICK"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "tco_angry",
+			"boxState": "angry",
+			"expression": "talk",
+			"text": "sorry bro im just letting my RAGE OUT of me"
+		}
+	]
+}
