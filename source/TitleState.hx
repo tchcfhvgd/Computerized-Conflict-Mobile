@@ -657,7 +657,7 @@ class TitleState extends MusicBeatState
 			case 0:
 				CoolUtil.browserLoad('https://gamebanana.com/mods/468922');
 			case 1:
-				CoolUtil.browserLoad('https://x.com/Vs_TheChosenOne');
+				CoolUtil.browserLoad('https://x.com/FNFCompConflict');
 			case 2:
 				CoolUtil.browserLoad('https://gamejolt.com/games/VsTheChosenOne/687592');
 		}
