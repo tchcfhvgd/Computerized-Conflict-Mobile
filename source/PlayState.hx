@@ -463,6 +463,9 @@ class PlayState extends MusicBeatState
 		    var bgGarden:BGSprite;
 			var fireCamera:FlxSprite;
 
+		//voltagen:
+		    var electricCountdown:BGSprite;
+
 		//tune in:
 			var bf2:Boyfriend = null;
 			var bf3:Boyfriend = null;
@@ -542,6 +545,8 @@ class PlayState extends MusicBeatState
 	public var laneunderlayOpponent:FlxSprite;
 
 	public static var amityChar:String;
+
+	var chromFloat:Float = 0;
 	
 	var gfMoment:Bool = MainMenuState.gfMoment;
 
@@ -1979,7 +1984,7 @@ class PlayState extends MusicBeatState
 
 					blendImage = new BGSprite('time-travel/screen', 0, 0, 0, 0);
 					blendImage.screenCenter();
-					blendImage.blend = HARDLIGHT;
+					blendImage.blend = SUBTRACT;
 
 					var soundCaryArray:Array<String> = 
 					#if !web
@@ -2183,7 +2188,13 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
 
-					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0010));
+					electricCountdown = new BGSprite('voltagen/countdown', 0, 0, 0, 0, ['Symbol 2519'], false);
+					electricCountdown.screenCenter();
+					add(electricCountdown);
+
+					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
+					new ChromaticAberrationEffect().setChrome(0.0010 + chromFloat);
+					skipCountdown = true;
 				}
 
 			case 'World 1':
@@ -5156,6 +5167,9 @@ class PlayState extends MusicBeatState
 				viraScroll.y -= 0.16 * 240 * elapsed;
 
 				waterShit([256, 318]);
+
+			case 'Voltagen':
+				if(electricCountdown.animation.curAnim.finished) electricCountdown.alpha = 0;
 		}
 
 		switch(curStage)
@@ -5551,6 +5565,9 @@ class PlayState extends MusicBeatState
 					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 					{
 						opponentNoteHit(daNote);
+
+						if(dad.curCharacter == 'electricman') chromFloat += chromFloat + 0.005 * elapsed;
+						trace(chromFloat);
 					}
 
 					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
