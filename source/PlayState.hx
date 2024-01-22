@@ -3230,6 +3230,9 @@ class PlayState extends MusicBeatState
 				for (i in 0...opponentStrums.length) opponentStrums.members[i].visible = false;
 				iconP2.visible = false;
 				dad.visible = false;
+
+			case 'powerup':
+				oldVideoResolution = true;
 		}
 
 		if (timeTraveled == true){
