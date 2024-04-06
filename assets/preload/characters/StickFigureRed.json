@@ -1,191 +1,191 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "red phase 1 idle"
+			"fps": 24,
+			"name": "red phase 1 idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				103,
 				6
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "red phase 1 left"
+			"fps": 24,
+			"name": "red phase 1 left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				2,
 				-109
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "red phase 1 down"
+			"fps": 24,
+			"name": "red phase 1 down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				29,
 				-49
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "red phase 1 right"
+			"fps": 24,
+			"name": "red phase 1 right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				56,
 				-1
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "red phase 1 up"
+			"fps": 24,
+			"name": "red phase 1 up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				244,
 				2
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "phase2Transition",
-			"indices": [],
-			"name": "red phase transition 1"
+			"fps": 24,
+			"name": "red phase transition 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				227,
-				-261
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				249,
+				-314
+			],
 			"anim": "idle-alt",
-			"indices": [],
-			"name": "red phase 2 idle"
+			"fps": 24,
+			"name": "red phase 2 idle",
+			"indices": []
 		},
 		{
-			"offsets": [
-				226,
-				-261
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				250,
+				-314
+			],
 			"anim": "singLEFT-alt",
-			"indices": [],
-			"name": "red phase 2 left"
+			"fps": 24,
+			"name": "red phase 2 left",
+			"indices": []
 		},
 		{
-			"offsets": [
-				223,
-				-261
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				244,
+				-315
+			],
 			"anim": "singDOWN-alt",
-			"indices": [],
-			"name": "red phase 2 down"
+			"fps": 24,
+			"name": "red phase 2 down",
+			"indices": []
 		},
 		{
-			"offsets": [
-				223,
-				-260
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				243,
+				-314
+			],
 			"anim": "singRIGHT-alt",
-			"indices": [],
-			"name": "red phase 2 right"
-		},
-		{
-			"offsets": [
-				223,
-				-209
-			],
-			"loop": false,
 			"fps": 24,
-			"anim": "singUP-alt",
-			"indices": [],
-			"name": "red phase 2 up"
+			"name": "red phase 2 right",
+			"indices": []
 		},
 		{
+			"loop": false,
+			"offsets": [
+				244,
+				-251
+			],
+			"anim": "singUP-alt",
+			"fps": 24,
+			"name": "red phase 2 up",
+			"indices": []
+		},
+		{
+			"loop": false,
 			"offsets": [
 				319,
 				3
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle-alt2",
-			"indices": [],
-			"name": "red phase 3 idle"
+			"fps": 24,
+			"name": "red phase 3 idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				849,
 				4
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT-alt2",
-			"indices": [],
-			"name": "red phase 3 left"
+			"fps": 24,
+			"name": "red phase 3 left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				337,
 				56
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN-alt2",
-			"indices": [],
-			"name": "red phase 3 down"
+			"fps": 24,
+			"name": "red phase 3 down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				312,
 				-4
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT-alt2",
-			"indices": [],
-			"name": "red phase 3 right"
+			"fps": 24,
+			"name": "red phase 3 right",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				370,
 				98
 			],
-			"anim": "phase3Transition",
+			"loop": false,
 			"fps": 24,
-			"name": "red phase transition 2",
-			"indices": []
+			"anim": "phase3Transition",
+			"indices": [],
+			"name": "red phase transition 2"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				418,
 				82
 			],
-			"anim": "singUP-alt2",
+			"loop": false,
 			"fps": 24,
-			"name": "red phase 3 up",
-			"indices": []
+			"anim": "singUP-alt2",
+			"indices": [],
+			"name": "red phase 3 up"
 		}
 	],
 	"no_antialiasing": false,

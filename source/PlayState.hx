@@ -88,6 +88,18 @@ import sys.io.File;
 #else import vlc.MP4Handler; #end
 #end
 
+//AWAY3D:
+import flx3D.Flx3DView;
+import away3d.lights.DirectionalLight;
+import away3d.materials.lightpickers.StaticLightPicker;
+import away3d.materials.methods.OutlineMethod;
+import away3d.animators.transitions.CrossfadeTransition;
+import away3d.events.AnimationStateEvent;
+import flx3D.Flx3DUtil;
+import away3d.core.base.Geometry;
+import flx3D.Flx3DCamera;
+import away3d.cameras.lenses.PerspectiveLens;
+
 using StringTools;
 
 class PlayState extends MusicBeatState
@@ -521,6 +533,9 @@ class PlayState extends MusicBeatState
 	//end
 
 	//Misc. things:
+
+	var view:Flx3DView;
+	var xOff:Float = 0;
 
 	var tweenZoomEvent:FlxTween;
 	var LightsColors:Array<FlxColor>; //for the vignette changing color
@@ -1104,7 +1119,7 @@ class PlayState extends MusicBeatState
 
 			case 'desktop': //ik this is messed up, its gonna change soon bcs this only has proficiency stuff
 				{
-					alanBG = new BGSprite('alan_desktop', -80, -1800, 1, 1);
+					alanBG = new BGSprite('alan_desktop', 'chapter2', -80, -1800, 1, 1);
 					alanBG.setGraphicSize(Std.int(alanBG.width * 5));
 					add(alanBG);
 
@@ -1130,14 +1145,14 @@ class PlayState extends MusicBeatState
 					googleBurn.animation.play('idle');
 					add(googleBurn);
 
-					daFloor = new BGSprite('floor', -80, -1800, 1, 1);
+					daFloor = new BGSprite('floor', 'chapter2', -80, -1800, 1, 1);
 					daFloor.screenCenter();
 					daFloor.y += 710;
 					daFloor.x += 2300;
 					add(daFloor);
 
-					sofa = new BGSprite('couch_' + SONG.player2, 1000, 480, 1, 1, ['couch beat0'], true);
-					sofa.setGraphicSize(Std.int(sofa.width * 1.1));
+					//sofa = new BGSprite('couch_' + SONG.player2, 1000, 480, 1, 1, ['couch beat0'], true);
+					//sofa.setGraphicSize(Std.int(sofa.width * 1.1));
 
 					veryEpicVignette = new BGSprite('proficiency/proficiencyOverlay1', 0, 0, 1, 1);
 					veryEpicVignette.screenCenter();
@@ -1181,6 +1196,11 @@ class PlayState extends MusicBeatState
 					newgroundsBurn.scrollFactor.set(1.3, 1.3);
 					newgroundsBurn.angle = 40;
 
+					shine = new BGSprite('world1/shine', 'extras', 0, 0, 1, 1);
+					shine.screenCenter();
+					shine.antialiasing = ClientPrefs.globalAntialiasing;
+					shine.updateHitbox();
+
 					topBarsALT = new FlxSpriteExtra().makeSolid(2580,320, FlxColor.BLACK);
 					topBarsALT.cameras = [camBars];
 					topBarsALT.screenCenter();
@@ -1192,6 +1212,12 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
+
+					//var ref:BGSprite = new BGSprite('ref', 0, 0, 1, 1);
+					//ref.alpha = 0.65;
+					//ref.cameras = [camBars];
+					//ref.screenCenter();
+					//add(ref);
 
 					needsBlackBG = true;
 
@@ -1984,7 +2010,7 @@ class PlayState extends MusicBeatState
 
 					blendImage = new BGSprite('time-travel/screen', 0, 0, 0, 0);
 					blendImage.screenCenter();
-					blendImage.blend = SUBTRACT;
+					blendImage.shader = new BlendShader();
 
 					var soundCaryArray:Array<String> = 
 					#if !web
@@ -2450,9 +2476,6 @@ class PlayState extends MusicBeatState
 					bottomBarsALT.screenCenter();
 					bottomBarsALT.y += 450;
 					add(bottomBarsALT);
-
-					camHUD.alpha = 0;
-					FlxG.camera.fade(FlxColor.BLACK, 0, false);
 				}
 
 			case 'animStage-old': //Old Stage
@@ -2504,6 +2527,22 @@ class PlayState extends MusicBeatState
 
 					add(rsod);
 				}
+			case '3D Test':
+				{
+					var testbg:FlxSprite = new FlxSprite(-800, -200);
+					testbg.makeGraphic(5000, 5000, 0xFF176BFF);
+
+					Flx3DUtil.is3DAvailable();
+					view = new Flx3DView(0, 0, FlxG.width * 1, FlxG.height * 1);
+					view.screenCenter();
+					view.scrollFactor.set();
+					view.antialiasing = true;
+					view.view.camera.lens.far = 100000000;
+
+					insert(members.indexOf(view), testbg);
+
+					//Flx3DView.addModel();
+				}
 		}
 
 		if (leftSide) {
@@ -2547,7 +2586,7 @@ class PlayState extends MusicBeatState
 						add(rsod);
 				}
 			case 'desktop':
-				if(sofa != null) add(sofa);
+				//if(sofa != null) add(sofa);
 			case 'alan-pc-virabot':
 				add(scroll);
 				add(viraScroll);
@@ -2586,6 +2625,7 @@ class PlayState extends MusicBeatState
 			case 'desktop':
 				add(newgroundsBurn);
 				add(twitterBurn);
+				add(shine);
 			case 'unfaith-BG':
 				if (!ClientPrefs.lowQuality) add(unfaithFRONT);
 				add(overlayUnfaith);
@@ -4732,8 +4772,8 @@ class PlayState extends MusicBeatState
 					switch(SONG.song.toLowerCase())
 					{
 						case 'masterpiece':
-							if(noteBeat >= 800)
-								songNotes[3] = 'Guitar Hero';
+							//if(noteBeat >= 800)
+								//songNotes[3] = 'Guitar Hero';
 					}
 				}
 
@@ -5050,6 +5090,8 @@ class PlayState extends MusicBeatState
 
 			if (popUpTimer != null) popUpTimer.active = true;
 
+			if(curStage == '3D Test') view.dirty3D = true;
+
 
 			paused = false;
 			if (videoTI != null) videoTI.resume();
@@ -5173,6 +5215,11 @@ class PlayState extends MusicBeatState
 
 			case 'Voltagen':
 				if(electricCountdown.animation.curAnim.finished) electricCountdown.alpha = 0;
+			case '3D Test':
+				xOff = -200 - FlxG.camera.scroll.x;
+				view.view.camera.x = FlxG.camera.scroll.x + 300;
+				view.view.camera.y = -FlxG.camera.scroll.y + 100;
+				view.view.camera.z = -1300 + (FlxG.camera.zoom * 500);
 		}
 
 		switch(curStage)
@@ -5707,6 +5754,8 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
+
+		if(curStage == '3D Test') view.dirty3D = false;
 
 		if(FlxG.sound.music != null) {
 			FlxG.sound.music.pause();
@@ -7657,27 +7706,27 @@ class PlayState extends MusicBeatState
 					case 192:
 						if(popupsExplanation != null) FlxTween.tween(popupsExplanation, {alpha: 0}, 1);
 						FlxG.camera.fade(FlxColor.BLACK, 1, true);
-					case 833:
+					case 1344:
 						FlxTween.tween(redthing, {alpha: 0}, 0.4);
 						showUpCorruptBackground(true);
 						dad.color = 0xFF7A006A;
 						boyfriendGroup.color = 0xFF7B6CAD;
-					case 1025:
+					case 1536:
 						endProcessBSODS(true, 1);
 						FlxTween.color(dad, 1, 0xFF7A006A, FlxColor.WHITE);
 						FlxTween.color(boyfriendGroup, 1, 0xFF7B6CAD, FlxColor.WHITE);
-					case 1050:
+					case 1580:
 						showUpCorruptBackground(false);
-					case 1086:
+					case 1600:
 						endProcessBSODS(false, 1);
 						FlxTween.tween(redthing, {alpha: 1}, 0.8);
-					case 1328:
+					/*case 1328:
 						constantShake = true;
 					case 1344:
 						endProcessBSODS(true, 2);
 					case 1470:
 						endProcessBSODS(false, 2);
-						constantShake = false;
+						constantShake = false;*/
 				}
 
 			case 'time travel':
@@ -8127,6 +8176,42 @@ class PlayState extends MusicBeatState
 			case 'end process':
 				switch(curBeat)
 				{
+					case 76:
+						defaultCamZoom += 0.3;
+
+					case 78 | 79:
+						defaultCamZoom -= 0.075;
+
+					case 80:
+						defaultCamZoom -= 0.15;
+						FlxG.camera.zoom = defaultCamZoom;
+
+						FlxG.camera.flash(FlxColor.WHITE, Conductor.crochet / 1000);
+
+					case 144:
+						defaultCamZoom += 0.2;
+					case 192:
+						defaultCamZoom += 0.2;
+
+					case 176:
+						defaultCamZoom -= 0.2;
+
+					case 208:
+						defaultCamZoom -= 0.2;
+
+					case 336:
+						var epRTween1:FlxTween = FlxTween.tween(this, {defaultCamZoom: defaultCamZoom + 0.4}, Conductor.crochet / 1000 * 16, {ease: FlxEase.linear});
+						stopTweens.push(epRTween1);
+					case 368:
+						var epRTween2:FlxTween = FlxTween.tween(this, {defaultCamZoom: defaultCamZoom - 0.4}, Conductor.crochet / 1000, {ease: FlxEase.linear});
+
+						stopTweens.push(epRTween2);
+					case 398:
+						var epRTween3:FlxTween = FlxTween.tween(this, {defaultCamZoom: defaultCamZoom + 0.4}, Conductor.crochet / 1000 * 16, {ease: FlxEase.linear});
+						stopTweens.push(epRTween3);
+
+					case 400:
+						defaultCamZoom -= 0.4;
 					case 80:
 						FlxTween.tween(redthing, {alpha: 1}, 0.6);
 
@@ -8140,29 +8225,32 @@ class PlayState extends MusicBeatState
 							stopTweens.push(epTween2);
 							stopTweens.push(epTween3);
 						}
-
-					case 140:
-						//FlxG.sound.play(Paths.sound('intro3'), 0.6);
-					case 141:
-					//	ready();
-					case 142:
-					//	set();
-					case 143:
-					//	go();
+					case 460:
+						FlxG.sound.play(Paths.sound('intro3'), 0.8);
+					case 461:
+						FlxG.sound.play(Paths.sound('intro2'), 0.8);
+					case 462:
+						FlxG.sound.play(Paths.sound('intro1'), 0.8);
+					case 463:
+						FlxG.sound.play(Paths.sound('introGo'), 0.8);
+					case 464:
+						FlxG.camera.setFilters([new ShaderFilter(fishEyeshader)]);
+	
+						fishEyeshader.MAX_POWER.value = [0.10];
 					/*case 400:
 						generateStaticArrows(0);
 						generateStaticArrows(1);
 						skipArrowStartTween = true;*/
 					case 416:
-						FlxTween.tween(redthing, {alpha: 0}, 2);
-					case 448:
+						//FlxTween.tween(redthing, {alpha: 0}, 2);
+					/*case 448:
 						camFollow.x = 750;
 						camFollow.y = 350;
 						isCameraOnForcedPos = true;
 						defaultCamZoom = 0.6;
 						FlxTween.tween(camHUD, {alpha:0}, 1);
 					case 456:
-						FlxG.camera.fade(FlxColor.BLACK, 2, false);
+						FlxG.camera.fade(FlxColor.BLACK, 2, false);*/
 				}
 
 			case 'end process (reborn)':
@@ -8820,39 +8908,6 @@ class PlayState extends MusicBeatState
 			case 'catto':
 				switch(curBeat)
 				{
-					case 1:
-						dad.alpha = 0;
-					case 55:
-						FlxG.camera.fade(FlxColor.BLACK, 3, true);
-					case 88:
-						FlxTween.tween(dad, {alpha:1}, 1.5);
-					case 96:
-						FlxTween.tween(camHUD, {alpha:1}, 1);
-					case 128:
-						remove(bgStage);
-						bgStage.destroy();
-
-						remove(stageFront);
-						stageFront.destroy();
-
-						if(!ClientPrefs.lowQuality) 
-						{
-							remove(stageLight1);
-							stageLight1.destroy();
-
-							remove(stageLight2);
-							stageLight2.destroy();
-
-							remove(stageCurtains);
-							stageCurtains.destroy();
-						}
-						//.destroy();
-						cattoBG.alpha = 1;
-					case 156:
-						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:ClientPrefs.middleScroll ? 0 : 1}, 1));
-
-					case 160:
-						opponentStrums.forEach(function(spr:StrumNote) FlxTween.tween(spr, {alpha:ClientPrefs.middleScroll ? 0 : 1}, 1));
 				}
 			case 'kickstarter':
 				switch(curBeat)

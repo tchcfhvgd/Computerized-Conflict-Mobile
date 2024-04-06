@@ -1,13 +1,9 @@
-MIJAE OR TIBURONES:
+MIJAE & TIBURONES & NE_EO TODO LIST:
 
-(STUFF THAT MAYBE U SHOULD DO IF POSSIBLE)
-{
-   - making freeplay, extra folder and       alan song the only accessible things
-   when you unlock alan. -La verdad, prefiero que se vea todo un poco más oscuro y que no se bloquee, está eso bien?
-  ok
-  la verdad no me apetece nada hacer esto, mejor lo dejo para el hotfix igual si lo hacemos
+- Make 3D stages to work (I left a Bombomb Battlefield awd in the files to test with it.
+And idk I stole some of Codename engine code for it but if you guys want you can change it.)
 
- ta bien
-}
+- reading and comprehending every bit of code from voiid chronicles since the source code has been released
+//Tiburones what is that
 
-reading and comprehending every bit of code from voiid chronicles since the source code has been released
+- 
