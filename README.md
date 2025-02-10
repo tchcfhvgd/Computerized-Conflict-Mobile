@@ -1,4 +1,5 @@
 # Friday Night Funkin' - Computerized Conflict
+Thank you for following the mod.
 Rap battle against The Chosen One and The Dark Lord in Friday Night Funkin'! along with other stick figures around the internet..
 
 Engine used: Psych Engine 0.6.3: https://github.com/ShadowMario/FNF-PsychEngine
