@@ -422,7 +422,6 @@ class PlayState extends MusicBeatState
 		//dashpulse:
 			var otakuBG:BGSprite;
 			public var multiplierDrain:Float = 1; //health drain in that one part yeah
-			public var NTSCshader:Shaders.NTSCEffect = new NTSCEffect(); //fuck
 
 		//kickstarter:
 			var bgKickstarter:BGSprite; //changed it to here becuse it gets dark later or something
