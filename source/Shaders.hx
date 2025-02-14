@@ -52,12 +52,12 @@ void main()
 class SaturationShader extends FlxShader
 {
 	@:glFragmentSource('
-	#pragma header
+    #pragma header
 
-uniform float brightness = 1;
-uniform float saturation = 1;
-uniform float AAA = 1;
-uniform float BBB = 1;
+uniform float brightness;
+uniform float saturation;
+uniform float AAA;
+uniform float BBB;
 
 void main() {
     vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
@@ -67,7 +67,7 @@ void main() {
     color.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
 
     gl_FragColor = color;
-}  ')
+} ')
 public function new()
 {
   super();
@@ -78,12 +78,10 @@ class BlendShader extends FlxShader
 {
 	@:glFragmentSource('
 
-	#pragma header
+    #pragma header
 
 	//https://www.shadertoy.com/view/Md3GzX
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define iChannel1 bitmap
@@ -93,7 +91,7 @@ class BlendShader extends FlxShader
 	#define mainImage main
 	
 	
-	uniform int blendMode = 2;
+	uniform int blendMode;
 	
 	
 	vec3 multiply(in vec3 src, in vec3 dst)
@@ -321,7 +319,9 @@ class BlendShader extends FlxShader
 	
 	void main()
 	{
-		vec2 uv = fragCoord.xy / iResolution.xy;
+	    vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 		
 		// Blending
 		int mode = int(texture(iChannel0, vec2(0.0, 0.0)).x);
@@ -344,10 +344,8 @@ class ShaderForTest extends FlxShader
 
 	@:glFragmentSource('
 
-	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+    #pragma header
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define texture flixel_texture2D
@@ -387,7 +385,9 @@ class ShaderForTest extends FlxShader
 	
 	void main()
 	{
-		vec2 uv = fragCoord.xy / iResolution.xy;
+	    vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 		uv.y = 1.0 - uv.y; // flip tex
 		vec2 crtCoords = crt(uv, 3.2);
 
@@ -417,10 +417,8 @@ class FishEyeShader extends FlxShader
 {
 	@:glFragmentSource('
 
-	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+    #pragma header
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define texture flixel_texture2D
@@ -432,6 +430,8 @@ class FishEyeShader extends FlxShader
 	//Inspired by http://stackoverflow.com/questions/6030814/add-fisheye-effect-to-images-at-runtime-using-opengl-es
 	void main()//Drag mouse over rendering area
 	{
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 		vec2 p = (openfl_TextureCoordv * openfl_TextureSize.xy) / openfl_TextureSize.x;//normalized coords with some cheat
 																 //(assume 1:1 prop)
 		float prop = openfl_TextureSize.x / openfl_TextureSize.y;//screen proroption
@@ -475,11 +475,9 @@ class FishEyeShader extends FlxShader
 
 class PincushionShader extends FlxShader
 {
-	@:glFragmentSource('
-#pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+	@:glFragmentSource('   
+	#pragma header
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -490,6 +488,8 @@ uniform float iTime;
 
 void main()
 {
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 	vec2 uv = fragCoord.xy*2. / iResolution.xy-vec2(1.);
 
 	//------------------------------------------------
@@ -529,13 +529,12 @@ class JpegShader extends FlxShader
 {
 @:glFragmentSource('
 #pragma header
-vec2 uvv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define m 2.*asin(1.)
 #define a(x) (x!=0.?1.:1./sqrt(2.))
+vec2 iResolution;
 
 uniform float ycmpr;
 
@@ -666,6 +665,9 @@ vec3 IDCT8x8( vec2 coord, vec2 z ) {
 
 void main()
 {
+    vec2 uvv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+iResolution = openfl_TextureSize;
     vec2 uv = floor(fragCoord-8.*floor(fragCoord/8.));
     gl_FragColor.rgb = toRGB(IDCT8x8(8.*floor(fragCoord/8.),uv)/256.+.5);
     gl_FragColor.a = flixel_texture2D(bitmap, uvv).a;
@@ -681,360 +683,10 @@ public function new()
 
 }
 
-class NTSCShader extends FlxShader
-{
-	@:glFragmentSource('
-#pragma header
-
-#pragma format R8G8B8A8_SRGB
-
-#define NTSC_CRT_GAMMA 2.5
-#define NTSC_MONITOR_GAMMA 2.0
-
-#define TWO_PHASE
-#define COMPOSITE
-//#define THREE_PHASE
-// #define SVIDEO
-
-// begin params
-#define PI 3.14159265
-
-#if defined(TWO_PHASE)
-	#define CHROMA_MOD_FREQ (4.0 * PI / 15.0)
-#elif defined(THREE_PHASE)
-	#define CHROMA_MOD_FREQ (PI / 3.0)
-#endif
-
-#if defined(COMPOSITE)
-	#define SATURATION 1.0
-	#define BRIGHTNESS 1.0
-	#define ARTIFACTING 1.0
-	#define FRINGING 1.0
-#elif defined(SVIDEO)
-	#define SATURATION 1.0
-	#define BRIGHTNESS 1.0
-	#define ARTIFACTING 0.0
-	#define FRINGING 0.0
-#endif
-// end params
-
-uniform int uFrame;
-uniform float uInterlace;
-
-// fragment compatibility #defines
-
-#if defined(COMPOSITE) || defined(SVIDEO)
-mat3 mix_mat = mat3(
-	BRIGHTNESS, FRINGING, FRINGING,
-	ARTIFACTING, 2.0 * SATURATION, 0.0,
-	ARTIFACTING, 0.0, 2.0 * SATURATION
-);
-#endif
-
-// begin ntsc-rgbyuv
-const mat3 yiq2rgb_mat = mat3(
-	1.0, 0.956, 0.6210,
-	1.0, -0.2720, -0.6474,
-	1.0, -1.1060, 1.7046);
-
-vec3 yiq2rgb(vec3 yiq)
-{
-	return yiq * yiq2rgb_mat;
-}
-
-const mat3 yiq_mat = mat3(
-	0.2989, 0.5870, 0.1140,
-	0.5959, -0.2744, -0.3216,
-	0.2115, -0.5229, 0.3114
-);
-
-vec3 rgb2yiq(vec3 col)
-{
-	return col * yiq_mat;
-}
-// end ntsc-rgbyuv
-
-#define TAPS 32
-const float luma_filter[TAPS + 1] = float[TAPS + 1](
-	-0.000174844,
-	-0.000205844,
-	-0.000149453,
-	-0.000051693,
-	0.000000000,
-	-0.000066171,
-	-0.000245058,
-	-0.000432928,
-	-0.000472644,
-	-0.000252236,
-	0.000198929,
-	0.000687058,
-	0.000944112,
-	0.000803467,
-	0.000363199,
-	0.000013422,
-	0.000253402,
-	0.001339461,
-	0.002932972,
-	0.003983485,
-	0.003026683,
-	-0.001102056,
-	-0.008373026,
-	-0.016897700,
-	-0.022914480,
-	-0.021642347,
-	-0.008863273,
-	0.017271957,
-	0.054921920,
-	0.098342579,
-	0.139044281,
-	0.168055832,
-	0.178571429);
-
-const float chroma_filter[TAPS + 1] = float[TAPS + 1](
-	0.001384762,
-	0.001678312,
-	0.002021715,
-	0.002420562,
-	0.002880460,
-	0.003406879,
-	0.004004985,
-	0.004679445,
-	0.005434218,
-	0.006272332,
-	0.007195654,
-	0.008204665,
-	0.009298238,
-	0.010473450,
-	0.011725413,
-	0.013047155,
-	0.014429548,
-	0.015861306,
-	0.017329037,
-	0.018817382,
-	0.020309220,
-	0.021785952,
-	0.023227857,
-	0.024614500,
-	0.025925203,
-	0.027139546,
-	0.028237893,
-	0.029201910,
-	0.030015081,
-	0.030663170,
-	0.031134640,
-	0.031420995,
-	0.031517031);
-
-// #define fetch_offset(offset, one_x) \\
-// 	pass1(uv - vec2(0.5 / openfl_TextureSize.x, 0.0) + vec2((offset) * (one_x), 0.0)).xyzw
-
-#define fetch_offset(offset, one_x) \\
-	pass1(uv + vec2((offset - 0.5) * one_x, 0.0)).xyzw
-
-vec4 pass1(vec2 uv)
-{
-	vec2 fragCoord = uv * openfl_TextureSize;
-
-	vec4 cola = texture2D(bitmap, uv).rgba;
-	vec3 yiq = rgb2yiq(cola.rgb);
-
-	#if defined(TWO_PHASE)
-		float chroma_phase = PI * (mod(fragCoord.y, 2.0) + float(uFrame));
-	#elif defined(THREE_PHASE)
-		float chroma_phase = 0.6667 * PI * (mod(fragCoord.y, 3.0) + float(uFrame));
-	#endif
-
-	float mod_phase = chroma_phase + fragCoord.x * CHROMA_MOD_FREQ;
-
-	float i_mod = cos(mod_phase);
-	float q_mod = sin(mod_phase);
-
-	if(uInterlace == 1.0) {
-		yiq.yz *= vec2(i_mod, q_mod); // Modulate.
-		yiq *= mix_mat; // Cross-talk.
-		yiq.yz *= vec2(i_mod, q_mod); // Demodulate.
-	}
-	return vec4(yiq, cola.a);
-}
-
-void main()
-{
-	vec2 uv = openfl_TextureCoordv;
-	vec2 fragCoord = uv * openfl_TextureSize;
-
-	float one_x = 1.0 / openfl_TextureSize.x;
-	vec4 signal = vec4(0.0);
-
-	for (int i = 0; i < TAPS; i++)
-	{
-		float offset = float(i);
-
-		vec4 sums = fetch_offset(offset - float(TAPS), one_x) +
-			fetch_offset(float(TAPS) - offset, one_x);
-
-		signal += sums * vec4(luma_filter[i], chroma_filter[i], chroma_filter[i], 1.0);
-	}
-	signal += pass1(uv - vec2(0.5 / openfl_TextureSize.x, 0.0)).xyzw *
-		vec4(luma_filter[TAPS], chroma_filter[TAPS], chroma_filter[TAPS], 1.0);
-
-	vec3 rgb = yiq2rgb(signal.xyz);
-	float alpha = signal.a/(TAPS+1);
-	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), alpha);
-	gl_FragColor = color;
-}
-')
-
-	var topPrefix:String = "";
-
-	public function new() {
-		topPrefix = "#version 120\n\n";
-		__glSourceDirty = true;
-
-		super();
-
-		this.uFrame.value = [0];
-		this.uInterlace.value = [1];
-	}
-
-	public var interlace(get, set):Bool;
-
-	function get_interlace() {
-		return this.uInterlace.value[0] == 1.0;
-	}
-	function set_interlace(val:Bool) {
-		this.uInterlace.value[0] = val ? 1.0 : 0.0;
-		return val;
-	}
-
-	override function __updateGL() {
-		//this.uFrame.value[0]++;
-		this.uFrame.value[0] = (this.uFrame.value[0] + 1) % 2;
-
-		super.__updateGL();
-	}
-
-	@:noCompletion private override function __initGL():Void
-	{
-		if (__glSourceDirty || __paramBool == null)
-		{
-			__glSourceDirty = false;
-			program = null;
-
-			__inputBitmapData = new Array();
-			__paramBool = new Array();
-			__paramFloat = new Array();
-			__paramInt = new Array();
-
-			__processGLData(glVertexSource, "attribute");
-			__processGLData(glVertexSource, "uniform");
-			__processGLData(glFragmentSource, "uniform");
-		}
-
-		@:privateAccess if (__context != null && program == null)
-		{
-			var gl = __context.gl;
-
-			#if (js && html5)
-			var prefix = (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
-			#else
-			var prefix = "#ifdef GL_ES\n"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
-					+ "precision highp float;\n"
-					+ "#else\n"
-					+ "precision mediump float;\n"
-					+ "#endif\n" : "precision lowp float;\n")
-				+ "#endif\n\n";
-			#end
-
-			var vertex = topPrefix + prefix + glVertexSource;
-			var fragment = topPrefix + prefix + glFragmentSource;
-
-			var id = vertex + fragment;
-
-			if (__context.__programs.exists(id))
-			{
-				program = __context.__programs.get(id);
-			}
-			else
-			{
-				program = __context.createProgram(GLSL);
-
-				// TODO
-				// program.uploadSources (vertex, fragment);
-				program.__glProgram = __createGLProgram(vertex, fragment);
-
-				__context.__programs.set(id, program);
-			}
-
-			if (program != null)
-			{
-				glProgram = program.__glProgram;
-
-				for (input in __inputBitmapData)
-				{
-					if (input.__isUniform)
-					{
-						input.index = gl.getUniformLocation(glProgram, input.name);
-					}
-					else
-					{
-						input.index = gl.getAttribLocation(glProgram, input.name);
-					}
-				}
-
-				for (parameter in __paramBool)
-				{
-					if (parameter.__isUniform)
-					{
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-
-				for (parameter in __paramFloat)
-				{
-					if (parameter.__isUniform)
-					{
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-
-				for (parameter in __paramInt)
-				{
-					if (parameter.__isUniform)
-					{
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-			}
-		}
-	}
-
-}
-
-class NTSCEffect extends Effect //fuck
-{
-	public var shader:NTSCShader;
-	public function new (){
-		shader = new NTSCShader();
-	}
-}
-
 class PlaneShader3D extends FlxShader
 {
 	@:glFragmentSource('
-#pragma header
+	#pragma header
 #define PI 3.1415926538
 
 uniform float xrot;
@@ -1044,7 +696,7 @@ uniform float xpos;
 uniform float ypos;
 uniform float zpos;
 
-float alph = 0;
+float alph = 0.0;
 float plane( in vec3 norm, in vec3 po, in vec3 ro, in vec3 rd ) {
 	float de = dot(norm, rd);
 	de = sign(de)*max( abs(de), 0.001);
@@ -1126,9 +778,7 @@ class Test3DShader extends FlxShader
 	@:glFragmentSource('
 //SHADERTOY PORT FIX
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -1161,6 +811,8 @@ uniform float iTime;
 
 void main()
 {
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 	float minRes = min(iResolution.x, iResolution.y);
 	fragCoord /= minRes;
 
@@ -1248,7 +900,8 @@ void main()
 
 	float fade = 1.0 - (1.0 / (1.0 + zCamera * FADE_POWER));
 	fragColor.rgb = mix( fragColor.rgb, fadeColor.rgb, fade );
-}')
+}
+')
   public function new()
   {
 	super();
@@ -1291,20 +944,21 @@ class Shader244p extends FlxShader
 class EpicRainbowTrailShader extends FlxShader //yes ik there's already a function to do this without shader but this looks epic
 {
 	@:glFragmentSource('
-#pragma header
+	#pragma header
 #define iChannel0 bitmap
 #define texture flixel_texture2D
 #define fragColor gl_FragColor
 #define mainImage main
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 void main()
 {
-	vec2 uv = fragCoord.xy / iResolution.xy;
+	vec2 uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 
 	gl_FragColor = texture(iChannel0, uv);
-}')
+}
+	')
 
   	public function new()
   	{
@@ -1444,7 +1098,6 @@ class VHSCoolShader extends FlxShader
 // Based on a shader by FMS_Cat.
 // https://www.shadertoy.com/view/XtBXDt
 // Modified to support OpenFL.
-
 #pragma header
 #define PI 3.14159265
 
@@ -1452,7 +1105,7 @@ uniform float time;
 
 vec3 tex2D(sampler2D _tex,vec2 _p)
 {
-	vec3 col=texture(_tex,_p).xyz;
+	vec3 col=texture2D(_tex,_p).xyz;
 	if(.5<abs(_p.x-.5)){
 		col=vec3(.1);
 	}
@@ -1526,7 +1179,8 @@ void main()
 	col*=1.+clamp(noise(vec2(0.,uv.y+time*.2))*.6-.25,0.,.1);
 
 	gl_FragColor=vec4(col,1.);
-}')
+}
+')
 
   	public function new()
   	{
@@ -1543,7 +1197,7 @@ class NightTimeShader extends FlxShader // https://www.shadertoy.com/view/3tfcD8
 	#if !mac
 	@:glFragmentSource('
 	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
+	
 	uniform float iTime;
 
 	//****MAKE SURE TO remove the parameters from mainImage.
@@ -2029,9 +1683,7 @@ class RainbowShader extends FlxShader //https://www.shadertoy.com/view/MdffDS
 	@:glFragmentSource('
 //SHADERTOY PORT FIX
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -2057,9 +1709,11 @@ vec3 hsv2rgb(vec3 c) {
 
 void main()
 {
+	vec2 uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 	float theAlpha = flixel_texture2D(bitmap, uv).a;
 
-	vec2 uv = fragCoord.xy / iResolution.xy;
 	vec4 color = texture(iChannel0, uv);
 	float luma = rgbToGray(color) * lumaMult;
 	float lumaIndex = floor(luma * posterSteps);
@@ -2075,7 +1729,8 @@ void main()
 	} else {
 		fragColor = vec4(roygbiv, theAlpha);
 	}
-}')
+}
+')
 
 	public function new()
 	{
@@ -2249,9 +1904,7 @@ class DistortedTVShader extends FlxShader //https://www.shadertoy.com/view/ldXGW
 	@:glFragmentSource('
 //SHADERTOY PORT FIX (thx bb)
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -2339,8 +1992,9 @@ float snoise(vec2 v)
 
 void main()
 {
-
-	vec2 uv =  fragCoord.xy/iResolution.xy;
+    vec2 uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 
 	float jerkOffset = (1.0-step(snoise(vec2(iTime*1.3,5.0)),0.8))*0.05;
 
@@ -2377,7 +2031,8 @@ void main()
 	color -= scanline;
 
 	gl_FragColor = vec4(color,theAlpha);
-}')
+}
+')
 
 	public function new()
 	{
@@ -2390,9 +2045,7 @@ class DistortedTVShaderHUD extends FlxShader //https://www.shadertoy.com/view/ld
 	@:glFragmentSource('
 //SHADERTOY PORT FIX (thx bb)
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -2480,8 +2133,9 @@ float snoise(vec2 v)
 
 void main()
 {
-
-	vec2 uv =  fragCoord.xy/iResolution.xy;
+    vec2 uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 
 	float jerkOffset = (1.0-step(snoise(vec2(iTime*1.3,5.0)),0.8))*0.05;
 
@@ -2518,7 +2172,8 @@ void main()
 	color -= scanline;
 
 	gl_FragColor = vec4(color,theAlpha);
-}')
+}
+')
 
 	public function new()
 	{
@@ -2608,11 +2263,11 @@ void main(){
 class VHSGlitchShader extends FlxShader //https://www.shadertoy.com/view/Ms3XWH
 {
   @:glFragmentSource('
-#pragma header
+  #pragma header
 
 uniform vec2 iResolution;
 uniform float iTime;
-vec2 uv = openfl_TextureCoordv.xy;
+vec2 uv;
 
 const float range = 0.05;
 const float noiseQuality = 250.0;
@@ -2641,7 +2296,7 @@ void main()
 
 	vec2 fragCoord = openfl_TextureCoordv * iResolution;
 
-	vec2 uv = fragCoord.xy / iResolution.xy;
+	uv = fragCoord.xy / iResolution.xy;
 
 	for (float i = 0.0; i < 0.71; i += 0.1313)
 	{
@@ -2666,7 +2321,8 @@ void main()
 
 	vec4 tex = vec4(r, g, b, theAlpha);
 	gl_FragColor = tex;
-}')
+}
+  ')
   	public function new()
   	{
   		super();
@@ -2762,9 +2418,7 @@ class WavyShaderV1 extends FlxShader //credit Laztrix#5670
 	@:glFragmentSource('
 //SHADERTOY PORT FIX
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -2775,9 +2429,12 @@ uniform float frequency;
 uniform float amplitude;
 void main()
 {
+	vec2 uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 	vec2 texCoord = fragCoord.xy / iResolution.xy;
 
-	vec2 pulse = sin(iTime - 8 * texCoord);
+	vec2 pulse = sin(iTime - 8.0 * texCoord);
 	float dist = 2.0 * length(texCoord.y - 0.5);
 
 	vec2 newCoord = texCoord + 0.05 * vec2(0.0, pulse.x + pulse.y);
@@ -2785,7 +2442,8 @@ void main()
 	vec2 interpCoord = mix(newCoord, texCoord, dist);
 
 	fragColor = texture(iChannel0, interpCoord);
-}')
+}
+')
 	public function new()
 	{
 		super();
@@ -2820,9 +2478,10 @@ uniform float curveY;
 
 void main() {
 	vec2 pos = openfl_TextureCoordv;
-	vec2 newPos = vec2((openfl_TextureCoordv.x * (1.0 - openfl_TextureCoordv.y)) + ((openfl_TextureCoordv.x + curveX) * openfl_TextureCoordv.y), openfl_TextureCoordv.y * (1 + curveY));
+	vec2 newPos = vec2((openfl_TextureCoordv.x * (1.0 - openfl_TextureCoordv.y)) + ((openfl_TextureCoordv.x + curveX) * openfl_TextureCoordv.y), openfl_TextureCoordv.y * (1.0 + curveY));
 	gl_FragColor = flixel_texture2D(bitmap, newPos);
-}')
+}
+')
 	public function new()
 	{
 		super();
@@ -2858,9 +2517,7 @@ class PixellateShader extends FlxShader //credit poggerboi#6856
 	@:glFragmentSource('
 //SHADERTOY PORT FIX (thx bb)
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -2869,13 +2526,17 @@ uniform float iTime;
 //SHADERTOY PORT FIX
 
 void mainImage() {
+	vec2 uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
 	vec2 coordinates = fragCoord.xy/iResolution.xy;
 	const float size = 4.5;
 	vec2 pixelSize = vec2(size/iResolution.x, size/iResolution.y);
 	vec2 position = floor(coordinates/pixelSize)*pixelSize;
 	vec4 finalColor = texture(iChannel0, position);
 	fragColor = finalColor;
-}')
+}
+')
 	public function new()
 	{
 		super();
@@ -2884,10 +2545,8 @@ void mainImage() {
 class GrayscaleShaderShit extends FlxShader //https://www.shadertoy.com/view/4sjGRD
 {
 	@:glFragmentSource('
-#pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+	#pragma header
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define texture flixel_texture2D
@@ -2895,6 +2554,8 @@ uniform float iTime;
 #define mainImage main
 const int lookupSize = 64;
 const float errorCarry = 0.3;
+vec2 uv;
+vec2 iResolution;
 
 float getGrayscale(vec2 coords){
 	vec2 uv = coords / iResolution.xy;
@@ -2905,6 +2566,9 @@ float getGrayscale(vec2 coords){
 
 void main() {
 
+	uv = openfl_TextureCoordv.xy;
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+iResolution = openfl_TextureSize;
 	int topGapY = int(iResolution.y - gl_FragCoord.y);
 
 	int cornerGapX = int((gl_FragCoord.x < 10.0) ? gl_FragCoord.x : iResolution.x - gl_FragCoord.x);
@@ -2944,7 +2608,8 @@ void main() {
 
 	}
 
-}')
+}
+	')
 	public function new()
 	{
 		super();
@@ -2954,38 +2619,38 @@ void main() {
 class FakeBloomShader extends FlxShader
 {
 	@:glFragmentSource('
-#pragma header
+	#pragma header
 
 uniform vec4 iMouse;
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
 
 #define iChannel0 bitmap
-#define texture flixel_texture2D
 #define fragColor gl_FragColor
 
 void main()
 {
-	float theAlpha = flixel_texture2D(bitmap, uv).a;
+    vec2 uv = openfl_TextureCoordv.xy;
+    vec2 fragCoord = openfl_TextureCoordv * openfl_TextureSize;
+    vec2 iResolution = openfl_TextureSize;
+    float theAlpha = flixel_texture2D(iChannel0, uv).a;
 
-	vec2 mouseInput = iMouse.xy / iResolution.xy;
+    vec2 mouseInput = iMouse.xy;
 
-	float mouseParamOne = 3.0;
-	float mouseParamTwo = 0.6;
+    float mouseParamOne = 3.0;
+    float mouseParamTwo = 0.6;
 
-	if(iMouse.z > 0.0)
-	{
-		mouseParamOne = mouseInput.x * 8.0;
-		mouseParamTwo = mouseInput.y;
-	}
+    if(iMouse.z > 0.0)
+    {
+        mouseParamOne = mouseInput.x * 8.0;
+        mouseParamTwo = mouseInput.y / iResolution.y;
+    }
 
-	vec3 col0 = texture(iChannel0, gl_FragCoord/iResolution.xy, 0.0).rgb;
-	vec3 col2 = texture(iChannel0, gl_FragCoord/iResolution.xy, mouseParamOne).rgb;
+    vec3 col0 = texture2D(iChannel0, fragCoord / iResolution, 0.0).rgb;
+    vec3 col2 = texture2D(iChannel0, fragCoord / iResolution, mouseParamOne).rgb;
 
-	vec3 col = mix(col0, col2, mouseParamTwo);
-	fragColor = vec4(col, theAlpha);
-}')
+    vec3 col = mix(col0, col2, mouseParamTwo);
+    fragColor = vec4(col, theAlpha);
+}
+	')
 	public function new()
 	{
 		super();
@@ -2995,7 +2660,7 @@ void main()
 class BBPANZUBloomShader extends FlxShader
 {
 	@:glFragmentSource('
-#pragma header
+	#pragma header
 
 
 //BLOOM SHADER BY BBPANZU
@@ -3007,9 +2672,10 @@ float dim = 1.8;
 float Directions = 16.0;
 float Quality = 8.0;
 float Size = 18.0;
-vec2 Radius = Size/openfl_TextureSize.xy;
+
 void main(void)
 {
+	vec2 Radius = Size/openfl_TextureSize.xy;
 	vec2 uv = openfl_TextureCoordv.xy ;
 	float Pi = 6.28318530718; // Pi*2
 	vec4 Color = texture2D( bitmap, uv);
@@ -3028,7 +2694,8 @@ void main(void)
 
 	gl_FragColor = bloom;
 
-}')
+}
+	')
 	public function new()
 	{
 		super();
@@ -3282,8 +2949,8 @@ class GrainEffect extends Effect {
 
 class Grain extends FlxShader
 {
-	@:glFragmentSource('
-#pragma header
+	@:glFragmentSource(
+	#pragma header
 
 /*
 Film Grain post-process shader v1.1
@@ -3307,8 +2974,8 @@ uniform float uTime;
 const float permTexUnit = 1.0/256.0;        // Perm texture texel-size
 const float permTexUnitHalf = 0.5/256.0;    // Half perm texture texel-size
 
-float width = openfl_TextureSize.x;
-float height = openfl_TextureSize.y;
+float width;
+float height;
 
 const float grainamount = 0.05; //grain amount
 bool colored = false; //colored noise?
@@ -3397,6 +3064,8 @@ vec2 coordRot(in vec2 tc, in float angle)
 
 void main()
 {
+	width = openfl_TextureSize.x;
+	height = openfl_TextureSize.y;
 	vec2 texCoord = openfl_TextureCoordv.st;
 
 	vec3 rotOffset = vec3(1.425,3.892,5.835); //rotation offset values
@@ -3427,7 +3096,8 @@ void main()
 	vec4 texColor = texture2D(bitmap, openfl_TextureCoordv);
 		if (lockAlpha) bitch = texColor.a;
 	gl_FragColor =  vec4(col,bitch);
-}')
+}
+	')
 	public function new()
 	{
 		super();
@@ -3492,7 +3162,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 {
 
   @:glFragmentSource('
-#pragma header
+  #pragma header
 
 uniform float iTime;
 uniform bool vignetteOn;
@@ -3521,7 +3191,7 @@ vec4 getVideo(vec2 uv)
 	vec2 look = uv;
 	if(distortionOn){
 		float window = 1./(1.+20.*(look.y-mod(iTime/4.,1.))*(look.y-mod(iTime/4.,1.)));
-		look.x = look.x + (sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window)*(glitchModifier*2);
+		look.x = look.x + (sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window)*(glitchModifier*2.0);
 		float vShift = 0.4*onOff(2.,3.,.9)*(sin(iTime)*sin(iTime*20.) +
 												(0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
 		look.y = mod(look.y + vShift*glitchModifier, 1.);
@@ -3582,7 +3252,7 @@ void main()
 	uv = scandistort(curUV);
 	vec4 video = getVideo(uv);
 	float vigAmt = 1.0;
-	float x =  0.;
+	float x =  0.0;
 
 
 	video.r = getVideo(vec2(x+uv.x+0.001,uv.y+0.001)).x+0.05;
@@ -3604,8 +3274,8 @@ void main()
 
 	gl_FragColor = mix(video,vec4(noise(uv * 75.)),.05);
 
-	if(curUV.x<0 || curUV.x>1 || curUV.y<0 || curUV.y>1){
-	gl_FragColor = vec4(0,0,0,0);
+	if(curUV.x<0.0 || curUV.x>1.0 || curUV.y<0.0 || curUV.y>1.0){
+	gl_FragColor = vec4(0.0,0.0,0.0,0.0);
 	}
 
 }
@@ -4013,7 +3683,7 @@ void main()
 class PulseShader extends FlxShader
 {
 	@:glFragmentSource('
-#pragma header
+	#pragma header
 uniform float uampmul;
 
 //modified version of the wave shader to create weird garbled corruption like messes
@@ -4041,11 +3711,11 @@ vec4 sineWave(vec4 pt, vec2 pos)
 	if (uampmul > 0.0)
 	{
 		float offsetX = sin(pt.y * uFrequency + uTime * uSpeed);
-		float offsetY = sin(pt.x * (uFrequency * 2) - (uTime / 2) * uSpeed);
-		float offsetZ = sin(pt.z * (uFrequency / 2) + (uTime / 3) * uSpeed);
-		pt.x = mix(pt.x,sin(pt.x / 2 * pt.y + (5 * offsetX) * pt.z),uWaveAmplitude * uampmul);
-		pt.y = mix(pt.y,sin(pt.y / 3 * pt.z + (2 * offsetZ) - pt.x),uWaveAmplitude * uampmul);
-		pt.z = mix(pt.z,sin(pt.z / 6 * (pt.x * offsetY) - (50 * offsetZ) * (pt.z * offsetX)),uWaveAmplitude * uampmul);
+		float offsetY = sin(pt.x * (uFrequency * 2.0) - (uTime / 2.0) * uSpeed);
+		float offsetZ = sin(pt.z * (uFrequency / 2.0) + (uTime / 3.0) * uSpeed);
+		pt.x = mix(pt.x,sin(pt.x / 2.0 * pt.y + (5.0 * offsetX) * pt.z),uWaveAmplitude * uampmul);
+		pt.y = mix(pt.y,sin(pt.y / 3.0 * pt.z + (2.0 * offsetZ) - pt.x),uWaveAmplitude * uampmul);
+		pt.z = mix(pt.z,sin(pt.z / 6.0 * (pt.x * offsetY) - (50.0 * offsetZ) * (pt.z * offsetX)),uWaveAmplitude * uampmul);
 	}
 
 
@@ -4056,7 +3726,8 @@ void main()
 {
 	vec2 uv = openfl_TextureCoordv;
 	gl_FragColor = sineWave(texture2D(bitmap, uv),uv);
-}')
+}
+	')
 
 	public function new()
 	{
