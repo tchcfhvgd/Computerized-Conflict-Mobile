@@ -277,6 +277,9 @@ class TCOCreditsState extends MusicBeatState
 		if (ClientPrefs.shaders) camSpecialThanks.setFilters([shaderFilter]);
 
 		super.create();
+
+		addTouchPad("UP_DOWN", "A_B_C");
+		addTouchPadCamera();
 	}
 
 	var holdTime:Float = 0;
@@ -327,7 +330,7 @@ class TCOCreditsState extends MusicBeatState
 			}
 		}
 
-		if(FlxG.keys.justPressed.SPACE) 
+		if(FlxG.keys.justPressed.SPACE || touchPad.buttonC.justPressed) 
 		{
 			specialThanks.alpha = specialThanks.alpha == 1 ? 0.0001 : 1;
 			moveCredits = !moveCredits;
