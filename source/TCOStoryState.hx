@@ -231,6 +231,9 @@ class TCOStoryState extends MusicBeatState
 
 		super.create();
 
+		addTouchPad("LEFT_RIGHT", "A_B");
+		addTouchPadCamera();
+
 		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
 		if (ClientPrefs.shaders) camHUD.setFilters([shaderFilter]);
 
