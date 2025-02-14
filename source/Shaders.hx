@@ -2949,7 +2949,7 @@ class GrainEffect extends Effect {
 
 class Grain extends FlxShader
 {
-	@:glFragmentSource(
+	@:glFragmentSource('
 	#pragma header
 
 /*
