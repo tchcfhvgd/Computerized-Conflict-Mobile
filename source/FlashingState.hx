@@ -88,7 +88,7 @@ class FlashingState extends MusicBeatState
 		OverHereText.setFormat(Paths.font("phantommuff.ttf"), 35, 0xFFff324A, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(OverHereText);
 
-		var startText = new FlxText(0, 655, FlxG.width, "Press ENTER to continue.", 45);
+		var startText = new FlxText(0, 655, FlxG.width, "Press A to continue.", 45);
 		startText.setFormat(Paths.font("phantommuff.ttf"), 35, FlxColor.YELLOW, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		add(startText);
 
@@ -134,6 +134,8 @@ class FlashingState extends MusicBeatState
 
 		//changeSelection();
 		//reloadCheckboxes();
+		addTouchPad("NONE", "A");
+		
 		camHUD.fade(FlxColor.BLACK, 1.5, true, function()
 		{
 			canExit = true;
@@ -170,7 +172,7 @@ class FlashingState extends MusicBeatState
 		}*/
 
 		if(!leftState) {
-			var enter:Bool = FlxG.keys.justPressed.ENTER;
+			var enter:Bool = controls.ACCEPT;
 			if (enter && canExit) {
 				leftState = true;
 				canExit = false;
