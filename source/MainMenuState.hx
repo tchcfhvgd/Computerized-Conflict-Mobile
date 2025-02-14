@@ -494,7 +494,7 @@ class MainMenuState extends MusicBeatState
 				changeItem(targetOption-curSelected);
 			}
 
-			if (controls.BACK)
+			if (controls.BACK ||  #if android FlxG.android.justReleased.BACK #end)
 			{
 				selectedSomethin = true;
 				FlxTween.tween(FlxG.camera, {zoom: -2}, 1.5, {ease: FlxEase.expoIn});
@@ -527,7 +527,7 @@ class MainMenuState extends MusicBeatState
 					recentMouseOption = curSelected;
 				}
 
-				if (FlxG.mouse.justPressed){
+				if (FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
 					FlxG.sound.play(Paths.sound('mouseClick'));
 					loadState();
 				}
@@ -620,7 +620,7 @@ class MainMenuState extends MusicBeatState
 
 		if (gfMoment)
 		{
-			if (controls.BACK)
+			if (controls.BACK ||  #if android FlxG.android.justReleased.BACK #end)
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -630,7 +630,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TCOStoryState());
 			}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT || FlxG.mouse.justPressed)
 			{
 				loadTutorial();
 			}
