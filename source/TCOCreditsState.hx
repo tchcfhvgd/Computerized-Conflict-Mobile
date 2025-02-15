@@ -277,7 +277,7 @@ class TCOCreditsState extends MusicBeatState
 
 		super.create();
 
-		addTouchPad("UP_DOWN", "B");
+		addTouchPad("UP_DOWN", "A_B_C");
 		addTouchPadCamera();
 	}
 
@@ -329,7 +329,7 @@ class TCOCreditsState extends MusicBeatState
 			}
 		}
 
-		if(FlxG.keys.justPressed.SPACE) 
+		if(FlxG.keys.justPressed.SPACE || touchPad.buttonC.justPressed) 
 		{
 			specialThanks.alpha = specialThanks.alpha == 1 ? 0.0001 : 1;
 			moveCredits = !moveCredits;
