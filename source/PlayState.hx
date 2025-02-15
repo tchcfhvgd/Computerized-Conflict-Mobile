@@ -6843,7 +6843,7 @@ class PlayState extends MusicBeatState
 
 		if (!cpuControlled && startedCountdown && !paused && buttonCode > -1)
 		{
-		    var spr:StrumNote = playerStrums.members[key];
+		    var spr:StrumNote = playerStrums.members[buttonCode];
 			if(spr != null)
 			{
 				spr.playAnim('static');
