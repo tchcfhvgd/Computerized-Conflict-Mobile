@@ -7321,10 +7321,6 @@ class PlayState extends MusicBeatState
 		FlxAnimationController.globalSpeed = 1;
 		FlxG.sound.music.pitch = 1;
 		super.destroy();
-		if(videoTI != null)
-		{
-		videoTI.dispose();
-		}
 	}
 
 	public static function cancelMusicFadeTween() {
