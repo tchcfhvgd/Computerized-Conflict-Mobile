@@ -276,6 +276,9 @@ class TCOCreditsState extends MusicBeatState
 		if (ClientPrefs.shaders) camSpecialThanks.setFilters([shaderFilter]);
 
 		super.create();
+
+		addTouchPad("UP_DOWN", "B");
+		addTouchPadCamera();
 	}
 
 	var holdTime:Float = 0;
