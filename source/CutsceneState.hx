@@ -103,10 +103,7 @@ class CutsceneState extends MusicBeatState
 
 		video = new MP4Handler();
 		video.playVideo(filepath);
-		if (!canSkip) 
-		{
-			FlxG.stage.removeEventListener('enterFrame', @:privateAccess video.update);
-		}
+		FlxG.stage.removeEventListener('enterFrame', @:privateAccess video.update);
 
 		video.finishCallback = function()
 		{
