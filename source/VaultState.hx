@@ -303,9 +303,14 @@ class VaultState extends MusicBeatState
 
 		if (!selectedSmth && !coolDown)
 		{
+			if(FlxG.mouse.overlaps(convertPopUp) && FlxG.mouse.justPressed)
+			{
+                                FlxG.stage.window.textInputEnabled = true;
+			}
+			
 			if (FlxG.keys.justPressed.ANY) FlxG.sound.play(Paths.sound('keyboardPress'));
 
-			if (controls.BACK && !isWriting)
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end && !isWriting)
 			{
 				glitchBGHUD.alpha = 1;
 				FlxG.sound.music.fadeOut();
