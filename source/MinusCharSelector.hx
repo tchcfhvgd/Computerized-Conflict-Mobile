@@ -154,6 +154,9 @@ class MinusCharSelector extends MusicBeatState
 
 		super.create();
 
+		addTouchPad("LEFT_RIGHT", "A_B");
+		addTouchPadCamera();
+
 		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
 		FlxG.camera.fade(FlxColor.BLACK, 0.8, true, function()
 		{
