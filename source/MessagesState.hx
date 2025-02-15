@@ -66,6 +66,9 @@ class MessagesState extends MusicBeatState
 		});
 
 		if (ClientPrefs.shaders) FlxG.camera.setFilters([shaderFilter]);
+
+		addTouchPad("NONE", "B");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
