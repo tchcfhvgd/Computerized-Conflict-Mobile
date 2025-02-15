@@ -172,7 +172,7 @@ class FlashingState extends MusicBeatState
 		}*/
 
 		if(!leftState) {
-			var enter:Bool = controls.ACCEPT;
+			var enter:Bool = FlxG.keys.justPressed.ENTER || touchPad.buttonA.justPressed;
 			if (enter && canExit) {
 				leftState = true;
 				canExit = false;
