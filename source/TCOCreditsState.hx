@@ -277,7 +277,7 @@ class TCOCreditsState extends MusicBeatState
 
 		super.create();
 
-		addTouchPad("UP_DOWN", "A_B_C");
+		addTouchPad("UP_DOWN", "B_C");
 		addTouchPadCamera();
 	}
 
