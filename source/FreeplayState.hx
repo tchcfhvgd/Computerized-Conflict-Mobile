@@ -504,10 +504,7 @@ class FreeplayState extends MusicBeatState
 
 							if(minimizeWindowArray.contains(songs[curSelected].songName.toLowerCase()))
 							{
-								Lib.application.window.resizable = false;
-								FlxG.scaleMode = new StageSizeScaleMode();
-								FlxG.resizeGame(360, 720);
-								FlxG.resizeWindow(960, 720);
+							
 							}
 					   }
 		
