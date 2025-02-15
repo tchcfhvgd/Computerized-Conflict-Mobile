@@ -1205,7 +1205,6 @@ class PlayState extends MusicBeatState
 					redthing = new FlxSprite(0, 0).loadGraphic(Paths.image('victim/vignette', 'chapter1'));
 					redthing.antialiasing = ClientPrefs.globalAntialiasing;
 					redthing.cameras = [camBars];
-					redthing.setGraphicSize(Std.int(redthing.width * 0.85));
 					redthing.screenCenter();
 					//redthing.x = 150;
 					redthing.alpha = 0.0001;
@@ -7322,6 +7321,11 @@ class PlayState extends MusicBeatState
 		FlxAnimationController.globalSpeed = 1;
 		FlxG.sound.music.pitch = 1;
 		super.destroy();
+		if(videoTI != null)
+		{
+		remove(videoTI);
+		videoTI.destroy();
+		}
 	}
 
 	public static function cancelMusicFadeTween() {

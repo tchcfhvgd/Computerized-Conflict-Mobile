@@ -219,7 +219,6 @@ class VaultState extends MusicBeatState
 		inputText.maxLength = 32;
 		inputText.borderSize = 0.1;
 		add(inputText);
-		inputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 
 		modesText = new FlxText(FlxG.width * 0.7, 5, 0, "", 42);
 		modesText.setFormat(Paths.font("Small Print.ttf"), 42, FlxColor.WHITE, CENTER);
@@ -304,6 +303,11 @@ class VaultState extends MusicBeatState
 
 		if (!selectedSmth && !coolDown)
 		{
+			if(FlxG.mouse.overlaps(inputText) && FlxG.mouse.justPressed)
+			{
+            FlxG.stage.window.textInputEnabled = true;
+			}
+			
 			if (FlxG.keys.justPressed.ANY) FlxG.sound.play(Paths.sound('keyboardPress'));
 
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end && !isWriting)
