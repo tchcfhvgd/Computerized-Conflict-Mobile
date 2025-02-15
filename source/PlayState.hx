@@ -7323,7 +7323,6 @@ class PlayState extends MusicBeatState
 		super.destroy();
 		if(videoTI != null)
 		{
-		remove(videoTI);
 		videoTI.dispose();
 		}
 	}
