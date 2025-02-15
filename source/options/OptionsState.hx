@@ -38,6 +38,7 @@ class OptionsState extends MusicBeatState
 	var finishedZoom = false;
 
 	function openSelectedSubstate(label:String) {
+		removeTouchPad();
 		switch(label) {
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
@@ -123,6 +124,9 @@ class OptionsState extends MusicBeatState
 
 		super.create();
 
+		addTouchPad("UP_DOWN", "A_B_X_Y");
+		addTouchPadCamera();
+
 		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
 		FlxG.camera.fade(FlxColor.BLACK, 0.8, true, function()
 		{
@@ -133,6 +137,9 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		ClientPrefs.saveSettings();
+		removeTouchPad();
+		addTouchPad("UP_DOWN", "A_B_X_Y");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float) {
@@ -166,6 +173,16 @@ class OptionsState extends MusicBeatState
 	
 			if (controls.ACCEPT) {
 				openSelectedSubstate(options[curSelected]);
+			}
+
+			if (touchPad != null && touchPad.buttonX.justPressed) {
+			removeTouchPad();
+			openSubState(new mobile.MobileControlSelectSubState());
+			}
+
+			if (touchPad != null && touchPad.buttonY.justPressed) {
+			removeTouchPad();
+			openSubState(new mobile.options.MobileOptionsSubState());
 			}
 		}
 	}
