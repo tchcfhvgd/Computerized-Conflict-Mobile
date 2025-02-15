@@ -4690,24 +4690,6 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = targetAlpha;
 			}
 			
-			if (oldVideoResolution)
-			{
-				if (player == 1)
-				{
-					var offsetBOYFRIEND = 40;
-
-					babyArrow.x -= 120 + offsetBOYFRIEND;
-					if(ClientPrefs.middleScroll) babyArrow.x += 160;
-				}
-
-				if(skipCountdown && player == 0)
-				{
-					var offsetDAD = 40;
-
-					babyArrow.x -= 120 + offsetDAD;
-				}
-			}
-			
 			if (skipCountdown && !oldVideoResolution || startOnTime > 0)
 			{
 				if (player == 0 && uiType != 'psychDef') babyArrow.x -= 170;
@@ -4723,8 +4705,6 @@ class PlayState extends MusicBeatState
 				{
 					var add:Int = 395;
 					var add2:Int = 200;
-					if(oldVideoResolution) add = 310;
-					if(oldVideoResolution) add2 = 30;
 
 					babyArrow.x += add;
 					if(i > 1) { //Up and Right
@@ -5014,11 +4994,6 @@ class PlayState extends MusicBeatState
 			
 			dad.x = DAD_X + dad.positionArray[0] + 800*Math.sin(timeOrSomething);
 			dad.y = DAD_Y + dad.positionArray[1] + 600*Math.sin(timeOrSomething/2);
-		}
-
-		if (oldVideoResolution)
-		{
-			FlxG.fullscreen = false;
 		}
 
 		healthDrainLolz(0.09 * elapsed, 0.2, multiplierDrain);
