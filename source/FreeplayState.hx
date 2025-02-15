@@ -256,6 +256,9 @@ class FreeplayState extends MusicBeatState
 
 		super.create();
 
+		addTouchPad("LEFT_FULL", "A_B_C_X_Y_Z");
+		addTouchPadCamera();
+
 		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.8, {ease: FlxEase.expoIn});
 		FlxG.camera.fade(FlxColor.BLACK, 0.9, true, function()
 		{
@@ -278,6 +281,9 @@ class FreeplayState extends MusicBeatState
 	override function closeSubState() {
 		changeSelection(0, false);
 		persistentUpdate = true;
+		removeTouchPad();
+		addTouchPad("LEFT_FULL", "A_B_C_X_Y_Z");
+		addTouchPadCamera();	
 		super.closeSubState();
 	}
 
@@ -363,11 +369,11 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
-		var ctrl = FlxG.keys.justPressed.CONTROL;
+		var space = FlxG.keys.justPressed.SPACE || touchPad.buttonX.justPressed;
+		var ctrl = FlxG.keys.justPressed.CONTROL || touchPad.buttonC.justPressed;
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT || touchPad.buttonZ.pressed) shiftMult = 3;
 
 		if(!selectedSmth && finishedZoom)
 		{
@@ -436,7 +442,7 @@ class FreeplayState extends MusicBeatState
 		
 				if(ctrl)
 				{
-					persistentUpdate = false;
+					touchPad.active = touchPad.visible = persistentUpdate = false;
 					openSubState(new GameplayChangersSubstate());
 				}
 				else if(space)
@@ -511,9 +517,9 @@ class FreeplayState extends MusicBeatState
 		
 					destroyFreeplayVocals();
 				}
-				else if(controls.RESET)
+				else if(controls.RESET || touchPad.buttonY.justPressed)
 				{
-					persistentUpdate = false;
+					touchPad.active = touchPad.visible = persistentUpdate = false;
 					openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
