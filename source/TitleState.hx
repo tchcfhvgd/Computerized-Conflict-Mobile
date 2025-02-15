@@ -141,6 +141,7 @@ class TitleState extends MusicBeatState
 			}
 			persistentUpdate = true;
 			persistentDraw = true;
+			mobile.MobileData.init();
 		}
 
 		FlxG.mouse.visible = false;
