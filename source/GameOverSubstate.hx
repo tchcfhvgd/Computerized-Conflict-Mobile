@@ -131,6 +131,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5);
 		
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, FlxG.camera.zoom);
+
+		addTouchPad("NONE", "A_B");
+		addTouchPadCamera();
 	}
 
 	var isFollowingAlready:Bool = false;
