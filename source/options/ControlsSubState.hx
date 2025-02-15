@@ -142,6 +142,9 @@ class ControlsSubState extends MusicBeatSubstate {
 		add(spikes2);
 		
 		changeSelection();
+
+		addTouchPad("LEFT_FULL", "A_B");
+		addTouchPadCamera();
 	}
 
 	var leaving:Bool = false;
