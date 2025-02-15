@@ -8881,12 +8881,7 @@ class PlayState extends MusicBeatState
 		{
 			trace(endingSong, (paused && !isDead), !isDead);
 
-			Lib.application.window.resizable = true;
-			FlxG.scaleMode = new RatioScaleMode(false);
-			FlxG.resizeGame(1280, 720);
-			FlxG.resizeWindow(1280, 720);
-			camGame.width = 1280;
-			camGame.height = 720;
+		
 		}
 
 		return super.switchTo(state);
