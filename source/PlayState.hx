@@ -560,8 +560,6 @@ class PlayState extends MusicBeatState
 	public var laneunderlayOpponent:FlxSprite;
 
 	public static var amityChar:String;
-
-	var chromFloat:Float = 0;
 	
 	var gfMoment:Bool = MainMenuState.gfMoment;
 
@@ -957,6 +955,12 @@ class PlayState extends MusicBeatState
 							redthing.cameras = [camBars];
 							redthing.alpha = 0.0001;
 							add(redthing);
+
+							if(songName == 'outrage') 
+							{
+								redthing.alpha = 1;
+								redthing.color = FlxColor.BLACK;
+							}
 
 							if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0005));
 
@@ -2219,7 +2223,6 @@ class PlayState extends MusicBeatState
 					add(electricCountdown);
 
 					if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0));
-					new ChromaticAberrationEffect().setChrome(0.0010 + chromFloat);
 					skipCountdown = true;
 				}
 
@@ -2823,7 +2826,7 @@ class PlayState extends MusicBeatState
 		}
 		updateTime = showTime;
 
-		switch (uiType){
+		/*switch (uiType){
 			case 'psychDef':
 				timeBarBG = new AttachedSprite('healthBars/timeBar');
 				timeBarBG.x = timeTxt.x;
@@ -2832,7 +2835,7 @@ class PlayState extends MusicBeatState
 				timeBarBG.yAdd = -4;
 				add(timeBarBG);
 
-				timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+				timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, barDirection, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 					'songPercent', 0, 1);
 			default:
 				timeBarBG = new AttachedSprite('healthBars/oldHealthBar');
@@ -2851,7 +2854,17 @@ class PlayState extends MusicBeatState
 
 				timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, barDirection, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 					'songPercent', 0, 1);
-		}
+		}*/
+
+		timeBarBG = new AttachedSprite('healthBars/timeBar');
+		timeBarBG.x = timeTxt.x;
+		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+		timeBarBG.xAdd = -4;
+		timeBarBG.yAdd = -4;
+		add(timeBarBG);
+
+		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, barDirection, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+		'songPercent', 0, 1);
 
 		timeBarBG.sprTracker = timeBar;
 		timeBarBG.scrollFactor.set();
@@ -2922,7 +2935,7 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		switch (uiType){
+		/*switch (uiType){
 			case 'psychDef':
 				healthBarBG = new AttachedSprite('healthBars/healthBarLarger');
 				healthBarBG.y = FlxG.height * 0.89;
@@ -2972,7 +2985,28 @@ class PlayState extends MusicBeatState
 				add(healthBar);
 				add(healthBarBG);
 				healthBarBG.sprTracker = healthBar;
-		}
+		}*/
+
+		healthBarBG = new AttachedSprite('healthBars/healthBar');
+		healthBarBG.y = FlxG.height * 0.89;
+		healthBarBG.screenCenter(X);
+		healthBarBG.scrollFactor.set();
+		healthBarBG.visible = !ClientPrefs.hideHud;
+		healthBarBG.xAdd = -4;
+		healthBarBG.yAdd = -4;
+		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
+
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+			'health', 0, 2);
+		healthBar.scrollFactor.set();
+		// healthBar
+		healthBar.visible = !ClientPrefs.hideHud;
+		healthBar.alpha = ClientPrefs.healthBarAlpha;
+		add(healthBarBG);
+		add(healthBar);
+		healthBarBG.sprTracker = healthBar;
+		healthBar.setGraphicSize(Std.int(healthBar.width * 0.8));
+		healthBarBG.setGraphicSize(Std.int(healthBarBG.width * 0.8));
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 70;
@@ -3014,7 +3048,7 @@ class PlayState extends MusicBeatState
 
 		reloadHealthBarColors();
 
-		switch (uiType){
+		/*switch (uiType){
 			case 'psychDef':
 				scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 				scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -3030,7 +3064,10 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.downScroll) {
 					scoreTxt.y -= 570;
 				}
-		}
+		}*/
+		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 18);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.borderSize = 1.25;
 		scoreTxt.scrollFactor.set();
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
@@ -4529,13 +4566,10 @@ class PlayState extends MusicBeatState
 				+ '\nPrecisão: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + ')' : '?');
 
 			default:
-
-				scoreTxt.text = 'Score: ' + songScore
-				+ '\nCombo Breaks: ' + songMisses
-				+ '\nAccuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + ')' : '?');
+				scoreTxt.text = 'Score: ' + songScore + ' - Combo Breaks: ' + songMisses + ' - Accuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '% ' + (ratingName != '(?)' ? '(' + ratingFC + ')' : '?');
 		}
 		
-		if (uiType == 'psychDef') scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + ' (' + Math.floor(ratingPercent * 100) + '%)';
+		//if (uiType == 'psychDef') scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + ' (' + Math.floor(ratingPercent * 100) + '%)';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -5364,7 +5398,7 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		switch(uiType)
+		/*switch(uiType)
 		{
 			case 'psychDef':
 				iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
@@ -5375,21 +5409,30 @@ class PlayState extends MusicBeatState
 
 				var mult:Float = FlxMath.lerp(0.75, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 				iconP2.scale.set(mult, mult);
-		}
-		
+		}*/
+
+		var mult:Float = FlxMath.lerp(0.65, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+		iconP1.scale.set(mult, mult);
+
+		var mult:Float = FlxMath.lerp(0.65, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+		iconP2.scale.set(mult, mult);
+
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
 		var iconOffset:Int = 26;
 
-		switch (uiType){
+		/*switch (uiType){
 			case 'psychDef':
 				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
 				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 			default:
 				iconP1.x = (healthBar.x + 80) + ((healthBar.width - 160) * FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 				iconP2.x = (healthBar.x + 80) + ((healthBar.width - 160) * FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-		}
+		}*/
+
+		iconP1.x = (healthBar.x + 80) + ((healthBar.width - 160) * FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+		iconP2.x = (healthBar.x + 80) + ((healthBar.width - 160) * FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
 		if (iconP3 != null)
 		{
@@ -5615,9 +5658,6 @@ class PlayState extends MusicBeatState
 					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 					{
 						opponentNoteHit(daNote);
-
-						if(dad.curCharacter == 'electricman') chromFloat += chromFloat + 0.005 * elapsed;
-						trace(chromFloat);
 					}
 
 					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
@@ -6070,7 +6110,7 @@ class PlayState extends MusicBeatState
 						}
 				}
 				reloadHealthBarColors();
-				if (uiType != 'psychDef') reloadTimeBarColors();
+				reloadTimeBarColors();
 
 			case 'Change Scroll Speed':
 				if (songSpeedType == "constant")
@@ -7677,16 +7717,19 @@ class PlayState extends MusicBeatState
 			case 'outrage':
 				switch(curStep)
 				{
-					case 1 | 8 | 16 | 32 | 40 | 48 | 64 | 72 | 80 | 96 | 104 | 112:
+					case 1 | 8 | 16 | 32 | 40 | 48:
 						if(ClientPrefs.flashing || !ClientPrefs.lowQuality) FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
-					case 120:
-						FlxG.camera.fade(FlxColor.BLACK, 0, true);
+					case 64:
+						FlxG.camera.fade(FlxColor.BLACK, 5, true);
 
 					case 767:
 						tcoBSOD(true);
 						redthing.color = 0xFFFFFFFF;
+					case 1149:
+						camHUD.fade(FlxColor.BLACK, 0.3, false);
+					case 1155:
+						camHUD.fade(FlxColor.BLACK, 3, true);
 					case 1392:
-						defaultCamZoom = 1.45;
 						alphaTween([blackBG], 1, 0.75);
 					case 1406:
 						tcoStickPage(false);
@@ -8157,10 +8200,10 @@ class PlayState extends MusicBeatState
 				{
 					case 32:
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5);
-						if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0040));
+						//if (ClientPrefs.shaders) addShaderToCamera(['camgame', 'camhud'], new ChromaticAberrationEffect(0.0040));
 						if(ClientPrefs.screenShake) FlxG.camera.shake(0.01, 0.20);
 						objectColor([boyfriendGroup, gf, Floor, Background1, ScaredCrowd, whiteScreen], 0xFF2C2425);
-						setAlpha([redthing], 1);
+						redthing.color = 0xFFFFFFFF;
 						setVisible([fires1, fires2], true);
 						lossingHealth = true;
 

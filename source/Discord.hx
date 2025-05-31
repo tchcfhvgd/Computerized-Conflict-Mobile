@@ -86,7 +86,7 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
-			largeImageText: "Computerized Conflict Version: 1.5",
+			largeImageText: "Computerized Conflict Version: 2.0 [In-dev]",
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
